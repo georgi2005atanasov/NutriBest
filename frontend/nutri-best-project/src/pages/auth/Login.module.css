@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Montserrat+Alternates:wght@300&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&family=Sometype+Mono:ital@1&display=swap');
+
+.login-header {
+    color: #1a1817;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+}
+
+.login-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.login-input input {
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+.login-input input::placeholder {
+    color: #807a63;
+}
+
+.login-input button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #f3ab3d;
+    color: #221f1c;
+    font-weight: 600;
+    width: 100%;
+    transition: ease-in 0.3s;
+}
+
+.login-input button:hover {
+    background-color: #cf9236;
+}
+
+.login-input label {
+    color: #161614;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.form-link {
+    font-size: 15px;
+    color: #867769;
+}
+
+.login-input input:focus {
+    border: none;
+    box-shadow: 0 0 8px #cf9236;
+}

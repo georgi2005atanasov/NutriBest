@@ -1,0 +1,62 @@
+.register-header {
+    color: #1a1817;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+}
+
+.register-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.register-input input {
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f5f3ef;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+.register-input input::placeholder {
+    color: #989389;
+}
+
+.register-input button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #f3ab3d;
+    color: #221f1c;
+    font-weight: 600;
+    width: 100%;
+    transition: ease-in 0.3s;
+}
+
+.register-input button:hover {
+    background-color: #cf9236;
+}
+
+.register-input label {
+    color: #161614;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.form-link {
+    font-size: 15px;
+    color: #867769;
+}
+
+.register-input input:focus {
+    border: none;
+    box-shadow: 0 0 8px #cf9236;
+}

@@ -1,0 +1,125 @@
+#header-logo img {
+    min-width: 30px;
+    min-height: 30px;
+    object-fit: cover;
+}
+
+.main-navigation {
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+/*  */
+
+.content{
+    width: 100%;
+    height: 100vh;
+    background: url(https://images.unsplash.com/photo-1551334787-21e6bd3ab135?ixlib=rb-1.2.1&auto=format&fit=crop&w=1502&q=80);
+    background-position: center;
+    background-size: cover;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+.sec2{
+    background: url(https://images.unsplash.com/photo-1551309292-e185c0b6e22a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80);
+    background-position: center;
+    background-size: cover;
+}
+h1{
+    font-size: 50px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.menu{
+    position: relative;
+    width: 100%;
+    z-index: 200;
+}
+
+#check{
+    display: none;
+}
+
+.button{
+    width: 48px;
+    height: 48px;
+    background: #f3ab3d;
+    padding: 12px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    padding-top: 8px;
+    line-height: 8px;
+    text-align: left;
+    position: relative;
+    right: 0;
+    top: 0;
+    z-index: 201;
+}
+
+.button:hover{
+    background: #cf9236;
+}
+.button span{
+    height: 3px;
+    width: 100%;
+    background: white;
+    display: inline-block;
+    transition: all 0.5s cubic-bezier(.62,.43,.35,1.47);
+}
+
+#check:checked ~ .button span:nth-child(1){
+    width: 100%;
+    transform: rotate(45deg) translateY(6px) translateX(6px);
+}
+#check:checked ~ .button span:nth-child(2){
+    width: 0;
+}
+
+#check:checked ~ .button span:nth-child(3){
+    width: 100%;
+    transform: rotate(-45deg) translateY(-7px) translateX(7px);
+}
+
+nav{
+    text-align: left;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    height: 0;
+}
+nav a{
+    text-decoration: none;
+    color: #0c1019;
+    display: block;
+    font-size: 18px;
+    transition: all 0.4s cubic-bezier(.22,.43,.35,1.5);
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: top;
+    text-align: center;
+    border-bottom: 1px solid #b4ac97;
+}
+
+nav a:hover{
+    background: #ffdd7f;
+}
+
+#check:checked ~ nav{
+    height: 200px;
+}
+
+#check:checked ~ nav a{
+    padding: 10px;
+    opacity: 1;
+    transform: scale(1);
+}

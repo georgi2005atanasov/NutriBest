@@ -24,19 +24,25 @@ export default function MainNavigation() {
                 </div>
             </div>
             <div className="col-10">
-                <div className={`${styles["menu"]} d-flex justify-content-end`}>
-                    <input type="checkbox" id={styles["check"]} />
-                    <label htmlFor={styles["check"]} className={`${styles["button"]}`}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </label>
-                    <nav>
-                        <Link to="/">Home</Link>
-                        <Link to="/products">Products</Link>
-                        <Link to="/info">About us</Link>
-                        <Link to="/contact">Contact</Link>
-                    </nav>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-12">
+                            <div className={`${styles["menu"]} d-flex justify-content-end align-items-center`}>
+                                <input type="checkbox" id={styles["check"]} />
+                                <label htmlFor={styles["check"]} className={`${styles["button"]}`}>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </label>
+                                <nav>
+                                    <a href="/">Home</a>
+                                    <a href="/login">Products</a>
+                                    <a href="/info">About us</a>
+                                    <a href="/contact">Contact</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

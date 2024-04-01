@@ -1,15 +1,24 @@
 import styles from "./Register.module.css";
-import { Form } from "react-router-dom";
+import { Form, json, redirect, useActionData } from "react-router-dom";
 import FormButton from "../../components/UI/FormButton";
 import FormInput from "../../components/UI/FormInput";
 import RegisterCheckBox from "../../components/UI/RegisterCheckBox";
 import Header from "../../components/UI/Header";
+import { register } from "../../../../../backend/api/auth";
+import { getFormData } from "../../utils/util";
 
 export default function RegisterPage() {
+    const data = useActionData();
+
+    if (data && (data.errors || data.message)) {
+        console.log("Yes, there are errors");
+    }
+
     return <>
         <Header text="Create a NutriBest Account" styles={styles["register-header"]} />
 
         <Form method="post" className={styles["auth-form"]}>
+            {/* {data.errors.map} */}
             <div className="container">
                 <div className="row d-flex justify-content-center">
                     <div className="col-md-5">
@@ -61,7 +70,17 @@ export default function RegisterPage() {
 
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
-    console.log(123);
-    const data = await request.formData();
-    console.log(data);
+    const userData = await getFormData(request);
+
+    if (userData.password !== userData.confirmPassword) {
+        return json({ errors: { "message": ["Both passwords should match!"] } });
+    }
+
+    const response = await register(userData);
+
+    if (response && response.errors) {
+        return response;
+    }
+
+    return redirect("/login");
 }

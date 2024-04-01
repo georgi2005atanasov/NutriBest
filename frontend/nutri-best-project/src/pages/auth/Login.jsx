@@ -6,13 +6,11 @@ import FormLink from "../../components/UI/FormLink";
 import LoginCheckBox from "../../components/UI/LoginCheckBox";
 import Header from "../../components/UI/Header";
 import { login } from "../../../../../backend/api/auth.js";
+import InputError from "../../components/UI/InputError.jsx";
+import { setAuthToken, getFormData, setNormalTokenDuration } from "../../utils/util.js";
 
 export default function LoginPage() {
     const data = useActionData();
-
-    if (data && data.errors) {
-        console.log("Yes, there are errors");
-    }
 
     return <>
         <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
@@ -24,14 +22,26 @@ export default function LoginPage() {
                         <FormInput
                             styles={styles["login-input"]}
                             text="Username"
+                            error={
+                                data && Object.keys(data.errors).includes("UserName") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["UserName"][0].replace("UserName", "username")}
+                                />}
                             type="text"
                             name="username"
                             id="username"
                             placeholder="Enter your username"
                         />
+
                         <FormInput
                             styles={styles["login-input"]}
                             text="Password"
+                            error={data && Object.keys(data.errors).includes("Password") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Password"][0].replace("Password", "password")}
+                                />}
                             type="password"
                             name="password"
                             id="password"
@@ -39,6 +49,12 @@ export default function LoginPage() {
                         />
 
                         <LoginCheckBox text="Remember me" />
+
+                        {data && Object.keys(data.errors).includes("message") &&
+                            <InputError
+                                styles={styles["error-par"]}
+                                text={data.errors["message"][0]}
+                            />}
 
                         <FormButton
                             text="Login"
@@ -55,25 +71,29 @@ export default function LoginPage() {
     </>
 }
 
-// eslint-disable-next-line no-unused-vars, react-refresh/only-export-components
+// eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
-    const data = await request.formData();
-    const userData = Object.fromEntries(data.entries());
-    console.log(userData);
+    const userData = await getFormData(request);
+    const response = await login(userData);
 
-    try {
-        const response = await login(userData);
-
-        if (response && response.errors) {
-           return response; 
-        }
-
-        const token = response;
-        console.log(token);
-        //set token
-
-        return redirect("/");
-    } catch (error) {
-        throw json(error);
+    if (response && response.errors) {
+        return response;
     }
+
+    if (response.ok == false || response.status === 401) {
+        return json({ errors: { "message": ["Invalid credentials!"] } });
+    }
+
+    const token = response;
+    setAuthToken(token);
+
+    if (!userData.remember) {
+        setNormalTokenDuration();
+    }
+    else {
+        // setExtendedTokenDuration();
+        // must extent the time of the token life
+    }
+
+    return redirect("/home");
 }

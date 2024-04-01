@@ -61,3 +61,10 @@
     border: none;
     box-shadow: 0 0 8px #cf9236;
 }
+
+.error-par {
+    color: red;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}

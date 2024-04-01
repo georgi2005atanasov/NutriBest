@@ -3,6 +3,7 @@ import { Form, json, redirect, useActionData } from "react-router-dom";
 import FormButton from "../../components/UI/FormButton";
 import FormInput from "../../components/UI/FormInput";
 import RegisterCheckBox from "../../components/UI/RegisterCheckBox";
+import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
 import { register } from "../../../../../backend/api/auth";
 import { getFormData } from "../../utils/util";
@@ -25,6 +26,11 @@ export default function RegisterPage() {
                         <FormInput
                             styles={styles["register-input"]}
                             text="Full name"
+                            error={data && Object.keys(data.errors).includes("UserName") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["UserName"][0].replace("UserName", "full name")}
+                                />}
                             type="text"
                             name="username"
                             id="username"
@@ -33,6 +39,11 @@ export default function RegisterPage() {
                         <FormInput
                             styles={styles["register-input"]}
                             text="Email address"
+                            error={data && Object.keys(data.errors).includes("Email") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Email"][0].replace("Email", "email")}
+                                />}
                             type="email"
                             name="email"
                             id="email"
@@ -41,6 +52,11 @@ export default function RegisterPage() {
                         <FormInput
                             styles={styles["register-input"]}
                             text="Password"
+                            error={data && Object.keys(data.errors).includes("Password") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Password"][0].replace("Password", "password")}
+                                />}
                             type="password"
                             name="password"
                             id="password"
@@ -56,6 +72,12 @@ export default function RegisterPage() {
                         />
 
                         <RegisterCheckBox text="By signing up you agree to our Terms of Service and Privacy Policy" />
+
+                        {data && Object.keys(data.errors).includes("message") &&
+                            <InputError
+                                styles={styles["error-par"]}
+                                text={data.errors["message"][0]}
+                            />}
 
                         <FormButton
                             text="Sign up"
@@ -80,6 +102,15 @@ export async function action({ request, params }) {
 
     if (response && response.errors) {
         return response;
+    }
+
+    if (response && Array.isArray(response)) {
+        const message = response[0].description;
+        return json({ errors: { "message": [message] } });
+    }
+
+    if (response && response.status === 400) {
+        return json({ errors: { "message": ["Cannot create already existing users!"] } });
     }
 
     return redirect("/login");

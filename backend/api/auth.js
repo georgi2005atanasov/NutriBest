@@ -9,13 +9,11 @@ export async function register(userData) {
         body: JSON.stringify(userData)
     })
 
-    if (!response.ok) {
-        return await result.json();
+    if (response.ok === false) {
+        return await response.json();
     }
 
-    checkAuthErrors(result);
-
-    return await result.json();
+    return await response.text();
 }
 
 export async function login(userData) {

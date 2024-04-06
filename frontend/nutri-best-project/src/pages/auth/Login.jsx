@@ -95,5 +95,5 @@ export async function action({ request, params }) {
         // must extent the time of the token life
     }
 
-    return redirect("/home");
+    return redirect("/");
 }

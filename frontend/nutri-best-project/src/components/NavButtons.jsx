@@ -1,24 +1,14 @@
 /* eslint-disable react/prop-types */
 import shoppingBag from "../assets/shopping-bag.png";
 import { useLoaderData } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode';
 import { useSubmit } from "react-router-dom"
 import UserButtons from "./User/UserButtons";
 import GuestButtons from "./Guest/GuestButtons";
+import useAuth from "./hooks/useAuth";
 
 export default function NavButtons({ styles }) {
     const token = useLoaderData("rootLoader");
-
-    let isAdmin = false;
-    let tokenData = null;
-
-    if (token) {
-        tokenData = jwtDecode(token);
-    }
-
-    if (tokenData && tokenData.role == "Administrator") {
-        isAdmin = true;
-    }
+    const { isAdmin } = useAuth();
 
     const submit = useSubmit();
 

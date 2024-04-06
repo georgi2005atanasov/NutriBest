@@ -24,10 +24,10 @@ export async function login(userData) {
         },
         body: JSON.stringify(userData)
     })
-    
+
     if (response.ok) {
         return await response.text();
     }
-
+    
     return await response.json();
 }

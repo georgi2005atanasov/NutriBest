@@ -4,16 +4,21 @@ import FormInput from "../../components/UI/FormInput";
 import RegisterCheckBox from "../../components/UI/RegisterCheckBox";
 import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
+import Loader from "../../components/UI/Loader";
 import { register } from "../../../../../backend/api/auth";
 import { getFormData } from "../../utils/auth";
 import useAuth from "../../components/hooks/useAuth";
-import { Form, json, redirect, useActionData, useSubmit, useOutletContext } from "react-router-dom";
+import { Form, json, redirect, useActionData, useSubmit, useOutletContext, useNavigation } from "react-router-dom";
 
 export default function RegisterPage() {
     const data = useActionData();
     const token = useOutletContext("rootLoader");
     const { isAuthenticated } = useAuth(token);
     const submit = useSubmit();
+    const navigation = useNavigation();
+
+    const isSubmitting = navigation.state === "submitting";
+
 
     if (isAuthenticated) {
         submit(null, { action: "/", method: "get" })
@@ -24,6 +29,9 @@ export default function RegisterPage() {
     }
 
     return <>
+        {isSubmitting ?
+            <Loader /> :
+            undefined}
         <Header text="Create a NutriBest Account" styles={styles["register-header"]} />
 
         <Form method="post" className={styles["auth-form"]}>
@@ -90,6 +98,7 @@ export default function RegisterPage() {
                         <FormButton
                             text="Sign up"
                             wrapperStyles={styles["register-input"]}
+                            disabled={isSubmitting}
                         />
                     </div>
                 </div>

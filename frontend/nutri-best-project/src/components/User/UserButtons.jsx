@@ -8,7 +8,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                 <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
                     {isAdmin ?
                         <div className={`${styles["nav-link"]}`}>
-                            <Link className="text-center" to="/add">Add Product</Link>
+                            <Link className="text-center" to="/add-product">Add Product</Link>
                         </div> :
                         undefined}
                     <div className={`${styles["nav-link"]} mx-1`}>

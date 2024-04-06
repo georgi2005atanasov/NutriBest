@@ -16,6 +16,7 @@ export function setTokenDuration(duration) {
     const expiration = new Date();
     expiration.setHours(expiration.getHours() + duration);
     localStorage.setItem("expiration", expiration.toISOString());
+    localStorage.setItem("duration", duration * 60 * 60 * 1000)
 }
 
 export function getAuthToken() {

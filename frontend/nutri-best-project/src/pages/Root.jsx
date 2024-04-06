@@ -4,10 +4,9 @@ import { getAuthToken } from "../utils/auth";
 import { useEffect } from "react";
 import FooterPage from "./Footer";
 
-const NORMAL_TOKEN_DURATION = 1 * 60 * 60 * 1000;
-const EXTENDED_TOKEN_DURATION = 86400000;
 
 export default function RootLayout() {
+    const TOKEN_DURATION = localStorage.getItem("duration");
     const token = useLoaderData();
     const submit = useSubmit();
 
@@ -22,8 +21,8 @@ export default function RootLayout() {
 
         setTimeout(() => {
             submit(null, { action: "/logout", method: "post" });
-        }, EXTENDED_TOKEN_DURATION);
-    }, [token, submit]);
+        }, TOKEN_DURATION);
+    }, [token, submit, TOKEN_DURATION]);
 
 
     return <>

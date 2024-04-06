@@ -8,7 +8,7 @@ import useAuth from "./hooks/useAuth";
 
 export default function NavButtons({ styles }) {
     const token = useLoaderData("rootLoader");
-    const { isAdmin } = useAuth();
+    const { isAdmin } = useAuth(token);
 
     const submit = useSubmit();
 

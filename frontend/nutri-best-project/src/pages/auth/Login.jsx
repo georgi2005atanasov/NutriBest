@@ -8,21 +8,27 @@ import Header from "../../components/UI/Header";
 import useAuth from "../../components/hooks/useAuth";
 import { login } from "../../../../../backend/api/auth";
 import { setAuthToken, getFormData, setTokenDuration } from "../../utils/auth";
-import { Form, redirect, json, useActionData, useOutletContext, useSubmit } from "react-router-dom";
+import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation } from "react-router-dom";
+import Loader from "../../components/UI/Loader";
 
 export default function LoginPage() {
     const data = useActionData();
     const token = useOutletContext("rootLoader");
     const { isAuthenticated } = useAuth(token);
     const submit = useSubmit();
+    const navigation = useNavigation();
+
+    const isSubmitting = navigation.state === "submitting";
 
     if (isAuthenticated) {
         submit(null, { action: "/", method: "get" })
     }
 
     return <>
+        {isSubmitting ?
+            <Loader /> :
+            undefined}
         <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
-
         <Form method="post" className={styles["auth-form"]}>
             <div className="container">
                 <div className="row d-flex justify-content-center">
@@ -67,6 +73,7 @@ export default function LoginPage() {
                         <FormButton
                             text="Login"
                             wrapperStyles={styles["login-input"]}
+                            disabled={isSubmitting}
                         />
                         {/* TODO Add functionality for forgotten password */}
                         <FormLink route="/" styles={styles["form-link"]} text="Forgot password?" />
@@ -81,26 +88,30 @@ export default function LoginPage() {
 
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
-    const userData = await getFormData(request);
-    const response = await login(userData);
+    try {
+        const userData = await getFormData(request);
+        const response = await login(userData);
 
-    if (response && response.errors) {
-        return response;
+        if (response && response.errors) {
+            return response;
+        }
+
+        if (response.ok == false || response.status === 401) {
+            return json({ errors: { "message": ["Invalid credentials!"] } });
+        }
+
+        const token = response;
+        setAuthToken(token);
+
+        if (!userData.remember) {
+            setTokenDuration(1);
+        }
+        else {
+            setTokenDuration(24)
+        }
+
+        return redirect("/");
+    } catch (error) {
+        return redirect("/error");
     }
-
-    if (response.ok == false || response.status === 401) {
-        return json({ errors: { "message": ["Invalid credentials!"] } });
-    }
-
-    const token = response;
-    setAuthToken(token);
-
-    if (!userData.remember) {
-        setTokenDuration(1);
-    }
-    else {
-        setTokenDuration(24)
-    }
-
-    return redirect("/");
 }

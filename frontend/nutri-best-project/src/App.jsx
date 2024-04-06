@@ -4,13 +4,14 @@ import RootLayout, { loader as tokenLoader } from './pages/Root';
 import LoginPage, { action as loginAction } from './pages/auth/Login';
 import RegisterPage, { action as registerAction } from './pages/auth/Register';
 import { action as logoutAction } from './pages/auth/Logout';
-import HomePage from './pages/auth/Home';
+import HomePage from './pages/Home';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     children: [
+      { index: true, element: <HomePage /> },
       { path: 'login', element: <LoginPage />, action: loginAction },
       { path: 'register', element: <RegisterPage />, action: registerAction },
       { path: 'logout', action: logoutAction },

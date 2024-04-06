@@ -18,7 +18,7 @@ export default function LoginPage() {
         <Form method="post" className={styles["auth-form"]}>
             <div className="container">
                 <div className="row d-flex justify-content-center">
-                    <div className="col-md-5">
+                    <div className="col-lg-5">
                         <FormInput
                             styles={styles["login-input"]}
                             text="Username"

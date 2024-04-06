@@ -1,10 +1,11 @@
 import logo from "../assets/another-nutri-best-logo.png";
 import styles from "./MainNavigation.module.css";
 import { Link } from "react-router-dom";
+import NavButtons from "./NavButtons";
 
 export default function MainNavigation() {
     return <div className={`container ${styles["main-navigation"]}`}>
-        <div className="row d-flex justify-content-between align-items-center">
+        <div className="row d-flex justify-content-between align-items-start">
             <div className="col-2 d-flex">
                 <div className="container">
                     <div className="row d-flex justify-content-around align-items-center">
@@ -23,7 +24,7 @@ export default function MainNavigation() {
                     </div>
                 </div>
             </div>
-            <div className="col-10">
+            <div className="col-10 p-0">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
@@ -42,17 +43,26 @@ export default function MainNavigation() {
                                 </nav>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="row d-flex justify-content-end mt-2">
-                        <div className="col-md-6 d-flex justify-content-end">
-                            <div className={`${styles["nav-link"]} mx-1`}>
-                                <Link to="/login">Log in</Link>
+                        <NavButtons styles={styles} />
+                        {/* <div className="row d-flex justify-content-end mt-2 p-0 ps-5">
+                            <div className="col-12 p-0 d-flex justify-content-end">
+                                <div className="row d-flex justify-content-end">
+                                    <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
+                                        <div className={`${styles["nav-link"]} mx-1`}>
+                                            <Link to="/login">Log in</Link>
+                                        </div>
+                                        <div className={`${styles["nav-link"]}`}>
+                                            <Link to="/register">Sign up</Link>
+                                        </div>
+                                        <div className={`${styles["nav-link"]} p-2 mx-1`}>
+                                            <Link to="cart-modal">
+                                                <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className={`${styles["nav-link"]}`}>
-                                <Link to="/register">Sign up</Link>
-                            </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

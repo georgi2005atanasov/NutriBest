@@ -1,16 +1,24 @@
 import styles from "./Login.module.css";
-import { Form, redirect, json, useActionData } from "react-router-dom";
 import FormInput from "../../components/UI/FormInput";
 import FormButton from "../../components/UI/FormButton";
 import FormLink from "../../components/UI/FormLink";
 import LoginCheckBox from "../../components/UI/LoginCheckBox";
+import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
-import { login } from "../../../../../backend/api/auth.js";
-import InputError from "../../components/UI/InputError.jsx";
-import { setAuthToken, getFormData, setNormalTokenDuration } from "../../utils/auth.js";
+import useAuth from "../../components/hooks/useAuth";
+import { login } from "../../../../../backend/api/auth";
+import { setAuthToken, getFormData, setTokenDuration } from "../../utils/auth";
+import { Form, redirect, json, useActionData, useOutletContext, useSubmit } from "react-router-dom";
 
 export default function LoginPage() {
     const data = useActionData();
+    const token = useOutletContext("rootLoader");
+    const { isAuthenticated } = useAuth(token);
+    const submit = useSubmit();
+
+    if (isAuthenticated) {
+        submit(null, { action: "/", method: "get" })
+    }
 
     return <>
         <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
@@ -88,11 +96,10 @@ export async function action({ request, params }) {
     setAuthToken(token);
 
     if (!userData.remember) {
-        setNormalTokenDuration();
+        setTokenDuration(1);
     }
     else {
-        // setExtendedTokenDuration();
-        // must extent the time of the token life
+        setTokenDuration(24)
     }
 
     return redirect("/");

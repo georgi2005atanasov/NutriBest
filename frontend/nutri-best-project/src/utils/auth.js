@@ -12,9 +12,9 @@ export function getTokenDuration() {
     return duration;
 }
 
-export function setNormalTokenDuration() {
+export function setTokenDuration(duration) {
     const expiration = new Date();
-    expiration.setHours(expiration.getHours() + 1);
+    expiration.setHours(expiration.getHours() + duration);
     localStorage.setItem("expiration", expiration.toISOString());
 }
 

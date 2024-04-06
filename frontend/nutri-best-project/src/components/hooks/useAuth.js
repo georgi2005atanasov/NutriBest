@@ -1,8 +1,6 @@
-import { useLoaderData } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 
-export default function useAuth() {
-    const token = useLoaderData("rootLoader");
+export default function useAuth(token) {
     let isAdmin = false;
     let isAuthenticated = false;
 

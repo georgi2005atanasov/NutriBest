@@ -1,5 +1,4 @@
 import styles from "./Register.module.css";
-import { Form, json, redirect, useActionData } from "react-router-dom";
 import FormButton from "../../components/UI/FormButton";
 import FormInput from "../../components/UI/FormInput";
 import RegisterCheckBox from "../../components/UI/RegisterCheckBox";
@@ -7,9 +6,18 @@ import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
 import { register } from "../../../../../backend/api/auth";
 import { getFormData } from "../../utils/auth";
+import useAuth from "../../components/hooks/useAuth";
+import { Form, json, redirect, useActionData, useSubmit, useOutletContext } from "react-router-dom";
 
 export default function RegisterPage() {
     const data = useActionData();
+    const token = useOutletContext("rootLoader");
+    const { isAuthenticated } = useAuth(token);
+    const submit = useSubmit();
+
+    if (isAuthenticated) {
+        submit(null, { action: "/", method: "get" })
+    }
 
     if (data && (data.errors || data.message)) {
         console.log("Yes, there are errors");
@@ -93,6 +101,11 @@ export default function RegisterPage() {
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     const userData = await getFormData(request);
+    const { isAuthenticated } = useAuth();
+
+    if (isAuthenticated) {
+        return redirect("/");
+    }
 
     if (userData.password !== userData.confirmPassword) {
         return json({ errors: { "message": ["Both passwords should match!"] } });

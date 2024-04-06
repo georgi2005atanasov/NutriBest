@@ -7,7 +7,7 @@ import LoginCheckBox from "../../components/UI/LoginCheckBox";
 import Header from "../../components/UI/Header";
 import { login } from "../../../../../backend/api/auth.js";
 import InputError from "../../components/UI/InputError.jsx";
-import { setAuthToken, getFormData, setNormalTokenDuration } from "../../utils/util.js";
+import { setAuthToken, getFormData, setNormalTokenDuration } from "../../utils/auth.js";
 
 export default function LoginPage() {
     const data = useActionData();

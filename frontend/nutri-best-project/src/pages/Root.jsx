@@ -1,6 +1,6 @@
 import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
-import { getAuthToken } from "../utils/util";
+import { getAuthToken } from "../utils/auth";
 import { useEffect } from "react";
 import FooterPage from "./Footer";
 

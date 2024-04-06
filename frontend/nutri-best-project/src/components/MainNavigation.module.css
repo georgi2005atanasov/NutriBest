@@ -30,9 +30,6 @@
     background-color: #cf9236;
 }
 
-.nav-buttons {
-}
-
 @media screen and (max-width: 280px) {
     .nav-buttons {
         margin-top: 20px;
@@ -75,6 +72,10 @@ h1 {
 
 #check {
     display: none;
+}
+
+.logout-btn:hover {
+    background: #cf9236;
 }
 
 .button {

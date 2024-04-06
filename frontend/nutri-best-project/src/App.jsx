@@ -17,6 +17,7 @@ const router = createBrowserRouter([
       { path: 'logout', action: logoutAction },
       { path: 'home', element: <HomePage /> }
     ],
+    id: "rootLoader",
     loader: tokenLoader
   }
 ]);

@@ -1,25 +1,40 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom"
 import shoppingBag from "../assets/shopping-bag.png";
+import { useLoaderData } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
+import { useSubmit } from "react-router-dom"
+import UserButtons from "./User/UserButtons";
+import GuestButtons from "./Guest/GuestButtons";
 
 export default function NavButtons({ styles }) {
-    return <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
-        <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
-            <div className="row d-flex justify-content-end">
-                <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
-                    <div className={`${styles["nav-link"]} mx-1`}>
-                        <Link className="text-center" to="/login">Log in</Link>
-                    </div>
-                    <div className={`${styles["nav-link"]}`}>
-                        <Link className="text-center" to="/register">Sign up</Link>
-                    </div>
-                    <div className={`${styles["nav-link"]} p-2 mx-1`}>
-                        <Link className="text-center" to="cart-modal">
-                            <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    const token = useLoaderData("rootLoader");
+
+    let isAdmin = false;
+    let tokenData = null;
+
+    if (token) {
+        tokenData = jwtDecode(token);
+    }
+
+    if (tokenData && tokenData.role == "Administrator") {
+        isAdmin = true;
+    }
+
+    const submit = useSubmit();
+
+    function handleLogout() {
+        submit(null, { action: "/logout", method: "post" })
+    }
+
+    if (token && token != "EXPIRED" && token != 0) {
+        return <UserButtons
+            styles={styles}
+            isAdmin={isAdmin}
+            handleLogout={handleLogout}
+            shoppingBag={shoppingBag} />
+    }
+
+    return <GuestButtons
+        styles={styles}
+        shoppingBag={shoppingBag} />
 }

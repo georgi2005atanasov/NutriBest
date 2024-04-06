@@ -6,7 +6,7 @@ import RegisterCheckBox from "../../components/UI/RegisterCheckBox";
 import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
 import { register } from "../../../../../backend/api/auth";
-import { getFormData } from "../../utils/util";
+import { getFormData } from "../../utils/auth";
 
 export default function RegisterPage() {
     const data = useActionData();
@@ -96,6 +96,10 @@ export async function action({ request, params }) {
 
     if (userData.password !== userData.confirmPassword) {
         return json({ errors: { "message": ["Both passwords should match!"] } });
+    }
+
+    if (!userData.terms) {
+        return json({ errors: { "message": ["You have to agree with Terms of Service and Privacy Policy!"] } });
     }
 
     const response = await register(userData);

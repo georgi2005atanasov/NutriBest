@@ -58,8 +58,7 @@
   /* Media query for responsive behavior */
   @media (max-width: 768px) {
     .footer-section,
-    .footer-nav,
-    .footer-social {
+    .footer-nav {
       flex-direction: column;
       align-items: center;
     }

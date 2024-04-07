@@ -7,7 +7,8 @@ import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
 import useAuth from "../../components/hooks/useAuth";
 import { login } from "../../../../../backend/api/auth";
-import { setAuthToken, getFormData, setTokenDuration } from "../../utils/auth";
+import { setAuthToken, setTokenDuration } from "../../utils/auth";
+import { getFormData } from "../../utils/utils";
 import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation } from "react-router-dom";
 import Loader from "../../components/UI/Loader";
 
@@ -29,7 +30,7 @@ export default function LoginPage() {
             <Loader /> :
             undefined}
         <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
-        <Form method="post" className={styles["auth-form"]}>
+        <Form method="post">
             <div className="container">
                 <div className="row d-flex justify-content-center">
                     <div className="col-lg-5">
@@ -42,9 +43,9 @@ export default function LoginPage() {
                                     styles={styles["error-par"]}
                                     text={data.errors["UserName"][0].replace("UserName", "username")}
                                 />}
+                            id="username"
                             type="text"
                             name="username"
-                            id="username"
                             placeholder="Enter your username"
                         />
 
@@ -56,9 +57,9 @@ export default function LoginPage() {
                                     styles={styles["error-par"]}
                                     text={data.errors["Password"][0].replace("Password", "password")}
                                 />}
+                            id="password"
                             type="password"
                             name="password"
-                            id="password"
                             placeholder="Password"
                         />
 

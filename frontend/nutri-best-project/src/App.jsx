@@ -5,7 +5,7 @@ import LoginPage, { action as loginAction } from './pages/auth/Login';
 import RegisterPage, { action as registerAction } from './pages/auth/Register';
 import { action as logoutAction } from './pages/auth/Logout';
 import HomePage from './pages/Home';
-import AddProduct from './pages/AddProduct';
+import AddProduct, { action as addProductAction } from './pages/AddProduct';
 import ErrorPage from './pages/Error';
 
 const router = createBrowserRouter([
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       { path: 'register', element: <RegisterPage />, action: registerAction },
       { path: 'logout', action: logoutAction },
       { path: 'home', element: <HomePage /> },
-      { path: 'add-product', element: <AddProduct /> },
+      { path: 'add-product', element: <AddProduct />, action: addProductAction },
       { path: 'error', element: <ErrorPage /> }
     ],
     id: "rootLoader",

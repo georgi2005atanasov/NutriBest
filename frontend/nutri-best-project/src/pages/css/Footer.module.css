@@ -1,9 +1,10 @@
 .footer {
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #bdb5b5;
     color: #333;
   }
   
@@ -19,19 +20,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-  }
-  
-  .footer-logo {
-    /* Add your logo styling here */
-  }
-  
-  .footer-search {
-    /* Add search input styling here */
-  }
-  
-  .btn-sign-in,
-  .btn-join-now {
-    /* Add button styling here */
   }
   
   .footer-nav,

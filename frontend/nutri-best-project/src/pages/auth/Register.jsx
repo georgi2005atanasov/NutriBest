@@ -6,7 +6,7 @@ import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
 import Loader from "../../components/UI/Loader";
 import { register } from "../../../../../backend/api/auth";
-import { getFormData } from "../../utils/auth";
+import { getFormData } from "../../utils/utils";
 import useAuth from "../../components/hooks/useAuth";
 import { Form, json, redirect, useActionData, useSubmit, useOutletContext, useNavigation } from "react-router-dom";
 
@@ -34,7 +34,7 @@ export default function RegisterPage() {
             undefined}
         <Header text="Create a NutriBest Account" styles={styles["register-header"]} />
 
-        <Form method="post" className={styles["auth-form"]}>
+        <Form method="post">
             {/* {data.errors.map} */}
             <div className="container mb-5">
                 <div className="row d-flex justify-content-center">
@@ -47,9 +47,9 @@ export default function RegisterPage() {
                                     styles={styles["error-par"]}
                                     text={data.errors["UserName"][0].replace("UserName", "full name")}
                                 />}
+                            id="username"
                             type="text"
                             name="username"
-                            id="username"
                             placeholder="Enter your full name"
                         />
                         <FormInput
@@ -60,9 +60,9 @@ export default function RegisterPage() {
                                     styles={styles["error-par"]}
                                     text={data.errors["Email"][0].replace("Email", "email")}
                                 />}
+                            id="email"
                             type="email"
                             name="email"
-                            id="email"
                             placeholder="Enter your email address"
                         />
                         <FormInput
@@ -73,17 +73,17 @@ export default function RegisterPage() {
                                     styles={styles["error-par"]}
                                     text={data.errors["Password"][0].replace("Password", "password")}
                                 />}
+                            id="password"
                             type="password"
                             name="password"
-                            id="password"
                             placeholder="Enter your email password"
                         />
                         <FormInput
                             styles={styles["register-input"]}
+                            id="confirmPassword"
                             text="Confirm password"
                             type="password"
                             name="confirmPassword"
-                            id="confirmPassword"
                             placeholder="Confirm your password"
                         />
 

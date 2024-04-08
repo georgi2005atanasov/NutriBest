@@ -10,7 +10,7 @@ import { Form, useActionData, useNavigation, json, redirect } from "react-router
 
 export default function AddProduct() {
     const data = useActionData();
-    const [image, setImage] = useState([]);
+    const [image, setImage] = useState(null);
 
     const navigation = useNavigation();
 
@@ -21,8 +21,8 @@ export default function AddProduct() {
         setImage(imageToSet);
     }
 
-    function handleSubmit() {
-        console.log("It works");
+    function handleRemoveImage() {
+        setImage(null);
     }
 
     return <>
@@ -35,10 +35,10 @@ export default function AddProduct() {
                             styles={styles["add-product-input"]}
                             text="Product Name"
                             error={
-                                data && Object.keys(data.errors).includes("ProductName") &&
+                                data && Object.keys(data.errors).includes("Name") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["UserName"][0].replace("UserName", "username")}
+                                    text={data.errors["Name"][0].replace("Name", "name")}
                                 />}
                             id="name"
                             type="text"
@@ -49,6 +49,12 @@ export default function AddProduct() {
                         <div className={styles["add-product-input"]}>
                             <label htmlFor="description">Description</label>
                             <textarea rows={9} name="description" id="description" />
+                            {
+                                data && Object.keys(data.errors).includes("Description") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Description"][0].replace("Description", "description")}
+                                />}
                         </div>
 
                         <FormInput
@@ -58,7 +64,7 @@ export default function AddProduct() {
                                 data && Object.keys(data.errors).includes("Price") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["Price"][0].replace("Price", "price")}
+                                    text={data.errors["Price"][0]}
                                 />}
                             id="price"
                             type="number"
@@ -67,8 +73,23 @@ export default function AddProduct() {
                         />
 
                         <div className={styles["add-product-input"]}>
-                            <input type="file" name="image" onChange={getImage} />
-                            <img src={image} alt="Image" name="image-visual" id="image-visual" />
+                            <label htmlFor="image" className={styles["custom-file-upload"]}>
+                                Upload Image
+                            </label>
+                            <input className="d-none" type="file" name="image" id="image" onChange={getImage} />
+                            <button
+                                className={`${styles["remove-image"]}`}
+                                disabled={image == null}
+                                onClick={handleRemoveImage}>
+                                Remove Photo
+                            </button>
+                            {image && <img src={image} alt="Image" name="image-visual" id="image-visual" />}
+                            {
+                                data && Object.keys(data.errors).includes("Image") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Image"][0]}
+                                />}
                         </div>
 
                         {data && Object.keys(data.errors).includes("message") &&
@@ -81,7 +102,6 @@ export default function AddProduct() {
                             text="Add New Product"
                             wrapperStyles={styles["add-product-input"]}
                             disabled={isSubmitting}
-                            onClick={handleSubmit}
                         />
                     </div>
                 </div>
@@ -106,13 +126,17 @@ export async function action({ request, params }) {
 
     try {
         const response = await addProduct(formData);
+        const { errors } = await response.json();
 
-        if (response && response.errors) {
-            return response;
+        if (errors) {
+            if (productModel.price <= 0) {
+                errors["Price"] = ["Price must be bigger than 0!"]
+            }
+            return { errors };
         }
 
         if (response.ok == false) {
-            return response;
+            return await response.json();
         }
 
         return redirect("/");

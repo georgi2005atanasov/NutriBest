@@ -3,11 +3,12 @@ import Header from "../components/UI/Header";
 import FormInput from "../components/UI/FormInput";
 import FormButton from "../components/UI/FormButton";
 import InputError from "../components/UI/InputError";
-import { addProduct } from "../../../../backend/api/api";
 import { getFormData } from "../utils/utils";
+import { addProduct } from "../../../../backend/api/api";
 import { Form, useActionData, useNavigation, json, redirect } from "react-router-dom";
 import ImageField from "../components/UI/ImageField";
 import FormTextArea from "../components/UI/FormTextArea";
+import Loader from "../components/UI/Loader";
 
 export default function AddProductPage() {
     const data = useActionData();
@@ -18,6 +19,7 @@ export default function AddProductPage() {
 
     return <>
         <Header text="Welcome back to NutriBest!" styles={styles["add-product-header"]} />
+        {isSubmitting && <Loader />}
         <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
             <div className="container">
                 <div className="row d-flex justify-content-center">
@@ -91,6 +93,32 @@ export async function action({ request, params }) {
     const productModel = await getFormData(request)
     productModel.price = Number(productModel.price)
 
+    if (productModel.price <= 0) {
+        return json({ errors: { "Price": ["Price must be bigger than 0!"] } });
+    }
+
+    const formData = getProductForm(productModel);
+
+    try {
+        const response = await addProduct(formData);
+        const { errors } = await response.json();
+
+        if (errors) {
+            return { errors };
+        }
+
+        if (response.ok == false) {
+            return await response.json();
+        }
+
+        return redirect("/?message=Product added successfully!");
+    } catch (error) {
+        console.log(error);
+        return json({ errors: { "message": ["An Error occured!"] } });
+    }
+}
+
+function getProductForm(productModel) {
     const formData = new FormData();
     formData.append("name", productModel.name);
     formData.append("description", productModel.description);
@@ -101,24 +129,5 @@ export async function action({ request, params }) {
         // formData.append("image", productModel.image, productModel.image.name);
     }
 
-    try {
-        const response = await addProduct(formData);
-        const { errors } = await response.json();
-
-        if (errors) {
-            if (productModel.price <= 0) {
-                errors["Price"] = ["Price must be bigger than 0!"]
-            }
-            return { errors };
-        }
-
-        if (response.ok == false) {
-            return await response.json();
-        }
-
-        return redirect("/");
-    } catch (error) {
-        console.log(error);
-        return json({ errors: { "message": ["An Error occured!"] } });
-    }
+    return formData;
 }

@@ -2,7 +2,7 @@
 import InputError from "./InputError"
 import { useState } from "react";
 
-export default function ImageField({styles, data}) {
+export default function ImageField({ styles, data }) {
     const [image, setImage] = useState(null);
 
     function handleRemoveImage() {
@@ -25,7 +25,9 @@ export default function ImageField({styles, data}) {
             onClick={handleRemoveImage}>
             Remove Photo
         </button>
-        {image && <img src={image} alt="Image" name="image-visual" id="image-visual" />}
+        {image && <div className="text-center my-3">
+            <img src={image} alt="Image" name="image-visual" id={styles["image-visual"]} />
+        </div>}
         {
             data && Object.keys(data.errors).includes("Image") &&
             <InputError

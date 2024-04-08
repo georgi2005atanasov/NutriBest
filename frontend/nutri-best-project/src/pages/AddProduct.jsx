@@ -5,25 +5,16 @@ import FormButton from "../components/UI/FormButton";
 import InputError from "../components/UI/InputError";
 import { addProduct } from "../../../../backend/api/api";
 import { getFormData } from "../utils/utils";
-import { useState } from "react";
 import { Form, useActionData, useNavigation, json, redirect } from "react-router-dom";
+import ImageField from "../components/UI/ImageField";
+import FormTextArea from "../components/UI/FormTextArea";
 
-export default function AddProduct() {
+export default function AddProductPage() {
     const data = useActionData();
-    const [image, setImage] = useState(null);
 
     const navigation = useNavigation();
 
     const isSubmitting = navigation.state === "submitting";
-
-    function getImage(event) {
-        const imageToSet = URL.createObjectURL(event.target.files[0])
-        setImage(imageToSet);
-    }
-
-    function handleRemoveImage() {
-        setImage(null);
-    }
 
     return <>
         <Header text="Welcome back to NutriBest!" styles={styles["add-product-header"]} />
@@ -46,17 +37,19 @@ export default function AddProduct() {
                             placeholder="Protein, Creatine..."
                         />
 
-                        <div className={styles["add-product-input"]}>
-                            <label htmlFor="description">Description</label>
-                            <textarea rows={9} name="description" id="description" />
-                            {
+                        <FormTextArea
+                            styles={styles["add-product-input"]}
+                            text="Description"
+                            error={
                                 data && Object.keys(data.errors).includes("Description") &&
                                 <InputError
                                     styles={styles["error-par"]}
                                     text={data.errors["Description"][0].replace("Description", "description")}
                                 />}
-                        </div>
-
+                            id="description"
+                            name="description"
+                            rows={9} />
+                       
                         <FormInput
                             styles={styles["add-product-input"]}
                             text="Price"
@@ -72,25 +65,9 @@ export default function AddProduct() {
                             placeholder="100 BGN"
                         />
 
-                        <div className={styles["add-product-input"]}>
-                            <label htmlFor="image" className={styles["custom-file-upload"]}>
-                                Upload Image
-                            </label>
-                            <input className="d-none" type="file" name="image" id="image" onChange={getImage} />
-                            <button
-                                className={`${styles["remove-image"]}`}
-                                disabled={image == null}
-                                onClick={handleRemoveImage}>
-                                Remove Photo
-                            </button>
-                            {image && <img src={image} alt="Image" name="image-visual" id="image-visual" />}
-                            {
-                                data && Object.keys(data.errors).includes("Image") &&
-                                <InputError
-                                    styles={styles["error-par"]}
-                                    text={data.errors["Image"][0]}
-                                />}
-                        </div>
+                        <ImageField
+                            styles={styles}
+                            data={data} />
 
                         {data && Object.keys(data.errors).includes("message") &&
                             <InputError

@@ -19,13 +19,8 @@ export default function RegisterPage() {
 
     const isSubmitting = navigation.state === "submitting";
 
-
     if (isAuthenticated) {
         submit(null, { action: "/", method: "get" })
-    }
-
-    if (data && (data.errors || data.message)) {
-        console.log("Yes, there are errors");
     }
 
     return <>
@@ -110,18 +105,11 @@ export default function RegisterPage() {
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     const userData = await getFormData(request);
-    const { isAuthenticated } = useAuth();
 
-    if (isAuthenticated) {
-        return redirect("/");
-    }
+    const validation = getUserErrors(userData);
 
-    if (userData.password !== userData.confirmPassword) {
-        return json({ errors: { "message": ["Both passwords should match!"] } });
-    }
-
-    if (!userData.terms) {
-        return json({ errors: { "message": ["You have to agree with Terms of Service and Privacy Policy!"] } });
+    if (validation && Object.keys(validation.errors).length > 0) {
+        return validation;
     }
 
     const response = await register(userData);
@@ -140,4 +128,30 @@ export async function action({ request, params }) {
     }
 
     return redirect("/login");
+}
+
+function getUserErrors(userData) {
+    let data = {
+        errors: {}
+    };
+
+    // data.errors["Price"] = ["Price must be bigger than 0!"];
+    if (userData.username.trim() == "") {
+        data.errors["UserName"] = ["UserName is required!"];
+    }
+
+    if (userData.email.trim() == "") {
+        data.errors["Email"] = ["Email is required!"];
+    }
+
+    if (userData.password !== userData.confirmPassword) {
+        data.errors["Password"] = ["Both passwords should match!"];
+    }
+
+    if (!userData.terms) {
+        data.errors["message"] =
+            ["You have to agree with Terms of Service and Privacy Policy!"];
+    }
+
+    return data;
 }

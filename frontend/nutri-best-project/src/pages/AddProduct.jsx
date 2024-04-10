@@ -2,7 +2,7 @@ import styles from "./css/AddProduct.module.css";
 import FormInput from "../components/UI/Form/FormInput";
 import FormButton from "../components/UI/Form/FormButton";
 import FormTextArea from "../components/UI/Form/FormTextArea";
-import MultiSelectCategory from "../components/UI/Form/MultiSelect";
+import MultiSelectCategory from "../components/UI/Form/MultiSelectCategory";
 import Header from "../components/UI/Header";
 import InputError from "../components/UI/InputError";
 import ImageField from "../components/UI/ImageField";

@@ -1,11 +1,11 @@
 import styles from "./Login.module.css";
-import FormInput from "../../components/UI/FormInput";
-import FormButton from "../../components/UI/FormButton";
-import FormLink from "../../components/UI/FormLink";
-import LoginCheckBox from "../../components/UI/LoginCheckBox";
+import FormInput from "../../components/UI/Form/FormInput";
+import FormButton from "../../components/UI/Form/FormButton";
+import FormLink from "../../components/UI/Form/FormLink";
+import LoginCheckBox from "../../components/UI/Form/LoginCheckBox";
 import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
-import useAuth from "../../components/hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { login } from "../../../../../backend/api/auth";
 import { setAuthToken, setTokenDuration } from "../../utils/auth";
 import { getFormData } from "../../utils/utils";

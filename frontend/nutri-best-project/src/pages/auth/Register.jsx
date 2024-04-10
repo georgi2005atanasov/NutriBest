@@ -1,13 +1,13 @@
 import styles from "./Register.module.css";
-import FormButton from "../../components/UI/FormButton";
-import FormInput from "../../components/UI/FormInput";
-import RegisterCheckBox from "../../components/UI/RegisterCheckBox";
+import FormButton from "../../components/UI/Form/FormButton";
+import FormInput from "../../components/UI/Form/FormInput";
+import RegisterCheckBox from "../../components/UI/Form/RegisterCheckBox";
 import InputError from "../../components/UI/InputError";
 import Header from "../../components/UI/Header";
 import Loader from "../../components/UI/Loader";
 import { register } from "../../../../../backend/api/auth";
 import { getFormData } from "../../utils/utils";
-import useAuth from "../../components/hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { Form, json, redirect, useActionData, useSubmit, useOutletContext, useNavigation } from "react-router-dom";
 
 export default function RegisterPage() {

@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import { useSubmit } from "react-router-dom"
 import UserButtons from "./User/UserButtons";
 import GuestButtons from "./Guest/GuestButtons";
-import useAuth from "./hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 export default function NavButtons({ styles }) {
     const token = useLoaderData("rootLoader");

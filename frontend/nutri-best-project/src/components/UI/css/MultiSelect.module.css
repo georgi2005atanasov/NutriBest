@@ -1,0 +1,31 @@
+.category-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 300px;
+}
+
+.category-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.category-checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.category-label {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.category-item:hover .category-label {
+    color: #eca41f;
+}
+
+/* Custom checkbox styling */
+.category-checkbox:checked+.category-label {
+    color: #eca41f;
+}

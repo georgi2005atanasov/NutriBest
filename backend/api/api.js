@@ -5,7 +5,7 @@ export async function addProduct(productModel) {
 
     if (token != "EXPIRED" && token != 0) {
 
-        const response = await fetch("https://localhost:7056/products/create", {
+        const response = await fetch("https://localhost:7056/products", {
             method: "POST",
             body: productModel,
             headers: {

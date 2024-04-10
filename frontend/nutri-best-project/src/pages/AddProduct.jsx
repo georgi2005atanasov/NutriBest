@@ -1,14 +1,17 @@
 import styles from "./css/AddProduct.module.css";
+import FormInput from "../components/UI/Form/FormInput";
+import FormButton from "../components/UI/Form/FormButton";
+import FormTextArea from "../components/UI/Form/FormTextArea";
+import MultiSelectCategory from "../components/UI/Form/MultiSelect";
 import Header from "../components/UI/Header";
-import FormInput from "../components/UI/FormInput";
-import FormButton from "../components/UI/FormButton";
 import InputError from "../components/UI/InputError";
+import ImageField from "../components/UI/ImageField";
+import Loader from "../components/UI/Loader";
 import { getFormData } from "../utils/utils";
 import { addProduct } from "../../../../backend/api/api";
 import { Form, useActionData, useNavigation, json, redirect } from "react-router-dom";
-import ImageField from "../components/UI/ImageField";
-import FormTextArea from "../components/UI/FormTextArea";
-import Loader from "../components/UI/Loader";
+import CategoryContextProvider from "../store/CategoryContext";
+import { CATEGORIES } from "../store/CategoryContext";
 
 export default function AddProductPage() {
     const data = useActionData();
@@ -17,7 +20,7 @@ export default function AddProductPage() {
 
     const isSubmitting = navigation.state === "submitting";
 
-    return <>
+    return <CategoryContextProvider>
         <Header text="Welcome back to NutriBest!" styles={styles["add-product-header"]} />
         {isSubmitting && <Loader />}
         <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
@@ -31,7 +34,7 @@ export default function AddProductPage() {
                                 data && Object.keys(data.errors).includes("Name") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["Name"][0].replace("Name", "name")}
+                                    text={data.errors["Name"][0]}
                                 />}
                             id="name"
                             type="text"
@@ -46,12 +49,12 @@ export default function AddProductPage() {
                                 data && Object.keys(data.errors).includes("Description") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["Description"][0].replace("Description", "description")}
+                                    text={data.errors["Description"][0]}
                                 />}
                             id="description"
                             name="description"
                             rows={9} />
-                       
+
                         <FormInput
                             styles={styles["add-product-input"]}
                             text="Price"
@@ -66,6 +69,16 @@ export default function AddProductPage() {
                             name="price"
                             placeholder="100 BGN"
                         />
+
+                        <div className="categories-wrapper">
+                            <MultiSelectCategory />
+                            {data && Object.keys(data.errors).includes("Category") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Category"][0]}
+                                />}
+                            <p className="mb-4"></p>
+                        </div>
 
                         <ImageField
                             styles={styles}
@@ -86,15 +99,18 @@ export default function AddProductPage() {
                 </div>
             </div>
         </Form>
-    </>
+    </CategoryContextProvider>
 }
 
 export async function action({ request, params }) {
     const productModel = await getFormData(request)
+    productModel.categories = getProductCategories(productModel);
     productModel.price = Number(productModel.price)
 
-    if (productModel.price <= 0) {
-        return json({ errors: { "Price": ["Price must be bigger than 0!"] } });
+    const checkProduct = getProductErrors(productModel);
+
+    if (checkProduct.errors.length != 0) {
+        return checkProduct;
     }
 
     const formData = getProductForm(productModel);
@@ -118,16 +134,58 @@ export async function action({ request, params }) {
     }
 }
 
+//can be optimized
+function getProductCategories(productModel) {
+    const categories = [];
+
+    for (const { name, value } of CATEGORIES) {
+        if (name in productModel) {
+            categories.push(value);
+        }
+    }
+
+    return categories;
+}
+
 function getProductForm(productModel) {
     const formData = new FormData();
     formData.append("name", productModel.name);
     formData.append("description", productModel.description);
     formData.append("price", productModel.price);
+    formData.append("categories", productModel.categories);
 
     if (productModel.image) {
-        formData.append("image", productModel.image);
-        // formData.append("image", productModel.image, productModel.image.name);
+        // formData.append("image", productModel.image);
+        formData.append("image", productModel.image, productModel.image.name);
     }
 
     return formData;
+}
+
+function getProductErrors(productModel) {
+    let data = {
+        errors: {}
+    };
+
+    if (productModel.price <= 0) {
+        data.errors["Price"] = ["Price must be bigger than 0!"];
+    }
+
+    if (productModel.categories.length <= 0) {
+        data.errors["Category"] = ["You have to choose at least 1 category!"];
+    }
+
+    if (!productModel.description || productModel.description.length == 0) {
+        data.errors["Description"] = ["Description is required!"];
+    }
+
+    if (!productModel.name || productModel.name.length == 0) {
+        data.errors["Name"] = ["Name is required!"];
+    }
+
+    if (productModel.image && productModel.image.name == "") {
+        data.errors["Image"] = ["Image is required!"];
+    }
+
+    return data;
 }

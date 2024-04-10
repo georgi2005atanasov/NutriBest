@@ -40,7 +40,7 @@ export default function RegisterPage() {
                             error={data && Object.keys(data.errors).includes("UserName") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["UserName"][0].replace("UserName", "full name")}
+                                    text={data.errors["UserName"][0].replace("UserName", "Full Name")}
                                 />}
                             id="username"
                             type="text"
@@ -53,7 +53,7 @@ export default function RegisterPage() {
                             error={data && Object.keys(data.errors).includes("Email") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["Email"][0].replace("Email", "email")}
+                                    text={data.errors["Email"][0]}
                                 />}
                             id="email"
                             type="email"
@@ -66,7 +66,7 @@ export default function RegisterPage() {
                             error={data && Object.keys(data.errors).includes("Password") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["Password"][0].replace("Password", "password")}
+                                    text={data.errors["Password"][0]}
                                 />}
                             id="password"
                             type="password"
@@ -135,13 +135,16 @@ function getUserErrors(userData) {
         errors: {}
     };
 
-    // data.errors["Price"] = ["Price must be bigger than 0!"];
     if (userData.username.trim() == "") {
         data.errors["UserName"] = ["UserName is required!"];
     }
 
     if (userData.email.trim() == "") {
         data.errors["Email"] = ["Email is required!"];
+    }
+
+    if (userData.password.trim() == "" || userData.confirmPassword.trim() == "") {
+        data.errors["Password"] = ["Enter your password!"];
     }
 
     if (userData.password !== userData.confirmPassword) {

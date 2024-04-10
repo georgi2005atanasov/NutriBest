@@ -41,7 +41,7 @@ export default function LoginPage() {
                                 data && Object.keys(data.errors).includes("UserName") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["UserName"][0].replace("UserName", "username")}
+                                    text={data.errors["UserName"][0].replace("UserName", "Username")}
                                 />}
                             id="username"
                             type="text"
@@ -55,7 +55,7 @@ export default function LoginPage() {
                             error={data && Object.keys(data.errors).includes("Password") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["Password"][0].replace("Password", "password")}
+                                    text={data.errors["Password"][0]}
                                 />}
                             id="password"
                             type="password"
@@ -90,7 +90,14 @@ export default function LoginPage() {
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     try {
+        
         const userData = await getFormData(request);
+        const validation = checkUserData(userData);
+
+        if (Object.keys(validation.errors).length > 0) {
+            return validation;
+        }
+
         const response = await login(userData);
 
         if (response && response.errors) {
@@ -115,4 +122,20 @@ export async function action({ request, params }) {
     } catch (error) {
         return redirect("/error");
     }
+}
+
+function checkUserData(userData) {
+    let data = {
+        errors: {}
+    };
+
+    if (userData.username.trim() == "") {
+        data.errors["UserName"] = ["UserName is required!"];
+    }
+
+    if (userData.password.trim() == "") {
+        data.errors["Password"] = ["Password is required!"];
+    }
+
+    return data;
 }

@@ -9,7 +9,7 @@ export default function HomePage() {
     if (message) {
         setTimeout(() => {
             setSearchParams({});
-        }, 2000);
+        }, 3000);
 
         return <>
             <Message message={message} />

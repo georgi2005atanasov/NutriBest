@@ -21,7 +21,7 @@ export default function AddProductPage() {
     const isSubmitting = navigation.state === "submitting";
 
     return <CategoryContextProvider>
-        <Header text="Welcome back to NutriBest!" styles={styles["add-product-header"]} />
+        <Header text="Add New Product" styles={styles["add-product-header"]} />
         {isSubmitting && <Loader />}
         <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
             <div className="container">
@@ -102,6 +102,7 @@ export default function AddProductPage() {
     </CategoryContextProvider>
 }
 
+// eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     const productModel = await getFormData(request)
     productModel.categories = getProductCategories(productModel);
@@ -109,7 +110,7 @@ export async function action({ request, params }) {
 
     const checkProduct = getProductErrors(productModel);
 
-    if (checkProduct.errors.length != 0) {
+    if (Object.keys(checkProduct.errors).length != 0) {
         return checkProduct;
     }
 
@@ -117,14 +118,19 @@ export async function action({ request, params }) {
 
     try {
         const response = await addProduct(formData);
+
+        if (response.status == 400) {
+            let res = await response.text();
+            res = JSON.parse(res);
+            const key = res.key;
+            const message = res.message;
+            return json({ errors: { [key]: [message] } })
+        }
+
         const { errors } = await response.json();
 
         if (errors) {
             return { errors };
-        }
-
-        if (response.ok == false) {
-            return await response.json();
         }
 
         return redirect("/?message=Product added successfully!");
@@ -134,7 +140,6 @@ export async function action({ request, params }) {
     }
 }
 
-//can be optimized
 function getProductCategories(productModel) {
     const categories = [];
 
@@ -183,7 +188,7 @@ function getProductErrors(productModel) {
         data.errors["Name"] = ["Name is required!"];
     }
 
-    if (productModel.image && productModel.image.name == "") {
+    if (productModel.image || productModel.image.name == "") {
         data.errors["Image"] = ["Image is required!"];
     }
 

@@ -1,0 +1,12 @@
+.sidebar {
+    width: 250px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.visible {
+    transform: translateX(0);
+}
+
+.sidebar.d-none {
+    transform: translateX(-100%);
+}

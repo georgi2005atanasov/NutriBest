@@ -21,19 +21,11 @@ export async function addProduct(productModel) {
 }
 
 export async function allProducts(page) {
-    const token = getAuthToken();
-
     let query = `?page=${page}`;
 
-    if (token != "EXPIRED" && token != 0) {
+    const response = await fetch(`https://localhost:7056/products${query}`, {
+        method: "GET"
+    });
 
-        const response = await fetch(`https://localhost:7056/products${query}`, {
-            method: "GET"
-        });
-
-        return response;
-    }
-    else {
-        throw Error("Token expired!")
-    }
+    return response;
 }

@@ -1,4 +1,20 @@
 .product-image {
+    min-width: 180px;
+    min-height: 180px;
     margin: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-list-link {
+    text-decoration: none;
+    color: #1a1817;
+}
+
+.product-list {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
 }

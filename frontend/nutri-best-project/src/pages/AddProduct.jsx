@@ -160,7 +160,6 @@ function getProductForm(productModel) {
     formData.append("categories", productModel.categories);
 
     if (productModel.image) {
-        // formData.append("image", productModel.image);
         formData.append("image", productModel.image, productModel.image.name);
     }
 
@@ -188,7 +187,7 @@ function getProductErrors(productModel) {
         data.errors["Name"] = ["Name is required!"];
     }
 
-    if (productModel.image || productModel.image.name == "") {
+    if (productModel.image && productModel.image.name == "") {
         data.errors["Image"] = ["Image is required!"];
     }
 

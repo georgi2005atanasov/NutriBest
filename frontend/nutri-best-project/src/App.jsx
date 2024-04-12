@@ -7,6 +7,7 @@ import { action as logoutAction } from './pages/auth/Logout';
 import HomePage from './pages/Home';
 import AddProductPage, { action as addProductAction } from './pages/AddProduct';
 import AllProducts, { loader as getAllProducts } from './pages/AllProducts';
+import ProductsLayout from './pages/Products';
 import ErrorPage from './pages/Error';
 
 const router = createBrowserRouter([
@@ -19,8 +20,12 @@ const router = createBrowserRouter([
       { path: 'register', element: <RegisterPage />, action: registerAction },
       { path: 'logout', action: logoutAction },
       { path: 'home', element: <HomePage /> },
-      { path: 'add-product', element: <AddProductPage />, action: addProductAction },
-      { path: 'all', element: <AllProducts />, loader: getAllProducts },
+      {
+        path: 'products', element: <ProductsLayout />, children: [
+          { path: 'add-product', element: <AddProductPage />, action: addProductAction },
+          { path: 'all', element: <AllProducts />, loader: getAllProducts },
+        ]
+      },
       { path: 'error', element: <ErrorPage /> }
     ],
     id: "rootLoader",

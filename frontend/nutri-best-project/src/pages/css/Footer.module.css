@@ -1,62 +1,63 @@
 .footer {
-    margin-top: 100px;
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #bdb5b5;
+  color: #333;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  /* Adjust the max-width as per your design */
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-nav,
+.footer-social {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.footer-nav a,
+.footer-social a {
+  padding: 0 10px;
+  text-decoration: none;
+  color: #333;
+  /* Add more styles for links */
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Media query for responsive behavior */
+@media (max-width: 768px) {
+
+  .footer-section,
+  .footer-nav {
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    background-color: #bdb5b5;
-    color: #333;
-  }
-  
-  .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px; /* Adjust the max-width as per your design */
-  }
-  
-  .footer-section {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  .footer-nav,
-  .footer-social {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-nav a,
-  .footer-social a {
-    padding: 0 10px;
-    text-decoration: none;
-    color: #333;
-    /* Add more styles for links */
-  }
-  
-  .footer-bottom {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  /* Media query for responsive behavior */
-  @media (max-width: 768px) {
-    .footer-section,
-    .footer-nav {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .footer-section {
-      margin-bottom: 20px;
-    }
   }
 
+  .footer-section {
+    margin-bottom: 20px;
+  }
+}
+
 .footer-social img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }

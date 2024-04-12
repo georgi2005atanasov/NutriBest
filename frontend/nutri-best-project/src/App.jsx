@@ -5,9 +5,9 @@ import LoginPage, { action as loginAction } from './pages/auth/Login';
 import RegisterPage, { action as registerAction } from './pages/auth/Register';
 import { action as logoutAction } from './pages/auth/Logout';
 import HomePage from './pages/Home';
-import AddProductPage, { action as addProductAction } from './pages/AddProduct';
-import AllProducts, { loader as getAllProducts } from './pages/AllProducts';
-import ProductsLayout from './pages/Products';
+import AddProductPage, { action as addProductAction } from './pages/products/AddProduct';
+import AllProducts, { loader as getAllProducts } from './pages/products/AllProducts';
+import ProductsLayout from './pages/products/Products';
 import ErrorPage from './pages/Error';
 
 const router = createBrowserRouter([
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       {
         path: 'products', element: <ProductsLayout />, children: [
-          { path: 'add-product', element: <AddProductPage />, action: addProductAction },
+          { path: 'add', element: <AddProductPage />, action: addProductAction },
           { path: 'all', element: <AllProducts />, loader: getAllProducts },
         ]
       },

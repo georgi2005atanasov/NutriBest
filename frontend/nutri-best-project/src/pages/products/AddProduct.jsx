@@ -1,17 +1,17 @@
-import styles from "./css/AddProduct.module.css";
-import FormInput from "../components/UI/Form/FormInput";
-import FormButton from "../components/UI/Form/FormButton";
-import FormTextArea from "../components/UI/Form/FormTextArea";
-import MultiSelectCategory from "../components/UI/Form/MultiSelectCategory";
-import Header from "../components/UI/Header";
-import InputError from "../components/UI/InputError";
-import ImageField from "../components/UI/ImageField";
-import Loader from "../components/UI/Loader";
-import { getFormData } from "../utils/utils";
-import { addProduct } from "../../../../backend/api/api";
+import styles from "../css/AddProduct.module.css";
+import FormInput from "../../components/UI/Form/FormInput";
+import FormButton from "../../components/UI/Form/FormButton";
+import FormTextArea from "../../components/UI/Form/FormTextArea";
+import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
+import Header from "../../components/UI/Header";
+import InputError from "../../components/UI/InputError";
+import ImageField from "../../components/UI/ImageField";
+import Loader from "../../components/UI/Loader";
+import { getFormData } from "../../utils/utils";
+import { addProduct } from "../../../../../backend/api/api";
 import { Form, useActionData, useNavigation, json, redirect } from "react-router-dom";
-import CategoryContextProvider from "../store/CategoryContext";
-import { CATEGORIES } from "../store/CategoryContext";
+import CategoryContextProvider from "../../store/CategoryContext";
+import { CATEGORIES } from "../../store/CategoryContext";
 
 export default function AddProductPage() {
     const data = useActionData();
@@ -133,7 +133,7 @@ export async function action({ request, params }) {
             return { errors };
         }
 
-        return redirect("/?message=Product added successfully!");
+        return redirect("/?message=Product added successfully!&type=success");
     } catch (error) {
         console.log(error);
         return json({ errors: { "message": ["An Error occured!"] } });

@@ -9,7 +9,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                 <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
                     {/* gotta add more tools buttons for admin soon */}
                     {isAdmin ? <NavigationLink
-                        route={"/add-product"}
+                        route={"/products/add"}
                         text={"Add Product"}
                         className="text-center" /> :
                         undefined}

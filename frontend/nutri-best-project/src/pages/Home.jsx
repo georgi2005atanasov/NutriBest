@@ -5,14 +5,15 @@ export default function HomePage() {
     let [searchParams, setSearchParams] = useSearchParams();
 
     const message = searchParams.get('message');
+    const messageType = searchParams.get('type');
 
     if (message) {
         setTimeout(() => {
             setSearchParams({});
-        }, 3000);
+        }, 4000);
 
         return <>
-            <Message message={message} />
+            <Message message={message} messageType={messageType} />
             <div>This is random home page</div>
         </>
     }

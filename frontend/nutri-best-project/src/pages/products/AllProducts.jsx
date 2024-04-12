@@ -5,6 +5,7 @@ import ProductList from "./ProductList";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/SideBar";
 import SideBarToggler from "../../components/UI/SideBarToggler";
+import CategoryContextProvider from "../../store/CategoryContext";
 
 const PRODUCTS_PER_PAGE = 6;
 const PRODUCTS_PER_ROW = 3;
@@ -26,37 +27,40 @@ export default function AllProducts() {
         setPage(page);
     }, [page, totalPages, productsRows]);
 
-    return <div className="all-products d-flex justify-content-end">
-        <div className="container">
-            <div className="row d-flex flex-md-column justify-content-center">
-                <div className="row d-flex justify-content-center align-items-start">
-                    <div className="col-md-3 d-flex">
-                        <SideBarToggler toggleSidebar={toggleSidebar} />
-                        <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
-                    </div>
+    return <CategoryContextProvider>
+        <div className="all-products d-flex justify-content-end">
+            <div className="container">
+                <div className="row d-flex flex-md-column justify-content-center">
+                    <div className="row d-flex justify-content-center align-items-start">
+                        <div className="col-md-3 d-flex flex-column">
+                            <SideBarToggler toggleSidebar={toggleSidebar} />
+                            <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+                        </div>
 
-                    <div className="col-md-9">
-                        {productsRows && productsRows.length != 0 && productsRows.map(row => {
-                            return <div key={row[0].name} className="row d-flex justify-content-between mb-4">
-                                {row.map(p => {
-                                    const src = `data:${p.productImage.contentType};base64,${p.productImage.imageData}`;
-                                    return <div className="col-md-3 col-lg-4" key={p.name}>
-                                        <ProductList product={p} src={src} />
-                                    </div>;
-                                })}
-                            </div>
-                        })}
+                        <div className="col-md-9">
+                            {productsRows && productsRows.length != 0 && productsRows.map(row => {
+                                return <div key={row[0].name} className="row d-flex justify-content-between mb-4">
+                                    {row.map(p => {
+                                        const src = `data:${p.productImage.contentType};base64,${p.productImage.imageData}`;
+                                        return <div className="col-md-3 col-lg-4" key={p.name}>
+                                            <ProductList product={p} src={src} />
+                                        </div>;
+                                    })}
+                                </div>
+                            })}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="row">
-                <Pagination
-                    totalPages={totalPages ? totalPages : 0}
-                    page={currentPage} />
+                <div className="row">
+                    <Pagination
+                        totalPages={totalPages ? totalPages : 0}
+                        page={currentPage} />
+                </div>
             </div>
         </div>
-    </div>
+    </CategoryContextProvider>
+
 }
 
 // eslint-disable-next-line no-unused-vars

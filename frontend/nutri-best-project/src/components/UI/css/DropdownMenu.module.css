@@ -1,5 +1,7 @@
 .dropdown {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .dropdown-button {

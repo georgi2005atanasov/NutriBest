@@ -35,7 +35,7 @@ export async function allProducts(page) {
 }
 
 export async function getProductsByCategories() {
-    const response = await fetch(`https://localhost:7056/products/by-category`, {
+    const response = await fetch(`https://localhost:7056/products/by-category-count`, {
         method: "GET"
     });
 

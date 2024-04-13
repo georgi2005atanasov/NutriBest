@@ -32,7 +32,7 @@ export default function AllProducts() {
     return <div className="all-products d-flex justify-content-end">
         <div className="container">
             <div className="row d-flex flex-md-column justify-content-center">
-                <div className="row d-flex justify-content-between align-items-start">
+                <div className="p-0 row d-flex justify-content-between align-items-start">
                     <div className={`${styles["filter"]} col-md-3 d-flex flex-column mb-3`}>
                         <SideBarToggler toggleSidebar={toggleSidebar} />
                         <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />

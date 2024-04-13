@@ -1,5 +1,3 @@
-import styles from "./css/DropdownMenu.module.css";
-
 // eslint-disable-next-line react/prop-types
 export default function SideBarToggler({ toggleSidebar }) {
     return <div className="toggler">

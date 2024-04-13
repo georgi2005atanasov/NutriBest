@@ -8,11 +8,21 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
             <div className="row d-flex justify-content-end">
                 <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
                     {/* gotta add more tools buttons for admin soon */}
-                    {isAdmin ? <NavigationLink
-                        route={"/products/add"}
-                        text={"Add Product"}
-                        className="text-center" /> :
+                    {isAdmin ? <>
+                        <NavigationLink
+                            route={"/products/all?page=1"}
+                            text={"All"}
+                            className="text-center" />
+
+                        <div className="mx-1"></div>
+
+                        <NavigationLink
+                            route={"/products/add"}
+                            text={"Add Product"}
+                            className="text-center" />
+                    </> :
                         undefined}
+
                     <div className="mx-1"></div>
 
                     <NavigationLink
@@ -23,7 +33,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
 
                     <NavigationLink
                         text={"Logout"}
-                        onClick={handleLogout} 
+                        onClick={handleLogout}
                         className="text-center border-0" />
 
                     <div className={`${styles["nav-link"]} p-2 mx-1`}>

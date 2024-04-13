@@ -1,4 +1,3 @@
-import './App.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout, { loader as tokenLoader } from './pages/Root';
 import LoginPage, { action as loginAction } from './pages/auth/Login';

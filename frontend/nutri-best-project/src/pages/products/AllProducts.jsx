@@ -39,7 +39,11 @@ export default function AllProducts() {
                     </div>
 
                     <div className="col-md-9">
-                        <Suspense fallback={<Loader />}>
+                        <Suspense fallback={
+                            <div className="d-flex justify-content-center align-items-center">
+                                <Loader />
+                                <div className={styles["big-margin"]}></div>
+                            </div>}>
                             <Await resolve={productsRows}>
                                 {productsRows =>
                                     <ProductsList productsRows={productsRows} />}

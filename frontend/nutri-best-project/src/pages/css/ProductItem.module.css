@@ -6,12 +6,12 @@
     object-fit: cover;
 }
 
-.product-list-link {
+.product-item-link {
     text-decoration: none;
     color: #1a1817;
 }
 
-.product-list {
+.product-item {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;

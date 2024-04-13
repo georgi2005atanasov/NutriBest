@@ -2,7 +2,7 @@ import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
 import { getAuthToken } from "../utils/auth";
 import { useEffect } from "react";
-import FooterPage from "./Footer";
+import Footer from "./Footer";
 
 
 export default function RootLayout() {
@@ -28,7 +28,7 @@ export default function RootLayout() {
     return <>
         <MainNavigation />
         <Outlet context={token} />
-        <FooterPage />
+        <Footer />
     </>
 }
 

@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import styles from "../css/ProductList.module.css";
 
-export default function ProductList({ product, src }) {
+export default function ProductItem({ product, src }) {
     //has to deal with the link, whether to be query or route
     return <section className={styles["product-list"]}>
         <Link className={`${styles["product-list-link"]}`} to="/products/details/">

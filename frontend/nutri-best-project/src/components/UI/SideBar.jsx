@@ -8,14 +8,12 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         <div className="content">
             <div className="choose-category d-flex flex-column">
                 <DropdownMenu text={"Category"}>
-                    <h5 className="ms-4">Category:</h5>
+                    <h5 className="ms-3 mt-3">Choose:</h5>
                     <MultiSelectCategory />
-                    {/* add other filters */}
                 </DropdownMenu>
                 
                 <DropdownMenu text={"Price"}>
                     <MultiSelectCategory />
-                    {/* add other filters */}
                 </DropdownMenu>
                 
             </div>

@@ -1,9 +1,10 @@
+import { memo } from "react";
 import styles from "./MainNavigation.module.css";
 import NavButtons from "./NavButtons";
 import NavLogo from "./NavLogo";
 import NavToggler from "./NavToggler";
 
-export default function MainNavigation() {
+const MainNavigation = memo(function MainNavigation() {
     return <div className={`container ${styles["main-navigation"]}`}>
         <div className="row d-flex justify-content-between align-items-start">
             <NavLogo styles={styles} />
@@ -11,4 +12,6 @@ export default function MainNavigation() {
             <NavButtons styles={styles} />
         </div>
     </div>;
-}
+});
+
+export default MainNavigation;

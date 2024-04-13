@@ -2,8 +2,9 @@ import instaLogo from "../assets/instagram-icon.png";
 import facebookLogo from "../assets/facebook-icon.png";
 import { Link } from "react-router-dom";
 import styles from "./css/Footer.module.css"
+import { memo } from "react";
 
-export default function FooterPage() {
+const Footer = memo(function Footer() {
     return (
         <footer className={styles["footer"]}>
             <div className={styles["footer-content"]}>
@@ -28,4 +29,6 @@ export default function FooterPage() {
             </div>
         </footer>
     );
-}
+});
+
+export default Footer;

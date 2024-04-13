@@ -5,16 +5,19 @@
 }
 
 .dropdown-button {
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
     background-color: #333;
     color: #fff;
     padding: 10px;
     margin: 0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .dropdown-button:hover {
     background-color: #555;
+    transform: scale(1.05);
 }
 
 .dropdown-button:active {
@@ -27,6 +30,7 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    border-radius: 5px;
 }
 
 .dropdown-option {

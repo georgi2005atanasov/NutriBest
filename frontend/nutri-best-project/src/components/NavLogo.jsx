@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import logo from "../assets/another-nutri-best-logo.png";
 
 export default function NavLogo({ styles }) {
-    return <div className="col-2 d-flex">
+    return <div className="col-2 d-flex my-md-2">
         <div className="container">
             <div className="row d-flex justify-content-around align-items-center">
                 <div className="col-3 d-flex justify-content-center align-items-center">

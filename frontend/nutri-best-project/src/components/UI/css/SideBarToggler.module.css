@@ -1,0 +1,25 @@
+.sidebar-toggler {
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+    .sidebar-toggler {
+        display: none;
+    }
+}
+
+.sidebar-toggler:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+.sidebar-toggler:active {
+    background-color: #777;
+    color: #ddd;
+}

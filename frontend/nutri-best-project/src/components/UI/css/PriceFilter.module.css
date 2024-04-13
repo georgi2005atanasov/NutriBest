@@ -1,5 +1,6 @@
 .price-filter {
     transition: transform 0.3s ease-in-out;
+    color: #333;
 }
 
 .price-filter:hover {

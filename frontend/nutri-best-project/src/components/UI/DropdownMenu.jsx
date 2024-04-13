@@ -10,7 +10,7 @@ export default function DropdownMenu({ children, text }) {
     }
 
     return <div className={styles["dropdown"]}>
-        <button onClick={toggleMenu} className={`${styles["dropdown-button"]}`}>
+        <button type={"button"} onClick={toggleMenu} className={`${styles["dropdown-button"]}`}>
             {text}
         </button>
         {showMenu && (<>

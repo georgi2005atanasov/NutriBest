@@ -1,7 +1,6 @@
 import { Suspense, useEffect, useState } from "react";
 import { allProducts } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await } from "react-router-dom";
-import ProductItem from "./ProductItem";
+import { useLoaderData, redirect, defer, Await, json } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/SideBar";
 import SideBarToggler from "../../components/UI/SideBarToggler";
@@ -61,15 +60,19 @@ export default function AllProducts() {
 }
 
 async function loadProductsData(query) {
-    let products = await allProducts(Number(query) - 1);
-
-    if (!products.ok) {
-        return redirect("/?message=Invalid Page!&type=danger");
+    try {
+        let products = await allProducts(Number(query) - 1);
+    
+        if (!products.ok) {
+            return redirect("/?message=Invalid Page!&type=danger");
+        }
+    
+        let productsRows = await products.json();
+    
+        return productsRows;
+    } catch (error) {
+        return json("Internal Server Error");
     }
-
-    let productsRows = await products.json();
-
-    return productsRows;
 }
 
 // eslint-disable-next-line no-unused-vars

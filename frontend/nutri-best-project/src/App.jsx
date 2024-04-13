@@ -9,6 +9,7 @@ import AllProducts, { loader as getAllProducts } from './pages/products/AllProdu
 import ProductsLayout from './pages/products/Products';
 import ErrorPage from './pages/Error';
 import MultiSelectCategory, { loader as getCategoriesCount } from './components/UI/Form/MultiSelectCategory';
+import SideBar from './components/UI/SideBar';
 
 const router = createBrowserRouter([
   {
@@ -22,12 +23,15 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       {
         path: 'products', element: <ProductsLayout />, children: [
-          { path: 'add', element: <AddProductPage />, action: addProductAction},
+          { path: 'add', element: <AddProductPage />, action: addProductAction },
           {
-            path: 'all', element: <AllProducts />, loader: getAllProducts, children: [
+            path: "all", element: <AllProducts />, loader: getAllProducts, children: [
               {
                 index: true, element: <MultiSelectCategory />,
                 loader: getCategoriesCount, id: "categoriesCount"
+              },
+              {
+                index: true, element: <SideBar />
               }
             ]
           },

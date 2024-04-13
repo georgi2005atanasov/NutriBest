@@ -8,6 +8,7 @@ import AddProductPage, { action as addProductAction } from './pages/products/Add
 import AllProducts, { loader as getAllProducts } from './pages/products/AllProducts';
 import ProductsLayout from './pages/products/Products';
 import ErrorPage from './pages/Error';
+import MultiSelectCategory, { loader as getCategoriesCount } from './components/UI/Form/MultiSelectCategory';
 
 const router = createBrowserRouter([
   {
@@ -21,8 +22,15 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       {
         path: 'products', element: <ProductsLayout />, children: [
-          { path: 'add', element: <AddProductPage />, action: addProductAction },
-          { path: 'all', element: <AllProducts />, loader: getAllProducts },
+          { path: 'add', element: <AddProductPage />, action: addProductAction},
+          {
+            path: 'all', element: <AllProducts />, loader: getAllProducts, children: [
+              {
+                index: true, element: <MultiSelectCategory />,
+                loader: getCategoriesCount, id: "categoriesCount"
+              }
+            ]
+          },
         ]
       },
       { path: 'error', element: <ErrorPage /> }

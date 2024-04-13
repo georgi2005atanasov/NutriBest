@@ -13,7 +13,11 @@ export async function addProduct(productModel) {
             }
         });
 
-        return response;
+        if (!response.ok) {
+            return await response.text();
+        }
+
+        return await response.json();
     }
     else {
         throw Error("Token expired!")
@@ -28,4 +32,12 @@ export async function allProducts(page) {
     });
 
     return response;
+}
+
+export async function getProductsByCategories() {
+    const response = await fetch(`https://localhost:7056/products/by-category`, {
+        method: "GET"
+    });
+
+    return await response.json();
 }

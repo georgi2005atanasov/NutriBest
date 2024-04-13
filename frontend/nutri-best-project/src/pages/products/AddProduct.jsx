@@ -65,7 +65,7 @@ export default function AddProductPage() {
                                     text={data.errors["Price"][0]}
                                 />}
                             id="price"
-                            type="number"
+                            type="text"
                             name="price"
                             placeholder="100 BGN"
                         />
@@ -95,6 +95,8 @@ export default function AddProductPage() {
                             wrapperStyles={styles["add-product-input"]}
                             disabled={isSubmitting}
                         />
+
+                        <div className="mb-4"></div>
                     </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@ export default function AddProductPage() {
 export async function action({ request, params }) {
     const productModel = await getFormData(request)
     productModel.categories = getProductCategories(productModel);
-    productModel.price = Number(productModel.price)
+    productModel.price = parseFloat(productModel.price)
 
     const checkProduct = getProductErrors(productModel);
 
@@ -119,20 +121,16 @@ export async function action({ request, params }) {
     try {
         const response = await addProduct(formData);
 
-        if (response.status == 400) {
-            let res = await response.text();
-            res = JSON.parse(res);
+        let data = {errors: {}};
+
+        if (Number.isNaN(String(response))) {
+            let res = JSON.parse(response);
             const key = res.key;
             const message = res.message;
-            return json({ errors: { [key]: [message] } })
+            data.errors[key] = [message];
+            return data;
         }
-
-        const { errors } = await response.json();
-
-        if (errors) {
-            return { errors };
-        }
-
+        
         return redirect("/?message=Product added successfully!&type=success");
     } catch (error) {
         console.log(error);

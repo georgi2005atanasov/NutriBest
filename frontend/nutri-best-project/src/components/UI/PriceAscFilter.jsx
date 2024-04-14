@@ -4,6 +4,9 @@ import styles from "./css/PriceFilter.module.css";
 export default function PriceAscFilter() {
 
     function handlePriceAsc() {
+        document.getElementById("price-desc").style.backgroundColor = null;
+        document.getElementById("price-none").style.backgroundColor = null;
+        document.getElementById("price-asc").style.backgroundColor = "#f5f3e8";
         localStorage.setItem("price", "asc");
     }
 

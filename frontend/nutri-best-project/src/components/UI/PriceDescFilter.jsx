@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function PriceDescFilter() {
     function handlePriceDesc() {
+        document.getElementById("price-asc").style.backgroundColor = null;
+        document.getElementById("price-none").style.backgroundColor = null;
+        document.getElementById("price-desc").style.backgroundColor = "#f5f3e8";
         localStorage.setItem("price", "desc");
     }
 

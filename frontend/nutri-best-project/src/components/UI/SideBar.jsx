@@ -6,12 +6,15 @@ import styles from "./css/SideBar.module.css";
 import { useContext, useEffect } from "react";
 import { useSubmit } from "react-router-dom";
 import { CategoryContext } from "../../store/CategoryContext";
+import ClearFiltersButton from "./ClearFiltersButton";
+import PriceNoneFilter from "./PriceNoneFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories } = useContext(CategoryContext);
     const price = localStorage.getItem("price");
     const page = localStorage.getItem("page");
+    const localStorageCategories = localStorage.getItem("categories");
     console.log(price);
     const submit = useSubmit();
 
@@ -19,7 +22,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         let query = `?page=${page}`;
 
         if (selectedCategories && selectedCategories.length != 0) {
-            localStorage.setItem("categories", selectedCategories.join("+"));
+            localStorage.setItem("categories", localStorageCategories);
         }
 
         if (price && price != "") {
@@ -34,7 +37,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         }
 
         submit(query);
-    }, [selectedCategories, submit, price, page]);
+    }, [selectedCategories, submit, price, page, localStorageCategories]);
 
     return <>
         <div className={`${styles["filter-header"]} d-flex justify-content-between align-items-center`}>
@@ -45,18 +48,26 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                 <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
                     <DropdownMenu text={"Category"}>
                         <h5 className="ms-3 mt-3">Choose:</h5>
-                        <MultiSelectCategory />
+                        <MultiSelectCategory isFilter={true} />
                     </DropdownMenu>
 
                     <div className="mb-1"></div>
 
                     <DropdownMenu text={"Price"}>
-                        <PriceAscFilter />
+                        <div id="price-none">
+                            <PriceNoneFilter />
+                        </div>
                         <hr className="m-0" />
-                        <PriceDescFilter />
+                        <div id="price-asc">
+                            <PriceAscFilter />
+                        </div>
+                        <hr className="m-0" />
+                        <div id="price-desc">
+                            <PriceDescFilter />
+                        </div>
                     </DropdownMenu>
 
-                    {/* <button type="submit" className="p-2 border-0 rounded-1 mt-1">Apply Filters</button> */}
+                    <ClearFiltersButton />
                 </div>
 
             </div>

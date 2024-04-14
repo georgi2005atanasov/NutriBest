@@ -6,16 +6,22 @@ import InputError from '../InputError';
 import { getProductsByCategories } from '../../../../../../backend/api/api';
 import { useRouteLoaderData } from 'react-router-dom';
 
-export default function MultiSelectCategory({ data, errorStyle }) {
+export default function MultiSelectCategory({ data, errorStyle, isFilter = false }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
+    const localStorageCategories = localStorage.getItem("categories");
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
 
-        setSelectedCategories(prev =>
-            checked ? [...prev, value] : prev.filter(cat => cat !== value)
-        );
+
+        setSelectedCategories(prev => {
+            const newValue = checked ? [...prev, value] : prev.filter(cat => cat !== value);
+            if (isFilter) {
+                localStorage.setItem("categories", newValue.join("+"))
+            }
+            return newValue;
+        });
     };
 
     return <div className={`${styles["category-container"]} pt-2 pb-0`}>
@@ -27,7 +33,9 @@ export default function MultiSelectCategory({ data, errorStyle }) {
                     id={category.name}
                     value={category.value}
                     onChange={handleCheckboxChange}
-                    checked={selectedCategories.some(x => x == category.value)}
+                    checked={!isFilter ?
+                        selectedCategories.some(x => x == category.value) :
+                        localStorageCategories.split("+").some(x => x == category.value)}
                     className={styles["category-checkbox"]}
                 />
                 <label htmlFor={category.name} className={styles["category-label"]}>

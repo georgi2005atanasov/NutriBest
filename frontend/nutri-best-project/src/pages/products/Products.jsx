@@ -1,8 +1,7 @@
-import { Outlet } from "react-router-dom"
-import CategoryContextProvider from "../../store/CategoryContext"
+import { Outlet } from "react-router-dom";
 
 export default function ProductsLayout() {
-    return <CategoryContextProvider>
+    return <>
         <Outlet />
-    </CategoryContextProvider>
+    </>;
 }

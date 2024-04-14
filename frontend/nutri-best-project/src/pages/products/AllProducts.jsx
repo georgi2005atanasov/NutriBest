@@ -8,23 +8,20 @@ import styles from "../css/AllProducts.module.css";
 import Loader from "../../components/UI/Loader";
 import ProductsList from "./ProductsList";
 
-// const PRODUCTS_PER_PAGE = 6;
-// const PRODUCTS_PER_ROW = 3;
-
 export default function AllProducts() {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
 
-    const [currentPage, setPage] = useState(0);
+    // const [currentPage, setPage] = useState(0);
     const { page, productsRows } = useLoaderData();
 
-    useEffect(() => {
-        if (!page) {
-            return;
-        }
+    // // useEffect(() => {
+    // //     if (!page) {
+    // //         return;
+    // //     }
 
-        setPage(page);
-    }, [page, productsRows]);
+    // //     setPage(page);
+    // // }, [page, productsRows]);
 
     return <div className="all-products d-flex justify-content-end">
         <div className="container-fluid mx-3">
@@ -51,15 +48,15 @@ export default function AllProducts() {
             </div>
 
             <div className="row">
-                <Pagination page={currentPage} />
+                <Pagination page={page} />
             </div>
         </div>
     </div >;
 }
 
-async function loadProductsData(page, categories) {
+async function loadProductsData(page, categories, price) {
     try {
-        let products = await allProducts(Number(page) - 1, categories);
+        let products = await allProducts(Number(page) - 1, categories, price);
 
         if (!products.ok) {
             return redirect("/?message=Invalid Page!&type=danger");
@@ -69,25 +66,25 @@ async function loadProductsData(page, categories) {
 
         return productsRows;
     } catch (error) {
-        return json("Internal Server Error");
+        return redirect("/?message=Internal Server Error!&type=danger");
     }
 }
 
 // eslint-disable-next-line no-unused-vars
 export async function loader({ request, params }) {
-    const url = new URL(request.url);
+    const currentPage = localStorage.getItem("page");
+    const categories = localStorage.getItem("categories");
+    const price = localStorage.getItem("price");
 
-    const page = url.searchParams.get("page");
-    const categories = url.searchParams.get("categories");
-
-    if (isNaN(page)) {
-        return null;
+    //make good error handle
+    if (!currentPage || isNaN(currentPage)) {
+        throw json("Invalid page");
     }
 
-    const parsedPage = Number(page);
+    const page = Number(currentPage);
 
     return defer({
-        productsRows: loadProductsData(parsedPage, categories),
-        parsedPage
+        productsRows: loadProductsData(page, categories, price),
+        page
     });
 }

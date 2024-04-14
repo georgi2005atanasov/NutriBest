@@ -13,13 +13,6 @@ export default function MultiSelectCategory({ data, errorStyle }) {
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
 
-        // let searchParams = new URLSearchParams();
-        // searchParams.append("page", "1");
-
-        // if (selectedCategories.length != 0) {
-        //     searchParams.append("categories", selectedCategories.join("+"));
-        // }
-
         setSelectedCategories(prev =>
             checked ? [...prev, value] : prev.filter(cat => cat !== value)
         );

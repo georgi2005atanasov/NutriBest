@@ -1,19 +1,32 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import NavigationLink from "./NavigationLink";
+import { useContext } from "react";
+import { CategoryContext } from "../../store/CategoryContext";
 
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
+    const { selectedCategories } = useContext(CategoryContext);
+    // let route = `/products/all?page=${page}`;
+
+    // if (price) {
+    //     route += `&price=${price}`;
+    // }
+
+    // if (selectedCategories.length > 0) {
+    //     route += `&categories=${selectedCategories.join("+")}`;
+    // }
+
+
     return <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
         <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
             <div className="row d-flex justify-content-end">
                 <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
                     {/* gotta add more tools buttons for admin soon */}
+                    <NavigationLink
+                        route={`/products/all?page=1`}
+                        text={"All"}
+                        className="text-center" />
                     {isAdmin ? <>
-                        <NavigationLink
-                            route={"/products/all?page=1"}
-                            text={"All"}
-                            className="text-center" />
-
                         <div className="mx-1"></div>
 
                         <NavigationLink

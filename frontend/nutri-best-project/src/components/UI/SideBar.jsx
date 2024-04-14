@@ -4,24 +4,37 @@ import PriceAscFilter from "./PriceAscFilter";
 import PriceDescFilter from "./PriceDescFilter";
 import styles from "./css/SideBar.module.css";
 import { useContext, useEffect } from "react";
-import { CategoryContext } from "../../store/CategoryContext";
 import { useSubmit } from "react-router-dom";
+import { CategoryContext } from "../../store/CategoryContext";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories } = useContext(CategoryContext);
+    const price = localStorage.getItem("price");
+    const page = localStorage.getItem("page");
+    console.log(price);
     const submit = useSubmit();
 
     useEffect(() => {
-        let searchParams = new URLSearchParams();
-        searchParams.append("page", "1");
+        let query = `?page=${page}`;
 
-        if (selectedCategories.length != 0) {
-            searchParams.append("categories", selectedCategories.join("+"));
+        if (selectedCategories && selectedCategories.length != 0) {
+            localStorage.setItem("categories", selectedCategories.join("+"));
         }
-        
-        submit(searchParams);
-    }, [selectedCategories, submit]);
+
+        if (price && price != "") {
+            localStorage.setItem("price", price);
+        }
+
+        if (localStorage.getItem("categories") != "") {
+            query += `&categories=${localStorage.getItem("categories")}`;
+        }
+        if (price != "") {
+            query += `&price=${price}`;
+        }
+
+        submit(query);
+    }, [selectedCategories, submit, price, page]);
 
     return <>
         <div className={`${styles["filter-header"]} d-flex justify-content-between align-items-center`}>

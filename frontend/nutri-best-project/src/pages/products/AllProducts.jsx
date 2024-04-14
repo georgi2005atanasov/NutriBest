@@ -57,16 +57,16 @@ export default function AllProducts() {
     </div >;
 }
 
-async function loadProductsData(query) {
+async function loadProductsData(page, categories) {
     try {
-        let products = await allProducts(Number(query) - 1);
-    
+        let products = await allProducts(Number(page) - 1, categories);
+
         if (!products.ok) {
             return redirect("/?message=Invalid Page!&type=danger");
         }
-    
+
         let productsRows = await products.json();
-    
+
         return productsRows;
     } catch (error) {
         return json("Internal Server Error");
@@ -77,16 +77,17 @@ async function loadProductsData(query) {
 export async function loader({ request, params }) {
     const url = new URL(request.url);
 
-    const query = url.searchParams.get("page");
+    const page = url.searchParams.get("page");
+    const categories = url.searchParams.get("categories");
 
-    if (isNaN(query)) {
+    if (isNaN(page)) {
         return null;
     }
 
-    const page = Number(query) - 1;
+    const parsedPage = Number(page);
 
     return defer({
-        productsRows: loadProductsData(query),
-        page
+        productsRows: loadProductsData(parsedPage, categories),
+        parsedPage
     });
 }

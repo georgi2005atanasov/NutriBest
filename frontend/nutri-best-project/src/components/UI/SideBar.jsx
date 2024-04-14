@@ -5,16 +5,23 @@ import PriceDescFilter from "./PriceDescFilter";
 import styles from "./css/SideBar.module.css";
 import { useContext, useEffect } from "react";
 import { CategoryContext } from "../../store/CategoryContext";
+import { useSubmit } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
-    const {selectedCategories} = useContext(CategoryContext);
+    const { selectedCategories } = useContext(CategoryContext);
+    const submit = useSubmit();
 
-    
-    // fetch certain products whilst creating a query string
     useEffect(() => {
-        const 
-    }, [selectedCategories]);
+        let searchParams = new URLSearchParams();
+        searchParams.append("page", "1");
+
+        if (selectedCategories.length != 0) {
+            searchParams.append("categories", selectedCategories.join("+"));
+        }
+        
+        submit(searchParams);
+    }, [selectedCategories, submit]);
 
     return <>
         <div className={`${styles["filter-header"]} d-flex justify-content-between align-items-center`}>
@@ -22,22 +29,22 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         </div>
         <div className={`${styles["sidebar"]} d-flex flex-column ${isVisible ? styles['visible'] : 'd-none d-xl-flex'}`}>
             <div className="content">
-                    <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
-                        <DropdownMenu text={"Category"}>
-                            <h5 className="ms-3 mt-3">Choose:</h5>
-                            <MultiSelectCategory />
-                        </DropdownMenu>
+                <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
+                    <DropdownMenu text={"Category"}>
+                        <h5 className="ms-3 mt-3">Choose:</h5>
+                        <MultiSelectCategory />
+                    </DropdownMenu>
 
-                        <div className="mb-1"></div>
+                    <div className="mb-1"></div>
 
-                        <DropdownMenu text={"Price"}>
-                            <PriceAscFilter />
-                            <hr className="m-0" />
-                            <PriceDescFilter />
-                        </DropdownMenu>
+                    <DropdownMenu text={"Price"}>
+                        <PriceAscFilter />
+                        <hr className="m-0" />
+                        <PriceDescFilter />
+                    </DropdownMenu>
 
-                        {/* <button type="submit" className="p-2 border-0 rounded-1 mt-1">Apply Filters</button> */}
-                    </div>
+                    {/* <button type="submit" className="p-2 border-0 rounded-1 mt-1">Apply Filters</button> */}
+                </div>
 
             </div>
             <div className="mb-1"></div>

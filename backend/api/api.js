@@ -24,8 +24,11 @@ export async function addProduct(productModel) {
     }
 }
 
-export async function allProducts(page, filters = "") {
+export async function allProducts(page, categories = "", price = "") {
     let query = `?page=${page}`;
+    if (categories != "") {
+        query += `&categories=${categories}`
+    }
 
     const response = await fetch(`https://localhost:7056/products${query}`, {
         method: "GET"

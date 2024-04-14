@@ -5,7 +5,7 @@ import AddToCartButton from "../../components/UI/AddToCartButton";
 
 export default function ProductItem({ product, src }) {
     //has to deal with the link, whether to be query or route
-    return <section className={`${styles["product-item"]} ${styles["pop-effect"]}`}>
+    return <section className={`${styles["product-item"]} card p-3`}>
         <Link className={`${styles["product-item-link"]}`} to="/products/details/">
             <img className={styles["product-image"]} src={src} alt="Dynamic" />
             <h5 className="product-name text-center mt-2 mb-2">
@@ -15,7 +15,7 @@ export default function ProductItem({ product, src }) {
                 <span>{product.price.toFixed(2)} BGN</span>
             </h5>
         </Link>
-        
+
         <AddToCartButton />
     </section>
 }

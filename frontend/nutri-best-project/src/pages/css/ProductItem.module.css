@@ -12,6 +12,8 @@
 }
 
 .product-item {
+    min-width: 215.99px;
+    min-height: 331.99px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;

@@ -133,7 +133,6 @@ export async function action({ request, params }) {
         
         return redirect("/?message=Product added successfully!&type=success");
     } catch (error) {
-        console.log(error);
         return json({ errors: { "message": ["An Error occured!"] } });
     }
 }

@@ -24,7 +24,7 @@ export async function addProduct(productModel) {
     }
 }
 
-export async function allProducts(page) {
+export async function allProducts(page, filters = "") {
     let query = `?page=${page}`;
 
     const response = await fetch(`https://localhost:7056/products${query}`, {

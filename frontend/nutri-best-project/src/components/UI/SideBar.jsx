@@ -1,4 +1,3 @@
-import { useRouteLoaderData } from "react-router-dom";
 import DropdownMenu from "./DropdownMenu";
 import MultiSelectCategory from "./Form/MultiSelectCategory";
 import PriceAscFilter from "./PriceAscFilter";
@@ -11,9 +10,10 @@ import { CategoryContext } from "../../store/CategoryContext";
 export default function SideBar({ isVisible, toggleSidebar }) {
     const {selectedCategories} = useContext(CategoryContext);
 
+    
     // fetch certain products whilst creating a query string
     useEffect(() => {
-        console.log(123);
+        const 
     }, [selectedCategories]);
 
     return <>

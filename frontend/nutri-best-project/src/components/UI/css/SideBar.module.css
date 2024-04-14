@@ -60,3 +60,7 @@
 .clear-filters-btn:hover {
     transform: scale(1.1);
 }
+
+.selected-price-filter {
+    background-color: #f5f3e8;
+}

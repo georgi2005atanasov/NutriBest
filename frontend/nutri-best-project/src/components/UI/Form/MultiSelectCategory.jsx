@@ -14,7 +14,6 @@ export default function MultiSelectCategory({ data, errorStyle, isFilter = false
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
 
-
         setSelectedCategories(prev => {
             const newValue = checked ? [...prev, value] : prev.filter(cat => cat !== value);
             if (isFilter) {

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import NavigationLink from "./NavigationLink";
+import NavigationLink from "../Navigation/NavigationLink";
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
 
     return <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>

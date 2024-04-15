@@ -1,5 +1,5 @@
-import instaLogo from "../assets/instagram-icon.png";
-import facebookLogo from "../assets/facebook-icon.png";
+import instaLogo from "../../assets/instagram-icon.png";
+import facebookLogo from "../../assets/facebook-icon.png";
 import { Link } from "react-router-dom";
 import styles from "./css/Footer.module.css"
 import { memo } from "react";

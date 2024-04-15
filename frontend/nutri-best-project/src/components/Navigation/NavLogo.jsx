@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom"
-import logo from "../assets/another-nutri-best-logo.png";
+import logo from "../../assets/another-nutri-best-logo.png";
 
 export default function NavLogo({ styles }) {
     return <div className="col-2 d-flex my-md-2">

@@ -1,7 +1,7 @@
 import { useSubmit } from "react-router-dom";
-import styles from "./css/SideBar.module.css";
+import styles from "../css/SideBar.module.css";
 import { useContext } from "react";
-import { CategoryContext } from "../../store/CategoryContext";
+import { CategoryContext } from "../../../store/CategoryContext";
 
 export default function ClearFiltersButton() {
     const submit = useSubmit();

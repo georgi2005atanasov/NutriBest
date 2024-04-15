@@ -23,7 +23,9 @@ export const CategoryContext = createContext({
 
 // eslint-disable-next-line react/prop-types
 export default function CategoryContextProvider({ children }) {
-    const [selectedCategories, setSelectedCategories] = useState(sessionStorage.getItem("categories").split("+").filter(x => x != ""));
+    const [selectedCategories, setSelectedCategories] = useState(sessionStorage.getItem("categories") ? 
+    sessionStorage.getItem("categories").split("+").filter(x => x != "") :
+    []);
 
     return <CategoryContext.Provider
         value={{ categories: CATEGORIES, selectedCategories, setSelectedCategories }}>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./css/PriceFilter.module.css";
+import styles from "../css/PriceFilter.module.css";
 
 export default function PriceAscFilter() {
     function handlePriceAsc() {

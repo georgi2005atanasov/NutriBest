@@ -21,8 +21,8 @@ export default function AddProductPage() {
     const isSubmitting = navigation.state === "submitting";
 
     return <CategoryContextProvider>
-        <Header text="Add New Product" styles={styles["add-product-header"]} />
         {isSubmitting && <Loader />}
+        <Header text="Add New Product" styles={styles["add-product-header"]} />
         <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
             <div className="container">
                 <div className="row d-flex justify-content-center">
@@ -121,16 +121,16 @@ export async function action({ request, params }) {
     try {
         const response = await addProduct(formData);
 
-        let data = {errors: {}};
+        let data = { errors: {} };
 
-        if (Number.isNaN(String(response))) {
+        if (isNaN(String(response))) {
             let res = JSON.parse(response);
             const key = res.key;
             const message = res.message;
             data.errors[key] = [message];
             return data;
         }
-        
+
         return redirect("/?message=Product added successfully!&type=success");
     } catch (error) {
         return json({ errors: { "message": ["An Error occured!"] } });

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import styles from "../css/ProductItem.module.css";
-import AddToCartButton from "../../components/UI/AddToCartButton";
+import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 
 export default function ProductItem({ product, src }) {
     //has to deal with the link, whether to be query or route

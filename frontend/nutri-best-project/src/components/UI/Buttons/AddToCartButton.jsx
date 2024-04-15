@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./css/AddToCartButton.module.css";
+import styles from "../css/AddToCartButton.module.css";
 
 export default function AddToCartButton() {
     return <div className="text-center">

@@ -9,7 +9,7 @@ import AllProducts, { loader as getAllProducts } from './pages/products/AllProdu
 import ProductsLayout from './pages/products/Products';
 import ErrorPage from './pages/Error';
 import MultiSelectCategory, { loader as getCategoriesCount } from './components/UI/Form/MultiSelectCategory';
-import SideBar from './components/UI/SideBar';
+import SideBar from './components/UI/Sidebar/SideBar';
 
 const router = createBrowserRouter([
   {

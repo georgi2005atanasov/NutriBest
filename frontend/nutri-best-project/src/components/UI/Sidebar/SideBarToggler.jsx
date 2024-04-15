@@ -1,4 +1,4 @@
-import styles from "./css/SideBarToggler.module.css";
+import styles from "../css/SideBarToggler.module.css";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBarToggler({ toggleSidebar }) {

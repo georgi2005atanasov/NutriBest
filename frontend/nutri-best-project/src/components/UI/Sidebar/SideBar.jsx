@@ -1,14 +1,14 @@
-import DropdownMenu from "./DropdownMenu";
-import MultiSelectCategory from "./Form/MultiSelectCategory";
-import PriceAscFilter from "./PriceAscFilter";
-import PriceDescFilter from "./PriceDescFilter";
-import styles from "./css/SideBar.module.css";
+import DropdownMenu from "../DropdownMenu";
+import MultiSelectCategory from "../Form/MultiSelectCategory";
+import PriceAscFilter from "../Buttons/PriceAscFilter";
+import PriceDescFilter from "../Buttons/PriceDescFilter";
+import styles from "../css/SideBar.module.css";
 import { useContext, useEffect } from "react";
 import { useSubmit } from "react-router-dom";
-import { CategoryContext } from "../../store/CategoryContext";
-import ClearFiltersButton from "./ClearFiltersButton";
-import PriceNoneFilter from "./PriceNoneFilter";
-import { buildQuery, getFilters } from "../../utils/utils";
+import { CategoryContext } from "../../../store/CategoryContext";
+import ClearFiltersButton from "../Buttons/ClearFiltersButton";
+import PriceNoneFilter from "../Buttons/PriceNoneFilter";
+import { buildQuery, getFilters } from "../../../utils/utils";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {

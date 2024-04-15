@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "../MainNavigation.module.css";
+import styles from "./MainNavigation.module.css";
 
 // eslint-disable-next-line react/prop-types
 export default function NavigationLink({ route, text, ...props }) {

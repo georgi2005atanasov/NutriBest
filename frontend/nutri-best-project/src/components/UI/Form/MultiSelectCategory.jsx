@@ -16,9 +16,7 @@ export default function MultiSelectCategory({ data, errorStyle, isFilter = false
 
         setSelectedCategories(prev => {
             let newValue = checked ? [...prev, value] : prev.filter(val => val !== value);
-            if (isFilter) {
-                sessionStorage.setItem("categories", newValue.join("+"))
-            }
+            sessionStorage.setItem("categories", newValue.join("+"))
             return newValue;
         });
     };

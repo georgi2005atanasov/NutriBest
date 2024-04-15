@@ -1,20 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Link, useSubmit } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavigationLink from "./NavigationLink";
-import { useContext, useEffect, useState } from "react";
-import { CategoryContext } from "../../store/CategoryContext";
-import { buildQuery, getFilters } from "../../utils/utils";
-
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
-    const { selectedCategories } = useContext(CategoryContext);
-
-    const { page, categories, price } = getFilters();
-
-    let [query, setQuery] = useState(buildQuery(page, categories, price));
-
-    useEffect(() => {
-        setQuery(buildQuery(page, categories, price));
-    }, [page, categories, price])
 
     return <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
         <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>

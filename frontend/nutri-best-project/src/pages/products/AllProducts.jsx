@@ -1,6 +1,6 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { allProducts } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await, json } from "react-router-dom";
+import { useLoaderData, redirect, defer, Await, json, useNavigation } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/SideBar";
 import SideBarToggler from "../../components/UI/SideBarToggler";
@@ -11,6 +11,9 @@ import ProductsList from "./ProductsList";
 export default function AllProducts() {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
+    const navigation = useNavigation();
+
+    const isFetching = navigation.state == "submitting";
 
     const { page, productsRows } = useLoaderData();
 
@@ -24,6 +27,7 @@ export default function AllProducts() {
                     </div>
 
                     <div className="col-md-9">
+                        {isFetching && <Loader />}
                         <Suspense fallback={
                             <div className="d-flex justify-content-center align-items-center">
                                 <Loader />
@@ -47,7 +51,7 @@ export default function AllProducts() {
 
 async function loadProductsData(page, categories, price) {
     try {
-        let products = await allProducts(Number(page) - 1, categories, price);
+        let products = await allProducts(Number(page), categories, price);
 
         if (!products.ok) {
             return redirect("/?message=Invalid Page!&type=danger");
@@ -63,9 +67,9 @@ async function loadProductsData(page, categories, price) {
 
 // eslint-disable-next-line no-unused-vars
 export async function loader({ request, params }) {
-    const currentPage = localStorage.getItem("page");
-    const categories = localStorage.getItem("categories");
-    const price = localStorage.getItem("price");
+    const currentPage = sessionStorage.getItem("page");
+    const categories = sessionStorage.getItem("categories");
+    const price = sessionStorage.getItem("price");
 
     //make good error handle
     if (!currentPage || isNaN(currentPage)) {

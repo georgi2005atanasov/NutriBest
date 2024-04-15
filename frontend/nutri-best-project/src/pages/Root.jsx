@@ -12,14 +12,14 @@ export default function RootLayout() {
     const submit = useSubmit();
 
     useEffect(() => {
-        if (!localStorage.getItem("price")) {
-            localStorage.setItem("price", "");
+        if (!sessionStorage.getItem("price")) {
+            sessionStorage.setItem("price", "");
         }
-        if (!localStorage.getItem("categories")) {
-            localStorage.setItem("categories", "");
+        if (!sessionStorage.getItem("categories")) {
+            sessionStorage.setItem("categories", "");
         }
-        if (!localStorage.getItem("page")) {
-            localStorage.setItem("page", 1);
+        if (!sessionStorage.getItem("page")) {
+            sessionStorage.setItem("page", 1);
         }
     });
 

@@ -9,7 +9,7 @@ import { useRouteLoaderData } from 'react-router-dom';
 export default function MultiSelectCategory({ data, errorStyle, isFilter = false }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
-    const localStorageCategories = localStorage.getItem("categories");
+    const localStorageCategories = sessionStorage.getItem("categories");
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
@@ -17,7 +17,7 @@ export default function MultiSelectCategory({ data, errorStyle, isFilter = false
         setSelectedCategories(prev => {
             const newValue = checked ? [...prev, value] : prev.filter(cat => cat !== value);
             if (isFilter) {
-                localStorage.setItem("categories", newValue.join("+"))
+                sessionStorage.setItem("categories", newValue.join("+"))
             }
             return newValue;
         });

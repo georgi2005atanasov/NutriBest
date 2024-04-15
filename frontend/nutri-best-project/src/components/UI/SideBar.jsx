@@ -8,36 +8,30 @@ import { useSubmit } from "react-router-dom";
 import { CategoryContext } from "../../store/CategoryContext";
 import ClearFiltersButton from "./ClearFiltersButton";
 import PriceNoneFilter from "./PriceNoneFilter";
+import { buildQuery, getFilters } from "../../utils/utils";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories } = useContext(CategoryContext);
-    const price = localStorage.getItem("price");
-    const page = localStorage.getItem("page");
-    const localStorageCategories = localStorage.getItem("categories");
+
+    const {page, categories, price} = getFilters();
+
     console.log(price);
     const submit = useSubmit();
 
     useEffect(() => {
-        let query = `?page=${page}`;
-
         if (selectedCategories && selectedCategories.length != 0) {
-            localStorage.setItem("categories", localStorageCategories);
+            sessionStorage.setItem("categories", categories);
         }
 
         if (price && price != "") {
-            localStorage.setItem("price", price);
+            sessionStorage.setItem("price", price);
         }
 
-        if (localStorage.getItem("categories") != "") {
-            query += `&categories=${localStorage.getItem("categories")}`;
-        }
-        if (price != "") {
-            query += `&price=${price}`;
-        }
+        const query = buildQuery(page, categories, price);
 
         submit(query);
-    }, [selectedCategories, submit, price, page, localStorageCategories]);
+    }, [selectedCategories, submit, price, page, categories]);
 
     return <>
         <div className={`${styles["filter-header"]} d-flex justify-content-between align-items-center`}>

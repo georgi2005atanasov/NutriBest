@@ -1,4 +1,5 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
+import { buildQuery } from "../../frontend/nutri-best-project/src/utils/utils";
 
 export async function addProduct(productModel) {
     const token = getAuthToken();
@@ -25,13 +26,7 @@ export async function addProduct(productModel) {
 }
 
 export async function allProducts(page, categories = "", price = "") {
-    let query = `?page=${page}`;
-    if (categories && categories != "") {
-        query += `&categories=${categories}`;
-    }
-    if (price && price != "") {
-        query += `&price=${price}`;
-    }
+    const query = buildQuery(page, categories, price);
 
     const response = await fetch(`https://localhost:7056/products${query}`, {
         method: "GET"

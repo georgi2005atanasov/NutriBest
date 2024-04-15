@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function PriceNoneFilter() {
     function handlePriceNone() {
-        localStorage.setItem("price", "");
+        sessionStorage.setItem("price", "");
     }
 
     return <Link onClick={handlePriceNone} className={`${styles["price-filter"]} text-decoration-none p-2 d-flex justify-content-center align-items-center`}>

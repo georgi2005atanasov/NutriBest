@@ -3,7 +3,7 @@ import styles from "./css/PriceFilter.module.css";
 
 export default function PriceAscFilter() {
     function handlePriceAsc() {
-        localStorage.setItem("price", "asc");
+        sessionStorage.setItem("price", "asc");
     }
 
     return <Link onClick={handlePriceAsc} className={`${styles["price-filter"]} text-decoration-none p-2 d-flex justify-content-center align-items-center`}>

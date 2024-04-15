@@ -9,13 +9,13 @@ import { useRouteLoaderData } from 'react-router-dom';
 export default function MultiSelectCategory({ data, errorStyle, isFilter = false }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
-    const localStorageCategories = sessionStorage.getItem("categories");
+    // const sessionStorageCategories = sessionStorage.getItem("categories");
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
 
         setSelectedCategories(prev => {
-            const newValue = checked ? [...prev, value] : prev.filter(cat => cat !== value);
+            let newValue = checked ? [...prev, value] : prev.filter(val => val !== value);
             if (isFilter) {
                 sessionStorage.setItem("categories", newValue.join("+"))
             }
@@ -32,9 +32,7 @@ export default function MultiSelectCategory({ data, errorStyle, isFilter = false
                     id={category.name}
                     value={category.value}
                     onChange={handleCheckboxChange}
-                    checked={!isFilter ?
-                        selectedCategories.some(x => x == category.value) :
-                        localStorageCategories.split("+").some(x => x == category.value)}
+                    checked={selectedCategories.some(x => x == category.value)}
                     className={styles["category-checkbox"]}
                 />
                 <label htmlFor={category.name} className={styles["category-label"]}>

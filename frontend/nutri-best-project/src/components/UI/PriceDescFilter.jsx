@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function PriceDescFilter() {
     function handlePriceDesc() {
-        localStorage.setItem("price", "desc");
+        sessionStorage.setItem("price", "desc");
     }
 
     return <Link onClick={handlePriceDesc} className={`${styles["price-filter"]} text-decoration-none p-2 d-flex justify-content-center align-items-center`}>

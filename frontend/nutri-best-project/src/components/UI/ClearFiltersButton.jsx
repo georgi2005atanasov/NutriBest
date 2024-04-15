@@ -8,13 +8,14 @@ export default function ClearFiltersButton() {
     const { setSelectedCategories } = useContext(CategoryContext);
 
     function handleClearFilters() {
-        localStorage.setItem("price", "");
-        localStorage.setItem("categories", "");
+        sessionStorage.setItem("price", "");
+        sessionStorage.setItem("categories", "");
 
         setSelectedCategories([]);
         
-        const page = localStorage.getItem("page");
-        submit(`page=${page}`);
+        // const page = sessionStorage.getItem("page");
+        // submit(`page=${page}`);
+        submit(`page=1`);
     }
 
     return <button onClick={handleClearFilters} className={`${styles["clear-filters-btn"]} p-2 border-0 rounded-1 mt-1`}>

@@ -6,7 +6,7 @@ import InputError from '../InputError';
 import { getProductsByCategories } from '../../../../../../backend/api/api';
 import { useRouteLoaderData } from 'react-router-dom';
 
-export default function MultiSelectCategory({ data, errorStyle, isFilter = false }) {
+export default function MultiSelectCategory({ data, errorStyle }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
     // const sessionStorageCategories = sessionStorage.getItem("categories");

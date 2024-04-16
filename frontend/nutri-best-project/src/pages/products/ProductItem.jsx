@@ -2,10 +2,17 @@
 import { Link } from "react-router-dom";
 import styles from "../css/ProductItem.module.css";
 import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
+import { useState, useEffect } from "react";
 
-export default function ProductItem({ product, src }) {
-    //has to deal with the link, whether to be query or route
-    return <section className={`${styles["product-item"]} card p-3`}>
+export default function ProductItem({ product }) {
+    const [src, setSrc] = useState('');
+    
+    useEffect(() => {
+        const src = localStorage.getItem(`image-${product.productId}`);
+        setSrc(src);
+    }, [product])
+
+    return <section className={`${styles["product-item"]} card p-3`} id={product.productId}>
         <Link className={`${styles["product-item-link"]}`} to="/products/details/">
             <img className={styles["product-image"]} src={src} alt="Dynamic" />
             <h5 className="product-name text-center mt-2 mb-2">

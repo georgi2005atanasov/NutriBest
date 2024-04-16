@@ -23,3 +23,9 @@ export function getFilters() {
 
     return { page, categories, price };
 }
+
+export function cleanFilters() {
+    sessionStorage.setItem("categories", "");
+    sessionStorage.setItem("price", "");
+    sessionStorage.setItem("page", 1);
+}

@@ -7,7 +7,7 @@ import Header from "../../components/UI/Header";
 import InputError from "../../components/UI/InputError";
 import ImageField from "../../components/UI/ImageField";
 import Loader from "../../components/UI/Loader";
-import { getFormData } from "../../utils/utils";
+import { cleanFilters, getFormData } from "../../utils/utils";
 import { addProduct } from "../../../../../backend/api/api";
 import { Form, useActionData, useNavigation, json, redirect } from "react-router-dom";
 import CategoryContextProvider from "../../store/CategoryContext";
@@ -104,6 +104,11 @@ export default function AddProductPage() {
     </CategoryContextProvider>
 }
 
+export function loader() {
+    cleanFilters();
+    return null;
+}
+
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     const productModel = await getFormData(request)
@@ -130,6 +135,8 @@ export async function action({ request, params }) {
             data.errors[key] = [message];
             return data;
         }
+
+        cleanFilters();
 
         return redirect("/?message=Product added successfully!&type=success");
     } catch (error) {
@@ -184,7 +191,7 @@ function getProductErrors(productModel) {
         data.errors["Name"] = ["Name is required!"];
     }
 
-    if (productModel.image && productModel.image.name == "") {
+    if (!productModel.image || productModel.image.name == "") {
         data.errors["Image"] = ["Image is required!"];
     }
 

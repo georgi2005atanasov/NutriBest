@@ -14,9 +14,8 @@ import { buildQuery, getFilters } from "../../../utils/utils";
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories } = useContext(CategoryContext);
 
-    const {page, categories, price} = getFilters();
+    const { page, categories, price } = getFilters();
 
-    console.log(price);
     const submit = useSubmit();
 
     useEffect(() => {
@@ -42,7 +41,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                 <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
                     <DropdownMenu text={"Category"}>
                         <h5 className="ms-3 mt-3">Choose:</h5>
-                        <MultiSelectCategory isFilter={true} />
+                        <MultiSelectCategory />
                     </DropdownMenu>
 
                     <div className="mb-1"></div>

@@ -42,3 +42,11 @@ export async function getProductsByCategories() {
 
     return await response.json();
 }
+
+export async function getImageByProductId(id) {
+    const response = await fetch(`https://localhost:7056/images/${id}`, {
+        method: "GET"
+    });
+
+    return await response.json();
+}

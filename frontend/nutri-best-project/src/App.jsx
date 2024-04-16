@@ -4,12 +4,13 @@ import LoginPage, { action as loginAction } from './pages/auth/Login';
 import RegisterPage, { action as registerAction } from './pages/auth/Register';
 import { action as logoutAction } from './pages/auth/Logout';
 import HomePage from './pages/Home';
-import AddProductPage, { action as addProductAction } from './pages/products/AddProduct';
+import AddProductPage, { action as addProductAction, loader as removeFilters } from './pages/products/AddProduct';
 import AllProducts, { loader as getAllProducts } from './pages/products/AllProducts';
 import ProductsLayout from './pages/products/Products';
 import ErrorPage from './pages/Error';
 import MultiSelectCategory, { loader as getCategoriesCount } from './components/UI/Form/MultiSelectCategory';
 import SideBar from './components/UI/Sidebar/SideBar';
+import ProductItem from './pages/products/ProductItem';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       { path: 'home', element: <HomePage /> },
       {
         path: 'products', element: <ProductsLayout />, children: [
-          { path: 'add', element: <AddProductPage />, action: addProductAction },
+          { path: 'add', element: <AddProductPage />, action: addProductAction, loader: removeFilters },
           {
             path: "all", element: <AllProducts />, loader: getAllProducts, children: [
               {
@@ -32,6 +33,9 @@ const router = createBrowserRouter([
               },
               {
                 index: true, element: <SideBar />
+              },
+              {
+                index: true, element: <ProductItem />
               }
             ]
           },

@@ -15,6 +15,9 @@ export default function RootLayout() {
         if (!sessionStorage.getItem("price")) {
             sessionStorage.setItem("price", "");
         }
+        if (!sessionStorage.getItem("alpha")) {
+            sessionStorage.setItem("alpha", "");
+        }
         if (!sessionStorage.getItem("categories")) {
             sessionStorage.setItem("categories", "");
         }

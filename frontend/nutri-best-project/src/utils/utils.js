@@ -4,13 +4,16 @@ export async function getFormData(request) {
     return userData;
 }
 
-export function buildQuery(page, categories, price) {
+export function buildQuery(page, categories, price, alpha) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
         query += `&categories=${categories}`;
     }
     if (price && price != "") {
         query += `&price=${price}`;
+    }
+    if (alpha && alpha != "") {
+        query += `&alpha=${alpha}`;
     }
 
     return query;
@@ -20,8 +23,9 @@ export function getFilters() {
     const page = sessionStorage.getItem("page");
     const categories = sessionStorage.getItem("categories");
     const price = sessionStorage.getItem("price");
+    const alpha = sessionStorage.getItem("alpha");
 
-    return { page, categories, price };
+    return { page, categories, price, alpha };
 }
 
 export function cleanFilters() {

@@ -86,7 +86,7 @@ async function loadProductsData(page, categories, price) {
 
         sessionStorage.setItem("productsCount", count);
 
-        storeImages(productsRows);
+        await storeImages(productsRows);
 
         return productsRows;
     } catch (error) {

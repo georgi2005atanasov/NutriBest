@@ -1,20 +1,18 @@
-import DropdownMenu from "../DropdownMenu";
-import MultiSelectCategory from "../Form/MultiSelectCategory";
-import PriceAscFilter from "../Buttons/PriceAscFilter";
-import PriceDescFilter from "../Buttons/PriceDescFilter";
 import styles from "../css/SideBar.module.css";
 import { useContext, useEffect } from "react";
 import { useSubmit } from "react-router-dom";
 import { CategoryContext } from "../../../store/CategoryContext";
 import ClearFiltersButton from "../Buttons/ClearFiltersButton";
-import PriceNoneFilter from "../Buttons/PriceNoneFilter";
 import { buildQuery, getFilters } from "../../../utils/utils";
+import CategoryFilter from "./CategoryFilter";
+import PriceFilter from "./PriceFilter";
+import AlphaFilter from "./AlphaFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories } = useContext(CategoryContext);
 
-    const { page, categories, price } = getFilters();
+    const { page, categories, price, alpha } = getFilters();
 
     const submit = useSubmit();
 
@@ -27,10 +25,10 @@ export default function SideBar({ isVisible, toggleSidebar }) {
             sessionStorage.setItem("price", price);
         }
 
-        const query = buildQuery(page, categories, price);
+        const query = buildQuery(page, categories, price, alpha);
 
         submit(query);
-    }, [selectedCategories, submit, price, page, categories]);
+    }, [selectedCategories, submit, price, page, categories, alpha]);
 
     return <>
         <div className={`${styles["filter-header"]} d-flex justify-content-between align-items-center`}>
@@ -39,26 +37,15 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         <div className={`${styles["sidebar"]} d-flex flex-column ${isVisible ? styles['visible'] : 'd-none d-xl-flex'}`}>
             <div className="content">
                 <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
-                    <DropdownMenu text={"Category"}>
-                        <h5 className="ms-3 mt-3">Choose:</h5>
-                        <MultiSelectCategory />
-                    </DropdownMenu>
+                    <CategoryFilter />
 
                     <div className="mb-1"></div>
 
-                    <DropdownMenu text={"Price"}>
-                        <div id="price-none" className={!price ? styles["selected-price-filter"] : ""}>
-                            <PriceNoneFilter />
-                        </div>
-                        <hr className="m-0" />
-                        <div id="price-asc" className={`${price == "asc" ? styles["selected-price-filter"] : ""}`}>
-                            <PriceAscFilter />
-                        </div>
-                        <hr className="m-0" />
-                        <div id="price-desc" className={`${price == "desc" ? styles["selected-price-filter"] : ""}`}>
-                            <PriceDescFilter />
-                        </div>
-                    </DropdownMenu>
+                    <PriceFilter price={price} selectedBtn={styles["selected-filter"]} />
+
+                    <div className="mb-1"></div>
+
+                    <AlphaFilter alpha={alpha} selectedBtn={styles["selected-filter"]} />
 
                     <ClearFiltersButton />
                 </div>

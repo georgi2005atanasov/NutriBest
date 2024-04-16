@@ -47,15 +47,15 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                     <div className="mb-1"></div>
 
                     <DropdownMenu text={"Price"}>
-                        <div id="price-none" className={!price && styles["selected-price-filter"]}>
+                        <div id="price-none" className={!price ? styles["selected-price-filter"] : ""}>
                             <PriceNoneFilter />
                         </div>
                         <hr className="m-0" />
-                        <div id="price-asc" className={`${price == "asc" && styles["selected-price-filter"]}`}>
+                        <div id="price-asc" className={`${price == "asc" ? styles["selected-price-filter"] : ""}`}>
                             <PriceAscFilter />
                         </div>
                         <hr className="m-0" />
-                        <div id="price-desc" className={`${price == "desc" && styles["selected-price-filter"]}`}>
+                        <div id="price-desc" className={`${price == "desc" ? styles["selected-price-filter"] : ""}`}>
                             <PriceDescFilter />
                         </div>
                     </DropdownMenu>

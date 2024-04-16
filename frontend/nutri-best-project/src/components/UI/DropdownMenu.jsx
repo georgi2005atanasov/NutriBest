@@ -13,11 +13,11 @@ export default function DropdownMenu({ children, text }) {
         <button type={"button"} onClick={toggleMenu} className={`${styles["dropdown-button"]}`}>
             {text}
         </button>
-        {showMenu && (<>
+        {showMenu ? (<>
             <div className={styles["dropdown-menu"]}>
                 {children}
             </div>
         </>
-        )}
+        ) : undefined}
     </div>
 }

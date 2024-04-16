@@ -59,16 +59,19 @@ export default function AllProducts() {
 }
 
 async function loadProductsData(page, categories, price) {
+    
     async function storeImages(productsRows) {
         const products = productsRows.flat();
-        
-        for (const p of products) {
-            const image = await getImageByProductId(p.productId);
+
+        const imagePromises = products.map(async (p) => {
             const cachedImage = localStorage.getItem(`image-${p.productId}`);
             if (!cachedImage) {
+                const image = await getImageByProductId(p.productId);
                 localStorage.setItem(`image-${p.productId}`, `data:${image.contentType};base64,${image.imageData}`);
             }
-        }
+        });
+    
+        await Promise.all(imagePromises);
     }
 
     try {
@@ -99,7 +102,7 @@ export async function loader({ request, params }) {
 
     //make good error handle
     if (!currentPage || isNaN(currentPage)) {
-        throw json("Invalid page");
+        return redirect("/?message=Invalid page number provided.&type=danger");
     }
 
     const page = Number(currentPage);

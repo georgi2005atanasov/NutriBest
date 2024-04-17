@@ -84,7 +84,7 @@ export default function ProductForm({ product = null, data, header }) {
                         <ImageField
                             styles={styles}
                             data={data}
-                            productImage={product ? product.image : undefined} />
+                            product={product} />
 
                         {data && Object.keys(data.errors).includes("message") &&
                             <InputError

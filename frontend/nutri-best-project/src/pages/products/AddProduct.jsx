@@ -20,11 +20,8 @@ export function loader() {
 export async function action({ request, params }) {
     const productModel = await getFormData(request)
     productModel.categories = getProductCategories(productModel);
-
-    if (isNaN(productModel.price)) {
-        return json({ errors: { "message": ["Invalid product identifier!"] } });
-    }
-
+    
+    //handle error for price
     productModel.price = parseFloat(productModel.price)
 
     const checkProduct = getProductErrors(productModel);

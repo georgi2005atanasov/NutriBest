@@ -19,7 +19,7 @@ export function getProductErrors(productModel) {
         data.errors["Name"] = ["Name is required!"];
     }
 
-    if (!productModel.image || productModel.image.name == "") {
+    if (!productModel.image) {
         data.errors["Image"] = ["Image is required!"];
     }
 

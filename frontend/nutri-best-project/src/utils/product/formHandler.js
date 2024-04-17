@@ -8,7 +8,7 @@ export function getProductForm(productModel) {
     formData.append("categories", productModel.categories);
 
     if (productModel.image) {
-        formData.append("image", productModel.image, productModel.image.name);
+        formData.append("image", productModel.image);
     }
 
     return formData;

@@ -16,6 +16,9 @@ export default function ProductItem({ product }) {
     useEffect(() => {
         const src = localStorage.getItem(`image-${product.productId}`);
         setSrc(src);
+
+        //To clean the local storage, but might need some fix
+        // localStorage.removeItem(`image-${product.productId}`)
     }, [product])
 
     return <section className={`${styles["product-item"]} card p-3`} id={product.productId}>
@@ -25,7 +28,7 @@ export default function ProductItem({ product }) {
                 {product.name}
             </h5>
             <h5 className="product-price text-center mb-2">
-                <span>{product.price.toFixed(2)} BGN</span>
+                <span>{(product.price + 0.99).toFixed(2)} BGN</span>
             </h5>
         </Link>
 

@@ -14,4 +14,3 @@ export default function DeleteProductButton({ productId }) {
         <Link to={`/products/delete/${productId}`} className={styles["delete-btn"]}>Delete</Link>
     </div>
 }
-

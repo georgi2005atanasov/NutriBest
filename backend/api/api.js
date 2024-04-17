@@ -43,6 +43,30 @@ export async function getProductById(id) {
     return response;
 }
 
+export async function editProduct(productModel) {
+    const token = getAuthToken();
+
+    if (token != "EXPIRED" && token != 0) {
+
+        const response = await fetch(`https://localhost:7056/products`, {
+            method: "PUT",
+            body: productModel,
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            return await response.text();
+        }
+
+        return await response.json();
+    }
+    else {
+        throw Error("Token expired!")
+    }
+}
+
 export async function getProductsByCategories() {
     const response = await fetch(`https://localhost:7056/products/by-category-count`, {
         method: "GET"

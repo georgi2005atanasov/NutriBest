@@ -1,15 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import styles from "../css/MultiSelect.module.css";
 import { CategoryContext } from '../../../store/CategoryContext';
 import InputError from '../InputError';
 import { getProductsByCategories } from '../../../../../../backend/api/api';
 import { useRouteLoaderData } from 'react-router-dom';
 
-export default function MultiSelectCategory({ data, errorStyle }) {
+export default function MultiSelectCategory({ data, errorStyle, productCategories = null }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
     // const sessionStorageCategories = sessionStorage.getItem("categories");
+
+    useEffect(() => {
+        if (productCategories) {
+            setSelectedCategories(productCategories);
+            sessionStorage.setItem("categories", productCategories.join("+"))
+        }
+    }, [productCategories, setSelectedCategories]);
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;

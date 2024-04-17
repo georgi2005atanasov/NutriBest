@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
 import InputError from "./InputError"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ImageField({ styles, data }) {
+export default function ImageField({ styles, data, productImage = null }) {
     const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        if (productImage) {
+            setImage(URL.createObjectURL(productImage))
+        }
+    }, [productImage]);
 
     function handleRemoveImage() {
         setImage(null);

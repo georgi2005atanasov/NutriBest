@@ -11,7 +11,7 @@ import ErrorPage from './pages/Error';
 import MultiSelectCategory, { loader as getCategoriesCount } from './components/UI/Form/MultiSelectCategory';
 import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
-import EditProduct, { loader as productLoader } from './pages/products/EditProduct';
+import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +40,9 @@ const router = createBrowserRouter([
               }
             ]
           },
-          { path: "edit/:id", element: <EditProduct />, loader: productLoader }
+          {
+            path: "edit/:id", element: <EditProduct />, loader: productLoader, action: editProduct
+          }
         ]
       },
       { path: 'error', element: <ErrorPage /> }

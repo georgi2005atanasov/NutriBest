@@ -59,7 +59,6 @@ export default function AllProducts() {
 }
 
 async function loadProductsData(page, categories, price, alpha) {
-    
     async function storeImages(productsRows) {
         const products = productsRows.flat();
 

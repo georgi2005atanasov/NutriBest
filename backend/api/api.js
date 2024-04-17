@@ -35,6 +35,14 @@ export async function allProducts(page, categories = "", price = "", alpha = "")
     return response;
 }
 
+export async function getProductById(id) {
+    const response = await fetch(`https://localhost:7056/products/${id}`, {
+        method: "GET"
+    });
+
+    return response;
+}
+
 export async function getProductsByCategories() {
     const response = await fetch(`https://localhost:7056/products/by-category-count`, {
         method: "GET"

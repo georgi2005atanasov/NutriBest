@@ -10,6 +10,7 @@ export default function ClearFiltersButton() {
     function handleClearFilters() {
         sessionStorage.setItem("price", "");
         sessionStorage.setItem("categories", "");
+        sessionStorage.setItem("alpha", "");
 
         setSelectedCategories([]);
         

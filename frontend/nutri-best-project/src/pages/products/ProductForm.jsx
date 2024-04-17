@@ -1,26 +1,15 @@
-import styles from "../css/AddProduct.module.css";
-import FormInput from "../../components/UI/Form/FormInput";
+import CategoryContextProvider from "../../store/CategoryContext";
+import Header from "../../components/UI/Header";
 import FormButton from "../../components/UI/Form/FormButton";
+import FormInput from "../../components/UI/Form/FormInput";
+import Loader from "../../components/UI/Loader";
 import FormTextArea from "../../components/UI/Form/FormTextArea";
 import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
-import Header from "../../components/UI/Header";
 import InputError from "../../components/UI/InputError";
-import ImageField from "../../components/UI/ImageField";
-import Loader from "../../components/UI/Loader";
-import { cleanFilters, getFormData } from "../../utils/utils";
-import { getProductErrors } from "../../utils/product/validation"
-import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
-import { addProduct } from "../../../../../backend/api/api";
-import { Form, useActionData, useNavigation, json, redirect } from "react-router-dom";
-import CategoryContextProvider from "../../store/CategoryContext";
+import { Form } from "react-router-dom";
 
-export default function AddProductPage() {
-    const data = useActionData();
 
-    const navigation = useNavigation();
-
-    const isSubmitting = navigation.state === "submitting";
-
+export default function ProductForm({ product }) {
     return <CategoryContextProvider>
         {isSubmitting && <Loader />}
         <Header text="Add New Product" styles={styles["add-product-header"]} />
@@ -103,44 +92,4 @@ export default function AddProductPage() {
             </div>
         </Form>
     </CategoryContextProvider>
-}
-
-export function loader() {
-    cleanFilters();
-    return null;
-}
-
-// eslint-disable-next-line no-unused-vars
-export async function action({ request, params }) {
-    const productModel = await getFormData(request)
-    productModel.categories = getProductCategories(productModel);
-    productModel.price = parseFloat(productModel.price)
-
-    const checkProduct = getProductErrors(productModel);
-
-    if (Object.keys(checkProduct.errors).length != 0) {
-        return checkProduct;
-    }
-
-    const formData = getProductForm(productModel);
-
-    try {
-        const response = await addProduct(formData);
-
-        let data = { errors: {} };
-
-        if (isNaN(String(response))) {
-            let res = JSON.parse(response);
-            const key = res.key;
-            const message = res.message;
-            data.errors[key] = [message];
-            return data;
-        }
-
-        cleanFilters();
-
-        return redirect("/?message=Product added successfully!&type=success");
-    } catch (error) {
-        return json({ errors: { "message": ["An Error occured!"] } });
-    }
 }

@@ -58,7 +58,7 @@ export default function AllProducts() {
     </div >;
 }
 
-async function loadProductsData(page, categories, price) {
+async function loadProductsData(page, categories, price, alpha) {
     
     async function storeImages(productsRows) {
         const products = productsRows.flat();
@@ -75,7 +75,7 @@ async function loadProductsData(page, categories, price) {
     }
 
     try {
-        let products = await allProducts(Number(page), categories, price);
+        let products = await allProducts(Number(page), categories, price, alpha);
 
         if (!products.ok) {
             sessionStorage.setItem("productsCount", 0);
@@ -99,6 +99,7 @@ export async function loader({ request, params }) {
     const currentPage = sessionStorage.getItem("page");
     const categories = sessionStorage.getItem("categories");
     const price = sessionStorage.getItem("price");
+    const alpha = sessionStorage.getItem("alpha");
 
     //make good error handle
     if (!currentPage || isNaN(currentPage)) {
@@ -108,7 +109,7 @@ export async function loader({ request, params }) {
     const page = Number(currentPage);
 
     return defer({
-        productsRows: await loadProductsData(page, categories, price),
+        productsRows: await loadProductsData(page, categories, price, alpha),
         page
     });
 }

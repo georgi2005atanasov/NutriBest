@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import styles from "../css/ProductItem.module.css";
 import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 import { useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
+import { getAuthToken } from "../../utils/auth";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
-    
+    const token = getAuthToken();
+    const { isAdmin } = useAuth(token);
+
     useEffect(() => {
         const src = localStorage.getItem(`image-${product.productId}`);
         setSrc(src);
@@ -23,6 +27,18 @@ export default function ProductItem({ product }) {
             </h5>
         </Link>
 
-        <AddToCartButton />
+        {isAdmin ?
+            <div className="container pt-2">
+                <div className="row d-flex justify-content-center align-items-center">
+                    <div className="col-6 d-flex justify-content-center mb-1">
+                        <Link to={`/products/${product.productId}`} className={styles["edit-btn"]}>Edit</Link>
+                    </div>
+                    <div className="col-6 d-flex justify-content-center mb-1">
+                        <Link to={`/products/${product.productId}`} className={styles["delete-btn"]}>Delete</Link>
+                    </div>
+                </div>
+            </div> :
+            <AddToCartButton />}
+
     </section>
 }

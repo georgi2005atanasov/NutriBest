@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./css/DropdownMenu.module.css";
 
 // eslint-disable-next-line react/prop-types

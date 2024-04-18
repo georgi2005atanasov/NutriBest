@@ -59,3 +59,22 @@
 .edit-btn:hover, .delete-btn:hover {
     transform: scale(1.1);
 }
+
+.fallback-image {
+    min-width: 180px;
+    min-height: 180px;
+    margin: auto;
+    width: 100%;
+    object-fit: cover;
+    animation: fadeOut 2s ease-out forwards;
+    opacity: 1;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

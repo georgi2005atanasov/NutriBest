@@ -52,7 +52,7 @@ export default function AllProducts() {
             </div>
 
             <div className="row">
-                <Pagination page={page} />
+                <Pagination page={page} productsCount={sessionStorage.getItem("productsCount")} />
             </div>
         </div>
     </div >;
@@ -74,6 +74,10 @@ async function loadProductsData(page, categories, price, alpha) {
     }
 
     try {
+        if (categories || price || alpha) {
+            sessionStorage.setItem("page", 1);
+        }
+
         let products = await allProducts(Number(page), categories, price, alpha);
 
         if (!products.ok) {
@@ -84,7 +88,7 @@ async function loadProductsData(page, categories, price, alpha) {
         const { productsRows, count } = await products.json();
 
         sessionStorage.setItem("productsCount", count);
-
+        
         await storeImages(productsRows);
 
         return productsRows;

@@ -10,5 +10,7 @@ export default function ProductsList({ productsRows }) {
                 </div>;
             })}
         </div>) :
-        <h5 className="text-center">Currently there are no products in this Category!</h5>;
+        <div className="container d-flex">
+            <h5 className="d-flex justify-content-center align-items-center">Currently there are no products in this Category!</h5>
+        </div>
 }

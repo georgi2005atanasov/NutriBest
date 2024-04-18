@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-// import styles from "./css/Pagination.module.css";
+// import "./css/Pagination.module.css";
 
-export default function Pagination({ page }) {
-    return <div className="d-flex">
-        {page} - current pages
-    </div>
+export default function Pagination({ page, productsCount }) {
+    const pagesCount = Math.ceil(productsCount / 6);
+
+    // return 
 }

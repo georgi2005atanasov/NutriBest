@@ -5,27 +5,22 @@ import { useEffect, useState } from "react";
 
 export default function ImageField({ styles, data, product = null }) {
     const [image, setImage] = useState(null);
+    const [oldImage, setOldImage] = useState(null);
 
     useEffect(() => {
-        async function handleImage() {
+        async function handleOldImage() {
             try {
                 if (product) {
                     const image = await getImageByProductId(product.productId);
                     const imageDataUrl = `data:${image.contentType};base64,${image.imageData}`;
-
-                    if (!localStorage.getItem(`image-${product.productId}`)) {
-                        localStorage.setItem(`image-${product.productId}`, imageDataUrl);
-                    }
-
-                    setImage(imageDataUrl);
-                    console.log(document.images);
+                    setOldImage(imageDataUrl);
                 }
             } catch (error) {
                 console.error('Failed to load image:', error);
             }
         }
 
-        handleImage();
+        handleOldImage();
     }, [product]);
 
     function handleRemoveImage() {
@@ -36,8 +31,6 @@ export default function ImageField({ styles, data, product = null }) {
         const imageFile = event.target.files[0];
         if (imageFile) {
             const imageToSet = URL.createObjectURL(imageFile);
-            console.log(document.images);
-
             setImage(imageToSet);
         }
     }
@@ -47,7 +40,9 @@ export default function ImageField({ styles, data, product = null }) {
             <label htmlFor="image" className={styles["custom-file-upload"]}>
                 {!image ? "Upload Image" : "Change Image"}
             </label>
+
             <input className="d-none" type="file" name="image" id="image" onChange={getImage} />
+
             <button
                 className={`${styles["remove-image"]}`}
                 disabled={!image}
@@ -55,11 +50,22 @@ export default function ImageField({ styles, data, product = null }) {
                 Remove Photo
             </button>
 
+            {product && <>
+                <h4 className="text-center mt-4">Previous Image:</h4>
+                {oldImage &&
+                    <div className="text-center my-3 card d-flex py-4 px-0 justify-content-center align-items-center">
+                        <img src={oldImage} alt="Uploaded" id={styles["image-visual"]} name={`image`} />
+                    </div>}
+
+                <h4 className="text-center mt-4">New Image:</h4>
+            </>}
+
             {image && (
-                <div className="text-center my-3">
+                <div className="text-center my-3 card d-flex py-4 px-0 justify-content-center align-items-center">
                     <img src={image} alt="Uploaded" id={styles["image-visual"]} name={`image`} />
                 </div>
             )}
+
             {data && data.errors && data.errors.Image && (
                 <InputError
                     styles={styles["error-par"]}

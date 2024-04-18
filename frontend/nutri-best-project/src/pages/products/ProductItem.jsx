@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import alt from "../../assets/fallback-image.png";
 import { Link } from "react-router-dom";
 import styles from "../css/ProductItem.module.css";
 import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
@@ -7,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
 import DeleteProductButton from "../../components/UI/Buttons/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/EditProductButton";
+import { getImageByProductId } from "../../../../../backend/api/api";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
@@ -14,16 +16,28 @@ export default function ProductItem({ product }) {
     const { isAdmin } = useAuth(token);
 
     useEffect(() => {
+        async function getImage(productId) {
+            const image = await getImageByProductId(productId);
+            setSrc(`data:${image.contentType};base64,${image.imageData}`);
+        }
+
         const src = localStorage.getItem(`image-${product.productId}`);
+
+        if (!src) {
+            getImage(product.productId);
+            return
+        }
+
         setSrc(src);
 
         //To clean the local storage, but might need some fix
-        // localStorage.removeItem(`image-${product.productId}`)
+        localStorage.removeItem(`image-${product.productId}`)
     }, [product])
 
     return <section className={`${styles["product-item"]} card p-3`} id={product.productId}>
         <Link className={`${styles["product-item-link"]}`} to="/products/details/">
-            <img className={styles["product-image"]} src={src} alt="Dynamic" />
+            {src ? <img className={styles["product-image"]} src={src} alt="Dynamic" /> :
+                <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
             <h5 className="product-name text-center mt-2 mb-2">
                 {product.name}
             </h5>

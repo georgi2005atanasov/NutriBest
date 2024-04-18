@@ -7,7 +7,7 @@ export async function getFormData(request) {
 export function buildQuery(page, categories, price, alpha) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
-        query += `&categories=${categories}`;
+        query += `&categories=${categories.split("+").join("+and+")}`;
     }
     if (price && price != "") {
         query += `&price=${price}`;

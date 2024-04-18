@@ -1,19 +1,15 @@
 import { Suspense, useState } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await, json, useNavigation } from "react-router-dom";
+import { useLoaderData, redirect, defer, Await } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/Sidebar/SideBar";
 import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
 import styles from "../css/AllProducts.module.css";
-import Loader from "../../components/UI/Loader";
 import ProductsList from "./ProductsList";
 
 export default function AllProducts() {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
-    const navigation = useNavigation();
-
-    const isFetching = navigation.state == "loading";
 
     const { productsRows, page } = useLoaderData();
 
@@ -38,9 +34,6 @@ export default function AllProducts() {
                     </div>
 
                     <div className="col-md-9">
-                        <div className="d-flex justify-content-center align-items-center">
-                            {isFetching && <Loader />}
-                        </div>
                         <Suspense fallback={
                             <div className="d-flex justify-content-center align-items-center">
                                 <div className={styles["big-margin"]}></div>

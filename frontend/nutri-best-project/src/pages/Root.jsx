@@ -1,15 +1,19 @@
-import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import MainNavigation from "../components/Navigation/MainNavigation";
 import { getAuthToken } from "../utils/auth";
 import { useEffect } from "react";
 import Footer from "../components/UI/Footer";
 import CategoryContextProvider from "../store/CategoryContext";
+import Loader from "../components/UI/Loader";
 
 
 export default function RootLayout() {
     const TOKEN_DURATION = localStorage.getItem("duration");
     const token = useLoaderData();
     const submit = useSubmit();
+    const navigation = useNavigation();
+
+    const isLoading = navigation.state == "loading";
 
     useEffect(() => {
         if (!sessionStorage.getItem("price")) {
@@ -42,6 +46,7 @@ export default function RootLayout() {
 
 
     return <>
+        {isLoading && <Loader />}
         <CategoryContextProvider>
             <MainNavigation />
             <Outlet context={token} />

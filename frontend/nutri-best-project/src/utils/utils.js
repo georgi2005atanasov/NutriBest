@@ -1,3 +1,5 @@
+import { getIdentifiers } from "../../../../backend/api/api";
+
 export async function getFormData(request) {
     const data = await request.formData();
     const userData = Object.fromEntries(data.entries());
@@ -32,4 +34,14 @@ export function cleanFilters() {
     sessionStorage.setItem("categories", "");
     sessionStorage.setItem("price", "");
     sessionStorage.setItem("page", 1);
+}
+
+export async function cleanCachedImages() {
+    const ids = await getIdentifiers();
+
+    for (const id of ids) {
+        if (localStorage.getItem(`image-${id}`)) {
+            localStorage.removeItem(`image-${id}`);
+        }
+    }
 }

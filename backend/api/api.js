@@ -99,3 +99,11 @@ export async function getFormFile(base64Image, imageData, fileName) {
 
     return await response.json();
 }
+
+export async function getIdentifiers() {
+    const response = await fetch(`https://localhost:7056/products/identifiers`, {
+        method: "GET"
+    });
+
+    return await response.json();
+}

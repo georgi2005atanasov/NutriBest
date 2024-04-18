@@ -31,7 +31,7 @@ export default function ProductItem({ product }) {
         setSrc(src);
 
         //To clean the local storage, but might need some fix
-        localStorage.removeItem(`image-${product.productId}`)
+        // localStorage.removeItem(`image-${product.productId}`)
     }, [product])
 
     return <section className={`${styles["product-item"]} card p-3`} id={product.productId}>

@@ -20,16 +20,19 @@ export default function AllProducts() {
     return <div className="all-products d-flex justify-content-end">
         <div className="container-fluid mx-lg-4 mx-2">
             <div className="row d-flex flex-md-column justify-content-center">
-                <div className="p-0 row d-flex justify-content-between align-items-start">
+                <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
                     <div className="container">
                         <div className="row">
-                            <div className="offset-md-3">
+                            <div className="d-flex offset-1 offset-lg-3 text-center">
+                                <h4>Products</h4>
+                            </div>
+                            <div className="d-flex offset-1 offset-lg-3 text-center">
                                 <p>{sessionStorage.getItem("productsCount")} products available</p>
                             </div>
                         </div>
                     </div>
 
-                    <div className={`${styles["filter"]} col-md-3 d-flex flex-column mb-3`}>
+                    <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center mb-3`}>
                         <SideBarToggler toggleSidebar={toggleSidebar} />
                         <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
                     </div>
@@ -51,8 +54,10 @@ export default function AllProducts() {
                 </div>
             </div>
 
-            <div className="row">
-                <Pagination page={page} productsCount={sessionStorage.getItem("productsCount")} />
+            <div className="row d-flex justify-content-center">
+                <div className="col-lg-6 col-md-9">
+                    <Pagination page={page} productsCount={sessionStorage.getItem("productsCount")} />
+                </div>
             </div>
         </div>
     </div >;
@@ -69,7 +74,7 @@ async function loadProductsData(page, categories, price, alpha) {
                 localStorage.setItem(`image-${p.productId}`, `data:${image.contentType};base64,${image.imageData}`);
             }
         });
-    
+
         await Promise.all(imagePromises);
     }
 
@@ -88,7 +93,7 @@ async function loadProductsData(page, categories, price, alpha) {
         const { productsRows, count } = await products.json();
 
         sessionStorage.setItem("productsCount", count);
-        
+
         await storeImages(productsRows);
 
         return productsRows;

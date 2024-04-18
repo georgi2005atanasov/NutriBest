@@ -23,10 +23,10 @@ export default function AllProducts() {
                 <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
                     <div className="container">
                         <div className="row">
-                            <div className="d-flex offset-1 offset-lg-3 text-center">
+                            <div className="d-flex offset-md-3 text-center">
                                 <h4>Products</h4>
                             </div>
-                            <div className="d-flex offset-1 offset-lg-3 text-center">
+                            <div className="d-flex offset-md-3 text-center">
                                 <p>{sessionStorage.getItem("productsCount")} products available</p>
                             </div>
                         </div>

@@ -1,45 +1,55 @@
 /* eslint-disable react/prop-types */
-import { NavLink, useSubmit } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./css/Pagination.module.css";
+import { useState, useEffect } from "react";
 
 export default function Pagination({ page, productsCount }) {
-    const pagesCount = Math.ceil(productsCount / 6.0);
+    // const pagesCount = Math.ceil(Number(productsCount) / 6.0);
+    const [startingPoint, setStartingPoint] = useState(1);
+    const pagesCount = Math.ceil(Number(productsCount) / 1.0);
     let pagesComponent = [];
 
-    for (let i = 1; i <= Math.min(pagesCount, 5); i++) { // Show up to 5 pages at a time
+    useEffect(() => {
+        if (page > 5 && (page - 1) % 5 == 0) {
+            setStartingPoint(page);
+        }
+
+        if (page < startingPoint) {
+            setStartingPoint(startingPoint - page);
+        }
+    }, [page, startingPoint])
+
+    for (let i = startingPoint; i <= Math.min(Number(pagesCount), startingPoint + 4); i++) { // Show up to 5 pages at a time
         pagesComponent.push(
-            <NavLink 
-                key={i} 
-                className={page === i ? styles.active : ''} 
-                onClick={() => handlePageChange(i)} 
+            <NavLink
+                key={i}
+                className={page === i ? styles.active : ''}
+                onClick={() => handlePageChange(i)}
                 to="#" // Ideally, this would link to a route or modify the URL query params
             >
                 {i}
             </NavLink>
         );
     }
-
+    
     function handlePageChange(newPage) {
-        sessionStorage.setItem("page", newPage.toString());
-        // Here you would ideally trigger a state update or navigation
-        // For example, you could call a method passed from the parent component
-        // submit(newPage); // Uncomment or modify this line based on your actual use case
+        if (1 <= newPage && newPage <= pagesCount) {
+            sessionStorage.setItem("page", newPage);
+        }
     }
 
     return (
         <div className={styles["pagination"]}>
-            <NavLink 
-                disabled={page <= 1} 
+            <NavLink
+                disabled={page - 1 <= 0}
                 onClick={() => handlePageChange(page - 1)}
-                to="#"
             >
                 &laquo;
             </NavLink>
             {pagesComponent}
-            <NavLink 
-                disabled={page >= pagesCount} 
+            <NavLink
+                disabled={page + 1 > pagesCount}
                 onClick={() => handlePageChange(page + 1)}
-                to="#"
             >
                 &raquo;
             </NavLink>

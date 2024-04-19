@@ -90,7 +90,6 @@ export default function LoginPage() {
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     try {
-        
         const userData = await getFormData(request);
         const validation = checkUserData(userData);
 

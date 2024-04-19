@@ -1,14 +1,25 @@
-import { redirect, useLoaderData, json, useActionData } from "react-router-dom";
+import { redirect, useLoaderData, json, useActionData, useSubmit, useRouteLoaderData } from "react-router-dom";
 import { editProduct, getProductById } from "../../../../../backend/api/api";
 import ProductForm from "./ProductForm";
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
 import { getFormData } from "../../utils/utils";
 import { cleanFilters } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation";
+import useAuth from "../../hooks/useAuth";
 
 export default function EditProduct() {
     const { productData } = useLoaderData();
     const data = useActionData();
+
+    const submit = useSubmit();
+
+    const token = useRouteLoaderData("rootLoader");
+    const { isAdmin } = useAuth(token);
+
+    if (!isAdmin) {
+        return submit("message=No such Page Found!&type=danger", 
+        { action: "/", method: "get" })
+    }
 
     return <ProductForm header={"Edit Product"} product={productData} data={data} />
 }

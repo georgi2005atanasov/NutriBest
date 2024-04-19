@@ -2,11 +2,21 @@ import { cleanFilters, getFormData } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation"
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
 import { addProduct } from "../../../../../backend/api/api";
-import { useActionData, json, redirect } from "react-router-dom";
+import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import ProductForm from "./ProductForm";
 
 export default function AddProductPage() {
     const data = useActionData();
+    const submit = useSubmit();
+
+    const token = useRouteLoaderData("rootLoader");
+    const { isAdmin } = useAuth(token);
+
+    if (!isAdmin) {
+        return submit("message=No such Page Found!&type=danger", 
+        { action: "/", method: "get" })
+    }
 
     return <ProductForm header={"Add New Product"} data={data} />
 }

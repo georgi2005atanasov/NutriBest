@@ -44,7 +44,7 @@ export default function AllProducts() {
                             </div>
                         </div>
 
-                        <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center mb-3`}>
+                        <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center align-items-lg-start align-items-center mb-3`}>
                             <SideBarToggler toggleSidebar={toggleSidebar} />
                             <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
                         </div>
@@ -77,12 +77,16 @@ async function loadProductsData(page, categories, price, alpha) {
     async function storeImages(productsRows) {
         const products = productsRows.flat();
 
+        // const imagePromises = products.map(async (p) => {
+        //     const cachedImage = localStorage.getItem(`image-${p.productId}`);
+        //     if (!cachedImage) {
+        //         const image = await getImageByProductId(p.productId);
+        //         localStorage.setItem(`image-${p.productId}`, `data:${image.contentType};base64,${image.imageData}`);
+        //     }
+        // });
+
         const imagePromises = products.map(async (p) => {
-            const cachedImage = localStorage.getItem(`image-${p.productId}`);
-            if (!cachedImage) {
-                const image = await getImageByProductId(p.productId);
-                localStorage.setItem(`image-${p.productId}`, `data:${image.contentType};base64,${image.imageData}`);
-            }
+            await getImageByProductId(p.productId);
         });
 
         await Promise.all(imagePromises);

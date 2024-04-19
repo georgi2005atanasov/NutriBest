@@ -35,13 +35,3 @@ export function cleanFilters() {
     sessionStorage.setItem("price", "");
     sessionStorage.setItem("page", 1);
 }
-
-export async function cleanCachedImages() {
-    const ids = await getIdentifiers();
-
-    for (const id of ids) {
-        if (localStorage.getItem(`image-${id}`)) {
-            localStorage.removeItem(`image-${id}`);
-        }
-    }
-}

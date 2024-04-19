@@ -31,7 +31,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
     }, [selectedCategories, submit, price, page, categories, alpha]);
 
     return <>
-        <div className={`${styles["filter-header"]} d-flex justify-content-between align-items-center`}>
+        <div className={`${styles["filter-header"]} w-100 d-flex justify-content-between align-items-center`}>
             <h5>Filter by</h5> <i className="fa fa-filter" aria-hidden="true"></i>
         </div>
         <div className={`${styles["sidebar"]} d-flex flex-column ${isVisible ? styles['visible'] : 'd-none d-xl-flex'}`}>

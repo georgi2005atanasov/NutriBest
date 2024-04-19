@@ -1,5 +1,5 @@
 import { redirect } from "react-router-dom";
-import { cleanCachedImages, cleanFilters } from "../../utils/utils";
+import { cleanFilters } from "../../utils/utils";
 
 export function action() {
     localStorage.removeItem("authToken");
@@ -7,7 +7,6 @@ export function action() {
     localStorage.removeItem("duration")
 
     cleanFilters();
-    cleanCachedImages();
 
     return redirect("/");
 }

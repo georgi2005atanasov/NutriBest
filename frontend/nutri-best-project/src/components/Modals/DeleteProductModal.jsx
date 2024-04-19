@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import Modal from "./Modal";
 import styles from "./css/Modal.module.css";
-import { useSubmit } from "react-router-dom";
+import { redirect, useSubmit } from "react-router-dom";
 import { deleteProduct } from "../../../../../backend/api/api";
 
 // eslint-disable-next-line react/prop-types
@@ -19,8 +19,7 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
             return submit("message=Successfully deleted the product!&type=success",
                 { action: "", method: "get" });
         } catch (error) {
-            console.log(error);
-            return error;
+            return redirect("/error");
         }
     }
 

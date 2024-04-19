@@ -104,30 +104,34 @@ export default function RegisterPage() {
 
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
-    const userData = await getFormData(request);
+    try {
+        const userData = await getFormData(request);
 
-    const validation = getUserErrors(userData);
+        const validation = getUserErrors(userData);
 
-    if (validation && Object.keys(validation.errors).length > 0) {
-        return validation;
+        if (validation && Object.keys(validation.errors).length > 0) {
+            return validation;
+        }
+
+        const response = await register(userData);
+
+        if (response && response.errors) {
+            return response;
+        }
+
+        if (response && Array.isArray(response)) {
+            const message = response[0].description;
+            return json({ errors: { "message": [message] } });
+        }
+
+        if (response && response.status === 400) {
+            return json({ errors: { "message": ["Cannot create already existing users!"] } });
+        }
+
+        return redirect("/login");
+    } catch (error) {
+        return redirect("/error");
     }
-
-    const response = await register(userData);
-
-    if (response && response.errors) {
-        return response;
-    }
-
-    if (response && Array.isArray(response)) {
-        const message = response[0].description;
-        return json({ errors: { "message": [message] } });
-    }
-
-    if (response && response.status === 400) {
-        return json({ errors: { "message": ["Cannot create already existing users!"] } });
-    }
-
-    return redirect("/login");
 }
 
 function getUserErrors(userData) {

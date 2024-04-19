@@ -1,7 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "../../../pages/css/ProductItem.module.css";
 import { Link } from "react-router-dom";
-import Modal from "../../Modals/Modal";
 import DeleteProductModal from "../../Modals/DeleteProductModal";
 
 // eslint-disable-next-line react/prop-types

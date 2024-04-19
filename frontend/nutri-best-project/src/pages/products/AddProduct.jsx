@@ -14,8 +14,8 @@ export default function AddProductPage() {
     const { isAdmin } = useAuth(token);
 
     if (!isAdmin) {
-        return submit("message=No such Page Found!&type=danger", 
-        { action: "/", method: "get" })
+        return submit("message=No such Page Found!&type=danger",
+            { action: "/", method: "get" })
     }
 
     return <ProductForm header={"Add New Product"} data={data} />
@@ -28,21 +28,20 @@ export function loader() {
 
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
-    const productModel = await getFormData(request)
-    productModel.categories = getProductCategories(productModel);
-    
-    //handle error for price
-    productModel.price = parseFloat(productModel.price)
-
-    const checkProduct = getProductErrors(productModel);
-
-    if (Object.keys(checkProduct.errors).length != 0) {
-        return checkProduct;
-    }
-
-    const formData = getProductForm(productModel);
-
     try {
+        const productModel = await getFormData(request)
+        productModel.categories = getProductCategories(productModel);
+
+        productModel.price = parseFloat(productModel.price)
+
+        const checkProduct = getProductErrors(productModel);
+
+        if (Object.keys(checkProduct.errors).length != 0) {
+            return checkProduct;
+        }
+
+        const formData = getProductForm(productModel);
+
         const response = await addProduct(formData);
 
         let data = { errors: {} };

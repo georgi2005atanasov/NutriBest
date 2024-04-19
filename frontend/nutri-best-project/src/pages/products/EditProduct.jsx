@@ -17,27 +17,31 @@ export default function EditProduct() {
     const { isAdmin } = useAuth(token);
 
     if (!isAdmin) {
-        return submit("message=No such Page Found!&type=danger", 
-        { action: "/", method: "get" })
+        return submit("message=No such Page Found!&type=danger",
+            { action: "/", method: "get" })
     }
 
     return <ProductForm header={"Edit Product"} product={productData} data={data} />
 }
 
 export async function loader({ request, params }) {
-    const { id } = params;
+    try {
+        const { id } = params;
 
-    const data = await getProductById(id);
+        const data = await getProductById(id);
 
-    if (!data.ok) {
-        return redirect("/?message=Invalid Product was selected");
+        if (!data.ok) {
+            return redirect("/?message=Invalid Product was selected");
+        }
+
+        const productData = await data.json();
+
+        return {
+            productData
+        };
+    } catch (error) {
+        return redirect("/error");
     }
-
-    const productData = await data.json();
-
-    return {
-        productData
-    };
 }
 
 export async function action({ request, params }) {

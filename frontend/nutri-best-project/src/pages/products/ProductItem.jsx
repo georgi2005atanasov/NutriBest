@@ -25,7 +25,7 @@ export default function ProductItem({ product }) {
 
         if (!src) {
             getImage(product.productId);
-            return
+            return;
         }
 
         setSrc(src);

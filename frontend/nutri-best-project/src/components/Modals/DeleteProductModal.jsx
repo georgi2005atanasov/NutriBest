@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import Modal from "./Modal";
-import styles from "./css/Modal.module.css";
+import styles from "./css/DeleteProductModal.module.css";
 import { redirect, useSubmit } from "react-router-dom";
 import { deleteProduct } from "../../../../../backend/api/api";
 
@@ -17,7 +17,7 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
             
             ref.current.close();
             return submit("message=Successfully deleted the product!&type=success",
-                { action: "", method: "get" });
+                { action: "#", method: "get" });
         } catch (error) {
             return redirect("/error");
         }

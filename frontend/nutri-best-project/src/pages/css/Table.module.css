@@ -1,0 +1,74 @@
+.table-wrapper {
+    border-radius: 10px !important;
+    border: none !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 10px !important;
+    border: none !important;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid #ddd; /* Light grey bottom border for rows */
+}
+
+th {
+    background-color: #333;
+    color: white;
+    border-bottom-color: #555; /* Darker grey for header border */
+}
+
+img {
+    width: 100px;
+    height: auto;
+}
+
+.btn {
+    padding: 6px 10px;
+    margin-right: 4px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.edit {
+    background-color: #FFCC00; /* Green */
+    min-width: 88.49px;
+    color: #333;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px !important;
+    border: none !important;
+}
+
+.delete {
+    background-color: #CC0000; /* Green */
+    min-width: 88.49px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px !important;
+    border: none !important;
+}
+
+.details {
+    background-color: #2196F3; /* Blue */
+    min-width: 88.49px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Light grey background on hover */
+}

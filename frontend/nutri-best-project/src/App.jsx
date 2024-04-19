@@ -13,6 +13,8 @@ import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
 import TableProducts from './pages/products/TableProducts';
+import Table from './pages/products/Table';
+import ProductRow from './pages/products/ProductRow';
 
 const router = createBrowserRouter([
   {
@@ -38,11 +40,20 @@ const router = createBrowserRouter([
               },
               {
                 index: true, element: <ProductItem />
-              },
-              {
-                index: "table", element: <TableProducts />
               }
             ]
+          },
+          {
+            path: "table", element: <TableProducts />, 
+            loader: getAllProducts, children: [
+              {
+                index: true, element: <Table />
+              },
+              {
+                index: true, element: <ProductRow />
+              }
+            ]
+
           },
           {
             path: "edit/:id", element: <EditProduct />, loader: productLoader, action: editProduct

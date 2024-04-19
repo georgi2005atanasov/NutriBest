@@ -1,14 +1,19 @@
 import { Suspense, useState, useEffect } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await, useSearchParams } from "react-router-dom";
+import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/Sidebar/SideBar";
 import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
 import styles from "../css/AllProducts.module.css";
 import ProductsList from "./ProductsList";
 import Message from "../../components/UI/Message";
+import NavigationLink from "../../components/Navigation/NavigationLink";
+import useAuth from "../../hooks/useAuth";
 
 export default function AllProducts() {
+    const token = useRouteLoaderData("rootLoader");
+    const { isAdmin } = useAuth(token);
+
     let [searchParams, setSearchParams] = useSearchParams();
     const message = searchParams.get('message');
     const messageType = searchParams.get('type');
@@ -27,7 +32,6 @@ export default function AllProducts() {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
 
-
     return <>
         <div className="all-products d-flex justify-content-end">
             <div className="container-fluid mx-lg-4 mx-2">
@@ -39,8 +43,19 @@ export default function AllProducts() {
                                     <h4>Products</h4>
                                 </div>
                                 <div className="d-flex offset-md-3 text-center">
-                                    <p>{sessionStorage.getItem("productsCount")} products available</p>
+                                    <p className="mb-0">{sessionStorage.getItem("productsCount")} products available</p>
                                 </div>
+
+                                {isAdmin ?
+                                    <div className="mb-3 d-flex justify-content-end">
+                                        <NavigationLink
+                                            route={`/products/table?page=1`}
+                                            text={"View as Table"}
+                                            className="text-center" />
+                                        <div className="mx-1"></div>
+                                    </div> :
+                                undefined}
+
                             </div>
                         </div>
 
@@ -76,14 +91,6 @@ export default function AllProducts() {
 async function loadProductsData(page, categories, price, alpha) {
     async function storeImages(productsRows) {
         const products = productsRows.flat();
-
-        // const imagePromises = products.map(async (p) => {
-        //     const cachedImage = localStorage.getItem(`image-${p.productId}`);
-        //     if (!cachedImage) {
-        //         const image = await getImageByProductId(p.productId);
-        //         localStorage.setItem(`image-${p.productId}`, `data:${image.contentType};base64,${image.imageData}`);
-        //     }
-        // });
 
         const imagePromises = products.map(async (p) => {
             await getImageByProductId(p.productId);

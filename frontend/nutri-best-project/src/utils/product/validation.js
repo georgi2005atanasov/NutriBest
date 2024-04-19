@@ -3,7 +3,7 @@ export function getProductErrors(productModel) {
         errors: {}
     };
 
-    if (productModel.price <= 0) {
+    if (productModel.price <= 0 || isNaN(productModel.price)) {
         data.errors["Price"] = ["Price must be bigger than 0!"];
     }
 

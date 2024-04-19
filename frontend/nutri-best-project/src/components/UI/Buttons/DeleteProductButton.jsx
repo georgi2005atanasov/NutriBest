@@ -13,7 +13,7 @@ export default function DeleteProductButton({ productId }) {
     }
 
     return <>
-        <DeleteProductModal ref={dialog} />
+        <DeleteProductModal ref={dialog} productId={productId} />
 
         <div className="col-6 d-flex justify-content-center mb-1">
             <Link onClick={handleDeleteClick} className={styles["delete-btn"]}>Delete</Link>

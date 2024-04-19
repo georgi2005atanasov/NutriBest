@@ -1,59 +1,76 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await } from "react-router-dom";
+import { useLoaderData, redirect, defer, Await, useSearchParams } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/Sidebar/SideBar";
 import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
 import styles from "../css/AllProducts.module.css";
 import ProductsList from "./ProductsList";
+import Message from "../../components/UI/Message";
 
 export default function AllProducts() {
+    let [searchParams, setSearchParams] = useSearchParams();
+    const message = searchParams.get('message');
+    const messageType = searchParams.get('type');
+    const { productsRows, page } = useLoaderData();
+
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                setSearchParams({});
+            }, 4000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [message, setSearchParams]);
+
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
 
-    const { productsRows, page } = useLoaderData();
 
-    return <div className="all-products d-flex justify-content-end">
-        <div className="container-fluid mx-lg-4 mx-2">
-            <div className="row d-flex flex-md-column justify-content-center">
-                <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
-                    <div className="container">
-                        <div className="row">
-                            <div className="d-flex offset-md-3 text-center">
-                                <h4>Products</h4>
-                            </div>
-                            <div className="d-flex offset-md-3 text-center">
-                                <p>{sessionStorage.getItem("productsCount")} products available</p>
+    return <>
+        <div className="all-products d-flex justify-content-end">
+            <div className="container-fluid mx-lg-4 mx-2">
+                <div className="row d-flex flex-md-column justify-content-center">
+                    <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
+                        <div className="container">
+                            <div className="row">
+                                <div className="d-flex offset-md-3 text-center">
+                                    <h4>Products</h4>
+                                </div>
+                                <div className="d-flex offset-md-3 text-center">
+                                    <p>{sessionStorage.getItem("productsCount")} products available</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center mb-3`}>
-                        <SideBarToggler toggleSidebar={toggleSidebar} />
-                        <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
-                    </div>
+                        <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center mb-3`}>
+                            <SideBarToggler toggleSidebar={toggleSidebar} />
+                            <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+                        </div>
 
-                    <div className="col-md-9">
-                        <Suspense fallback={
-                            <div className="d-flex justify-content-center align-items-center">
-                                <div className={styles["big-margin"]}></div>
-                            </div>}>
-                            <Await resolve={productsRows}>
-                                {productsRows =>
-                                    <ProductsList productsRows={productsRows} />}
-                            </Await>
-                        </Suspense>
+                        <div className="col-md-9">
+                            <Suspense fallback={
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <div className={styles["big-margin"]}></div>
+                                </div>}>
+                                <Await resolve={productsRows}>
+                                    {productsRows =>
+                                        <ProductsList productsRows={productsRows} />}
+                                </Await>
+                            </Suspense>
+                        </div>
+                    </div>
+                </div>
+                {message && <Message message={message} messageType={messageType} />}
+                <div className="row d-flex justify-content-center">
+                    <div className="col-lg-6 col-md-9">
+                        <Pagination page={page} productsCount={sessionStorage.getItem("productsCount")} />
                     </div>
                 </div>
             </div>
-
-            <div className="row d-flex justify-content-center">
-                <div className="col-lg-6 col-md-9">
-                    <Pagination page={page} productsCount={sessionStorage.getItem("productsCount")} />
-                </div>
-            </div>
-        </div>
-    </div >;
+        </div >
+    </>;
 }
 
 async function loadProductsData(page, categories, price, alpha) {

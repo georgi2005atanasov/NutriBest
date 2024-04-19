@@ -14,7 +14,6 @@ export default function HomePage() {
                 setSearchParams({});
             }, 4000);
 
-            // Cleanup function to clear the timeout if the component unmounts
             return () => clearTimeout(timer);
         }
     }, [message, setSearchParams]);

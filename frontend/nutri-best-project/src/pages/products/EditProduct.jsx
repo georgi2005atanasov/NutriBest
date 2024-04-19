@@ -35,6 +35,8 @@ export async function action({ request, params }) {
     const productModel = await getFormData(request)
     productModel.categories = getProductCategories(productModel);
 
+    localStorage.removeItem(`image-${id}`);
+
     let priceToCheck = productModel.price;
     priceToCheck = priceToCheck.replace(",", ".");
     if (isNaN(priceToCheck)) {

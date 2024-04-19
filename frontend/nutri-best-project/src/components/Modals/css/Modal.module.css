@@ -83,10 +83,10 @@ dialog {
     /* Darker gray */
 }
 
-h2 {
+.delete-modal {
     transition: 0.5s;
 }
 
-h2:hover {
+.delete-modal:hover {
     color: #d73829;
 }

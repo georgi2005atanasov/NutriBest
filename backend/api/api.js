@@ -67,6 +67,22 @@ export async function editProduct(productModel) {
     }
 }
 
+export async function deleteProduct(productId) {
+    const token = getAuthToken();
+
+    if (token != "EXPIRED" && token != 0) {
+        const response = await fetch(`https://localhost:7056/products/${productId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        
+        return response;
+    }
+
+}
+
 export async function getProductsByCategories() {
     const response = await fetch(`https://localhost:7056/products/by-category-count`, {
         method: "GET"

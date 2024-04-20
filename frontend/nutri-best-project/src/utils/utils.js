@@ -1,4 +1,4 @@
-import { getIdentifiers } from "../../../../backend/api/api";
+import { PRODUCTS_VIEWS } from "../pages/Root";
 
 export async function getFormData(request) {
     const data = await request.formData();
@@ -6,7 +6,7 @@ export async function getFormData(request) {
     return userData;
 }
 
-export function buildQuery(page, categories, price, alpha) {
+export function buildQuery(page, categories, price, alpha, productsView) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
         query += `&categories=${categories.split("+").join("+and+")}`;
@@ -16,6 +16,9 @@ export function buildQuery(page, categories, price, alpha) {
     }
     if (alpha && alpha != "") {
         query += `&alpha=${alpha}`;
+    }
+    if (productsView && productsView != "") {
+        query += `&productsView=${productsView}`;
     }
 
     return query;
@@ -34,4 +37,6 @@ export function cleanFilters() {
     sessionStorage.setItem("categories", "");
     sessionStorage.setItem("price", "");
     sessionStorage.setItem("page", 1);
+    
+    sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
 }

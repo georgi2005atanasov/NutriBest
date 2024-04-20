@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
 import ProductRow from "./ProductRow";
-import NavigationLink from "../../components/Navigation/NavigationLink";
 
 export default function Table({ productsRows }) {
     const products = productsRows.flat();

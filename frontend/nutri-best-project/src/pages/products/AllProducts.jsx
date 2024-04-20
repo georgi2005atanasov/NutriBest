@@ -1,6 +1,6 @@
 import { Suspense, useState, useEffect } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData } from "react-router-dom";
+import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/Sidebar/SideBar";
 import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
@@ -16,6 +16,7 @@ export default function AllProducts() {
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
     const token = useRouteLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
+    const submit = useSubmit();
 
     let [searchParams, setSearchParams] = useSearchParams();
 
@@ -32,6 +33,10 @@ export default function AllProducts() {
             return () => clearTimeout(timer);
         }
     }, [message, setSearchParams]);
+
+    useEffect(() => {
+        return submit(null, {action: "", method: "get"});
+    }, [productsView]); 
 
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
@@ -62,17 +67,17 @@ export default function AllProducts() {
 
                                 {isAdmin && productsView === "all" &&
                                     <div className="mb-3 d-flex justify-content-end">
-                                        <ChangeLayoutButton 
-                                        text={"View as Table"}
-                                        onClick={toTableView} />
+                                        <ChangeLayoutButton
+                                            text={"View as Table"}
+                                            onClick={toTableView} />
                                         <div className="mx-1"></div>
                                     </div>}
 
                                 {isAdmin && productsView === "table" &&
                                     <div className="mb-3 d-flex justify-content-end">
-                                        <ChangeLayoutButton 
-                                        text={"View as User"}
-                                        onClick={toUserView} />
+                                        <ChangeLayoutButton
+                                            text={"View as User"}
+                                            onClick={toUserView} />
                                         <div className="mx-1"></div>
                                     </div>}
                             </div>
@@ -100,7 +105,7 @@ export default function AllProducts() {
                 {message && <Message message={message} messageType={messageType} />}
                 <div className="row d-flex justify-content-center">
                     <div className="col-lg-6 col-md-9">
-                        <Pagination page={page} productsCount={sessionStorage.getItem("productsCount")} />
+                        <Pagination productsView={productsView} page={page} productsCount={sessionStorage.getItem("productsCount")} />
                     </div>
                 </div>
             </div>
@@ -108,7 +113,7 @@ export default function AllProducts() {
     </>;
 }
 
-async function loadProductsData(page, categories, price, alpha) {
+async function loadProductsData(page, categories, price, alpha, productsView) {
     async function storeImages(productsRows) {
         const products = productsRows.flat();
 
@@ -124,7 +129,7 @@ async function loadProductsData(page, categories, price, alpha) {
             sessionStorage.setItem("page", 1);
         }
 
-        let products = await allProducts(Number(page), categories, price, alpha);
+        let products = await allProducts(Number(page), categories, price, alpha, productsView);
 
         if (!products.ok) {
             sessionStorage.setItem("productsCount", 0);
@@ -134,7 +139,7 @@ async function loadProductsData(page, categories, price, alpha) {
         const { productsRows, count } = await products.json();
 
         sessionStorage.setItem("productsCount", count);
-        sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
+        sessionStorage.setItem("productsView", productsView);
 
         await storeImages(productsRows);
 
@@ -150,6 +155,7 @@ export async function loader({ request, params }) {
     const categories = sessionStorage.getItem("categories");
     const price = sessionStorage.getItem("price");
     const alpha = sessionStorage.getItem("alpha");
+    const productsView = sessionStorage.getItem("productsView") || PRODUCTS_VIEWS.all;
 
     //make good error handle
     if (!currentPage || isNaN(currentPage)) {
@@ -159,7 +165,8 @@ export async function loader({ request, params }) {
     const page = Number(currentPage);
 
     return defer({
-        productsRows: await loadProductsData(page, categories, price, alpha),
-        page
+        productsRows: await loadProductsData(page, categories, price, alpha, productsView),
+        page,
+        productsView
     });
 }

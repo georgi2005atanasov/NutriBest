@@ -2,9 +2,17 @@
 import { NavLink } from "react-router-dom";
 import styles from "./css/Pagination.module.css";
 import { useState, useEffect } from "react";
+import { PRODUCTS_VIEWS } from "../../pages/Root";
 
-export default function Pagination({ page, productsCount }) {
-    const pagesCount = Math.ceil(Number(productsCount) / 6.0);
+const PRODUCTS_PER_PAGE = 6.0;
+const PRODUCTS_PER_TABLE = 10.0;
+
+export default function Pagination({ page, productsCount, productsView }) {
+    const productsPerPage = productsView == PRODUCTS_VIEWS.all ?
+        PRODUCTS_PER_PAGE :
+        PRODUCTS_PER_TABLE;
+    const pagesCount = Math.ceil(Number(productsCount) / productsPerPage);
+
     const [startingPoint, setStartingPoint] = useState(1);
 
     let pagesComponent = [];
@@ -20,7 +28,7 @@ export default function Pagination({ page, productsCount }) {
 
     }, [page, startingPoint])
 
-    for (let i = startingPoint; i <= Math.min(Number(pagesCount), startingPoint + 4); i++) { // Show up to 5 pages at a time
+    for (let i = startingPoint; i <= Math.min(Number(pagesCount), startingPoint + 4); i++) {
         pagesComponent.push(
             <NavLink
                 key={i}

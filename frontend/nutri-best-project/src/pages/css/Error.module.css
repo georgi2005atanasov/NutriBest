@@ -1,0 +1,36 @@
+.container-err {
+    text-align: center !important;
+    background-color: #fff !important;
+    padding: 20px !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
+}
+
+.wrong {
+    color: #ff6347; /* Tomato color for the heading */
+    margin-top: 20px;
+}
+
+.trouble {
+    color: #333;
+}
+
+.error-icon {
+    width: 100px;
+    margin: 20px 0;
+}
+
+.back-btn {
+    margin-left: 50px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.back-btn:hover {
+    background-color: #e55337;
+}

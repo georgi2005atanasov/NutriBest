@@ -30,7 +30,7 @@ export default function ProductRow({ product }) {
         <td>{product.name}</td>
         <td>
             <Link to={`/products/edit/${product.productId}`} className={`${styles["btn"]} ${styles["edit"]} me-1 mb-1`}>Edit</Link>
-            <Link  className={`${styles["btn"]} ${styles["delete"]} me-1 mb-1`}>Delete</Link>
+            <Link className={`${styles["btn"]} ${styles["delete"]} me-1 mb-1`}>Delete</Link>
             <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
         </td>
     </tr>

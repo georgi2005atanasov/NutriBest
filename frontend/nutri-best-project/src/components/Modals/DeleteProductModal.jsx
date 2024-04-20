@@ -17,7 +17,7 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
             
             ref.current.close();
             return submit("message=Successfully deleted the product!&type=success",
-                { action: "#", method: "get" });
+                { action: "", method: "get" });
         } catch (error) {
             return redirect("/error");
         }

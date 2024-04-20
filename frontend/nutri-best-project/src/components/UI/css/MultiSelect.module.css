@@ -20,12 +20,3 @@
     cursor: pointer;
     transition: color 0.3s ease;
 }
-
-.category-item:hover .category-label {
-    color: #eca41f;
-}
-
-/* Custom checkbox styling */
-.category-checkbox:checked+.category-label {
-    color: #eca41f;
-}

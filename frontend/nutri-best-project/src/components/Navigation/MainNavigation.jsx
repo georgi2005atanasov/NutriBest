@@ -5,7 +5,7 @@ import NavLogo from "./NavLogo";
 import NavToggler from "./NavToggler";
 
 const MainNavigation = memo(function MainNavigation() {
-    return <div className={`container ${styles["main-navigation"]}`}>
+    return <div id="main-navigation" className={`container ${styles["main-navigation"]}`}>
         <div className="row d-flex justify-content-between align-items-start">
             <NavLogo styles={styles} />
             <NavToggler styles={styles} />

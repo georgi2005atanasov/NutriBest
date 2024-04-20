@@ -1,0 +1,15 @@
+.admin-color:hover {
+    background-color: #c3bef0;
+}
+
+.admin-color-text:hover {
+    color: #8b2fd2;
+}
+
+.user-color:hover{
+    background-color: #cf9236;
+}
+
+.user-color-text:hover {
+    color: #cf9236;
+}

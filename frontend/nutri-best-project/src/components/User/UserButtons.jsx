@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import colors from "../../App.module.css";
 import NavigationLink from "../Navigation/NavigationLink";
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
     const productsView = sessionStorage.getItem("productsView");
-    
+
     return <>
         <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
             <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
@@ -13,7 +14,8 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                         <NavigationLink
                             route={`/products/${productsView}?page=1`}
                             text={"All"}
-                            className="text-center" />
+                            isAdmin={isAdmin}
+                            className={`text-center`} />
 
                         {isAdmin ? <>
                             <div className="mx-1"></div>
@@ -21,7 +23,8 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                             <NavigationLink
                                 route={"/products/add"}
                                 text={"Add Product"}
-                                className="text-center" />
+                                isAdmin={isAdmin}
+                                className={`text-center`} />
                         </> :
                             undefined}
 
@@ -30,15 +33,17 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                         <NavigationLink
                             route={"/profile"}
                             text={"Profile"}
-                            className="text-center" />
+                            isAdmin={isAdmin}
+                            className={`text-center`} />
                         <div className="mx-1"></div>
 
                         <NavigationLink
                             text={"Logout"}
                             onClick={handleLogout}
-                            className="text-center border-0" />
+                            isAdmin={isAdmin}
+                            className={`text-center border-0`} />
 
-                        <div className={`${styles["nav-link"]} p-2 mx-1`}>
+                        <div className={`${isAdmin ? colors["admin-color"] : colors["user-color"]} ${styles["nav-link"]} p-2 mx-1`}>
                             <Link className="text-center" to="cart-modal">
                                 <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                             </Link>

@@ -4,11 +4,13 @@
     padding: 20px !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.1) !important;
     border-radius: 8px !important;
+    margin-bottom: 100px;
 }
 
-.wrong {
+.wrong-header {
     color: #ff6347; /* Tomato color for the heading */
-    margin-top: 20px;
+    margin-top: 60px;
+    z-index: 1;
 }
 
 .trouble {

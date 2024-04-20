@@ -3,6 +3,8 @@ import styles from "../css/Table.module.css";
 import { useEffect, useState, } from "react";
 import { getImageByProductId } from "../../../../../backend/api/products";
 import { Link } from "react-router-dom";
+import DeleteProductButton from "../../components/UI/Buttons/DeleteProductButton";
+import EditProductButton from "../../components/UI/Buttons/EditProductButton";
 
 export default function ProductRow({ product }) {
     const [src, setSrc] = useState('');
@@ -29,8 +31,8 @@ export default function ProductRow({ product }) {
         <td>{Number(product.price.toFixed(2)) + 0.99} BGN</td>
         <td>{product.name}</td>
         <td>
-            <Link to={`/products/edit/${product.productId}`} className={`${styles["btn"]} ${styles["edit"]} me-1 mb-1`}>Edit</Link>
-            <Link className={`${styles["btn"]} ${styles["delete"]} me-1 mb-1`}>Delete</Link>
+            <EditProductButton productId={product.productId} isTable={true} />
+            <DeleteProductButton productId={product.productId} isTable={true} />
             <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
         </td>
     </tr>

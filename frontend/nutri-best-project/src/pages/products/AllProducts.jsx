@@ -1,4 +1,4 @@
-import { Suspense, useState, useEffect, useRef } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
@@ -7,7 +7,6 @@ import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
 import styles from "../css/AllProducts.module.css";
 import ProductsList from "./ProductsList";
 import Message from "../../components/UI/Message";
-import NavigationLink from "../../components/Navigation/NavigationLink";
 import useAuth from "../../hooks/useAuth";
 import { PRODUCTS_VIEWS } from "../Root";
 import Table from "./Table";

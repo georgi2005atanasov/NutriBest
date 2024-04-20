@@ -13,8 +13,6 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
             const response = await deleteProduct(productId);
             console.log(response);
 
-            localStorage.removeItem(`image-${productId}`);
-            
             ref.current.close();
             return submit("message=Successfully deleted the product!&type=success",
                 { action: "", method: "get" });

@@ -24,7 +24,7 @@ const Footer = memo(function Footer() {
                     </Link>
                 </div>
                 <div className={styles["footer-bottom"]}>
-                    <p>© {new Date().getFullYear()} FitFuel, Inc. All Rights Reserved.</p>
+                    <p>© {new Date().getFullYear()} NutriBest, Inc. All Rights Reserved.</p>
                 </div>
             </div>
         </footer>

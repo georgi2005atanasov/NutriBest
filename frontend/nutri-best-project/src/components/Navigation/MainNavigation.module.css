@@ -110,16 +110,7 @@ h1 {
 
 #check:checked~.button span:nth-child(1) {
     width: 100%;
-    transform: rotate(45deg) translateY(6px) translateX(6px);
-}
-
-#check:checked~.button span:nth-child(2) {
-    width: 0;
-}
-
-#check:checked~.button span:nth-child(3) {
-    width: 100%;
-    transform: rotate(-45deg) translateY(-7px) translateX(7px);
+    transform: rotate(90deg) translateY(6px) translateX(6px);
 }
 
 nav {

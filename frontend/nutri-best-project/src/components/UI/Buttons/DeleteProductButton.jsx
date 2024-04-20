@@ -1,14 +1,22 @@
 import { useRef } from "react";
 import styles from "../../../pages/css/ProductItem.module.css";
+import table from "../../../pages/css/Table.module.css";
 import { Link } from "react-router-dom";
 import DeleteProductModal from "../../Modals/DeleteProductModal";
 
 // eslint-disable-next-line react/prop-types
-export default function DeleteProductButton({ productId }) {
+export default function DeleteProductButton({ productId, isTable = false }) {
     const dialog = useRef();
 
     function handleDeleteClick() {
         dialog.current.open();
+    }
+
+    if (isTable) {
+        return <>
+            <DeleteProductModal ref={dialog} productId={productId} />
+            <Link onClick={handleDeleteClick} className={`${table["btn"]} ${table["delete"]} me-1 mb-1`}>Delete</Link>
+        </>;
     }
 
     return <>

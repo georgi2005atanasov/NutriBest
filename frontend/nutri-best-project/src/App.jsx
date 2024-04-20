@@ -12,9 +12,7 @@ import MultiSelectCategory, { loader as getCategoriesCount } from './components/
 import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
-import TableProducts from './pages/products/TableProducts';
-import Table from './pages/products/Table';
-import ProductRow from './pages/products/ProductRow';
+import TableProducts, { loader as productsTableLoader } from './pages/products/TableProducts';
 
 const router = createBrowserRouter([
   {
@@ -44,16 +42,8 @@ const router = createBrowserRouter([
             ]
           },
           {
-            path: "table", element: <TableProducts />, 
-            loader: getAllProducts, children: [
-              {
-                index: true, element: <Table />
-              },
-              {
-                index: true, element: <ProductRow />
-              }
-            ]
-
+            path: "table", element: <TableProducts />,
+            loader: productsTableLoader
           },
           {
             path: "edit/:id", element: <EditProduct />, loader: productLoader, action: editProduct
@@ -63,8 +53,9 @@ const router = createBrowserRouter([
       { path: 'error', element: <ErrorPage /> }
     ],
     id: "rootLoader",
-    loader: tokenLoader
-  }
+    loader: tokenLoader,
+    errorElement: <ErrorPage />
+  },
 ]);
 
 function App() {

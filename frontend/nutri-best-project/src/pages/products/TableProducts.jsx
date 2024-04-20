@@ -1,18 +1,17 @@
+import { jwtDecode } from "jwt-decode"
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/Sidebar/SideBar";
 import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
 import Message from "../../components/UI/Message";
 import { Suspense, useEffect, useState } from "react";
-import { Await, useSearchParams, useLoaderData, useRouteLoaderData, defer, redirect } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import { Await, useSearchParams, useLoaderData, defer, redirect } from "react-router-dom";
 import styles from "../css/AllProducts.module.css";
 import { getImageByProductId, allProducts } from "../../../../../backend/api/products";
 import Table from "./Table";
+import { PRODUCTS_VIEWS } from "../Root";
+import { getAuthToken } from "../../utils/auth";
 
 export default function TableProducts() {
-    const token = useRouteLoaderData("rootLoader");
-    const { isAdmin } = useAuth(token);
-
     let [searchParams, setSearchParams] = useSearchParams();
     const message = searchParams.get('message');
     const messageType = searchParams.get('type');
@@ -103,6 +102,7 @@ async function loadProductsData(page, categories, price, alpha) {
         const { productsRows, count } = await products.json();
 
         sessionStorage.setItem("productsCount", count);
+        sessionStorage.setItem("productsView", PRODUCTS_VIEWS.table);
 
         await storeImages(productsRows);
 
@@ -114,6 +114,20 @@ async function loadProductsData(page, categories, price, alpha) {
 
 // eslint-disable-next-line no-unused-vars
 export async function loader({ request, params }) {
+    const token = getAuthToken();
+    let isAdmin = false;
+
+    try {
+        const tokenData = token ? jwtDecode(token) : null;
+        isAdmin = tokenData && tokenData.role === "Administrator";
+    } catch (error) {
+        console.error("Token decoding failed:", error);
+    }
+
+    if (!isAdmin) {
+        return redirect("/error");
+    }
+
     const currentPage = sessionStorage.getItem("page");
     const categories = sessionStorage.getItem("categories");
     const price = sessionStorage.getItem("price");

@@ -6,6 +6,11 @@ import Footer from "../components/UI/Footer";
 import CategoryContextProvider from "../store/CategoryContext";
 import Loader from "../components/UI/Loader";
 
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PRICE = "";
+export const DEFAULT_CATEGORY = "";
+export const DEFAULT_ALPHA = "";
+export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 
 export default function RootLayout() {
     const TOKEN_DURATION = localStorage.getItem("duration");
@@ -17,16 +22,16 @@ export default function RootLayout() {
 
     useEffect(() => {
         if (!sessionStorage.getItem("price")) {
-            sessionStorage.setItem("price", "");
+            sessionStorage.setItem("price", DEFAULT_PRICE);
         }
         if (!sessionStorage.getItem("alpha")) {
-            sessionStorage.setItem("alpha", "");
+            sessionStorage.setItem("alpha", DEFAULT_ALPHA);
         }
         if (!sessionStorage.getItem("categories")) {
-            sessionStorage.setItem("categories", "");
+            sessionStorage.setItem("categories", DEFAULT_CATEGORY);
         }
         if (!sessionStorage.getItem("page")) {
-            sessionStorage.setItem("page", 1);
+            sessionStorage.setItem("page", DEFAULT_PAGE);
         }
     });
 

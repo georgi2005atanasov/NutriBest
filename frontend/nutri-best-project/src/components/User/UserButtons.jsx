@@ -2,7 +2,8 @@
 import { Link } from "react-router-dom";
 import NavigationLink from "../Navigation/NavigationLink";
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
-
+    const productsView = sessionStorage.getItem("productsView");
+    
     return <>
         <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
             <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
@@ -10,7 +11,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                     <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
                         {/* gotta add more tools buttons for admin soon */}
                         <NavigationLink
-                            route={"/products/all?page=1"}
+                            route={`/products/${productsView}?page=1`}
                             text={"All"}
                             className="text-center" />
 

@@ -2,12 +2,13 @@ import useAuth from "../../hooks/useAuth";
 import { useLoaderData } from "react-router-dom";
 import colors from "../../App.module.css";
 
+
 /* eslint-disable react/prop-types */
 export default function NavToggler({ styles }) {
     const token = useLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
 
-    return <div className="col-10 p-0">
+    return <div className="col-md-6 p-0">
         <div className="container">
             <div className="row">
                 <div className="col-md-12">

@@ -1,0 +1,69 @@
+.search-bar input {
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 19px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #f5f3ef;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+.search-bar {
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 70px !important;
+    margin-bottom: 10px;
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 15px !important;
+    padding-right: 150px !important;
+    border-radius: 10px;
+    background-color: #f5f3ef;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+@media screen and (min-width: 1400px) {
+    .search-bar {
+        margin-right: 80px;
+        margin-left: 0px;
+    }
+}
+
+.search-bar:focus {
+    border: none;
+    box-shadow: 0 0 8px #cf9236;
+}
+
+.search-bar input::placeholder {
+    color: #989389;
+    text-align: start;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    /* Adjust padding to make space for the icon */
+    box-sizing: border-box;
+    /* This ensures the padding does not affect the overall width */
+}
+
+.search-icon {
+    position: absolute;
+    right: 100px;
+    /* Adjust based on your design */
+    top: 50%;
+    transform: translateY(-50%);
+    /* This centers the icon vertically */
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1399px) {
+    .search-icon {
+        right: 20px;
+    }
+}

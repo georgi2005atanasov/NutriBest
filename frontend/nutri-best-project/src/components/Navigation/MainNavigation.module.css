@@ -1,7 +1,10 @@
 #header-logo img {
-    min-width: 30px;
-    min-height: 30px;
-    object-fit: cover;
+    min-width: 60px;
+    min-height: 60px;
+    object-fit: fill;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 .main-navigation {

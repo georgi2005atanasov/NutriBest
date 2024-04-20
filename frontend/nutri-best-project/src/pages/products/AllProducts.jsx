@@ -1,6 +1,6 @@
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
+import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination";
 import SideBar from "../../components/UI/Sidebar/SideBar";
 import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
@@ -10,13 +10,16 @@ import Message from "../../components/UI/Message";
 import NavigationLink from "../../components/Navigation/NavigationLink";
 import useAuth from "../../hooks/useAuth";
 import { PRODUCTS_VIEWS } from "../Root";
+import Table from "./Table";
+import ChangeLayoutButton from "../../components/UI/ChangeLayoutButton";
 
 export default function AllProducts() {
+    const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
     const token = useRouteLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
 
     let [searchParams, setSearchParams] = useSearchParams();
-    
+
     const message = searchParams.get('message');
     const messageType = searchParams.get('type');
     const { productsRows, page } = useLoaderData();
@@ -35,8 +38,13 @@ export default function AllProducts() {
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
 
     function toTableView() {
-        console.log(1);
-        // submit
+        sessionStorage.setItem("productsView", PRODUCTS_VIEWS.table);
+        setProductsView(PRODUCTS_VIEWS.table)
+    }
+
+    function toUserView() {
+        sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
+        setProductsView(PRODUCTS_VIEWS.all)
     }
 
     return <>
@@ -53,17 +61,21 @@ export default function AllProducts() {
                                     <p className="mb-0">{sessionStorage.getItem("productsCount")} products available</p>
                                 </div>
 
-                                {isAdmin ?
+                                {isAdmin && productsView === "all" &&
                                     <div className="mb-3 d-flex justify-content-end">
-                                        <NavigationLink
-                                            route={`/products/table?page=${page}`}
-                                            text={"View as Table"}
-                                            className="text-center"
-                                            onClick={toTableView} />
+                                        <ChangeLayoutButton 
+                                        text={"View as Table"}
+                                        onClick={toTableView} />
                                         <div className="mx-1"></div>
-                                    </div> :
-                                    undefined}
+                                    </div>}
 
+                                {isAdmin && productsView === "table" &&
+                                    <div className="mb-3 d-flex justify-content-end">
+                                        <ChangeLayoutButton 
+                                        text={"View as User"}
+                                        onClick={toUserView} />
+                                        <div className="mx-1"></div>
+                                    </div>}
                             </div>
                         </div>
 
@@ -78,7 +90,8 @@ export default function AllProducts() {
                                     <div className={styles["big-margin"]}></div>
                                 </div>}>
                                 <Await resolve={productsRows}>
-                                    {productsRows =>
+                                    {productsView == PRODUCTS_VIEWS.table ? productsRows =>
+                                        <Table productsRows={productsRows} /> :
                                         <ProductsList productsRows={productsRows} />}
                                 </Await>
                             </Suspense>

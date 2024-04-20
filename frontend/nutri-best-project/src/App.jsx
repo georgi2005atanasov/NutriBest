@@ -12,7 +12,6 @@ import MultiSelectCategory, { loader as getCategoriesCount } from './components/
 import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
-import TableProducts, { loader as productsTableLoader } from './pages/products/TableProducts';
 
 const router = createBrowserRouter([
   {
@@ -40,10 +39,6 @@ const router = createBrowserRouter([
                 index: true, element: <ProductItem />
               }
             ]
-          },
-          {
-            path: "table", element: <TableProducts />,
-            loader: productsTableLoader
           },
           {
             path: "edit/:id", element: <EditProduct />, loader: productLoader, action: editProduct

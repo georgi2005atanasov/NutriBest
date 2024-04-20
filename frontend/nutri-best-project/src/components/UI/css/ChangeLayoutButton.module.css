@@ -1,0 +1,20 @@
+.change-layout-btn {
+    text-decoration: none;
+    color: #333;
+    border: none;
+    background-color: #f5f3ef;
+    padding: 10px 19px;
+    background-color: #f5f3ef;
+    margin: 0;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.change-layout-btn:hover {
+    background-color: #ece941;
+}

@@ -7,15 +7,6 @@ export default function Table({ productsRows }) {
     const products = productsRows.flat();
     
     return <div className={`container ${styles["table-wrapper"]} mb-4`}>
-        <div className="row">
-            <div className="mb-3 d-flex justify-content-end">
-                <NavigationLink
-                    route={`/products/all?page=1`}
-                    text={"View as User"}
-                    className="text-center" />
-                <div className="mx-1"></div>
-            </div>
-        </div>
         <div className="row mt-2">
             <table className="">
                 <thead >

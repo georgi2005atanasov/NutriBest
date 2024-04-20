@@ -13,3 +13,7 @@
 .user-color-text:hover {
     color: #cf9236;
 }
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}

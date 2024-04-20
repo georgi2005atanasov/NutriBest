@@ -62,7 +62,7 @@ export default function AllProducts() {
                                     <h4>Products</h4>
                                 </div>
                                 <div className="d-flex offset-md-3 text-center">
-                                    <p className="mb-0">{sessionStorage.getItem("productsCount")} products available</p>
+                                    <p className="mb-2">{sessionStorage.getItem("productsCount")} products available</p>
                                 </div>
 
                                 {isAdmin && productsView === "all" &&

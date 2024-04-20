@@ -7,6 +7,17 @@
     align-items: center;
 }
 
+/* the css below is for the whole app  */
+
 body {
     overflow-x: hidden; /* Hides horizontal overflow across the entire body */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* This prevents horizontal scrolling */
 }

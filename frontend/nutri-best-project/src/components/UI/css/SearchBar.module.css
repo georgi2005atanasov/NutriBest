@@ -15,7 +15,8 @@
     margin-bottom: 10px;
     transition: border-color 0.4s, box-shadow 0.4s;
     padding: 13px !important;
-    padding-right: 150px !important;
+    padding-right: 40px !important;
+    padding-left: 20px !important;
     border-radius: 10px;
     background-color: #f5f3ef;
     border: 1px solid #efefea;
@@ -47,9 +48,7 @@
 .search-bar {
     width: 100%;
     padding: 10px 40px 10px 10px;
-    /* Adjust padding to make space for the icon */
     box-sizing: border-box;
-    /* This ensures the padding does not affect the overall width */
 }
 
 .search-icon {

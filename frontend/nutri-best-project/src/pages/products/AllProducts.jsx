@@ -35,8 +35,8 @@ export default function AllProducts() {
     }, [message, setSearchParams]);
 
     useEffect(() => {
-        return submit(null, {action: "", method: "get"});
-    }, [productsView]); 
+        return submit(null, { action: "", method: "get" });
+    }, [productsView]);
 
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
@@ -94,7 +94,7 @@ export default function AllProducts() {
                                     <div className={styles["big-margin"]}></div>
                                 </div>}>
                                 <Await resolve={productsRows}>
-                                    {productsView == PRODUCTS_VIEWS.table ? productsRows =>
+                                    {productsRows => productsView == PRODUCTS_VIEWS.table ?
                                         <Table productsRows={productsRows} /> :
                                         <ProductsList productsRows={productsRows} />}
                                 </Await>

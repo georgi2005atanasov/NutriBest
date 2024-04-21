@@ -3,8 +3,10 @@ import styles from "../css/Table.module.css";
 import ProductRow from "./ProductRow";
 
 export default function Table({ productsRows }) {
-    const products = productsRows.flat();
-    
+    const products = (productsRows && productsRows.length && productsRows.length != 0)
+        ? productsRows.flat() :
+        [];
+
     return <div className={`container ${styles["table-wrapper"]} mb-4`}>
         <div className="row mt-2">
             <table className="">

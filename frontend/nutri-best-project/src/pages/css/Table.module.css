@@ -1,6 +1,8 @@
 .table-wrapper {
     border-radius: 10px !important;
     border: none !important;
+    overflow-x: auto;
+    width: 100%;
 }
 
 table {

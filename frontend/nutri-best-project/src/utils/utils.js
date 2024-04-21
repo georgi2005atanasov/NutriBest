@@ -6,7 +6,7 @@ export async function getFormData(request) {
     return userData;
 }
 
-export function buildQuery(page, categories, price, alpha, productsView) {
+export function buildQuery(page, categories, price, alpha, productsView, search) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
         query += `&categories=${categories.split("+").join("+and+")}`;
@@ -19,6 +19,9 @@ export function buildQuery(page, categories, price, alpha, productsView) {
     }
     if (productsView && productsView != "") {
         query += `&productsView=${productsView}`;
+    }
+    if (search && search != "") {
+        query += `&search=${search}`;
     }
 
     return query;
@@ -39,4 +42,5 @@ export function cleanFilters() {
     sessionStorage.setItem("page", 1);
     
     sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
+    sessionStorage.setItem("search", "");
 }

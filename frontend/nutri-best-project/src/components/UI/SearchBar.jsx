@@ -22,7 +22,8 @@ export default function SearchBar() {
     }
 
     async function handleSearch() {
-        submit("message=Yeeeeee&type=success", { action: "/products/all", method: "get" });
+        sessionStorage.setItem("search", text.current.value);
+        return submit(null, { action: "/products/all", method: "get" });
     }
 
     return <div className="col-md-4">

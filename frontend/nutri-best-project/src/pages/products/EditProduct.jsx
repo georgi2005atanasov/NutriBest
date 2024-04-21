@@ -7,6 +7,8 @@ import { cleanFilters } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation";
 import useAuth from "../../hooks/useAuth";
 
+const SUCCESS_MESSAGE = "Successfully edited the product!&success" 
+
 export default function EditProduct() {
     const { productData } = useLoaderData();
     const data = useActionData();
@@ -88,7 +90,14 @@ export async function action({ request, params }) {
 
         cleanFilters();
 
-        return redirect("/?message=Product edited successfully!&type=success");
+        window.scrollTo({
+            top: 0,
+            left: 0, 
+            behavior: 'smooth'
+        });
+
+        localStorage.setItem("editMessage", SUCCESS_MESSAGE);
+        return redirect("/products/all");
     } catch (error) {
         return json({ errors: { "message": ["An Error occured!"] } });
     }

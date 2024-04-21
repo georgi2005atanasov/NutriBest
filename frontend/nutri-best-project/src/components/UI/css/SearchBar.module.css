@@ -35,6 +35,11 @@
     box-shadow: 0 0 8px #cf9236;
 }
 
+.search-bar-admin:focus {
+    border: none;
+    box-shadow: 0 0 8px #a8a0ed;
+}
+
 .search-bar input::placeholder {
     color: #989389;
     text-align: start;
@@ -54,10 +59,8 @@
 .search-icon {
     position: absolute;
     right: 100px;
-    /* Adjust based on your design */
     top: 50%;
     transform: translateY(-50%);
-    /* This centers the icon vertically */
     cursor: pointer;
 }
 

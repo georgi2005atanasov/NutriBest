@@ -1,10 +1,28 @@
+import { useRef, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import { getAuthToken } from "../../utils/auth";
 import searchBar from "./css/SearchBar.module.css";
+import { useSubmit } from "react-router-dom";
 
 export default function SearchBar() {
-    function handleSearchClick() {
-        setTimeout(() => {
-            console.log(123);
-        }, 4000);
+    const text = useRef();
+    const submit = useSubmit();
+    const token = getAuthToken();
+
+    const { isAdmin } = useAuth(token);
+
+    function handleChange(event) {
+        if (event.key === "Enter") {
+            handleSearch();
+            text.current.blur();
+            return;
+        }
+
+        text.current.value = event.target.value;
+    }
+
+    async function handleSearch() {
+        submit("message=Yeeeeee&type=success", { action: "/products/all", method: "get" });
     }
 
     return <div className="col-md-4">
@@ -14,13 +32,14 @@ export default function SearchBar() {
                     <div className="row d-flex justify-content-center align-items-center">
                         <div className={`col-12 d-flex justify-content-center align-items-end ${searchBar["search-container"]}`}>
                             <input
-                                className={searchBar["search-bar"]}
+                                className={`${searchBar["search-bar"]} ${isAdmin ? searchBar["search-bar-admin"] : ""}`}
                                 id="search"
+                                ref={text}
                                 type="text"
                                 name="search"
-                                onChange={handleSearchClick}
+                                onKeyDown={(event) => handleChange(event)}
                                 placeholder="Search" />
-                            <label htmlFor="search" className={searchBar["search-icon"]}>
+                            <label onClick={handleSearch} htmlFor="search" className={searchBar["search-icon"]}>
                                 <i className="fa fa-search" aria-hidden="true"></i>
                             </label>
                         </div>

@@ -6,6 +6,8 @@ import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "re
 import useAuth from "../../hooks/useAuth";
 import ProductForm from "./ProductForm";
 
+const SUCCESS_MESSAGE = "Successfully added new product!&success"
+
 export default function AddProductPage() {
     const data = useActionData();
     const submit = useSubmit();
@@ -56,7 +58,14 @@ export async function action({ request, params }) {
 
         cleanFilters();
 
-        return redirect("/?message=Product added successfully!&type=success");
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+
+        localStorage.setItem("addMessage", SUCCESS_MESSAGE);
+        return redirect("/products/all");
     } catch (error) {
         return json({ errors: { "message": ["An Error occured!"] } });
     }

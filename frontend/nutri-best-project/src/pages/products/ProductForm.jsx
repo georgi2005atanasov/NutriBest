@@ -29,7 +29,7 @@ export default function ProductForm({ product = null, data, header }) {
                             styles={styles["add-product-input"]}
                             text="Product Name"
                             error={
-                                data && Object.keys(data.errors).includes("Name") &&
+                                data && data.errors && Object.keys(data.errors).includes("Name") &&
                                 <InputError
                                     styles={styles["error-par"]}
                                     text={data.errors["Name"][0]}
@@ -45,7 +45,7 @@ export default function ProductForm({ product = null, data, header }) {
                             styles={styles["add-product-input"]}
                             text="Description"
                             error={
-                                data && Object.keys(data.errors).includes("Description") &&
+                                data && data.errors && Object.keys(data.errors).includes("Description") &&
                                 <InputError
                                     styles={styles["error-par"]}
                                     text={data.errors["Description"][0]}
@@ -59,7 +59,7 @@ export default function ProductForm({ product = null, data, header }) {
                             styles={styles["add-product-input"]}
                             text="Price"
                             error={
-                                data && Object.keys(data.errors).includes("Price") &&
+                                data && data.errors && Object.keys(data.errors).includes("Price") &&
                                 <InputError
                                     styles={styles["error-par"]}
                                     text={data.errors["Price"][0]}
@@ -73,7 +73,7 @@ export default function ProductForm({ product = null, data, header }) {
 
                         <div className="categories-wrapper">
                             <MultiSelectCategory productCategories={product ? product.categories : undefined} />
-                            {data && Object.keys(data.errors).includes("Category") &&
+                            {data && data.errors && Object.keys(data.errors).includes("Category") &&
                                 <InputError
                                     styles={styles["error-par"]}
                                     text={data.errors["Category"][0]}
@@ -86,7 +86,7 @@ export default function ProductForm({ product = null, data, header }) {
                             data={data}
                             product={product} />
 
-                        {data && Object.keys(data.errors).includes("message") &&
+                        {data && data.errors && Object.keys(data.errors).includes("message") &&
                             <InputError
                                 styles={styles["error-par"]}
                                 text={data.errors["message"][0]}

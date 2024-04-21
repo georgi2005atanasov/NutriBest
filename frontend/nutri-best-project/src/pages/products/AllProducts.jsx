@@ -20,13 +20,15 @@ export default function AllProducts() {
 
     let [searchParams, setSearchParams] = useSearchParams();
 
-    const message = searchParams.get('message');
-    const messageType = searchParams.get('type');
+    const { message, messageType } = getMessage(searchParams);
+
     const { productsRows, page } = useLoaderData();
 
     useEffect(() => {
         if (message) {
             const timer = setTimeout(() => {
+                localStorage.removeItem("editMessage");
+                localStorage.removeItem("addMessage");
                 setSearchParams({});
             }, 4000);
 
@@ -65,6 +67,8 @@ export default function AllProducts() {
                                     <p className="mb-2">{sessionStorage.getItem("productsCount")} products available</p>
                                 </div>
 
+                                {message && <Message message={message} messageType={messageType} />}
+
                                 {isAdmin && productsView === "all" &&
                                     <div className="mb-3 d-flex justify-content-end">
                                         <ChangeLayoutButton
@@ -102,7 +106,6 @@ export default function AllProducts() {
                         </div>
                     </div>
                 </div>
-                {message && <Message message={message} messageType={messageType} />}
                 <div className="row d-flex justify-content-center">
                     <div className="col-lg-6 col-md-9">
                         <Pagination productsView={productsView} page={page} productsCount={sessionStorage.getItem("productsCount")} />
@@ -169,4 +172,26 @@ export async function loader({ request, params }) {
         page,
         productsView
     });
+}
+
+function getMessage(searchParams) {
+    let message = searchParams.get('message');
+    let messageType = searchParams.get('type');
+
+    if (!message && localStorage.getItem("editMessage")) {
+        const [editMessage, type] = localStorage.getItem("editMessage").split("&");
+        message = editMessage;
+        messageType = type;
+    }
+
+    if (!message && localStorage.getItem("addMessage")) {
+        const [editMessage, type] = localStorage.getItem("addMessage").split("&");
+        message = editMessage;
+        messageType = type;
+    }
+
+    return {
+        message,
+        messageType
+    };
 }

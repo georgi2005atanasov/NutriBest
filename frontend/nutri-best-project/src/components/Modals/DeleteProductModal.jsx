@@ -13,6 +13,12 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
             const response = await deleteProduct(productId);
             console.log(response);
 
+            window.scrollTo({
+                top: 0,
+                left: 0, 
+                behavior: 'smooth'
+            });
+
             ref.current.close();
             return submit("message=Successfully deleted the product!&type=success",
                 { action: "", method: "get" });

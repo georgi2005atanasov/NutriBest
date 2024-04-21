@@ -4,7 +4,7 @@ import colors from "../../App.module.css";
 import NavigationLink from "../Navigation/NavigationLink";
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
     return <>
-        <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
+        <div className={`row d-flex justify-content-end p-0 ps-5`}>
             <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
                 <div className="row d-flex justify-content-end">
                     <div className="col-lg-12 d-flex justify-content-end p-0 me-2">

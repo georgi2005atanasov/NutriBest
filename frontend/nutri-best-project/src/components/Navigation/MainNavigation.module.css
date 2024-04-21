@@ -13,7 +13,7 @@
 }
 
 .nav-link {
-    padding: 8px 15px;
+    padding: 18px 15px;
     background-color: #f5f3ef;
     margin: 0;
     border: none;
@@ -22,6 +22,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #333;
 }
 
 .nav-link a {
@@ -39,7 +40,6 @@
         margin-bottom: 15px;
     }
 }
-
 
 .content {
     width: 100%;
@@ -81,6 +81,18 @@ h1 {
     background: #cf9236;
 }
 
+@media screen and (min-width: 960px) {
+    .button {
+        width: 78px !important;
+        height: 78px !important;
+    }
+
+    .nav-link {
+        padding: 9px 25px !important;
+        font-weight: bold;
+    }
+}
+
 .button {
     width: 48px;
     height: 48px;
@@ -97,6 +109,7 @@ h1 {
     right: 0;
     top: 0;
     z-index: 201;
+
 }
 
 .button:hover {

@@ -26,5 +26,6 @@ export default function NavButtons({ styles }) {
 
     return <GuestButtons
         styles={styles}
+        isAdmin={isAdmin}
         shoppingBag={shoppingBag} />
 }

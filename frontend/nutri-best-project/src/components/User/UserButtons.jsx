@@ -41,7 +41,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                             isAdmin={isAdmin}
                             className={`text-center border-0`} />
 
-                        <div className={`${isAdmin ? colors["admin-color"] : colors["user-color"]} ${styles["nav-link"]} p-2 mx-1`}>
+                        <div className={isAdmin ? `px-2 p-lg-4 mx-1 ${styles["nav-link"]} ${colors["admin-color"]}` : `${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
                             <Link className="text-center" to="cart-modal">
                                 <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                             </Link>

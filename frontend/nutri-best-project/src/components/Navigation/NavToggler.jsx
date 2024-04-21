@@ -21,10 +21,11 @@ export default function NavToggler({ styles }) {
 
                         </label>
                         <nav>
+                            {/* gotta change the routes for admin panel. */}
                             <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href="/">
                                 {!isAdmin ? "Home" : "Orders"}
                             </a>
-                            <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href="/login">
+                            <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href="/products/all">
                                 {!isAdmin ? "Products" : "Report"}
                             </a>
                             <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href="/info">

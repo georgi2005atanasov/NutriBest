@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import NavigationLink from "../Navigation/NavigationLink";
+import colors from "../../App.module.css";
 
-export default function GuestButtons({ styles, shoppingBag }) {
+export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
     return <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
         <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
             <div className="row d-flex justify-content-end">
@@ -26,7 +27,7 @@ export default function GuestButtons({ styles, shoppingBag }) {
                         text={"Sign up"}
                         className="text-center" />
 
-                    <div className={`${styles["nav-link"]} p-2 mx-1`}>
+                    <div className={isAdmin ? `px-2 p-lg-4 py-2 mx-1 ${styles["nav-link"]} ${colors["admin-color"]}` : `${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
                         <Link className="text-center" to="cart-modal">
                             <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                         </Link>

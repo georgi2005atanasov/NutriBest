@@ -69,3 +69,25 @@
         right: 20px;
     }
 }
+
+@media screen and (min-width: 960px) {
+    /* .search-bar {
+        transition: border-color 0.4s, box-shadow 0.4s;
+        padding: 25px 35px !important;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        background-color: #f5f3ef;
+        border: 1px solid #efefea;
+        outline: none;
+    } */
+
+    .button {
+        width: 78px !important;
+        height: 78px !important;
+    }
+
+    .nav-link {
+        padding: 8px 35px;
+        font-weight: bold;
+    }
+}

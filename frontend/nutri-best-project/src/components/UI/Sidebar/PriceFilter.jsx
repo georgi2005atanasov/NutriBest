@@ -10,7 +10,8 @@ export default function PriceFilter({ price, selectedBtn }) {
         <div id="price-none" className={!price ? selectedBtn : ""}>
             <NoneFilter identifier={"price"} />
         </div>
-        <div id="price-desc" className={`${price == "desc" ? selectedBtn : ""}`}>
+        <hr className="m-0" />
+        <div id="price-desc">
             <RangePriceFilter identifier={"price"} />
         </div>
         <hr className="m-0" />

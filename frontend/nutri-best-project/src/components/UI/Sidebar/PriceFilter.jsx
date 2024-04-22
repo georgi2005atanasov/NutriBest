@@ -12,7 +12,7 @@ export default function PriceFilter({ price, selectedBtn }) {
         </div>
         <hr className="m-0" />
         <div id="price-desc">
-            <RangePriceFilter identifier={"price"} />
+            <RangePriceFilter />
         </div>
         <hr className="m-0" />
         <div id="price-asc" className={`${price == "asc" ? selectedBtn : ""}`}>

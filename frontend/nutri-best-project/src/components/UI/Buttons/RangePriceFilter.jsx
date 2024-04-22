@@ -8,19 +8,22 @@ function valuetext(value) {
 }
 
 export default function RangeSlider() {
-  const [value, setValue] = useState([20, 37]);
+  const [value, setValue] = useState([0, Number(sessionStorage.getItem("maxPrice"))]);
   const submit = useSubmit();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
+    sessionStorage.setItem("priceRange", `${newValue[0]} ${newValue[1]}`);
 
+    return submit(null, { action: "/products/all", method: "get" });
   };
 
   return (
     <div className="d-flex justify-content-center align-items-center py-2">
       <Box sx={{ width: 180, color: "grey" }} className="d-flex align-items-center">
         <Slider
+          min={0}
+          max={Number(sessionStorage.getItem("maxPrice"))}
           sx={{
             color: 'grey',
             '& .MuiSlider-thumb': {
@@ -41,7 +44,7 @@ export default function RangeSlider() {
         />
       </Box>
       <div className="d-flex flex-column">
-        <p className='d-flex justify-content-center align-items-center m-0 ps-3'>210</p>
+        <p className='d-flex justify-content-center align-items-center m-0 ps-3'>{sessionStorage.getItem("maxPrice")}</p>
         <p className='d-flex justify-content-center align-items-center m-0 ps-3'>BGN</p>
       </div>
     </div>

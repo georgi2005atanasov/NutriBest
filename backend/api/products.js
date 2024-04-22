@@ -25,8 +25,8 @@ export async function addProduct(productModel) {
     }
 }
 
-export async function allProducts(page, categories = "", price = "", alpha = "", productsView = "", search = "") {
-    const query = buildQuery(page, categories, price, alpha, productsView, search);
+export async function allProducts(page, categories = "", price = "", alpha = "", productsView = "", search = "", priceRange = []) {
+    const query = buildQuery(page, categories, price, alpha, productsView, search, priceRange);
     const token = getAuthToken();
 
     const response = await fetch(`https://localhost:7056/products${query}`, {

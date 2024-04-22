@@ -116,7 +116,7 @@ export default function AllProducts() {
     </>;
 }
 
-async function loadProductsData(page, categories, price, alpha, productsView, search) {
+async function loadProductsData(page, categories, price, alpha, productsView, search, priceRange) {
     async function storeImages(productsRows) {
         const products = productsRows.flat();
 
@@ -132,17 +132,18 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
             sessionStorage.setItem("page", 1);
         }
 
-        let products = await allProducts(Number(page), categories, price, alpha, productsView, search);
+        let products = await allProducts(Number(page), categories, price, alpha, productsView, search, priceRange);
 
         if (!products.ok) {
             sessionStorage.setItem("productsCount", 0);
             return redirect("/?message=Invalid Page!&type=danger");
         }
 
-        const { productsRows, count } = await products.json();
+        const { productsRows, count, maxPrice } = await products.json();
 
         sessionStorage.setItem("productsCount", count);
         sessionStorage.setItem("productsView", productsView);
+        sessionStorage.setItem("maxPrice", maxPrice);
 
         await storeImages(productsRows);
 
@@ -160,6 +161,7 @@ export async function loader({ request, params }) {
     const alpha = sessionStorage.getItem("alpha");
     const productsView = sessionStorage.getItem("productsView") || PRODUCTS_VIEWS.all;
     const search = sessionStorage.getItem("search") || "";
+    const priceRange = sessionStorage.getItem("priceRange") || "";
 
     if (!currentPage || isNaN(currentPage)) {
         return redirect("/?message=Invalid page number provided.&type=danger");
@@ -169,7 +171,7 @@ export async function loader({ request, params }) {
 
     return defer({
         productsRows: await loadProductsData(
-            page, categories, price, alpha, productsView, search),
+            page, categories, price, alpha, productsView, search, priceRange),
         page,
         productsView
     });

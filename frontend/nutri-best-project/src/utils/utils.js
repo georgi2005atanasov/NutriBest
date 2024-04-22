@@ -6,7 +6,7 @@ export async function getFormData(request) {
     return userData;
 }
 
-export function buildQuery(page, categories, price, alpha, productsView, search) {
+export function buildQuery(page, categories, price, alpha, productsView, search, priceRange) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
         query += `&categories=${categories.split("+").join("+and+")}`;
@@ -22,6 +22,9 @@ export function buildQuery(page, categories, price, alpha, productsView, search)
     }
     if (search && search != "") {
         query += `&search=${search}`;
+    }
+    if (priceRange && priceRange.length && priceRange.length != 0) {
+        query += `&priceRange=${priceRange}`;
     }
 
     return query;

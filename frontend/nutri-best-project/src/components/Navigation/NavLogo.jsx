@@ -3,19 +3,19 @@ import { Link } from "react-router-dom"
 import logo from "../../assets/another-nutri-best-logo.png";
 
 export default function NavLogo({ styles }) {
-    return <div className="col-2 d-flex my-md-2">
+    return <div className="col-2 d-flex justify-content-center align-items-center">
         <div className="container">
             <div className="row d-flex justify-content-around align-items-center">
                 <div className="col-3 d-flex justify-content-md-center justify-content-start align-items-center offset-md-2 me-4">
                     <div id={styles["header-logo"]}>
-                        <img className="w-100 d-flex-justify-content-center align-items-center" src={logo} alt="Logo" />
+                        <img className="m-auto w-100 d-flex-justify-content-center align-items-center" src={logo} alt="Logo" />
                     </div>
                 </div>
                 <div className="col-md-7 p-0 justify-content-start">
                     <div id="shop-name" className="d-flex justify-content-md-center justify-content-start align-items-center">
-                        <h4 className="my-0">
+                        <h2 className="my-0">
                             <Link to="/" className="text-decoration-none text-black">NutriBest</Link>
-                        </h4>
+                        </h2>
                     </div>
                 </div>
             </div>

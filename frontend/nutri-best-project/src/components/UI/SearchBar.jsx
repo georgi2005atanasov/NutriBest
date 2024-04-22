@@ -32,7 +32,7 @@ export default function SearchBar() {
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-md-12 d-flex justify-content-center align-items-center">
                     <div className="row d-flex justify-content-center align-items-center">
-                        <div className={`col-12 d-flex justify-content-center align-items-end ${searchBar["search-container"]}`}>
+                        <div className={`col-lg-9 col-12 d-flex justify-content-center align-items-end ${searchBar["search-container"]}`}>
                             <input
                                 className={`${searchBar["search-bar"]} ${isAdmin ? searchBar["search-bar-admin"] : ""}`}
                                 id="search"

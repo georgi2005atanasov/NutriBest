@@ -12,7 +12,7 @@ export default function NavToggler({ styles }) {
         <div className="container">
             <div className="row">
                 <div className="col-md-12">
-                    <div className={`${styles["menu"]} d-flex justify-content-end align-items-center`}>
+                    <div className={`${styles["menu"]} d-flex justify-content-end align-items-start`}>
                         <input type="checkbox" id={styles["check"]} />
                         <label htmlFor={styles["check"]} className={`d-flex justify-content-center align-items-center ${styles["button"]} ${isAdmin ? colors["admin-color"] : colors["user-color"]}`}>
                             {isAdmin ? <i className="fa fa-cogs d-flex" aria-hidden="true"></i> : <>

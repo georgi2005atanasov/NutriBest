@@ -1,15 +1,28 @@
 #header-logo img {
     min-width: 60px;
     min-height: 60px;
+    position: inherit;
     object-fit: fill;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
 }
 
+@media screen and (min-width: 960px) {
+    #header-logo img {
+        margin-top: 0;
+        min-width: 190px;
+        min-height: 190px;
+        object-fit: fill;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+}
+
 .main-navigation {
     margin-top: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 0px;
 }
 
 .nav-link {
@@ -70,7 +83,6 @@ h1 {
 .menu {
     position: relative;
     width: 100%;
-    z-index: 200;
 }
 
 #check {
@@ -83,8 +95,8 @@ h1 {
 
 @media screen and (min-width: 960px) {
     .button {
-        width: 78px !important;
-        height: 78px !important;
+        width: 58px !important;
+        height: 58px !important;
     }
 
     .nav-link {
@@ -109,7 +121,6 @@ h1 {
     right: 0;
     top: 0;
     z-index: 201;
-
 }
 
 .button:hover {
@@ -134,11 +145,11 @@ nav {
     overflow: hidden;
     transition: all 0.4s ease;
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     background: #ffffff;
     height: 0;
+    border-radius: 10px;
+    z-index: 101;
 }
 
 nav a {

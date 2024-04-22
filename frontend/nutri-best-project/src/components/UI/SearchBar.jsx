@@ -23,6 +23,7 @@ export default function SearchBar() {
 
     async function handleSearch() {
         sessionStorage.setItem("search", text.current.value);
+        text.current.value = "";
         return submit(null, { action: "/products/all", method: "get" });
     }
 

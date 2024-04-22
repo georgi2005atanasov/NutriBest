@@ -2,20 +2,20 @@ import { useSubmit } from "react-router-dom";
 import styles from "../css/SideBar.module.css";
 import { useContext } from "react";
 import { CategoryContext } from "../../../store/CategoryContext";
+import { cleanFilters } from "../../../utils/utils";
 
 export default function ClearFiltersButton() {
     const submit = useSubmit();
     const { setSelectedCategories } = useContext(CategoryContext);
 
     function handleClearFilters() {
-        sessionStorage.setItem("price", "");
-        sessionStorage.setItem("categories", "");
-        sessionStorage.setItem("alpha", "");
+        // sessionStorage.setItem("price", "");
+        // sessionStorage.setItem("categories", "");
+        // sessionStorage.setItem("alpha", "");
+        cleanFilters();
 
         setSelectedCategories([]);
         
-        // const page = sessionStorage.getItem("page");
-        // submit(`page=${page}`);
         submit(`page=1`);
     }
 

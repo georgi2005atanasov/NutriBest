@@ -32,14 +32,10 @@
     }
 }
 
-/* Optional: Enhance the overall sidebar styling */
 .sidebar {
     background-color: #ffffff;
-    /* White background for the sidebar */
     border-radius: 4px;
-    /* Consistency in design */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Adds shadow to sidebar */
 }
 
 /* Ensuring the text in the header is more prominent */

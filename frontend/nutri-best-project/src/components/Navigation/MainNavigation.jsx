@@ -6,8 +6,8 @@ import NavToggler from "./NavToggler";
 import SearchBar from "../UI/SearchBar";
 
 const MainNavigation = memo(function MainNavigation() {
-    return <div id="main-navigation" className={`container ${styles["main-navigation"]}`}>
-        <div className="row d-flex justify-content-between align-items-center mt-5">
+    return <div id="main-navigation" className={`container ${styles["main-navigation"]} mt-md-4`}>
+        <div className="row d-flex justify-content-between align-items-center">
             <NavLogo styles={styles} />
             <SearchBar />
             <NavToggler styles={styles} />

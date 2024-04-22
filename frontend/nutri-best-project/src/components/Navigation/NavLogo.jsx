@@ -3,9 +3,9 @@ import { Link } from "react-router-dom"
 import logo from "../../assets/another-nutri-best-logo.png";
 
 export default function NavLogo({ styles }) {
-    return <div className="col-2 d-flex justify-content-center align-items-center">
+    return <div className="col-2 p-1 d-flex justify-content-center align-items-center">
         <div className="container">
-            <div className="row d-flex justify-content-around align-items-center">
+            <div className="row d-flex justify-content-center align-items-center me-md-4 ms-4 p-0">
                 <div className="col-3 d-flex justify-content-md-center justify-content-start align-items-center offset-md-2 me-4">
                     <div id={styles["header-logo"]}>
                         <img className="m-auto w-100 d-flex-justify-content-center align-items-center" src={logo} alt="Logo" />

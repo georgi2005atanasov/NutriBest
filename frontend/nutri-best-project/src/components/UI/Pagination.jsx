@@ -18,14 +18,34 @@ export default function Pagination({ page, productsCount, productsView }) {
     let pagesComponent = [];
 
     useEffect(() => {
-        if (page > 5 && (page - 1) % 5 == 0) {
+        if ((page) % 5 == 1 && startingPoint < page) {
             setStartingPoint(page);
+            return;
         }
 
-        if (page < startingPoint) {
-            setStartingPoint(startingPoint - page);
+        if ((page) % 5 == 0 && startingPoint > page) {
+            setStartingPoint(page - 4);
+            return;
         }
 
+        if ((page) % 5 == 1 && startingPoint > page) {
+            setStartingPoint(page);
+            return;
+        }
+
+        if ((page) % 5 == 0 && startingPoint > page) {
+            setStartingPoint(page);
+            return;
+        }
+
+        if (page == pagesCount) {
+            if (page % 5 == 0) {
+                setStartingPoint(page - 4);
+            }
+            else {
+                setStartingPoint(page - page % 5 + 1);
+            }
+        }
     }, [page, startingPoint])
 
     for (let i = startingPoint; i <= Math.min(Number(pagesCount), startingPoint + 4); i++) {
@@ -56,6 +76,17 @@ export default function Pagination({ page, productsCount, productsView }) {
                 &laquo;
             </NavLink>
             {pagesComponent}
+            {page != pagesCount?
+                <NavLink
+                    key={pagesCount}
+                    className={styles["pagination-dots"]}
+                    onClick={() => handlePageChange(pagesCount)}
+                    to="#"
+                >
+                    ...
+                </NavLink>
+                :
+                ""}
             <NavLink
                 disabled={page + 1 > pagesCount}
                 onClick={() => handlePageChange(page + 1)}

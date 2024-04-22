@@ -70,7 +70,7 @@
     .search-container {
         position: absolute;
         width: 70%;
-        margin-left: 1080px;
+        margin-left: 1130px;
         max-width: 1114px;
     }
 }
@@ -87,7 +87,7 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    z-index: 1;
+    z-index: 100;
 }
 
 @media screen and (max-width: 1399px) {

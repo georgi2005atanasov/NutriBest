@@ -20,7 +20,7 @@ export default function ProductForm({ product = null, data, header }) {
 
     return <CategoryContextProvider>
         {isSubmitting && <Loader />}
-        <Header text={header} styles={`${styles["add-product-header"]} mt-5`} />
+        <Header text={header} styles={`${styles["add-product-header"]}`} />
         <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
             <div className="container">
                 <div className="row d-flex justify-content-center">

@@ -35,3 +35,7 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+.pagination-dots {
+    font-weight: bold;
+}

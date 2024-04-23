@@ -70,13 +70,13 @@ export default function Pagination({ page, productsCount, productsView }) {
     return (
         <div className={styles["pagination"]}>
             <NavLink
+                className={page - 1 <= 0 ? "d-none" : ""}
                 disabled={page - 1 <= 0}
-                onClick={() => handlePageChange(page - 1)}
-            >
+                onClick={() => handlePageChange(page - 1)}>
                 &laquo;
             </NavLink>
             {pagesComponent}
-            {page != pagesCount?
+            {page != pagesCount ?
                 <NavLink
                     key={pagesCount}
                     className={styles["pagination-dots"]}
@@ -88,6 +88,7 @@ export default function Pagination({ page, productsCount, productsView }) {
                 :
                 ""}
             <NavLink
+                className={page + 1 > pagesCount ? "d-none" : ""}
                 disabled={page + 1 > pagesCount}
                 onClick={() => handlePageChange(page + 1)}
             >

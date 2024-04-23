@@ -11,7 +11,6 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
     async function handleDelete() {
         try {
             const response = await deleteProduct(productId);
-            console.log(response);
 
             window.scrollTo({
                 top: 0,
@@ -20,6 +19,7 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
             });
 
             ref.current.close();
+
             return submit("message=Successfully deleted the product!&type=success",
                 { action: "", method: "get" });
         } catch (error) {

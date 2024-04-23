@@ -4,6 +4,20 @@ import colors from "../../App.module.css";
 import NavigationLink from "../Navigation/NavigationLink";
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
     return <>
+        <div className="row my-2 p-0 d-flex justify-content-end align-items-center">
+            <div className="col-6 p-0 d-flex justify-content-end align-items-center">
+                {isAdmin ? <>
+                    <div className="mx-1"></div>
+
+                    <NavigationLink
+                        route={"/products/add"}
+                        text={"Add Product"}
+                        isAdmin={isAdmin}
+                        className={`d-flex justify-content-center align-items-center p-lg-1`} />
+                </> :
+                    undefined}
+            </div>
+        </div>
         <div className={`row d-flex justify-content-end p-0 ps-5 mt-lg-0 mt-2`}>
             <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
                 <div className="row d-flex justify-content-end">
@@ -14,17 +28,6 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                             text={"All"}
                             isAdmin={isAdmin}
                             className={`text-center`} />
-
-                        {isAdmin ? <>
-                            <div className="mx-1"></div>
-
-                            <NavigationLink
-                                route={"/products/add"}
-                                text={"Add Product"}
-                                isAdmin={isAdmin}
-                                className={`text-center`} />
-                        </> :
-                            undefined}
 
                         <div className="mx-1"></div>
 

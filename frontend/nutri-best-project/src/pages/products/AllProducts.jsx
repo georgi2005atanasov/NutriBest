@@ -20,7 +20,7 @@ export default function AllProducts() {
 
     let [searchParams, setSearchParams] = useSearchParams();
 
-    const { message, messageType } = getMessage(searchParams);
+    let { message, messageType } = getMessage(searchParams);
 
     const { productsRows, page } = useLoaderData();
 
@@ -29,8 +29,14 @@ export default function AllProducts() {
             const timer = setTimeout(() => {
                 localStorage.removeItem("editMessage");
                 localStorage.removeItem("addMessage");
+
+                if (productsRows && productsRows.length == 0) {
+                    sessionStorage.setItem("page", 1);
+                }
+                
                 setSearchParams({});
-            }, 4000);
+            }, 2500);
+
 
             return () => clearTimeout(timer);
         }

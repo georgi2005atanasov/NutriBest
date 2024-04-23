@@ -1,6 +1,6 @@
 .fade-message {
     opacity: 1;
-    animation: fadeOutAnimation 4s forwards;
+    animation: fadeOutAnimation 2.5s forwards;
 }
 
 @keyframes fadeOutAnimation {

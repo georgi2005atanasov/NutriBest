@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSubmit } from 'react-router-dom';
@@ -8,6 +8,7 @@ function valuetext(value) {
 }
 
 export default function RangeSlider() {
+  const timeoutRef = useRef(null);
   const [value, setValue] = useState([0, Number(sessionStorage.getItem("maxPrice"))]);
   const submit = useSubmit();
 
@@ -15,7 +16,13 @@ export default function RangeSlider() {
     setValue(newValue);
     sessionStorage.setItem("priceRange", `${newValue[0]} ${newValue[1]}`);
 
-    return submit(null, { action: "/products/all", method: "get" });
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      return submit(null, { action: "/products/all", method: "get" });
+    }, 1000);
   };
 
   return (

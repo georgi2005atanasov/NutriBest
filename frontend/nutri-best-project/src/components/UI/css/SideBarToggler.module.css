@@ -3,11 +3,14 @@
     font-weight: bold;
     background-color: #333;
     color: #fff;
-    padding: 10px;
+    padding: 15px;
     margin: 0;
     cursor: pointer;
     border-radius: 5px;
-    max-width: 117px;
+    max-width: 200px;
+    min-width: 200px;
+    position: relative;
+    display: flex;
 }
 
 @media screen and (max-width: 1200px) {

@@ -4,8 +4,8 @@ import NoneFilter from "../Buttons/NoneFilter";
 import AscFilter from "../Buttons/AscFilter";
 import DescFilter from "../Buttons/DescFilter";
 
-export default function AlphaFilter({ alpha, selectedBtn }) {
-    return <DropdownMenu text={"Alphabetically"}>
+export default function AlphaFilter({ alpha, selectedBtn, alphaCount }) {
+    return <DropdownMenu text={"Alphabetically"} filtersNumber={alphaCount}>
         <div id="alpha-none" className={!alpha ? selectedBtn : ""}>
             <NoneFilter identifier={"alpha"} />
         </div>

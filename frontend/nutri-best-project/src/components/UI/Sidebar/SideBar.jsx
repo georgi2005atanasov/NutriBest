@@ -36,7 +36,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         </div>
         <div className={`${styles["sidebar"]} d-flex flex-column ${isVisible ? styles['visible'] : 'd-none d-xl-flex'}`}>
             <div className="content">
-                <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
+                <div className={`d-flex flex-column justify-content-center`}>
                     <CategoryFilter categoriesCount={selectedCategories.length} />
 
                     <div className="mb-1"></div>
@@ -45,7 +45,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
 
                     <div className="mb-1"></div>
 
-                    <AlphaFilter alpha={alpha} selectedBtn={styles["selected-filter"]} />
+                    <AlphaFilter alphaCount={!alpha ? "" : 1} alpha={alpha} selectedBtn={styles["selected-filter"]} />
 
                     <ClearFiltersButton />
                 </div>

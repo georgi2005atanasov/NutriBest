@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    width: 100%;
+    min-width: 280px;
 }
 
 .dropdown-button {
@@ -98,7 +100,7 @@ input {
 }
 
 .circle:hover {
-    transform: scale(1.1);
+    transform: scale(1.01);
 }
 
 @media (max-width: 600px) {

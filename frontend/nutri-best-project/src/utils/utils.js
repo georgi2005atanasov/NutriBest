@@ -47,4 +47,5 @@ export function cleanFilters() {
     sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
     sessionStorage.setItem("search", "");
     sessionStorage.setItem("priceRange", "");
+    sessionStorage.setItem("alpha", "");
 }

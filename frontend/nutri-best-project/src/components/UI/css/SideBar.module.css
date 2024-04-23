@@ -29,7 +29,7 @@
 
 @media only screen and (max-width: 768px) {
     .sidebar {
-        margin-left: 70px;
+        margin-left: 70px !important;
     }
 }
 

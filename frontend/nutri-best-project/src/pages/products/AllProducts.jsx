@@ -67,7 +67,7 @@ export default function AllProducts() {
                         <div className="container">
                             <div className="row">
                                 <div className="d-flex offset-md-3 text-center">
-                                    <h4>Products</h4>
+                                    <h3>Products</h3>
                                 </div>
                                 <div className="d-flex offset-md-3 text-center">
                                     <p className="mb-2">{sessionStorage.getItem("productsCount")} products available</p>
@@ -93,7 +93,7 @@ export default function AllProducts() {
                             </div>
                         </div>
 
-                        <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center align-items-lg-start align-items-center mb-3`}>
+                        <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center align-items-start mb-3`}>
                             <SideBarToggler toggleSidebar={toggleSidebar} />
                             <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
                         </div>

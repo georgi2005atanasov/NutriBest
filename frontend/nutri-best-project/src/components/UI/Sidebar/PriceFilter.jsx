@@ -6,7 +6,9 @@ import RangePriceFilter from "../Buttons/RangePriceFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function PriceFilter({ price, selectedBtn }) {
-    return <DropdownMenu text={"Price"}>
+    let filtersCount = getFiltersCount();
+
+    return <DropdownMenu text={"Price"} filtersNumber={filtersCount}>
         <div id="price-none" className={!price ? selectedBtn : ""}>
             <NoneFilter identifier={"price"} />
         </div>
@@ -23,4 +25,21 @@ export default function PriceFilter({ price, selectedBtn }) {
             <DescFilter identifier={"price"} />
         </div>
     </DropdownMenu>
+}
+
+function getFiltersCount() {
+    let count = 0;
+
+    if (sessionStorage.getItem("priceRange") && sessionStorage.getItem("priceRange") != "") {
+        const [min, max] = sessionStorage.getItem("priceRange").split(" ");
+
+        if (Number(min) != 0 || Number(max) != sessionStorage.getItem("maxPrice")) {
+            count++;
+        }
+    }
+    if (sessionStorage.getItem("price") && sessionStorage.getItem("price") != "") {
+        count++;
+    }
+
+    return count;
 }

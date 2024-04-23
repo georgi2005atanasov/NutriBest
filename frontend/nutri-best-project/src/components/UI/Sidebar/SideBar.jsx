@@ -37,7 +37,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         <div className={`${styles["sidebar"]} d-flex flex-column ${isVisible ? styles['visible'] : 'd-none d-xl-flex'}`}>
             <div className="content">
                 <div className={`${styles["filters-wrapper"]} d-flex flex-column`}>
-                    <CategoryFilter />
+                    <CategoryFilter categoriesCount={selectedCategories.length} />
 
                     <div className="mb-1"></div>
 

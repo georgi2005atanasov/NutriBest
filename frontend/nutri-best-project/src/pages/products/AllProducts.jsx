@@ -150,6 +150,7 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
         sessionStorage.setItem("productsCount", count);
         sessionStorage.setItem("productsView", productsView);
         sessionStorage.setItem("maxPrice", maxPrice);
+        // sessionStorage.setItem("priceRange", `${0} ${maxPrice}`);
 
         await storeImages(productsRows);
 

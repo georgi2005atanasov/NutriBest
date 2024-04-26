@@ -6,6 +6,7 @@ export function getProductForm(productModel) {
     formData.append("description", productModel.description);
     formData.append("price", parseFloat(productModel.price));
     formData.append("categories", productModel.categories);
+    formData.append("quantity", Number(productModel.quantity));
 
     if (productModel.image) {
         formData.append("image", productModel.image);

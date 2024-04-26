@@ -1,4 +1,4 @@
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from "../Dropdown/DropdownMenu";
 import MultiSelectCategory from "../Form/MultiSelectCategory";
 
 // eslint-disable-next-line react/prop-types

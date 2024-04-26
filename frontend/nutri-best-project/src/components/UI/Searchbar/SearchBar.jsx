@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import useAuth from "../../hooks/useAuth";
-import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../../hooks/useAuth";
+import { getAuthToken } from "../../../utils/auth";
 import searchBar from "./css/SearchBar.module.css";
 import { useSubmit } from "react-router-dom";
 

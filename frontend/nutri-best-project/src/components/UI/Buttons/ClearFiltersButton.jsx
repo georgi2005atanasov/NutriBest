@@ -1,5 +1,5 @@
+import styles from "./css/ClearFiltersButton.module.css";
 import { useSubmit } from "react-router-dom";
-import styles from "../css/SideBar.module.css";
 import { useContext } from "react";
 import { CategoryContext } from "../../../store/CategoryContext";
 import { cleanFilters } from "../../../utils/utils";
@@ -9,13 +9,8 @@ export default function ClearFiltersButton() {
     const { setSelectedCategories } = useContext(CategoryContext);
 
     function handleClearFilters() {
-        // sessionStorage.setItem("price", "");
-        // sessionStorage.setItem("categories", "");
-        // sessionStorage.setItem("alpha", "");
         cleanFilters();
-
         setSelectedCategories([]);
-        
         submit(`page=1`);
     }
 

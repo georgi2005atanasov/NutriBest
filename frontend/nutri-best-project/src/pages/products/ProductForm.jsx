@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import CategoryContextProvider from "../../store/CategoryContext";
-import Header from "../../components/UI/Header";
+import Header from "../../components/UI/Shared/Header";
 import FormButton from "../../components/UI/Form/FormButton";
 import FormInput from "../../components/UI/Form/FormInput";
-import Loader from "../../components/UI/Loader";
-import ImageField from "../../components/UI/ImageField";
+import Loader from "../../components/UI/Shared/Loader";
+import ImageField from "../../components/UI/Form/ImageField";
 import FormTextArea from "../../components/UI/Form/FormTextArea";
 import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
-import InputError from "../../components/UI/InputError";
+import InputError from "../../components/UI/Form/InputError";
 import { Form, useNavigation } from "react-router-dom";
 import styles from "../css/ProductForm.module.css";
 
@@ -71,6 +71,22 @@ export default function ProductForm({ product = null, data, header }) {
                             placeholder="100 BGN"
                         />
 
+                        <FormInput
+                            styles={`${styles["add-product-input"]}`}
+                            text="Quantity"
+                            error={
+                                data && data.errors && Object.keys(data.errors).includes("Quantity") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Quantity"][0]}
+                                />}
+                            id="quantity"
+                            type="number"
+                            name="quantity"
+                            defaultValue={product ? product.quantity : undefined}
+                            placeholder=""
+                        />
+                        
                         <div className="categories-wrapper">
                             <MultiSelectCategory productCategories={product ? product.categories : undefined} />
                             {data && data.errors && Object.keys(data.errors).includes("Category") &&

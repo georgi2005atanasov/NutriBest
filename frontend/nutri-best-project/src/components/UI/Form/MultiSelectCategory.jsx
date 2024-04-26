@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect } from 'react';
-import styles from '../css/MultiSelect.module.css';
+import styles from './css/MultiSelect.module.css';
 import { CategoryContext } from '../../../store/CategoryContext';
-import InputError from '../InputError';
+import InputError from './InputError';
 import { getProductsByCategories } from '../../../../../../backend/api/api';
 import { useRouteLoaderData } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';

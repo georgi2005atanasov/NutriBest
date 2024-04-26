@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from "../Dropdown/DropdownMenu";
 import NoneFilter from "../Buttons/NoneFilter";
 import AscFilter from "../Buttons/AscFilter";
 import DescFilter from "../Buttons/DescFilter";

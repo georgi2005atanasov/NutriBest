@@ -46,14 +46,6 @@
     font-weight: 600;
 }
 
-.clear-filters-btn {
-    transition: transform 0.3s ease-in-out;
-}
-
-.clear-filters-btn:hover {
-    transform: scale(1.1);
-}
-
 .selected-filter {
     background-color: #f5f3e8;
 }

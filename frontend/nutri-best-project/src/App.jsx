@@ -12,6 +12,7 @@ import MultiSelectCategory, { loader as getCategoriesCount } from './components/
 import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
+import Profile from './pages/profile/Profile';
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
           }
         ]
       },
-      { path: 'error', element: <ErrorPage /> }
+      { path: 'error', element: <ErrorPage /> },
+      { path: 'profile', element: <Profile /> }
     ],
     id: "rootLoader",
     loader: tokenLoader,

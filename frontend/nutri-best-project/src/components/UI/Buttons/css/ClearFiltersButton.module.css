@@ -1,0 +1,7 @@
+.clear-filters-btn {
+    transition: transform 0.3s ease-in-out;
+}
+
+.clear-filters-btn:hover {
+    transform: scale(1.1);
+}

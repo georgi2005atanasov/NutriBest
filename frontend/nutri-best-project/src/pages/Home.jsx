@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom"
-import Message from "../components/UI/Message";
+import Message from "../components/UI/Shared/Message";
 import { useEffect } from "react";
 
 export default function HomePage() {

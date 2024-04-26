@@ -46,13 +46,6 @@
     background-color: #cf9236;
 }
 
-@media screen and (max-width: 280px) {
-    .nav-buttons {
-        margin-top: 20px;
-        margin-bottom: 15px;
-    }
-}
-
 .content {
     width: 100%;
     height: 100vh;

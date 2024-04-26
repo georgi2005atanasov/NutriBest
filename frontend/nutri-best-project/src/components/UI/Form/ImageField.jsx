@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { getImageByProductId } from "../../../../../backend/api/api";
+import { getImageByProductId } from "../../../../../../backend/api/api";
 import InputError from "./InputError"
 import { useEffect, useState } from "react";
 

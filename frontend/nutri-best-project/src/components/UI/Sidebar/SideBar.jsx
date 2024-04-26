@@ -1,4 +1,4 @@
-import styles from "../css/SideBar.module.css";
+import styles from "./css/SideBar.module.css";
 import { useContext, useEffect } from "react";
 import { useSubmit } from "react-router-dom";
 import { CategoryContext } from "../../../store/CategoryContext";

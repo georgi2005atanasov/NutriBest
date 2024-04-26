@@ -3,7 +3,15 @@
 }
 
 .admin-color-text:hover {
-    color: #425efd;
+    color: #566dee;
+}
+
+.employee-color:hover {
+    background-color: #44f192;
+}
+
+.employee-color-text:hover {
+    color: #35c676;
 }
 
 .user-color:hover{

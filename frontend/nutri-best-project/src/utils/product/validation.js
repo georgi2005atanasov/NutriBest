@@ -23,5 +23,9 @@ export function getProductErrors(productModel) {
         data.errors["Image"] = ["Image is required!"];
     }
 
+    if (isNaN(productModel.quantity) && productModel.quantity != null) {
+        data.errors["Quantity"] = ["Quantity must be a number!"];
+    }
+
     return data;
 }

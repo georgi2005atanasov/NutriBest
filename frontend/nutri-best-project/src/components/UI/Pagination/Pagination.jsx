@@ -2,7 +2,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./css/Pagination.module.css";
 import { useState, useEffect } from "react";
-import { PRODUCTS_VIEWS } from "../../pages/Root";
+import { PRODUCTS_VIEWS } from "../../../pages/Root";
 
 const PRODUCTS_PER_PAGE = 6.0;
 const PRODUCTS_PER_TABLE = 10.0;

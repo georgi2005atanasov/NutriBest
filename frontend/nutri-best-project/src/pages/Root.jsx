@@ -2,9 +2,9 @@ import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-do
 import MainNavigation from "../components/Navigation/MainNavigation";
 import { getAuthToken } from "../utils/auth";
 import { useEffect } from "react";
-import Footer from "../components/UI/Footer";
+import Footer from "../components/UI/Shared/Footer";
 import CategoryContextProvider from "../store/CategoryContext";
-import Loader from "../components/UI/Loader";
+import Loader from "../components/UI/Shared/Loader";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PRICE = "";

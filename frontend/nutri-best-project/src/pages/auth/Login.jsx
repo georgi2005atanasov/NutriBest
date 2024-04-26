@@ -3,14 +3,14 @@ import FormInput from "../../components/UI/Form/FormInput";
 import FormButton from "../../components/UI/Form/FormButton";
 import FormLink from "../../components/UI/Form/FormLink";
 import LoginCheckBox from "../../components/UI/Form/LoginCheckBox";
-import InputError from "../../components/UI/InputError";
-import Header from "../../components/UI/Header";
+import InputError from "../../components/UI/Form/InputError";
+import Header from "../../components/UI/Shared/Header";
 import useAuth from "../../hooks/useAuth";
 import { login } from "../../../../../backend/api/auth";
 import { setAuthToken, setTokenDuration } from "../../utils/auth";
 import { getFormData } from "../../utils/utils";
 import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation } from "react-router-dom";
-import Loader from "../../components/UI/Loader";
+import Loader from "../../components/UI/Shared/Loader";
 
 export default function LoginPage() {
     const data = useActionData();

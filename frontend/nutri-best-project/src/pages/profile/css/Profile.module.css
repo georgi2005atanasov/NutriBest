@@ -9,14 +9,21 @@
     min-width: 400px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 520px) {
     .profile-input input {
-        min-width: 200px;
+        min-width: 270px;
+        margin-left: 35px !important;
+    }
+
+    .profile-input {
+        display: block;
+        text-align: center;
     }
 }
 
 .profile-input input,
-.profile-input textarea {
+.profile-input textarea,
+.profile-input select {
     transition: border-color 0.4s, box-shadow 0.4s;
     padding: 15px;
     border-radius: 10px;
@@ -65,4 +72,9 @@
     display: flex;
     justify-content: start;
     align-items: center;
+}
+
+.date {
+    color: #ed6008;
+    font-size: 18px;
 }

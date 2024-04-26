@@ -2,8 +2,8 @@
 import { Form } from "react-router-dom";
 import EditProfileButton from "../../components/UI/Buttons/EditProfileButton";
 
-export default function ProfileInput({ onBlur, identifier, children, disabled }) {
-    return <Form method="post" className="d-flex justify-content-center align-items-center">
+export default function ProfileChange({ onBlur, identifier, children, disabled }) {
+    return <Form method="post" className="d-flex flex-lg-row flex-column justify-content-center align-items-center">
         <div className="col-md-8 d-flex justify-content-center">
             {children}
         </div>

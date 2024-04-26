@@ -70,7 +70,7 @@ export default function AllProducts() {
                                     <h3>Products</h3>
                                 </div>
                                 <div className="d-flex offset-md-3 text-center">
-                                    <p className="mb-2">{sessionStorage.getItem("productsCount")} products available</p>
+                                    <p className="mb-2">{sessionStorage.getItem("productsCount")} products found</p>
                                 </div>
 
                                 {message && <Message message={message} messageType={messageType} />}

@@ -36,16 +36,16 @@ export default function RegisterPage() {
                     <div className="col-md-5">
                         <FormInput
                             styles={styles["register-input"]}
-                            text="Full name"
+                            text="Username"
                             error={data && Object.keys(data.errors).includes("UserName") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["UserName"][0].replace("UserName", "Full Name")}
+                                    text={data.errors["UserName"][0].replace("UserName", "Username")}
                                 />}
                             id="username"
                             type="text"
                             name="username"
-                            placeholder="Enter your full name"
+                            placeholder="Enter a unique username"
                         />
                         <FormInput
                             styles={styles["register-input"]}

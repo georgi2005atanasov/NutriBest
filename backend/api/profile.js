@@ -29,3 +29,16 @@ export async function editUser(data) {
 
     return response;
 }
+
+export async function deleteUser() {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/profile`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+    });
+
+    return response;
+}

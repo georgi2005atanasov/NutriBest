@@ -8,8 +8,8 @@
 }
 
 .wrong-header {
-    color: #ff6347; /* Tomato color for the heading */
-    margin-top: 140px;
+    color: #ff6347;
+    margin-top: 240px;
     z-index: 1;
 }
 

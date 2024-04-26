@@ -1,6 +1,6 @@
 import { addProduct, getProductById, allProducts, editProduct, deleteProduct, getIdentifiers, getImageByProductId, getProductsByCategories } from "./products";
 import { getFormFile } from "./images";
-import { getProfileDetails, editUser } from "./profile";
+import { getProfileDetails, editUser, deleteUser } from "./profile";
 
 export { addProduct };
 export { getProductById };
@@ -13,4 +13,5 @@ export { getIdentifiers };
 export { getFormFile };
 export { getProfileDetails };
 export { editUser };
+export { deleteUser };
 

@@ -9,7 +9,7 @@ import FormTextArea from "../../components/UI/Form/FormTextArea";
 import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
 import InputError from "../../components/UI/Form/InputError";
 import { Form, useNavigation } from "react-router-dom";
-import styles from "../css/ProductForm.module.css";
+import styles from "./css/ProductForm.module.css";
 
 
 // eslint-disable-next-line react/prop-types

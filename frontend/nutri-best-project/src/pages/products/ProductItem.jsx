@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
+import styles from "./css/ProductItem.module.css";
 import alt from "../../assets/fallback-image.png";
 import { Link } from "react-router-dom";
-import styles from "../css/ProductItem.module.css";
 import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 import { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";

@@ -1,4 +1,4 @@
-import styles from "../../../pages/css/ProductItem.module.css";
+import styles from "../../../pages/products/css/ProductItem.module.css";
 import { Link } from "react-router-dom";
 import table from "../../../pages/css/Table.module.css";
 

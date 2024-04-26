@@ -9,7 +9,7 @@
     min-width: 400px;
 }
 
-@media (max-width: 520px) {
+@media (max-width: 572px) {
     .profile-input input {
         min-width: 270px;
         margin-left: 35px !important;
@@ -27,7 +27,7 @@
     transition: border-color 0.4s, box-shadow 0.4s;
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid #efefea;
+    border: 1px solid #d4d4cf;
     outline: none;
 }
 
@@ -77,4 +77,19 @@
 .date {
     color: #ed6008;
     font-size: 18px;
+}
+
+.profile-info-line {
+    margin: 0;
+    margin-top: 40px;
+    min-height: 5px !important;
+    min-width: 900px;
+    background-color: #161614;
+    border: none !important;
+}
+
+@media (max-width: 910px) {
+    .profile-info-line {
+        min-width: 300px;
+    }
 }

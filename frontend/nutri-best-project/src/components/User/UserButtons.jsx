@@ -20,7 +20,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
             </div>
         </div>
         <div className={`row d-flex justify-content-end p-0 ps-5 mt-0`}>
-            <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
+            <div className={`col-12 p-0 d-flex justify-content-end`}>
                 <div className="row d-flex justify-content-end">
                     <div className="col-lg-12 col-8 d-flex justify-content-end p-0 me-2">
                         {/* gotta add more tools buttons for admin soon */}

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styles from "./css/Profile.module.css";
 import FormInput from "../../components/UI/Form/FormInput";
 import ProfileChange from "./ProfileChange";
@@ -6,13 +7,14 @@ import { memo, useState } from "react";
 import { useActionData } from "react-router-dom";
 import MultiSelectGender from "./MultiSelectGender";
 
-// eslint-disable-next-line react/prop-types
 export default memo(function ProfileForm({ profile }) {
     const data = useActionData();
     console.log(data);
     const [activeButtons, setActiveButtons] = useState([]);
 
     function handleChange(event) {
+        event.preventDefault();
+
         setActiveButtons(prevButtons => {
             return [
                 ...prevButtons.filter(x => x.key != event.target.id),
@@ -20,26 +22,53 @@ export default memo(function ProfileForm({ profile }) {
                 {
                     key: event.target.id,
                     value: prevButtons
-                        .find(x => x.key == event.target.id).value = event.target.value
+                        .find(x => x.key == event.target.id) ?
+                        prevButtons.find(x => x.key == event.target.id).value = event.target.value :
+                        ""
                 }
             ];
         });
     }
 
     function handleFocus(event) {
+        event.preventDefault();
+
         setActiveButtons(prevButtons => {
             return [...prevButtons, { key: event.target.id, value: "" }];
         })
     }
 
     function handleBlur(identifier) {
-        console.log(activeButtons.find(x => x.key == identifier));
         setActiveButtons(prevButtons => {
             return [...prevButtons.filter(x => x.key != identifier)];
         })
     }
 
-    return <section className="mt-3">
+    return <>
+        <ProfileChange
+            onBlur={handleBlur}
+            identifier="email"
+            disabled={activeButtons && activeButtons.some(x => x.key == "email") ? false : true}>
+            <FormInput
+                styles={`${styles["profile-input"]}`}
+                text="Email:"
+                error={
+                    data && data.errors && Object.keys(data.errors).includes("Email") &&
+                    <InputError
+                        styles={styles["error-par"]}
+                        text={data.errors["Email"][0]}
+                    />}
+                id="email"
+                type="email"
+                name="email"
+                defaultValue={profile ? profile.email : undefined}
+                placeholder=""
+                onFocus={handleFocus}
+                onChange={handleChange}
+                className="me-5 ms-5"
+            />
+        </ProfileChange>
+
         <ProfileChange
             onBlur={handleBlur}
             identifier="name"
@@ -66,8 +95,8 @@ export default memo(function ProfileForm({ profile }) {
 
         <ProfileChange
             onBlur={handleBlur}
-            identifier="username"
-            disabled={activeButtons && activeButtons.some(x => x.key == "username") ? false : true}>
+            identifier="userName"
+            disabled={activeButtons && activeButtons.some(x => x.key == "userName") ? false : true}>
             <FormInput
                 styles={`${styles["profile-input"]}`}
                 text="Username:"
@@ -77,14 +106,14 @@ export default memo(function ProfileForm({ profile }) {
                         styles={styles["error-par"]}
                         text={data.errors["UserName"][0]}
                     />}
-                id="username"
+                id="userName"
                 type="text"
-                name="username"
+                name="userName"
                 defaultValue={profile ? profile.userName : undefined}
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-4 ms-3"
+                className="me-5 ms-4"
             />
         </ProfileChange>
 
@@ -108,7 +137,7 @@ export default memo(function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-4 ms-3"
+                className="me-4 ms-5"
             />
         </ProfileChange>
 
@@ -116,7 +145,15 @@ export default memo(function ProfileForm({ profile }) {
             onBlur={handleBlur}
             identifier="gender"
             disabled={activeButtons && activeButtons.some(x => x.key == "gender") ? false : true}>
-            <MultiSelectGender styles={`${styles["profile-input"]}`} handleChange={handleChange} handleFocus={handleFocus} />
+            <MultiSelectGender styles={`${styles["profile-input"]} me-5`} handleChange={handleChange} handleFocus={handleFocus} />
         </ProfileChange>
-    </section>
+
+        <div className="d-flex justify-content-center">
+            {data && data.message &&
+                <InputError
+                    styles={styles["error-par"]}
+                    text={data.message}
+                />}
+        </div>
+    </>
 });

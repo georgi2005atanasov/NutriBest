@@ -15,3 +15,17 @@ export async function getProfileDetails() {
         return response;
     }
 }
+
+export async function editUser(data) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/profile`, {
+        method: "PUT",
+        body: data,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+    });
+
+    return response;
+}

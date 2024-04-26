@@ -12,12 +12,10 @@ export default function ProfileDate({ text, date }) {
 function getDate(dateString) {
     const date = new Date(dateString);
 
-    // Extract components using getFullYear, getMonth, and getDate
     const year = date.getFullYear();
-    const month = date.getMonth() + 1; // getMonth returns 0-11, add 1 for 1-12
+    const month = date.getMonth() + 1;
     const day = date.getDate();
 
-    // Ensure month and day are always two digits
     const formattedMonth = month < 10 ? `0${month}` : month;
     const formattedDay = day < 10 ? `0${day}` : day;
 

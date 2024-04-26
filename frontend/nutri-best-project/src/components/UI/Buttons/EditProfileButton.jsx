@@ -8,11 +8,11 @@ export default function EditProfileButton({ onBlur, disabled, identifier }) {
         }
     }
 
-    return <div className="col-md-3 d-flex align-items-start justify-content-start">
+    return <div className="col-md-2 d-flex align-items-start justify-content-start">
         <button
             onClick={handleEdit}
             className={`${styles["edit-profile-btn"]} 
-        ${disabled ? styles["disabled-color"] : styles["active-color"]}`}>
+        ${disabled ? `${styles["disabled-color"]} d-none` : styles["active-color"]}`}>
             {disabled ? "Edit" : "Save"}
         </button>
     </div>

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import styles from "./MainNavigation.module.css";
+import { Link } from "react-router-dom";
 import colors from "../../App.module.css";
 
 // eslint-disable-next-line react/prop-types

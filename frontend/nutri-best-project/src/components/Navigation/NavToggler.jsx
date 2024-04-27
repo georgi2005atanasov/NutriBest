@@ -1,10 +1,11 @@
+import styles from "./MainNavigation.module.css";
 import useAuth from "../../hooks/useAuth";
 import { useLoaderData } from "react-router-dom";
 import colors from "../../App.module.css";
 
 
 /* eslint-disable react/prop-types */
-export default function NavToggler({ styles }) {
+export default function NavToggler() {
     const token = useLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
 

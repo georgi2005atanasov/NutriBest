@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
+import styles from "./MainNavigation.module.css";
 import { Link } from "react-router-dom"
 import logo from "../../assets/another-nutri-best-logo.png";
 
-export default function NavLogo({ styles }) {
+export default function NavLogo() {
     return <div className="col-2 p-1 d-flex justify-content-center align-items-center">
         <div className="container">
             <div className="row d-flex justify-content-center align-items-center me-md-4 ms-4 p-0">

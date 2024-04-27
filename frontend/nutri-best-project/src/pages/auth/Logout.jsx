@@ -12,6 +12,7 @@ export function action({ request, params }) {
 
     if (localStorage.getItem("successMessage")) {
         message = localStorage.getItem("successMessage");
+        localStorage.removeItem("successMessage");
     }
 
     return redirect(`/?message=${message}`);

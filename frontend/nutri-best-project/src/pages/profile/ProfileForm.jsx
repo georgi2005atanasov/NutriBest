@@ -3,18 +3,17 @@ import styles from "./css/Profile.module.css";
 import FormInput from "../../components/UI/Form/FormInput";
 import ProfileChange from "./ProfileChange";
 import InputError from "../../components/UI/Form/InputError";
-import { memo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useActionData } from "react-router-dom";
 import MultiSelectGender from "./MultiSelectGender";
 
-export default memo(function ProfileForm({ profile }) {
+export default function ProfileForm({ profile }) {
     const data = useActionData();
     console.log(data);
     const [activeButtons, setActiveButtons] = useState([]);
 
-    function handleChange(event) {
+    const handleChange = useCallback(function handleChange(event) {
         event.preventDefault();
-
         setActiveButtons(prevButtons => {
             return [
                 ...prevButtons.filter(x => x.key != event.target.id),
@@ -28,21 +27,21 @@ export default memo(function ProfileForm({ profile }) {
                 }
             ];
         });
-    }
+    }, []);
 
-    function handleFocus(event) {
+    const handleFocus = useCallback(function handleFocus(event) {
         event.preventDefault();
 
         setActiveButtons(prevButtons => {
             return [...prevButtons, { key: event.target.id, value: "" }];
         })
-    }
+    }, []);
 
-    function handleBlur(identifier) {
+    const handleBlur = useCallback(function handleBlur(identifier) {
         setActiveButtons(prevButtons => {
             return [...prevButtons.filter(x => x.key != identifier)];
         })
-    }
+    }, []);
 
     return <>
         <ProfileChange
@@ -156,4 +155,4 @@ export default memo(function ProfileForm({ profile }) {
                 />}
         </div>
     </>
-});
+}

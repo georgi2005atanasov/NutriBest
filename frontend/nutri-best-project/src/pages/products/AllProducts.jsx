@@ -1,5 +1,5 @@
 import styles from "./css/AllProducts.module.css";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useCallback } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination/Pagination";
@@ -11,6 +11,7 @@ import useAuth from "../../hooks/useAuth";
 import { PRODUCTS_VIEWS } from "../Root";
 import Table from "./Table";
 import ChangeLayoutButton from "../../components/UI/Buttons/ChangeLayoutButton";
+import FilterSidebar from "../../components/UI/Sidebar/FilterSidebar";
 
 export default function AllProducts() {
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
@@ -47,7 +48,7 @@ export default function AllProducts() {
     }, [productsView]);
 
     const [isSidebarVisible, setSidebarVisible] = useState(false);
-    const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
+    const toggleSidebar = useCallback(() => setSidebarVisible(!isSidebarVisible), [isSidebarVisible]);
 
     function toTableView() {
         sessionStorage.setItem("productsView", PRODUCTS_VIEWS.table);
@@ -93,10 +94,7 @@ export default function AllProducts() {
                             </div>
                         </div>
 
-                        <div className={`${styles["filter"]} col-md-3 d-flex flex-column justify-content-center align-items-start mb-3`}>
-                            <SideBarToggler toggleSidebar={toggleSidebar} />
-                            <SideBar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
-                        </div>
+                        <FilterSidebar toggleSidebar={toggleSidebar} isSidebarVisible={isSidebarVisible} />
 
                         <div className="col-md-9">
                             <Suspense fallback={

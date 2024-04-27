@@ -8,10 +8,10 @@ import SearchBar from "../UI/Searchbar/SearchBar";
 const MainNavigation = memo(function MainNavigation() {
     return <div id="main-navigation" className={`container ${styles["main-navigation"]} mt-md-4`}>
         <div className="row d-flex justify-content-between align-items-center">
-            <NavLogo styles={styles} />
+            <NavLogo />
             <SearchBar />
-            <NavToggler styles={styles} />
-            <NavButtons styles={styles} />
+            <NavToggler />
+            <NavButtons />
         </div>
     </div>;
 });

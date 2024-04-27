@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import styles from "./MainNavigation.module.css";
 import shoppingBag from "../../assets/shopping-bag.png";
 import { useLoaderData } from "react-router-dom";
 import { useSubmit } from "react-router-dom"
@@ -6,7 +7,7 @@ import UserButtons from "../User/UserButtons";
 import GuestButtons from "../Guest/GuestButtons";
 import useAuth from "../../hooks/useAuth";
 
-export default function NavButtons({ styles }) {
+export default function NavButtons() {
     const token = useLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
 

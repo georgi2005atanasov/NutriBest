@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
 import styles from "./css/Pagination.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { PRODUCTS_VIEWS } from "../../../pages/Root";
 
 const PRODUCTS_PER_PAGE = 6.0;

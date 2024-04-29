@@ -7,9 +7,13 @@ import ProfileDate from "./ProfileDate.jsx";
 import { getFormData } from "../../utils/utils.js";
 import { editUser } from "../../../../../backend/api/api.js";
 import DeleteProfileButton from "../../components/UI/Buttons/DeleteProfileButton.jsx";
+import useAuth from "../../hooks/useAuth.js";
+import { getAuthToken } from "../../utils/auth.js";
 
 export default function Profile() {
     const { profile } = useLoaderData();
+    const token = getAuthToken();
+    const { isAdmin } = useAuth(token);
 
     return <div className={`container-fluid d-flex flex-column align-items-center justify-content-center`}>
         <hr className={styles["profile-info-line"]} />
@@ -23,7 +27,7 @@ export default function Profile() {
                 <ProfileForm profile={profile} />
             </div>
         </div>
-        <DeleteProfileButton />
+        {!isAdmin && <DeleteProfileButton />}
     </div>
 }
 

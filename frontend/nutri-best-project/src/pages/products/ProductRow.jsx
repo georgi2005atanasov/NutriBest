@@ -28,11 +28,11 @@ export default function ProductRow({ product }) {
     return <tr>
         <td><img src={src} alt="Product"></img></td>
         <td>{product.productId}</td>
-        <td>{Number(product.price.toFixed(2)) + 0.99} BGN</td>
+        <td>{Number(product.price.toFixed(2))} BGN</td>
         <td>{product.name}</td>
         <td>
-            <EditProductButton productId={product.productId} isTable={true} />
-            <DeleteProductButton productId={product.productId} isTable={true} />
+            <EditProductButton productId={product.productId} isTable={true} name={product.name} />
+            <DeleteProductButton productId={product.productId} isTable={true} name={product.name} />
             <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
         </td>
     </tr>

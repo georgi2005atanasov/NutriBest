@@ -4,7 +4,7 @@ export function getProductForm(productModel) {
     const formData = new FormData();
     formData.append("name", productModel.name);
     formData.append("description", productModel.description);
-    formData.append("price", parseFloat(productModel.price));
+    formData.append("price", productModel.price);
     formData.append("categories", productModel.categories);
     formData.append("quantity", Number(productModel.quantity));
 

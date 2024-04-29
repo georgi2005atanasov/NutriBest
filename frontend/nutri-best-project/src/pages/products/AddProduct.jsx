@@ -34,8 +34,6 @@ export async function action({ request, params }) {
         const productModel = await getFormData(request)
         productModel.categories = getProductCategories(productModel);
 
-        productModel.price = parseFloat(productModel.price)
-
         const checkProduct = getProductErrors(productModel);
 
         if (Object.keys(checkProduct.errors).length != 0) {

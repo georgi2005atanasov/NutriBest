@@ -39,7 +39,7 @@ export default function ProductItem({ product }) {
                 {product.name}
             </h5>
             <h5 className="product-price text-center mb-2">
-                <span>{(product.price + 0.99).toFixed(2)} BGN</span>
+                <span>{(product.price).toFixed(2)} BGN</span>
             </h5>
         </Link>
 

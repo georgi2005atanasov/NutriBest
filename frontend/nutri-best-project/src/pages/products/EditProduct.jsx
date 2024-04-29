@@ -60,8 +60,6 @@ export async function action({ request, params }) {
         return json({ errors: { "Price": ["Price must be a number!"] } });
     }
 
-    productModel.price = parseFloat(productModel.price)
-
     if (isNaN(id)) {
         return json({ errors: { "message": ["Invalid product identifier!"] } });
     }

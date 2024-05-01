@@ -40,8 +40,13 @@ export async function allProducts(page, categories = "", price = "", alpha = "",
 }
 
 export async function getProductById(id) {
+    const token = getAuthToken();
+
     const response = await fetch(`https://localhost:7056/products/${id}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     });
 
     return response;

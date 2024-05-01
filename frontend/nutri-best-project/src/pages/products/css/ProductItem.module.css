@@ -56,7 +56,8 @@
     align-items: center;
 }
 
-.edit-btn:hover, .delete-btn:hover {
+.edit-btn:hover,
+.delete-btn:hover {
     transform: scale(1.1);
 }
 
@@ -74,7 +75,46 @@
     from {
         opacity: 1;
     }
+
     to {
         opacity: 0;
     }
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-price {
+    color: #CC0000;
+}
+
+.promotion-box {
+    width: 70px; 
+    height: 70px; 
+    background-color: #CC0000; 
+    position: absolute; 
+    top: -10px; 
+    right: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: white;
+    z-index: 1;
+}
+
+.promotion-wrapper {
+    /* border-color: #CC0000; */
+    background-color: rgb(241, 241, 241);
+}
+
+.promotion-name {
+    color: #333;
 }

@@ -31,15 +31,30 @@ export default function ProductItem({ product }) {
         setSrc(src);
     }, [product])
 
-    return <section className={`${styles["product-item"]} card p-3`} id={product.productId}>
+    return <section
+        className={`${product.promotionId && styles["promotion-wrapper"]} ${styles["product-item"]} card p-3`}
+        id={product.productId}>
+        {product.promotionId &&
+            <div className={styles["promotion-box"]}>
+                {product && Math.floor(product.discountPercentage)} %
+            </div>}
         <Link className={`${styles["product-item-link"]}`} to="/products/details/">
-            {src ? <img className={styles["product-image"]} src={src} alt="Dynamic" /> :
+            {src ? <img
+                className={`${styles["product-image"]} 
+                ${product.promotionId && styles["promotion-border"]}`}
+                src={src} alt="Dynamic" /> :
                 <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
-            <h5 className="product-name text-center mt-2 mb-2">
+            <h5 className={`${product.promotionId && styles["promotion-name"]} product-name text-center mt-2 mb-2`}>
                 {product.name}
             </h5>
             <h5 className="product-price text-center mb-2">
-                <span>{(product.price).toFixed(2)} BGN</span>
+                {product.promotionId &&
+                    <span className={styles["new-price"]}>
+                        {getPrice(product.price, product.discountPercentage).toFixed(2)} BGN
+                    </span>}
+                <span className={product.promotionId && styles["original-price"]}>
+                    {(product.price).toFixed(2)} BGN
+                </span>
             </h5>
         </Link>
 
@@ -50,7 +65,11 @@ export default function ProductItem({ product }) {
                     <DeleteProductButton productId={product.productId} />
                 </div>
             </div> :
-            <AddToCartButton />}
+            <AddToCartButton promotionId={product.promotionId} />}
 
     </section>
+}
+
+function getPrice(price, discountPercentage) {
+    return price * ((100 - discountPercentage) / 100);
 }

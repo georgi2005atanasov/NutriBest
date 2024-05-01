@@ -3,8 +3,6 @@ import { Suspense, useState, useEffect, useCallback } from "react";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination/Pagination";
-import SideBar from "../../components/UI/Sidebar/SideBar";
-import SideBarToggler from "../../components/UI/Sidebar/SideBarToggler";
 import ProductsList from "./ProductsList";
 import Message from "../../components/UI/Shared/Message";
 import useAuth from "../../hooks/useAuth";

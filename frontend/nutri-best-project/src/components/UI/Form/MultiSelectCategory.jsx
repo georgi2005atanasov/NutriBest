@@ -25,6 +25,10 @@ export default function MultiSelectCategory({ data, errorStyle, productCategorie
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
 
+        if (sessionStorage.getItem("search")) {
+            sessionStorage.removeItem("search")
+        }
+
         setSelectedCategories(prev => {
             let newValue = checked ? [...prev, value] : prev.filter(val => val !== value);
             sessionStorage.setItem("categories", newValue.join("+"))

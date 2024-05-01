@@ -2,46 +2,34 @@
 .add-to-cart-btn {
     background-color: #333;
     text-decoration: none;
-    /* Dark gray background */
     color: white;
-    /* White text for high contrast */
     border: none;
-    /* No border for a modern look */
     padding: 10px 20px;
-    /* Padding around the text */
     font-size: 16px;
-    /* Adequate font size for readability */
     cursor: pointer;
-    /* Cursor indicates button functionality */
     border-radius: 5px;
-    /* Slightly rounded corners */
     transition: background-color 0.3s, transform 0.2s;
-    /* Smooth transition for hover and click effects */
     display: inline-flex;
-    /* Flex to align icon and text */
     align-items: center;
-    /* Vertical alignment of icon with text */
     justify-content: center;
-    /* Center content horizontally */
     font-weight: bold;
-    /* Bold font for emphasis */
 }
 
 .add-to-cart-btn:hover {
     background-color: #707070;
-    /* Slightly lighter gray on hover for feedback */
     transform: scale(1.05);
-    /* Slightly enlarge button when hovered */
 }
 
 .add-to-cart-btn:active {
     transform: scale(0.95);
-    /* Slightly shrink button when clicked */
 }
 
 .add-to-cart-btn i {
     margin-right: 8px;
-    /* Space between icon and text */
+}
+
+.promotion-btn {
+    background-color: #CC0000;
 }
 
 /* Ensure the icon is loaded using Font Awesome or similar */

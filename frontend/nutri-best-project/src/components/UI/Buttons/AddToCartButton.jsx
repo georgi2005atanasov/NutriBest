@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./css/AddToCartButton.module.css";
 
-export default function AddToCartButton() {
+// eslint-disable-next-line react/prop-types
+export default function AddToCartButton({ promotionId }) {
     return <div className="text-center">
-        {/* gotta do sth when the link is clicked */}
-        <Link className={styles["add-to-cart-btn"]}>
+        <Link className={`${promotionId && styles["promotion-btn"]} ${styles["add-to-cart-btn"]}`}>
             <i className={styles["fas fa-shopping-cart"]}></i> Add to Cart
         </Link>
     </div>;

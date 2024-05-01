@@ -10,6 +10,7 @@ import { PRODUCTS_VIEWS } from "../Root";
 import Table from "./Table";
 import ChangeLayoutButton from "../../components/UI/Buttons/ChangeLayoutButton";
 import FilterSidebar from "../../components/UI/Sidebar/FilterSidebar";
+import { allPromotions } from "../../../../../backend/api/api";
 
 export default function AllProducts() {
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
@@ -21,7 +22,7 @@ export default function AllProducts() {
 
     let { message, messageType } = getMessage(searchParams);
 
-    const { productsRows, page } = useLoaderData();
+    const { productsRows, page, promotions } = useLoaderData();
 
     useEffect(() => {
         if (message) {
@@ -32,7 +33,7 @@ export default function AllProducts() {
                 if (productsRows && productsRows.length == 0) {
                     sessionStorage.setItem("page", 1);
                 }
-                
+
                 setSearchParams({});
             }, 2500);
 
@@ -156,6 +157,11 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
     }
 }
 
+async function getPromotions() {
+    const result = await allPromotions();
+    return result;
+}
+
 // eslint-disable-next-line no-unused-vars
 export async function loader({ request, params }) {
     const currentPage = sessionStorage.getItem("page");
@@ -175,8 +181,9 @@ export async function loader({ request, params }) {
     return defer({
         productsRows: await loadProductsData(
             page, categories, price, alpha, productsView, search, priceRange),
+        promotions: await getPromotions(),
         page,
-        productsView
+        productsView,
     });
 }
 

@@ -9,6 +9,8 @@ import { getAuthToken } from "../../utils/auth";
 import DeleteProductButton from "../../components/UI/Buttons/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/EditProductButton";
 import { getImageByProductId } from "../../../../../backend/api/api";
+import { getPrice } from "../../utils/product/products";
+import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
@@ -33,8 +35,11 @@ export default function ProductItem({ product }) {
 
     if (product.promotionId) {
         return <section
-            className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card p-3 pb-2`}
+            className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card p-3 pb-2 pt-2`}
             id={product.productId}>
+
+            {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
+
             <div className={styles["promotion-box"]}>
                 {product && Math.floor(product.discountPercentage)} <strong>%</strong>
             </div>
@@ -58,7 +63,7 @@ export default function ProductItem({ product }) {
             </Link>
 
             {isAdmin ?
-                <div className="container pt-2">
+                <div className="container pt-1">
                     <div className="row d-flex justify-content-center align-items-center">
                         <EditProductButton productId={product.productId} />
                         <DeleteProductButton productId={product.productId} />
@@ -70,8 +75,11 @@ export default function ProductItem({ product }) {
     }
 
     return <section
-        className={`${styles["product-item"]} card p-3`}
+        className={`${styles["product-item"]} card p-3 pt-2`}
         id={product.productId}>
+            
+        {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
+
         <Link className={`${styles["product-item-link"]}`} to="/products/details/">
             {src ? <img
                 className={`${styles["product-image"]}`}
@@ -97,8 +105,4 @@ export default function ProductItem({ product }) {
             <AddToCartButton promotionId={product.promotionId} />}
 
     </section>
-}
-
-function getPrice(price, discountPercentage) {
-    return price * ((100 - discountPercentage) / 100);
 }

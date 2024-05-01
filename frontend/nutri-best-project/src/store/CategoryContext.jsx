@@ -1,4 +1,4 @@
-import { createContext, memo, useState } from "react";
+import { createContext, useState } from "react";
 
 export const CATEGORIES = [
     { name: "proteins", value: "Proteins" },

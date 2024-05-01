@@ -5,6 +5,9 @@ import { getImageByProductId } from "../../../../../backend/api/products";
 import { Link } from "react-router-dom";
 import DeleteProductButton from "../../components/UI/Buttons/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/EditProductButton";
+import { getPrice } from "../../utils/product/products";
+import promotionStyles from "./css/ProductItem.module.css";
+import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 
 export default function ProductRow({ product }) {
     const [src, setSrc] = useState('');
@@ -25,12 +28,37 @@ export default function ProductRow({ product }) {
         setSrc(src);
     }, [product])
 
+    if (product.promotionId) {
+        return <tr>
+            <td><img src={src} alt="Product"></img></td>
+            <td>{product.productId}</td>
+            <td>
+                <div className="d-flex flex-column">
+                    <span>{getPrice(product.price, product.discountPercentage).toFixed(2)} BGN</span>
+                    <span className={`${promotionStyles["original-price"]} pe-3`}>{Number(product.price.toFixed(2))} BGN</span>
+                </div>
+            </td>
+            <td>{product.quantity}</td>
+            <td>{product.name}</td>
+            <td>
+                <MultiSelectPromotion productId={product.productId} promotionId={product.promotionId} />
+                <div className="mb-3"></div>
+                <EditProductButton productId={product.productId} isTable={true} />
+                <DeleteProductButton productId={product.productId} isTable={true} />
+                <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
+            </td>
+        </tr>;
+    }
+
     return <tr>
         <td><img src={src} alt="Product"></img></td>
         <td>{product.productId}</td>
         <td>{Number(product.price.toFixed(2))} BGN</td>
+        <td>{product.quantity}</td>
         <td>{product.name}</td>
         <td>
+            <MultiSelectPromotion productId={product.productId} promotionId={product.promotionId} />
+            <div className="mb-3"></div>
             <EditProductButton productId={product.productId} isTable={true} name={product.name} />
             <DeleteProductButton productId={product.productId} isTable={true} name={product.name} />
             <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>

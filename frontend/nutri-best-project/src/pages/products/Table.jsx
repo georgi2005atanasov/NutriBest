@@ -15,6 +15,7 @@ export default function Table({ productsRows }) {
                         <th>Image</th>
                         <th>ID</th>
                         <th>Price</th>
+                        <th>Quantity</th>
                         <th>Name</th>
                         <th>Actions</th>
                     </tr>

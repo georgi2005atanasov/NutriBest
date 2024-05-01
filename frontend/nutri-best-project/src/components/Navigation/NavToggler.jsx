@@ -33,7 +33,7 @@ export default function NavToggler() {
                                 {!isAdmin ? "About us" : "Clients"}
                             </a>
                             <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href="/contact">
-                                {!isAdmin ? "Offers" : "Offers"}
+                                {!isAdmin ? "Promotions" : "Promotions"}
                             </a>
                         </nav>
                     </div>

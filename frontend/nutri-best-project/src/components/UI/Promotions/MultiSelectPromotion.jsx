@@ -27,7 +27,7 @@ export default function MultiSelectPromotion({ promotionId, productId }) {
         <select value={promotionId || ""} key={productId} title="promotion" onChange={setNewPromotion} className={`${styles["custom-select"]} me-5 mb-1 p-1`}>
             <option value="">Choose Promotion</option>
             {promotions && promotions.length > 0 && promotions
-                .map(p => <option key={p.promotionId} value={p.promotionId}>{p.description.substring(0, 30)}</option>)}
+                .map(p => <option className={styles["option"]} key={p.promotionId} value={p.promotionId}>{p.description.substring(0, 30)}</option>)}
         </select>
         {message && <InvalidPromotionMessage message={message} />}
     </>

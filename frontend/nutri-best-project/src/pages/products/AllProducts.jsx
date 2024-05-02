@@ -11,6 +11,7 @@ import Table from "./Table";
 import ChangeLayoutButton from "../../components/UI/Buttons/ChangeLayoutButton";
 import FilterSidebar from "../../components/UI/Sidebar/FilterSidebar";
 import { allPromotions } from "../../../../../backend/api/api";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AllProducts() {
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
@@ -60,62 +61,70 @@ export default function AllProducts() {
     }
 
     return <>
-        <div className="all-products d-flex justify-content-end">
-            <div className="container-fluid mx-lg-4 mx-2">
-                <div className="row d-flex flex-md-column justify-content-center">
-                    <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
-                        <div className="container">
-                            <div className="row">
-                                <div className="d-flex offset-md-3 text-center">
-                                    <h3>Products</h3>
+        <AnimatePresence>
+            <motion.div
+                className="all-products d-flex justify-content-end"
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ duration: 0.9 }}
+            >
+                <div className="container-fluid mx-lg-4 mx-2">
+                    <div className="row d-flex flex-md-column justify-content-center">
+                        <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
+                            <div className="container">
+                                <div className="row">
+                                    <div className="d-flex offset-md-3 text-center">
+                                        <h3>Products</h3>
+                                    </div>
+                                    <div className="d-flex offset-md-3 text-center">
+                                        <p className="mb-2">{sessionStorage.getItem("productsCount")} products found</p>
+                                    </div>
+
+                                    {message && <Message message={message} messageType={messageType} />}
+
+                                    {isAdmin && productsView === "all" &&
+                                        <div className="mb-3 d-flex justify-content-end">
+                                            <ChangeLayoutButton
+                                                text={"View as Table"}
+                                                onClick={toTableView} />
+                                            <div className="mx-1"></div>
+                                        </div>}
+
+                                    {isAdmin && productsView === "table" &&
+                                        <div className="mb-3 d-flex justify-content-end">
+                                            <ChangeLayoutButton
+                                                text={"View as User"}
+                                                onClick={toUserView} />
+                                            <div className="mx-1"></div>
+                                        </div>}
                                 </div>
-                                <div className="d-flex offset-md-3 text-center">
-                                    <p className="mb-2">{sessionStorage.getItem("productsCount")} products found</p>
-                                </div>
+                            </div>
 
-                                {message && <Message message={message} messageType={messageType} />}
+                            <FilterSidebar toggleSidebar={toggleSidebar} isSidebarVisible={isSidebarVisible} />
 
-                                {isAdmin && productsView === "all" &&
-                                    <div className="mb-3 d-flex justify-content-end">
-                                        <ChangeLayoutButton
-                                            text={"View as Table"}
-                                            onClick={toTableView} />
-                                        <div className="mx-1"></div>
-                                    </div>}
-
-                                {isAdmin && productsView === "table" &&
-                                    <div className="mb-3 d-flex justify-content-end">
-                                        <ChangeLayoutButton
-                                            text={"View as User"}
-                                            onClick={toUserView} />
-                                        <div className="mx-1"></div>
-                                    </div>}
+                            <div className="col-md-9">
+                                <Suspense fallback={
+                                    <div className="d-flex justify-content-center align-items-center">
+                                        <div className={styles["big-margin"]}></div>
+                                    </div>}>
+                                    <Await resolve={productsRows}>
+                                        {productsRows => productsView == PRODUCTS_VIEWS.table ?
+                                            <Table productsRows={productsRows} /> :
+                                            <ProductsList productsRows={productsRows} />}
+                                    </Await>
+                                </Suspense>
                             </div>
                         </div>
-
-                        <FilterSidebar toggleSidebar={toggleSidebar} isSidebarVisible={isSidebarVisible} />
-
-                        <div className="col-md-9">
-                            <Suspense fallback={
-                                <div className="d-flex justify-content-center align-items-center">
-                                    <div className={styles["big-margin"]}></div>
-                                </div>}>
-                                <Await resolve={productsRows}>
-                                    {productsRows => productsView == PRODUCTS_VIEWS.table ?
-                                        <Table productsRows={productsRows} /> :
-                                        <ProductsList productsRows={productsRows} />}
-                                </Await>
-                            </Suspense>
+                    </div>
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-lg-6 col-md-9">
+                            <Pagination productsView={productsView} page={page} productsCount={sessionStorage.getItem("productsCount")} />
                         </div>
                     </div>
                 </div>
-                <div className="row d-flex justify-content-center">
-                    <div className="col-lg-6 col-md-9">
-                        <Pagination productsView={productsView} page={page} productsCount={sessionStorage.getItem("productsCount")} />
-                    </div>
-                </div>
-            </div>
-        </div >
+            </motion.div >
+        </AnimatePresence>
     </>;
 }
 

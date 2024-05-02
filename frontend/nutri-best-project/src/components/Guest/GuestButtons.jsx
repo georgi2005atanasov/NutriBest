@@ -2,9 +2,16 @@
 import { Link } from "react-router-dom";
 import NavigationLink from "../Navigation/NavigationLink";
 import colors from "../../App.module.css";
+import { motion } from "framer-motion";
 
 export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
-    return <div className={`row d-flex justify-content-end mt-2 p-0 ps-5`}>
+    return <motion.div
+        className={`row d-flex justify-content-end mt-2 p-0 ps-5`}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.4 }}
+    >
         <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
             <div className="row d-flex justify-content-end">
                 <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
@@ -35,5 +42,5 @@ export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
                 </div>
             </div>
         </div>
-    </div>
+    </motion.div>
 }

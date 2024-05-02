@@ -9,13 +9,20 @@ import { editUser } from "../../../../../backend/api/api.js";
 import DeleteProfileButton from "../../components/UI/Buttons/DeleteProfileButton.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import { getAuthToken } from "../../utils/auth.js";
+import { motion } from "framer-motion";
 
 export default function Profile() {
     const { profile } = useLoaderData();
     const token = getAuthToken();
     const { isAdmin } = useAuth(token);
 
-    return <div className={`container-fluid d-flex flex-column align-items-center justify-content-center`}>
+    return <motion.div
+        className={`container-fluid d-flex flex-column align-items-center justify-content-center`}
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ duration: 0.7 }}
+    >
         <hr className={styles["profile-info-line"]} />
         <Header text={"Profile Details"} styles={"d-flex justify-content-center align-items-center"} />
         <div className="row mt-1 w-100 d-flex align-items-start justify-content-center">
@@ -28,7 +35,7 @@ export default function Profile() {
             </div>
         </div>
         {!isAdmin && <DeleteProfileButton />}
-    </div>
+    </motion.div>
 }
 
 export async function loader() {

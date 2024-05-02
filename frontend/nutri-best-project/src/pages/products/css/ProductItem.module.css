@@ -95,8 +95,8 @@
 }
 
 .promotion-box {
-    width: 70px; 
-    height: 70px; 
+    width: 65px; 
+    height: 65px; 
     background-color: #CC0000; 
     position: absolute; 
     top: -10px; 
@@ -108,6 +108,12 @@
     font-weight: bolder;
     color: white;
     z-index: 1;
+    font-size: 17px; 
+    transition: 0.3s;
+}
+
+.promotion-box:hover {
+    background-color: #b30202; 
 }
 
 .promotion-wrapper {

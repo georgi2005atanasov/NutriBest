@@ -16,5 +16,5 @@ select.custom-select:focus {
 
 .invalid-promotion {
     display: block;
-    font-size: 15px;
+    font-size: 14px;
 }

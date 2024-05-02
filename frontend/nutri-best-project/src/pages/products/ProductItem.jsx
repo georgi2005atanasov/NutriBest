@@ -11,6 +11,7 @@ import EditProductButton from "../../components/UI/Buttons/EditProductButton";
 import { getImageByProductId } from "../../../../../backend/api/api";
 import { getPrice } from "../../utils/product/products";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
@@ -34,36 +35,81 @@ export default function ProductItem({ product }) {
     }, [product])
 
     if (product.promotionId) {
-        return <section
-            className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card p-3 pb-2 pt-2`}
-            id={product.productId}>
+        return <AnimatePresence>
+            <motion.section
+                className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card p-3 pb-2 pt-2`}
+                id={product.productId}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.9 }}
+            >
+                {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
+
+                <div className={styles["promotion-box"]}>
+                    {product && Math.floor(product.discountPercentage)} <strong>%</strong>
+                </div>
+                <Link className={`${styles["product-item-link"]}`} to="/products/details/">
+                    {src ? <img
+                        className={`${styles["product-image"]} 
+                ${styles["promotion-border"]}`}
+                        src={src} alt="Dynamic" /> :
+                        <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
+                    <h5 className={`${styles["promotion-name"]} product-name text-center mt-2 mb-2`}>
+                        {product.name}
+                    </h5>
+                    <h5 className="product-price text-center mb-2">
+                        <span className={styles["new-price"]}>
+                            {getPrice(product.price, product.discountPercentage).toFixed(2)} BGN
+                        </span>
+                        <span className={styles["original-price"]}>
+                            {(product.price).toFixed(2)} BGN
+                        </span>
+                    </h5>
+                </Link>
+
+                {isAdmin ?
+                    <div className="container pt-1">
+                        <div className="row d-flex justify-content-center align-items-center">
+                            <EditProductButton productId={product.productId} />
+                            <DeleteProductButton productId={product.productId} />
+                        </div>
+                    </div> :
+                    <AddToCartButton promotionId={product.promotionId} />}
+
+            </motion.section>
+        </AnimatePresence>
+    }
+
+    return <AnimatePresence>
+        <motion.section
+            className={`${styles["product-item"]} card p-3 pt-2`}
+            id={product.productId}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.3 }}
+        >
 
             {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
 
-            <div className={styles["promotion-box"]}>
-                {product && Math.floor(product.discountPercentage)} <strong>%</strong>
-            </div>
             <Link className={`${styles["product-item-link"]}`} to="/products/details/">
                 {src ? <img
-                    className={`${styles["product-image"]} 
-                ${styles["promotion-border"]}`}
+                    className={`${styles["product-image"]}`}
                     src={src} alt="Dynamic" /> :
                     <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
-                <h5 className={`${styles["promotion-name"]} product-name text-center mt-2 mb-2`}>
+                <h5 className={`text-center mt-2 mb-2`}>
                     {product.name}
                 </h5>
                 <h5 className="product-price text-center mb-2">
-                    <span className={styles["new-price"]}>
-                        {getPrice(product.price, product.discountPercentage).toFixed(2)} BGN
-                    </span>
-                    <span className={styles["original-price"]}>
+                    <span>
                         {(product.price).toFixed(2)} BGN
                     </span>
                 </h5>
             </Link>
 
             {isAdmin ?
-                <div className="container pt-1">
+                <div className="container pt-2">
                     <div className="row d-flex justify-content-center align-items-center">
                         <EditProductButton productId={product.productId} />
                         <DeleteProductButton productId={product.productId} />
@@ -71,38 +117,6 @@ export default function ProductItem({ product }) {
                 </div> :
                 <AddToCartButton promotionId={product.promotionId} />}
 
-        </section>
-    }
-
-    return <section
-        className={`${styles["product-item"]} card p-3 pt-2`}
-        id={product.productId}>
-            
-        {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
-
-        <Link className={`${styles["product-item-link"]}`} to="/products/details/">
-            {src ? <img
-                className={`${styles["product-image"]}`}
-                src={src} alt="Dynamic" /> :
-                <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
-            <h5 className={`text-center mt-2 mb-2`}>
-                {product.name}
-            </h5>
-            <h5 className="product-price text-center mb-2">
-                <span>
-                    {(product.price).toFixed(2)} BGN
-                </span>
-            </h5>
-        </Link>
-
-        {isAdmin ?
-            <div className="container pt-2">
-                <div className="row d-flex justify-content-center align-items-center">
-                    <EditProductButton productId={product.productId} />
-                    <DeleteProductButton productId={product.productId} />
-                </div>
-            </div> :
-            <AddToCartButton promotionId={product.promotionId} />}
-
-    </section>
+        </motion.section>
+    </AnimatePresence>
 }

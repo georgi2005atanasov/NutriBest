@@ -13,6 +13,7 @@ import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
 import Profile, { loader as profileLoader, action as editProfile } from './pages/profile/Profile';
+import AllPromotions, { loader as promotionsLoader } from './pages/promotions/AllPromotions';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,8 @@ const router = createBrowserRouter([
         ]
       },
       { path: 'error', element: <ErrorPage /> },
-      { path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile }
+      { path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile },
+      { path: 'promotions', element: <AllPromotions />, loader: promotionsLoader }
     ],
     id: "rootLoader",
     loader: tokenLoader,

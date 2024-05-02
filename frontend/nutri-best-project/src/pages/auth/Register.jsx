@@ -9,6 +9,7 @@ import { register } from "../../../../../backend/api/auth";
 import { getFormData } from "../../utils/utils";
 import useAuth from "../../hooks/useAuth";
 import { Form, json, redirect, useActionData, useSubmit, useOutletContext, useNavigation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function RegisterPage() {
     const data = useActionData();
@@ -23,83 +24,91 @@ export default function RegisterPage() {
         submit(null, { action: "/", method: "get" })
     }
 
-    return <>
-        {isSubmitting ?
-            <Loader /> :
-            undefined}
-        <Header text="Create a NutriBest Account" styles={styles["register-header"]} />
+    return <AnimatePresence>
+        <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4 }}
+            className="w-100"
+        >
+            {isSubmitting ?
+                <Loader /> :
+                undefined}
+            <Header text="Create a NutriBest Account" styles={styles["register-header"]} />
 
-        <Form method="post">
-            {/* {data.errors.map} */}
-            <div className="container mb-5">
-                <div className="row d-flex justify-content-center">
-                    <div className="col-md-5">
-                        <FormInput
-                            styles={styles["register-input"]}
-                            text="Username"
-                            error={data && Object.keys(data.errors).includes("UserName") &&
+            <Form method="post">
+                {/* {data.errors.map} */}
+                <div className="container mb-5">
+                    <div className="row w-100 d-flex justify-content-center">
+                        <div className="col-md-5">
+                            <FormInput
+                                styles={styles["register-input"]}
+                                text="Username"
+                                error={data && Object.keys(data.errors).includes("UserName") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["UserName"][0].replace("UserName", "Username")}
+                                    />}
+                                id="username"
+                                type="text"
+                                name="username"
+                                placeholder="Enter a unique username"
+                            />
+                            <FormInput
+                                styles={styles["register-input"]}
+                                text="Email address"
+                                error={data && Object.keys(data.errors).includes("Email") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Email"][0]}
+                                    />}
+                                id="email"
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                            />
+                            <FormInput
+                                styles={styles["register-input"]}
+                                text="Password"
+                                error={data && Object.keys(data.errors).includes("Password") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Password"][0]}
+                                    />}
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Enter your email password"
+                            />
+                            <FormInput
+                                styles={styles["register-input"]}
+                                id="confirmPassword"
+                                text="Confirm password"
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="Confirm your password"
+                            />
+
+                            <RegisterCheckBox text="By signing up you agree to our Terms of Service and Privacy Policy" />
+
+                            {data && Object.keys(data.errors).includes("message") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["UserName"][0].replace("UserName", "Username")}
+                                    text={data.errors["message"][0]}
                                 />}
-                            id="username"
-                            type="text"
-                            name="username"
-                            placeholder="Enter a unique username"
-                        />
-                        <FormInput
-                            styles={styles["register-input"]}
-                            text="Email address"
-                            error={data && Object.keys(data.errors).includes("Email") &&
-                                <InputError
-                                    styles={styles["error-par"]}
-                                    text={data.errors["Email"][0]}
-                                />}
-                            id="email"
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email address"
-                        />
-                        <FormInput
-                            styles={styles["register-input"]}
-                            text="Password"
-                            error={data && Object.keys(data.errors).includes("Password") &&
-                                <InputError
-                                    styles={styles["error-par"]}
-                                    text={data.errors["Password"][0]}
-                                />}
-                            id="password"
-                            type="password"
-                            name="password"
-                            placeholder="Enter your email password"
-                        />
-                        <FormInput
-                            styles={styles["register-input"]}
-                            id="confirmPassword"
-                            text="Confirm password"
-                            type="password"
-                            name="confirmPassword"
-                            placeholder="Confirm your password"
-                        />
 
-                        <RegisterCheckBox text="By signing up you agree to our Terms of Service and Privacy Policy" />
-
-                        {data && Object.keys(data.errors).includes("message") &&
-                            <InputError
-                                styles={styles["error-par"]}
-                                text={data.errors["message"][0]}
-                            />}
-
-                        <FormButton
-                            text="Sign up"
-                            wrapperStyles={styles["register-input"]}
-                            disabled={isSubmitting}
-                        />
+                            <FormButton
+                                text="Sign up"
+                                wrapperStyles={styles["register-input"]}
+                                disabled={isSubmitting}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Form>
-    </>
+            </Form>
+        </motion.div>
+    </AnimatePresence>
 }
 
 // eslint-disable-next-line no-unused-vars

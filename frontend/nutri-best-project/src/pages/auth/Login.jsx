@@ -11,6 +11,7 @@ import { setAuthToken, setTokenDuration } from "../../utils/auth";
 import { getFormData } from "../../utils/utils";
 import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation } from "react-router-dom";
 import Loader from "../../components/UI/Shared/Loader";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoginPage() {
     const data = useActionData();
@@ -25,66 +26,72 @@ export default function LoginPage() {
         submit(null, { action: "/", method: "get" })
     }
 
-    return <>
-        {isSubmitting ?
-            <Loader /> :
-            undefined}
-        <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
-        <Form method="post">
-            <div className="container">
-                <div className="row d-flex justify-content-center">
-                    <div className="col-lg-5">
-                        <FormInput
-                            styles={styles["login-input"]}
-                            text="Username"
-                            error={
-                                data && Object.keys(data.errors).includes("UserName") &&
+    return <AnimatePresence>
+        <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4 }}>
+            {isSubmitting ?
+                <Loader /> :
+                undefined}
+            <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
+            <Form method="post">
+                <div className="container">
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-lg-5">
+                            <FormInput
+                                styles={styles["login-input"]}
+                                text="Username"
+                                error={
+                                    data && Object.keys(data.errors).includes("UserName") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["UserName"][0].replace("UserName", "Username")}
+                                    />}
+                                id="username"
+                                type="text"
+                                name="username"
+                                placeholder="Enter your username"
+                            />
+
+                            <FormInput
+                                styles={styles["login-input"]}
+                                text="Password"
+                                error={data && Object.keys(data.errors).includes("Password") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Password"][0]}
+                                    />}
+                                id="password"
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                            />
+
+                            <LoginCheckBox text="Remember me" />
+
+                            {data && Object.keys(data.errors).includes("message") &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["UserName"][0].replace("UserName", "Username")}
+                                    text={data.errors["message"][0]}
                                 />}
-                            id="username"
-                            type="text"
-                            name="username"
-                            placeholder="Enter your username"
-                        />
 
-                        <FormInput
-                            styles={styles["login-input"]}
-                            text="Password"
-                            error={data && Object.keys(data.errors).includes("Password") &&
-                                <InputError
-                                    styles={styles["error-par"]}
-                                    text={data.errors["Password"][0]}
-                                />}
-                            id="password"
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                        />
+                            <FormButton
+                                text="Login"
+                                wrapperStyles={styles["login-input"]}
+                                disabled={isSubmitting}
+                            />
+                            {/* TODO Add functionality for forgotten password */}
+                            <FormLink route="/" styles={styles["form-link"]} text="Forgot password?" />
 
-                        <LoginCheckBox text="Remember me" />
-
-                        {data && Object.keys(data.errors).includes("message") &&
-                            <InputError
-                                styles={styles["error-par"]}
-                                text={data.errors["message"][0]}
-                            />}
-
-                        <FormButton
-                            text="Login"
-                            wrapperStyles={styles["login-input"]}
-                            disabled={isSubmitting}
-                        />
-                        {/* TODO Add functionality for forgotten password */}
-                        <FormLink route="/" styles={styles["form-link"]} text="Forgot password?" />
-
-                        <FormLink route="/register" styles={styles["form-link"]} text="New User? Register Here" />
+                            <FormLink route="/register" styles={styles["form-link"]} text="New User? Register Here" />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Form>
-    </>
+            </Form>
+        </motion.div>
+    </AnimatePresence>
 }
 
 // eslint-disable-next-line no-unused-vars

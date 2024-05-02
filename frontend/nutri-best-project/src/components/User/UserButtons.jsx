@@ -2,10 +2,17 @@
 import { Link } from "react-router-dom";
 import colors from "../../App.module.css";
 import NavigationLink from "../Navigation/NavigationLink";
+import { motion } from "framer-motion";
 
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
     return <>
-        <div className="row my-2 p-0 d-flex justify-content-end align-items-center">
+        <motion.div
+            className="row my-2 p-0 d-flex justify-content-end align-items-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4 }}
+        >
             <div className="col-6 p-0 d-flex justify-content-end align-items-center me-1">
                 {isAdmin ? <>
                     <div className="mx-1"></div>
@@ -18,8 +25,14 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                 </> :
                     undefined}
             </div>
-        </div>
-        <div className={`row d-flex justify-content-end p-0 ps-5 mt-0`}>
+        </motion.div>
+        <motion.div
+            className={`row d-flex justify-content-end p-0 ps-5 mt-0`}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4 }}
+        >
             <div className={`col-12 p-0 d-flex justify-content-end`}>
                 <div className="row d-flex justify-content-end">
                     <div className="col-lg-12 col-8 d-flex justify-content-end p-0 me-2">
@@ -57,6 +70,6 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     </>
 }

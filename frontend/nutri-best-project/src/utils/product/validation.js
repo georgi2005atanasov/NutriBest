@@ -11,7 +11,7 @@ export function getProductErrors(productModel) {
         data.errors["Category"] = ["You have to choose at least 1 category!"];
     }
 
-    if (!productModel.description || productModel.description.length == 0) {
+    if (!productModel.description || productModel.description.length < 5 || productModel.description.length > 2000) {
         data.errors["Description"] = ["Description is required!"];
     }
 

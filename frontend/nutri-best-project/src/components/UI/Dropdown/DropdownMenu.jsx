@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./css/DropdownMenu.module.css";
+import { AnimatePresence, motion } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types
 export default function DropdownMenu({ children, text, filtersNumber = 0 }) {
@@ -9,7 +10,9 @@ export default function DropdownMenu({ children, text, filtersNumber = 0 }) {
         setShowMenu(!showMenu);
     }
 
-    return <div className={styles["dropdown"]}>
+    return <motion.div
+        className={styles["dropdown"]}
+    >
         <button type={"button"} onClick={toggleMenu} className={`${styles["dropdown-button"]}`}>
             {text}
         </button>
@@ -17,11 +20,21 @@ export default function DropdownMenu({ children, text, filtersNumber = 0 }) {
             <div className={styles["circle"]}>{filtersNumber}</div> :
             ""}
 
-        {showMenu ? (<>
-            <div className={styles["dropdown-menu"]}>
+        {showMenu ? (<AnimatePresence>
+            <motion.div
+                className={styles["dropdown-menu"]}
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                exit={{ scaleY: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                style={{
+                    overflow: 'hidden',
+                    transformOrigin: 'top'
+                }}
+            >
                 {children}
-            </div>
-        </>
+            </motion.div>
+        </AnimatePresence>
         ) : undefined}
-    </div>
+    </motion.div>
 }

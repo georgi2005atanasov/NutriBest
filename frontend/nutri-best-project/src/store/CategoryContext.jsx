@@ -12,7 +12,7 @@ export const CATEGORIES = [
     { name: "vegan", value: "Vegan" },
     { name: "recovery", value: "Recovery" },
     { name: "fishOils", value: "Fish Oils" },
-    { name: "offers", value: "Offers" },
+    { name: "promotions", value: "Promotions" },
 ]
 
 export const CategoryContext = createContext({

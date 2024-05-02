@@ -1,13 +1,20 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
 import ProductRow from "./ProductRow";
+import { motion } from "framer-motion";
 
 export default function Table({ productsRows }) {
     const products = (productsRows && productsRows.length && productsRows.length != 0)
         ? productsRows.flat() :
         [];
 
-    return <div className={`container ${styles["table-wrapper"]} mb-4`}>
+    return <motion.div
+        className={`container ${styles["table-wrapper"]} mb-4`}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.9 }}
+    >
         <div className="row mt-2">
             <table className="">
                 <thead >
@@ -25,6 +32,6 @@ export default function Table({ productsRows }) {
                 </tbody>
             </table>
         </div>
-    </div>
+    </motion.div>
 
 }

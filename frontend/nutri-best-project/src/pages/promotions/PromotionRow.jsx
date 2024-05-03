@@ -7,14 +7,22 @@ import EditPromotionButton from "../../components/UI/Promotions/EditPromotionBut
 import DeletePromotionButton from "../../components/UI/Promotions/DeletePromotionButton";
 import { changeStatus } from "../../../../../backend/api/api.js";
 import { useSubmit } from "react-router-dom";
+import { useState } from "react";
+import InputError from "../../components/UI/Form/InputError.jsx";
 
 export default function PromotionRow({ promotion }) {
     const submit = useSubmit();
+    const [message, setMessage] = useState("");
 
     async function handleChange(event, promotionId) {
         event.preventDefault();
-        await changeStatus(promotionId);
-        submit(null, {action: "", method: "GET"});
+        const result = await changeStatus(promotionId);
+
+        if (result.message) {
+            setMessage(result.message);
+        }
+
+        submit(null, { action: "", method: "GET" });
     }
 
     return <AnimatePresence>
@@ -58,6 +66,14 @@ export default function PromotionRow({ promotion }) {
                 >
                     {promotion.isActive ? "active" : "disabled"}
                 </Link>
+                {message && <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.4 }}
+                >
+                    <InputError text={message} styles={"text-danger"} />
+                </motion.div>}
             </motion.td>
             <td>
                 <div className="d-flex justify-content-evenly">

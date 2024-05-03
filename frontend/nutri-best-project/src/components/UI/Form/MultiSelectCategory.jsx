@@ -11,7 +11,7 @@ import colors from "../../../App.module.css";
 export default function MultiSelectCategory({ data, errorStyle, productCategories = null }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
-    // const sessionStorageCategories = sessionStorage.getItem("categories");
+    
     const token = useRouteLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
 

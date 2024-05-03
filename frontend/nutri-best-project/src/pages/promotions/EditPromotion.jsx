@@ -1,5 +1,9 @@
 import PromotionForm from "./PromotionForm";
 
 export default function EditPromotionPage() {
-    return <PromotionForm />;
+    return <PromotionForm header={"Edit Promotion"} />;
+}
+
+export async function action({ request, params }) {
+
 }

@@ -13,7 +13,9 @@ import SideBar from './components/UI/Sidebar/SideBar';
 import ProductItem from './pages/products/ProductItem';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
 import Profile, { loader as profileLoader, action as editProfile } from './pages/profile/Profile';
-import AllPromotions, { loader as promotionsLoader } from './pages/promotions/AllPromotions';
+import AllPromotionsPage, { loader as promotionsLoader } from './pages/promotions/AllPromotions';
+import AddPromotionPage from './pages/promotions/AddPromotion';
+import EditPromotionPage from './pages/promotions/EditPromotion';
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,15 @@ const router = createBrowserRouter([
       },
       { path: 'error', element: <ErrorPage /> },
       { path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile },
-      { path: 'promotions', element: <AllPromotions />, loader: promotionsLoader, id: "loadPromo"  }
+      {
+        path: 'promotions', element: <AllPromotionsPage />, loader: promotionsLoader, id: "loadPromo",
+      },
+      {
+        path: 'promotions/add', element: <AddPromotionPage />
+      },
+      {
+        path: 'promotions/edit/:id', element: <EditPromotionPage />
+      },
     ],
     id: "rootLoader",
     loader: tokenLoader,

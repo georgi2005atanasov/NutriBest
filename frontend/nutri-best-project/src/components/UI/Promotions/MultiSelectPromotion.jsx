@@ -3,6 +3,7 @@ import { useLoaderData, useSubmit } from "react-router-dom";
 import { changeProductPromotion } from "../../../../../../backend/api/api";
 import { useState } from "react";
 import InvalidPromotionMessage from "./InvalidPromotionMessage";
+import { motion } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types
 export default function MultiSelectPromotion({ promotionId, productId }) {
@@ -23,16 +24,20 @@ export default function MultiSelectPromotion({ promotionId, productId }) {
     }
 
     return <>
-        <select value={promotions
+        <motion.select value={promotions
             .filter(x => x.isActive)
             .some(x => x.promotionId == promotionId) ? promotionId : ""}
             key={productId} title="promotion" onChange={setNewPromotion}
             className={`${styles["custom-select"]} me-5 mb-1 p-1`}
         >
-            <option value="">Choose Promotion</option>
+            <motion.option
+                value=""
+            >
+                Choose Promotion
+            </motion.option>
             {promotions && promotions.length > 0 && promotions.filter(x => x.isActive)
-                .map(p => <option className={styles["option"]} key={p.promotionId} value={p.promotionId}>{p.description.substring(0, 30)}</option>)}
-        </select>
+                .map(p => <motion.option className={styles["option"]} key={p.promotionId} value={p.promotionId}>{p.description.substring(0, 30)}</motion.option>)}
+        </motion.select>
         {message && <InvalidPromotionMessage message={message} />}
     </>
 

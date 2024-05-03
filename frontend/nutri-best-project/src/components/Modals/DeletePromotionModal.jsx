@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import Modal from "./Modal";
-import styles from "./css/DeleteProductModal.module.css";
+import styles from "./css/DeletePromotionModal.module.css";
 import { redirect, useSubmit } from "react-router-dom";
 import { deletePromotion } from "../../../../../backend/api/api";
 

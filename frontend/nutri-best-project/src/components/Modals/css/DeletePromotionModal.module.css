@@ -1,0 +1,110 @@
+dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    animation: slide-up 0.3s ease-out forwards;
+}
+
+.modal {
+    z-index: 1;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    border: none;
+    align-items: center;
+    background-color: #f5f3ef;
+    padding: 60px 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+/* The Close Button */
+.close {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    position: fixed;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 15px 25px;
+    margin: 10px;
+    border: none;
+    color: white;
+    background-color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    border-radius: 5px;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.delete-btn:focus {
+    outline: 0;
+}
+
+.delete-btn:hover {
+    background-color: #d73829;
+    border: none;
+}
+
+.close-btn {
+    background-color: #555;
+    border-radius: 5px;
+    /* Dark gray */
+}
+
+.close-btn:hover {
+    background-color: #606060;
+    /* Darker gray */
+}
+
+.delete-modal {
+    transition: 0.5s;
+}
+
+.delete-modal:hover {
+    color: #d73829;
+}

@@ -1,5 +1,5 @@
 import styles from "../css/Table.module.css";
-import { redirect, useRouteLoaderData, useSearchParams, useSubmit } from "react-router-dom";
+import { redirect, useRouteLoaderData, useSearchParams, useSubmit, Link } from "react-router-dom";
 import { allPromotions } from "../../../../../backend/api/promotions";
 import { motion } from "framer-motion";
 import PromotionRow from "./PromotionRow";
@@ -10,7 +10,7 @@ import AddPromotionButton from "../../components/UI/Promotions/AddPromotionButto
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 
-export default function AllPromotions() {
+export default function AllPromotionsPage() {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
@@ -48,23 +48,20 @@ export default function AllPromotions() {
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.7 }}
     >
-        <motion.div
+        <div
             className="my-3 mt-3"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.7 }}
+            
         >
-            <motion.div className="d-flex justify-content-start row w-100">
+            <div className="d-flex justify-content-start row w-100">
                 <div className="col-10 d-flex justify-content-start p-0">
                     <Header text={"Promotions"} styles={"m-0 ms-1"} />
                 </div>
                 <div className="col-2 d-flex justify-content-end p-0">
                     <AddPromotionButton />
                 </div>
-            </motion.div>
+            </div>
             {message && <Message message={message} messageType={messageType} />}
-        </motion.div>
+        </div>
         <div className="row">
             <table className="">
                 <thead >

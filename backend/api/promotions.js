@@ -48,3 +48,17 @@ export async function changeStatus(promotionId) {
 
     return await response.json();
 }
+
+export async function deletePromotion(promotionId) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/promotions/${promotionId}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+    return await response.json();
+}

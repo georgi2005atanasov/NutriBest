@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
+import { useLoaderData } from "react-router-dom";
 import styles from "../css/Table.module.css";
 import ProductRow from "./ProductRow";
 import { motion } from "framer-motion";
 
 export default function Table({ productsRows }) {
+    const { promotions } = useLoaderData();
+
     const products = (productsRows && productsRows.length && productsRows.length != 0)
         ? productsRows.flat() :
         [];
@@ -28,7 +31,7 @@ export default function Table({ productsRows }) {
                     </tr>
                 </thead>
                 <tbody className="">
-                    {products && products.map(p => <ProductRow key={`${p.productId}-${p.name}`} product={p} />)}
+                    {products && products.map(p => <ProductRow key={`${p.productId}-${p.name}`} product={p} promotions={promotions} />)}
                 </tbody>
             </table>
         </div>

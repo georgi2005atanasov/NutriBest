@@ -11,6 +11,7 @@
 
 .non-active-promo {
     color: red;
+    font-weight: bold;
 }
 
 .empty-field {

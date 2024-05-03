@@ -10,7 +10,7 @@ import promotionStyles from "./css/ProductItem.module.css";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function ProductRow({ product }) {
+export default function ProductRow({ product, promotions }) {
     const [src, setSrc] = useState('');
 
     useEffect(() => {
@@ -29,7 +29,9 @@ export default function ProductRow({ product }) {
         setSrc(src);
     }, [product])
 
-    if (product.promotionId) {
+    if (promotions
+        .filter(x => x.isActive)
+        .some(x => x.promotionId == product.promotionId)) {
         return <AnimatePresence>
             <motion.tr
                 initial={{ opacity: 0, x: -50 }}

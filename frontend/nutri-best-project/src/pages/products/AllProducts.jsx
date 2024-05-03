@@ -67,7 +67,7 @@ export default function AllProducts() {
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
-                transition={{ duration: 0.9 }}
+                transition={{ duration: 0.7 }}
             >
                 <div className="container-fluid mx-lg-4 mx-2">
                     <div className="row d-flex flex-md-column justify-content-center">

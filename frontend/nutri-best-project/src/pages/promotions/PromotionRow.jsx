@@ -61,8 +61,8 @@ export default function PromotionRow({ promotion }) {
             </motion.td>
             <td>
                 <div className="d-flex justify-content-evenly">
-                    <EditPromotionButton />
-                    <DeletePromotionButton />
+                    <EditPromotionButton promotion={promotion} />
+                    <DeletePromotionButton promotion={promotion} />
                 </div>
             </td>
         </motion.tr>

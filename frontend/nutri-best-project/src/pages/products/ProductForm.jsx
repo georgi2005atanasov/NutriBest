@@ -25,7 +25,7 @@ export default function ProductForm({ product = null, data, header }) {
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
         >
             {isSubmitting && <Loader />}
             <Header text={header} styles={`${styles["add-product-header"]}`} />

@@ -7,12 +7,9 @@
     padding: 10px 20px;
     margin-right: 3px;
     border-radius: 5px;
-    transform: 0.5s;
     font-weight: 700;
-}
-
-.edit-promotion-btn:hover {
-    scale: 1.01;
+    text-decoration: none;
+    color: #333;
 }
 
 .delete-promotion-btn {
@@ -23,11 +20,11 @@
     border: 0;
     padding: 10px 20px;
     border-radius: 5px;
-    transform: 0.5s;
     color: white;
     font-weight: 700;
+    text-decoration: none;
 }
 
 .delete-promotion-btn:hover {
-    scale: 1.01;
+    cursor: pointer;
 }

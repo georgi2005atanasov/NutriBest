@@ -21,7 +21,7 @@ export default function Profile() {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 50 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.5 }}
     >
         <hr className={styles["profile-info-line"]} />
         <Header text={"Profile Details"} styles={"d-flex justify-content-center align-items-center"} />

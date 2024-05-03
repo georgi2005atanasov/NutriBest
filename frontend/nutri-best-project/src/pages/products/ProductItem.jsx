@@ -76,7 +76,9 @@ export default function ProductItem({ product }) {
                             <DeleteProductButton productId={product.productId} />
                         </div>
                     </div> :
-                    <AddToCartButton promotionId={product.promotionId} />}
+                    <AddToCartButton isValidPromotion={promotions
+                        .filter(x => x.isActive)
+                        .some(x => x.promotionId == product.promotionId)} />}
 
             </motion.section>
         </AnimatePresence>

@@ -16,7 +16,7 @@ export default function AddProductPage() {
     const { isAdmin } = useAuth(token);
 
     if (!isAdmin) {
-        return submit("message=No such Page Found!&type=danger",
+        return submit("message=Page Not Found!&type=danger",
             { action: "/", method: "get" })
     }
 

@@ -1,5 +1,5 @@
 import styles from "../css/Table.module.css";
-import { redirect, useRouteLoaderData, useSearchParams } from "react-router-dom";
+import { redirect, useRouteLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { allPromotions } from "../../../../../backend/api/promotions";
 import { motion } from "framer-motion";
 import PromotionRow from "./PromotionRow";
@@ -7,8 +7,14 @@ import Header from "../../components/UI/Shared/Header";
 import Message from "../../components/UI/Shared/Message";
 import { useEffect } from "react";
 import AddPromotionButton from "../../components/UI/Promotions/AddPromotionButton";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function AllPromotions() {
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+    const submit = useSubmit();
+
     const promotions = useRouteLoaderData("loadPromo");
 
     let [searchParams, setSearchParams] = useSearchParams();
@@ -29,6 +35,11 @@ export default function AllPromotions() {
             clearTimeout(timeout);
         }
     }, [setSearchParams]);
+
+    if (!isAdmin && !isEmployee) {
+        return submit("message=Page Not Found!&type=danger",
+            { action: "/", method: "GET" });
+    }
 
     return <motion.div
         className={`container ${styles["table-wrapper"]} mt-2 mb-4`}

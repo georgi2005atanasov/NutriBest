@@ -31,7 +31,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         submit(query);
     }, [selectedCategories, submit, price, page, categories, alpha]);
 
-    return <AnimatePresence>
+    return <>
         <div className={`${styles["filter-header"]} w-100 d-flex justify-content-between align-items-center`}>
             <h5>Filter by</h5> <i className="fa fa-filter" aria-hidden="true"></i>
         </div>
@@ -73,5 +73,5 @@ export default function SideBar({ isVisible, toggleSidebar }) {
             <div className="mb-1"></div>
             <button onClick={toggleSidebar} className="p-2 d-xl-none border-0 rounded-1">Close</button>
         </div>
-    </AnimatePresence>
+    </>
 }

@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       },
       { path: 'error', element: <ErrorPage /> },
       { path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile },
-      { path: 'promotions', element: <AllPromotions />, loader: promotionsLoader }
+      { path: 'promotions', element: <AllPromotions />, loader: promotionsLoader, id: "loadPromo"  }
     ],
     id: "rootLoader",
     loader: tokenLoader,

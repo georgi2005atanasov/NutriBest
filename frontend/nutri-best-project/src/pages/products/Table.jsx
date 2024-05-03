@@ -33,5 +33,4 @@ export default function Table({ productsRows }) {
             </table>
         </div>
     </motion.div>
-
 }

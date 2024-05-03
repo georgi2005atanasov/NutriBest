@@ -1,0 +1,33 @@
+.edit-promotion-btn {
+    background-color: rgb(247, 199, 25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    padding: 10px 20px;
+    margin-right: 3px;
+    border-radius: 5px;
+    transform: 0.5s;
+    font-weight: 700;
+}
+
+.edit-promotion-btn:hover {
+    scale: 1.01;
+}
+
+.delete-promotion-btn {
+    background-color: #CC0000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transform: 0.5s;
+    color: white;
+    font-weight: 700;
+}
+
+.delete-promotion-btn:hover {
+    scale: 1.01;
+}

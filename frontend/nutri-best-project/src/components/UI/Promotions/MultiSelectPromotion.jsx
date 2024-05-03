@@ -18,15 +18,19 @@ export default function MultiSelectPromotion({ promotionId, productId }) {
         }
         else {
             setMessage("");
-            submit(null, {action: "", method: "GET"});
+            submit(null, { action: "", method: "GET" });
         }
-
     }
 
     return <>
-        <select value={promotionId || ""} key={productId} title="promotion" onChange={setNewPromotion} className={`${styles["custom-select"]} me-5 mb-1 p-1`}>
+        <select value={promotions
+            .filter(x => x.isActive)
+            .some(x => x.promotionId == promotionId) ? promotionId : ""}
+            key={productId} title="promotion" onChange={setNewPromotion}
+            className={`${styles["custom-select"]} me-5 mb-1 p-1`}
+        >
             <option value="">Choose Promotion</option>
-            {promotions && promotions.length > 0 && promotions
+            {promotions && promotions.length > 0 && promotions.filter(x => x.isActive)
                 .map(p => <option className={styles["option"]} key={p.promotionId} value={p.promotionId}>{p.description.substring(0, 30)}</option>)}
         </select>
         {message && <InvalidPromotionMessage message={message} />}

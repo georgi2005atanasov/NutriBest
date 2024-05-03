@@ -34,3 +34,17 @@ export async function changeProductPromotion(promotionId, productId) {
         return await response.json();
     }
 }
+
+export async function changeStatus(promotionId) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/promotions/status/${promotionId}`,
+        {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+    return await response.json();
+}

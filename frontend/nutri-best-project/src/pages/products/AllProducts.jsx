@@ -23,7 +23,7 @@ export default function AllProducts() {
 
     let { message, messageType } = getMessage(searchParams);
 
-    const { productsRows, page, promotions } = useLoaderData();
+    const { productsRows, page } = useLoaderData();
 
     useEffect(() => {
         if (message) {

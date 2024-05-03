@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/ProductItem.module.css";
 import alt from "../../assets/fallback-image.png";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 import { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
@@ -17,6 +17,7 @@ export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
     const token = getAuthToken();
     const { isAdmin } = useAuth(token);
+    const { promotions } = useLoaderData();
 
     useEffect(() => {
         async function getImage(productId) {
@@ -34,7 +35,7 @@ export default function ProductItem({ product }) {
         setSrc(src);
     }, [product])
 
-    if (product.promotionId) {
+    if (promotions.filter(x => x.isActive).some(x => x.promotionId == product.promotionId)) {
         return <AnimatePresence>
             <motion.section
                 className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card p-3 pb-2 pt-2`}
@@ -90,7 +91,6 @@ export default function ProductItem({ product }) {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
         >
-
             {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
 
             <Link className={`${styles["product-item-link"]}`} to="/products/details/">
@@ -116,7 +116,6 @@ export default function ProductItem({ product }) {
                     </div>
                 </div> :
                 <AddToCartButton promotionId={product.promotionId} />}
-
         </motion.section>
     </AnimatePresence>
 }

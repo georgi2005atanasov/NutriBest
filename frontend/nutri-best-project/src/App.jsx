@@ -13,7 +13,7 @@ import EditProduct, { loader as productLoader, action as editProduct } from './p
 import Profile, { loader as profileLoader, action as editProfile } from './pages/profile/Profile';
 import AllPromotionsPage, { loader as promotionsLoader } from './pages/promotions/AllPromotions';
 import AddPromotionPage, { action as addPromotion } from './pages/promotions/AddPromotion';
-import EditPromotionPage, { action as editPromotion } from './pages/promotions/EditPromotion';
+import EditPromotionPage, { loader as promotionLoader, action as editPromotion } from './pages/promotions/EditPromotion';
 import PromotionsLayout from './pages/promotions/PromotionsLayout';
 
 const router = createBrowserRouter([
@@ -54,7 +54,8 @@ const router = createBrowserRouter([
             path: 'add', element: <AddPromotionPage />, action: addPromotion
           },
           {
-            path: 'edit/:id', element: <EditPromotionPage />, action: editPromotion
+            path: 'edit/:id', element: <EditPromotionPage />, id: "promoLoader",
+            loader: promotionLoader, action: editPromotion
           }
         ]
       }

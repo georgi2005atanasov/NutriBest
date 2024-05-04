@@ -41,7 +41,7 @@ export default function PromotionForm({ header, data, promotion }) {
         >
             {isSubmitting && <Loader />}
 
-            <Header text={"Add Promotion"} styles={styles["add-promotion-header"]} />
+            <Header text={header} styles={styles["add-promotion-header"]} />
 
             <Form method="post" className={styles["auth-form"]}>
                 <div className="container">
@@ -122,6 +122,7 @@ export default function PromotionForm({ header, data, promotion }) {
                                                     type="text"
                                                     id="discountAmount"
                                                     name="discountAmount"
+                                                    defaultValue={promotion && promotion.discountAmount}
                                                     className="me-1" /> <strong>BGN</strong>
                                                 {
                                                     data && data.errors && Object.keys(data.errors).includes("DiscountAmount") &&
@@ -137,21 +138,24 @@ export default function PromotionForm({ header, data, promotion }) {
                                                     type="text"
                                                     id="discountPercentage"
                                                     name="discountPercentage"
+                                                    defaultValue={promotion && promotion.discountPercentage}
                                                     className="me-1" /> <strong>%</strong>
-                                                {
-                                                    data && data.errors && Object.keys(data.errors).includes("DiscountPercentage") &&
-                                                    <InputError
-                                                        styles={styles["error-par"]}
-                                                        text={data.errors["DiscountPercentage"][0]}
-                                                    />}
                                             </div>}
+
+                                        {
+                                            data && data.errors && Object.keys(data.errors).includes("DiscountPercentage") &&
+                                            <InputError
+                                                styles={styles["error-par"]}
+                                                text={data.errors["DiscountPercentage"][0]
+                                                    .replace("field DiscountPercentage", "Discount Percentage")}
+                                            />}
                                     </div>
                                 </div>
                             </div>
 
                             <div className={`${styles["add-promotion-category"]}`}>
                                 <div className={styles["promotion-category-label"]}>Category (optional):</div>
-                                <PromotionCategory onSelect={setSelectedCategory} />
+                                <PromotionCategory onSelect={setSelectedCategory} category={promotion && promotion.category} />
                             </div>
 
                             {data && data.errors && Object.keys(data.errors).includes("message") &&

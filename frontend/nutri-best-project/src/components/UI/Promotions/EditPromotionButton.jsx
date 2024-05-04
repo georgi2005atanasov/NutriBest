@@ -1,15 +1,14 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import styles from "./css/PromotionButtons.module.css";
-import { motion } from "framer-motion";
 
 export default function EditPromotionButton({ promotion }) {
     return <div>
-        <motion.a
+        <Link
             className={styles["edit-promotion-btn"]}
-            whileHover={{ scale: 0.99 }}
-            href={`/promotions/edit/${promotion.promotionId}`}
+            to={`/promotions/edit/${promotion.promotionId}`}
         >
             Edit
-        </motion.a>
+        </Link>
     </div>;
 }

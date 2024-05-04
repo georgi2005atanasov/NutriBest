@@ -1,7 +1,7 @@
 import { addProduct, getProductById, allProducts, editProduct, deleteProduct, getIdentifiers, getImageByProductId, getProductsByCategories } from "./products";
 import { getFormFile } from "./images";
 import { getProfileDetails, editUser, deleteUser } from "./profile";
-import { allPromotions, changeProductPromotion, changeStatus, deletePromotion, addPromotion } from "./promotions";
+import { allPromotions, changeProductPromotion, changeStatus, deletePromotion, addPromotion, getPromotionById } from "./promotions";
 
 export { addProduct };
 export { getProductById };
@@ -20,3 +20,4 @@ export { changeProductPromotion };
 export { changeStatus };
 export { deletePromotion };
 export { addPromotion };
+export { getPromotionById };

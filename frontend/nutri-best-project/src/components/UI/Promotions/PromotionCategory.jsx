@@ -4,7 +4,7 @@ import { CategoryContext } from "../../../store/CategoryContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types
-export default function PromotionCategory({onSelect}) {
+export default function PromotionCategory({ onSelect, category }) {
     const { categories } = useContext(CategoryContext);
 
     const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ export default function PromotionCategory({onSelect}) {
     return (
         <div className="dropdown">
             <button type="button" className={styles["dropdown-button"]} onClick={() => setIsOpen(!isOpen)}>
-                {selected || "Select category (optional)"}
+                {selected || category || "Select category (optional)"}
             </button>
             <AnimatePresence>
                 {isOpen && (

@@ -27,11 +27,11 @@ export async function action({ request, params }) {
         const response = await addPromotion(formData);
 
         if (response.errors) {
-            return response.errors;
+            return response;
         }
 
         let data = { errors: {} };
-        
+
         if (response.message) {
             if (response.key) {
                 data.errors[response.key] = [response.message];

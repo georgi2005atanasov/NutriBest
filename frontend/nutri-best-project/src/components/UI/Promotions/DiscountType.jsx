@@ -1,4 +1,4 @@
-import styles from "./css/PromotionCategory.module.css";
+import styles from "./css/DiscountType.module.css";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { OPTIONS } from "../../../pages/promotions/PromotionForm";
@@ -17,7 +17,7 @@ export default function DiscountType({ onSelect }) {
     return (
         <div className="dropdown">
             <button type="button" className={styles["dropdown-button"]} onClick={() => setIsOpen(!isOpen)}>
-                {selected || "Select category (optional)"}
+                {selected || "Select discount type"}
             </button>
             <AnimatePresence>
                 {isOpen && (
@@ -28,6 +28,15 @@ export default function DiscountType({ onSelect }) {
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3 }}
                     >
+                        <motion.li
+                            key={"none"}
+                            className={styles["dropdown-item"]}
+                            onClick={() => handleSelect("")}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 1.0 }}
+                        >
+                            None
+                        </motion.li>
                         {OPTIONS.map(c => (
                             <motion.li
                                 key={c}

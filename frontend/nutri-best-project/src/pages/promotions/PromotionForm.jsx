@@ -102,41 +102,55 @@ export default function PromotionForm({ header, data, promotion }) {
                                         styles={styles["error-par"]}
                                         text={data.errors["MinimumPrice"][0]}
                                     />}
-                                id="minPrice"
+                                id="minimumPrice"
                                 type="text"
-                                name="minPrice"
+                                name="minimumPrice"
                                 defaultValue={promotion ? promotion.minimumPrice : undefined}
                                 placeholder=""
                             />
 
-                            <div className={`${styles["add-promotion-category"]} mb-4`}>
+                            <div className={`ms-3 ${styles["add-promotion-category"]} mb-4`}>
                                 <div className={styles["promotion-category-label"]}>Discount Type:</div>
                                 <div className="row w-100 d-flex justify-content-start align-items-center">
                                     <div className="col-12 p-0">
                                         <DiscountType onSelect={setDiscountType} />
                                     </div>
                                     <div className="col-12 mt-2 p-0">
-                                        {discountType == OPTIONS[0] ?
+                                        {discountType == OPTIONS[0] &&
                                             <div className={`${`${styles["discount-field"]}`} d-flex align-items-end me-5`}>
                                                 <input
                                                     type="text"
                                                     id="discountAmount"
                                                     name="discountAmount"
                                                     className="me-1" /> <strong>BGN</strong>
-                                            </div> :
+                                                {
+                                                    data && data.errors && Object.keys(data.errors).includes("DiscountAmount") &&
+                                                    <InputError
+                                                        styles={styles["error-par"]}
+                                                        text={data.errors["DiscountAmount"][0]}
+                                                    />}
+                                            </div>}
+
+                                        {discountType == OPTIONS[1] &&
                                             <div className={`${`${styles["discount-field"]}`} d-flex align-items-center me-5`}>
                                                 <input
                                                     type="text"
                                                     id="discountPercentage"
                                                     name="discountPercentage"
                                                     className="me-1" /> <strong>%</strong>
+                                                {
+                                                    data && data.errors && Object.keys(data.errors).includes("DiscountPercentage") &&
+                                                    <InputError
+                                                        styles={styles["error-par"]}
+                                                        text={data.errors["DiscountPercentage"][0]}
+                                                    />}
                                             </div>}
                                     </div>
                                 </div>
                             </div>
 
                             <div className={`${styles["add-promotion-category"]}`}>
-                                <div className={styles["promotion-category-label"]}>Category:</div>
+                                <div className={styles["promotion-category-label"]}>Category (optional):</div>
                                 <PromotionCategory onSelect={setSelectedCategory} />
                             </div>
 

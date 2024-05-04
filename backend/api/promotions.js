@@ -78,6 +78,26 @@ export async function getPromotionById(promotionId) {
     return await response.json();
 }
 
+export async function editPromotion(promotionId, data) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/promotions/${promotionId}`,
+        {
+            method: "PUT",
+            body: data,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+    if (response.ok) {
+        return response;
+    }
+    else {
+        return await response.json();
+    }
+}
+
 export async function deletePromotion(promotionId) {
     const token = getAuthToken();
 

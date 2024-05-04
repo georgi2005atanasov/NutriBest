@@ -1,11 +1,15 @@
-import { redirect, useRouteLoaderData } from "react-router-dom";
+import { redirect, useActionData, useRouteLoaderData } from "react-router-dom";
+import { editPromotion, getPromotionById } from "../../../../../backend/api/api";
 import PromotionForm from "./PromotionForm";
-import { getPromotionById } from "../../../../../backend/api/api";
+import { getPromotionErrors } from "../../utils/promotion/validation";
+import { getFormData } from "../../utils/utils";
+import { getPromotionForm } from "../../utils/promotion/formHandler";
 
 export default function EditPromotionPage() {
     const promotion = useRouteLoaderData("promoLoader");
+    const data = useActionData();
 
-    return <PromotionForm header={"Edit Promotion"} promotion={promotion} />;
+    return <PromotionForm header={"Edit Promotion"} data={data} promotion={promotion} />;
 }
 
 export async function loader({ request, params }) {
@@ -23,10 +27,43 @@ export async function loader({ request, params }) {
 export async function action({ request, params }) {
     const { id } = params;
     try {
-        const data = await request.formData();
+        const promotion = await getFormData(request);
+
+        const checkPromotion = getPromotionErrors(promotion);
+
+        if (checkPromotion.errors.length > 0) {
+            return checkPromotion;
+        }
+
+        const formData = getPromotionForm(promotion);
+
+        const response = await editPromotion(id, formData);
+
+        if (response.errors) {
+            return response;
+        }
+
+        let data = { errors: {} };
+
+        if (response.message) {
+            if (response.key) {
+                data.errors[response.key] = [response.message];
+            }
+            else {
+                data.errors["message"] = [response.message];
+            }
+
+            return data;
+        }
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
 
         return redirect("/promotions?message=Successfully edited promotion!&type=success");
     } catch (error) {
-        return redirect("error");
+        return redirect("/error");
     }
 }

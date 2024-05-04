@@ -1,8 +1,10 @@
 export function getPromotionForm(promotion) {
     const formData = new FormData();
+
     if (promotion.minumumPrice) {
-        formData.append("minimumPrice", promotion.minumumPrice);
+        formData.append("minimumPrice", promotion.minimumPrice);
     }
+    
     formData.append("description", promotion.description);
     formData.append("startDate", promotion.startDate);
 

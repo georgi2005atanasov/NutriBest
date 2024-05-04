@@ -2,8 +2,8 @@ import { PRODUCTS_VIEWS } from "../pages/Root";
 
 export async function getFormData(request) {
     const data = await request.formData();
-    const userData = Object.fromEntries(data.entries());
-    return userData;
+    const dataToReturn = Object.fromEntries(data.entries());
+    return dataToReturn;
 }
 
 export function buildQuery(page, categories, price, alpha, productsView, search, priceRange) {

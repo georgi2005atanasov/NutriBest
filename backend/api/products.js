@@ -52,6 +52,19 @@ export async function getProductById(id) {
     return response;
 }
 
+export async function getProductDetailsByIdAndName(id, name) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/products/details/${id}/${name}`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    return await response.json();
+} 
+
 export async function editProduct(productModel) {
     const token = getAuthToken();
 

@@ -7,7 +7,7 @@ import EditPromotionButton from "../../components/UI/Promotions/EditPromotionBut
 import DeletePromotionButton from "../../components/UI/Promotions/DeletePromotionButton";
 import { changeStatus, getProductsOfPromotion } from "../../../../../backend/api/api.js";
 import { useSubmit } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import InputError from "../../components/UI/Form/InputError.jsx";
 
 export default function PromotionRow({ promotion }) {
@@ -18,9 +18,7 @@ export default function PromotionRow({ promotion }) {
     async function getProducts() {
         const products = await getProductsOfPromotion(promotion.promotionId);
 
-        if (!products.message) {
-            setProducts(products);
-        }
+        setProducts(products);
     }
 
     async function handleChange(event, promotionId) {
@@ -97,12 +95,12 @@ export default function PromotionRow({ promotion }) {
                 </div>
             </td>
             <td>
-                {products && products.length == 0 && <div>
-                    <strong>0</strong> products
-                </div>}
-                {products && products.length != 0 && <div>
-                    <strong>{products.length}</strong> products
-                </div>}
+                {products && products.length ? <div>
+                    <strong>{products.length || 0}</strong> products
+                </div> :
+                    <div>
+                        <strong>0</strong> products
+                    </div>}
             </td>
         </motion.tr>
     </AnimatePresence>

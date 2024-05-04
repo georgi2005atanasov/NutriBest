@@ -50,7 +50,7 @@ export default function ProductItem({ product }) {
                 <div className={styles["promotion-box"]}>
                     {product && Math.floor(product.discountPercentage)} <strong>%</strong>
                 </div>
-                <Link className={`${styles["product-item-link"]}`} to="/products/details/">
+                <Link className={`${styles["product-item-link"]}`} to={`/products/details/${product.productId}/${product.name}`}>
                     {src ? <img
                         className={`${styles["product-image"]} 
                 ${styles["promotion-border"]}`}
@@ -95,7 +95,7 @@ export default function ProductItem({ product }) {
         >
             {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
 
-            <Link className={`${styles["product-item-link"]}`} to="/products/details/">
+            <Link className={`${styles["product-item-link"]}`} to={`/products/details/${product.productId}/${product.name}`}>
                 {src ? <img
                     className={`${styles["product-image"]}`}
                     src={src} alt="Dynamic" /> :

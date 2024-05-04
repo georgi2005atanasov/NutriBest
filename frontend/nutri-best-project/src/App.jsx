@@ -15,6 +15,7 @@ import AllPromotionsPage, { loader as promotionsLoader } from './pages/promotion
 import AddPromotionPage, { action as addPromotion } from './pages/promotions/AddPromotion';
 import EditPromotionPage, { loader as promotionLoader, action as editPromotion } from './pages/promotions/EditPromotion';
 import PromotionsLayout from './pages/promotions/PromotionsLayout';
+import ProductDetailsPage, { loader as productDetailsLoader } from './pages/products/ProductDetails';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,9 @@ const router = createBrowserRouter([
           },
           {
             path: "edit/:id", element: <EditProduct />, loader: productLoader, action: editProduct
+          },
+          {
+            path: "details/:id/:name", element: <ProductDetailsPage />, loader: productDetailsLoader
           }
         ]
       },

@@ -31,6 +31,10 @@
     outline: none;
 }
 
+.profile-input select {
+    padding: 5px;
+}
+
 .profile-input input::placeholder {
     color: #807a63;
 }

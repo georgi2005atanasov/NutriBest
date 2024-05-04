@@ -53,7 +53,7 @@ export default function ProductRow({ product, promotions }) {
                     <div className="mb-3"></div>
                     <EditProductButton productId={product.productId} isTable={true} />
                     <DeleteProductButton productId={product.productId} isTable={true} />
-                    <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
+                    <Link to={`/products/details/${product.productId}/${product.name}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
                 </td>
             </motion.tr>
         </AnimatePresence>
@@ -71,7 +71,7 @@ export default function ProductRow({ product, promotions }) {
             <div className="mb-3"></div>
             <EditProductButton productId={product.productId} isTable={true} name={product.name} />
             <DeleteProductButton productId={product.productId} isTable={true} name={product.name} />
-            <Link to={`/products/details/${product.productId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
+            <Link to={`/products/details/${product.productId}/${product.name}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
         </td>
     </tr>
 }

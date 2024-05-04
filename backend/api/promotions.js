@@ -61,7 +61,7 @@ export async function changeStatus(promotionId) {
             }
         });
 
-    return await response.json();
+    return response;
 }
 
 export async function getPromotionById(promotionId) {

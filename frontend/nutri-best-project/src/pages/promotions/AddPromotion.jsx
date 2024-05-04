@@ -1,12 +1,21 @@
 import PromotionForm from "./PromotionForm";
 import { getFormData } from "../../utils/utils";
 import { addPromotion } from "../../../../../backend/api/promotions";
-import { redirect, useActionData } from "react-router-dom";
+import { useActionData, useSubmit } from "react-router-dom";
 import { getPromotionErrors } from "../../utils/promotion/validation";
 import { getPromotionForm } from "../../utils/promotion/formHandler";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function AddPromotionPage() {
+    const token = getAuthToken();
     const data = useActionData();
+    const {isAdmin, isEmployee} = useAuth(token);
+    const submit = useSubmit();
+
+    if (!isAdmin && !isEmployee) {
+        return submit("message=Page Not Found&type=danger", {action: "/", method: "GET"});
+    }
 
     return <PromotionForm header="Add Promotion" data={data} />;
 }

@@ -5,14 +5,23 @@ import { getDate } from "../../utils/utils"
 import { Link } from "react-router-dom";
 import EditPromotionButton from "../../components/UI/Promotions/EditPromotionButton";
 import DeletePromotionButton from "../../components/UI/Promotions/DeletePromotionButton";
-import { changeStatus } from "../../../../../backend/api/api.js";
+import { changeStatus, getProductsOfPromotion } from "../../../../../backend/api/api.js";
 import { useSubmit } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputError from "../../components/UI/Form/InputError.jsx";
 
 export default function PromotionRow({ promotion }) {
     const submit = useSubmit();
     const [message, setMessage] = useState("");
+    const [products, setProducts] = useState([]);
+
+    async function getProducts() {
+        const products = await getProductsOfPromotion(promotion.promotionId);
+
+        if (!products.message) {
+            setProducts(products);
+        }
+    }
 
     async function handleChange(event, promotionId) {
         event.preventDefault();
@@ -22,8 +31,14 @@ export default function PromotionRow({ promotion }) {
             setMessage(result.message);
         }
 
+        getProducts();
+
         submit(null, { action: "", method: "GET" });
     }
+
+    useEffect(() => {
+        getProducts();
+    })
 
     return <AnimatePresence>
         <motion.tr
@@ -80,6 +95,14 @@ export default function PromotionRow({ promotion }) {
                     <EditPromotionButton promotion={promotion} />
                     <DeletePromotionButton promotion={promotion} />
                 </div>
+            </td>
+            <td>
+                {products && products.length == 0 && <div>
+                    <strong>0</strong> products
+                </div>}
+                {products && products.length != 0 && <div>
+                    <strong>{products.length}</strong> products
+                </div>}
             </td>
         </motion.tr>
     </AnimatePresence>

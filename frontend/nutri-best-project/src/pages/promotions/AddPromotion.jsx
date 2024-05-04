@@ -1,7 +1,7 @@
 import PromotionForm from "./PromotionForm";
 import { getFormData } from "../../utils/utils";
 import { addPromotion } from "../../../../../backend/api/promotions";
-import { useActionData, useSubmit } from "react-router-dom";
+import { useActionData, useSubmit, redirect } from "react-router-dom";
 import { getPromotionErrors } from "../../utils/promotion/validation";
 import { getPromotionForm } from "../../utils/promotion/formHandler";
 import { getAuthToken } from "../../utils/auth";

@@ -111,3 +111,17 @@ export async function deletePromotion(promotionId) {
 
     return await response.json();
 }
+
+export async function getProductsOfPromotion(promotionId) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/promotions/${promotionId}/products`,
+        {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+    return await response.json();
+}

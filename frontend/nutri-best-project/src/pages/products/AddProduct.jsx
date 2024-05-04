@@ -15,7 +15,7 @@ export default function AddProductPage() {
     const token = useRouteLoaderData("rootLoader");
     const { isAdmin, isEmployee } = useAuth(token);
 
-    if (!isAdmin || !isEmployee) {
+    if (!isAdmin && !isEmployee) {
         return submit("message=Page Not Found!&type=danger",
             { action: "/", method: "get" })
     }

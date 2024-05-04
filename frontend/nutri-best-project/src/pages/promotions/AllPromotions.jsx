@@ -75,6 +75,7 @@ export default function AllPromotionsPage() {
                         <th>End Date</th>
                         <th>Status</th>
                         <th>Actions</th>
+                        <th>Applied to</th>
                     </tr>
                 </thead>
                 <tbody className="">

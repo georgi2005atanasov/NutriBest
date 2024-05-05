@@ -13,6 +13,7 @@
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 10px;
     transition: border-color 0.4s, box-shadow 0.4s;
     padding-left: 20px !important;
     border-radius: 10px;
@@ -23,7 +24,7 @@
 
 @media screen and (min-width: 1400px) {
     .search-bar {
-        margin-right: 80px;
+        margin-right: 60px;
         margin-left: 0px;
     }
 }
@@ -57,12 +58,12 @@
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1069px) {
     .search-container {
         position: absolute;
         width: 55%;
-        margin-left: 780px;
-        max-width: 914px;
+        margin-left: 950px;
+        max-width: 954px;
     }
 }
 
@@ -70,7 +71,7 @@
     .search-container {
         position: absolute;
         width: 70%;
-        margin-left: 1130px;
+        margin-left: 1280px;
         max-width: 1114px;
     }
 }
@@ -83,7 +84,7 @@
 
 .search-icon {
     position: absolute;
-    right: 110px;
+    right: 100px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;

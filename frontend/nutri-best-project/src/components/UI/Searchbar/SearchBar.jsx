@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import useAuth from "../../../hooks/useAuth";
 import { getAuthToken } from "../../../utils/auth";
 import searchBar from "./css/SearchBar.module.css";
@@ -32,7 +32,7 @@ export default function SearchBar() {
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-md-12 d-flex justify-content-center align-items-center">
                     <div className="row d-flex justify-content-center align-items-center">
-                        <div className={`col-lg-9 col-12 d-flex justify-content-center align-items-end ${searchBar["search-container"]}`}>
+                        <div className={`p-0 col-lg-9 col-12 d-flex justify-content-center align-items-end ${searchBar["search-container"]}`}>
                             <input
                                 className={`${searchBar["search-bar"]} ${isAdmin ? searchBar["search-bar-admin"] : ""}`}
                                 id="search"

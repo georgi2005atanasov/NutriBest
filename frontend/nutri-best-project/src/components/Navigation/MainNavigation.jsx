@@ -5,21 +5,25 @@ import NavLogo from "./NavLogo";
 import NavToggler from "./NavToggler";
 import SearchBar from "../UI/Searchbar/SearchBar";
 import { motion } from "framer-motion";
+import ScrollingText from "./ScrollingText";
 
 const MainNavigation = memo(function MainNavigation() {
-    return <motion.div
-        id="main-navigation"
-        className={`container ${styles["main-navigation"]} mt-md-4`}
-    >
-        <div 
-        className="row d-flex justify-content-between align-items-center"
+    return <>
+        <ScrollingText text={"🎉 Special Promotion: 20% off on all items until midnight! 🎉"} />
+        <motion.div
+            id="main-navigation"
+            className={`container-fluid me-5 ${styles["main-navigation"]}`}
         >
-            <NavLogo />
-            <SearchBar />
-            <NavToggler />
-            <NavButtons />
-        </div>
-    </motion.div>;
+            <div
+                className="row d-flex justify-content-between align-items-center"
+            >
+                <NavLogo />
+                <SearchBar />
+                <NavToggler />
+                <NavButtons />
+            </div>
+        </motion.div>
+    </>
 });
 
 export default MainNavigation;

@@ -12,14 +12,14 @@ export default function NavLogo() {
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.4 }}
     >
-        <div className="container">
-            <div className="row d-flex justify-content-center align-items-center me-md-4 ms-4 p-0">
-                <div className="col-3 d-flex justify-content-md-center justify-content-start align-items-center offset-md-2 me-4">
+        <div className="container-fluid p-0">
+            <div className="ms-sm-4 row d-flex justify-content-center align-items-center">
+                <div className="col-4 d-flex justify-content-md-center justify-content-start align-items-center ms-md-5">
                     <div id={styles["header-logo"]}>
                         <img className="m-auto w-100 d-flex-justify-content-center align-items-center" src={logo} alt="Logo" />
                     </div>
                 </div>
-                <div className="col-md-7 p-0 justify-content-start">
+                <div className="ms-5 col-md-8 p-0 justify-content-start">
                     <div id="shop-name" className="d-flex justify-content-md-center justify-content-start align-items-center">
                         <h2 className="my-0">
                             <Link to="/" className="text-decoration-none text-black">NutriBest</Link>

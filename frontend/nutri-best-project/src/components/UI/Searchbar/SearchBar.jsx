@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { getAuthToken } from "../../../utils/auth";
 import searchBar from "./css/SearchBar.module.css";
 import { useSubmit } from "react-router-dom";
+import CategoriesList from "./CategoriesList";
 
 export default function SearchBar() {
     const text = useRef();
@@ -27,7 +28,11 @@ export default function SearchBar() {
         return submit(null, { action: "/products/all", method: "get" });
     }
 
-    return <div className="col-md-4">
+    function setFilter(filter, value) {
+        sessionStorage.setItem(filter, value);
+    }
+
+    return <div className="col-md-4 d-flex flex-column">
         <div className="d-flex">
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-md-12 d-flex justify-content-center align-items-center">
@@ -48,6 +53,9 @@ export default function SearchBar() {
                     </div>
                 </div>
             </div>
+        </div>
+        <div className={`${searchBar["categories-wrapper"]} d-flex justify-content-between align-items-center`}>
+            <CategoriesList isAdmin={isAdmin} setFilter={setFilter} />
         </div>
     </div>
 }

@@ -18,7 +18,7 @@ const ScrollingText = ({ text }) => {
 
     const marqueeVariants = {
         animate: {
-            x: [window.innerWidth, -window.innerWidth * 2], // Ensure it moves entirely off-screen
+            x: [window.innerWidth, -window.innerWidth], // Ensure it moves entirely off-screen
             transition: {
                 x: {
                     repeat: Infinity,

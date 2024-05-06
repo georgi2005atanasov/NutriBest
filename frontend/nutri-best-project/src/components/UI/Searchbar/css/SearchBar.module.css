@@ -127,7 +127,16 @@
 
 .categories-wrapper {
     margin-left: 115px;
+    max-height: 230px;
     margin-bottom: 9px;
+    z-index: 1;
+}
+
+@media screen and (max-width: 898px) {
+    .categories-wrapper {
+        margin-top: 10px;
+        margin-left: 100px !important;
+    }
 }
 
 @media screen and (min-width: 1316px) {
@@ -138,7 +147,7 @@
 
 @media screen and (min-width: 1006px) {
     .categories-wrapper {
-        margin-left: 120px;
+        margin-left: 110px;
     }
 }
 
@@ -150,10 +159,17 @@
 
 @media screen and (max-width: 768px) {
     .categories-wrapper {
-        margin-left: 0px;
+        margin-top: 0 !important;
+        margin-left: 0px !important;
+        justify-content: start !important;
+        align-items: end !important;
     }
 
     .search-container {
         margin-left: 28px;
+    }
+
+    .menu {
+        margin-top: 100px !important;
     }
 }

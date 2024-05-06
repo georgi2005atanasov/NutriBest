@@ -52,8 +52,8 @@ export default function RootLayout() {
 
     return <>
         {isLoading && <Loader />}
-        <MainNavigation />
         <CategoryContextProvider>
+            <MainNavigation />
             <Outlet context={token} />
         </CategoryContextProvider>
         <Footer />

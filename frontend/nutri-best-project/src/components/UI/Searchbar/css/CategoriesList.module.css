@@ -1,10 +1,8 @@
 .categories-search {
-    /* margin-top: 50px !important; */
     margin-left: 10px;
 }
 
 .category-from-nav {
-    /* margin-left: 14px !important; */
 }
 
 .category-from-nav:first-child {
@@ -12,7 +10,7 @@
 }
 
 .category-from-nav div {
-    padding: 14px 20px !important;
+    padding: 12px 20px !important;
     border: none !important;
     border-radius: 0 !important;
 }
@@ -20,20 +18,15 @@
 .category-from-nav div a {
     font-size: 14px;
     z-index: 1 !important;
+    display: inline-block;
+    white-space: nowrap;
 }
 
-/* .category-from-nav div:first-child {
+.category-from-nav div:first-child {
     border-radius: 5px 5px 0 0 !important;
-} */
-
-#protein div {
-    border-radius: 10px 0px 0 0 !important;
 }
 
-#pre-workout div {
-    border-radius: 0 10px 0px 0 !important;
-}
-
-#promo div {
-    border-radius: 0 0 0 10px !important;
+.category-from-nav div:last-child {
+    margin: 3px;
+    border-radius: 5px 5px 5px 5px !important;
 }

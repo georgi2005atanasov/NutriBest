@@ -61,7 +61,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                         <div className="mx-1"></div>
 
                         {!isAdmin ?
-                            <div className={isAdmin ? `px-2 p-lg-4 ${styles["nav-link"]} ${colors["admin-color"]}` : `${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
+                            <div id={styles["shopping-cart-wrapper"]} className={isAdmin ? `px-2 p-lg-4 ${styles["nav-link"]} ${colors["admin-color"]}` : `${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
                                 <Link className="text-center" to="cart-modal">
                                     <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                                 </Link>

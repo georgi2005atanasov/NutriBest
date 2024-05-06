@@ -7,7 +7,7 @@ import EditPromotionButton from "../../components/UI/Promotions/EditPromotionBut
 import DeletePromotionButton from "../../components/UI/Promotions/DeletePromotionButton";
 import { changeStatus, getProductsOfPromotion } from "../../../../../backend/api/api.js";
 import { useSubmit } from "react-router-dom";
-import { Suspense, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import InputError from "../../components/UI/Form/InputError.jsx";
 
 export default function PromotionRow({ promotion }) {
@@ -15,11 +15,11 @@ export default function PromotionRow({ promotion }) {
     const [message, setMessage] = useState("");
     const [products, setProducts] = useState([]);
 
-    async function getProducts() {
+    const getProducts = useCallback(async function getProducts() {
         const products = await getProductsOfPromotion(promotion.promotionId);
 
         setProducts(products);
-    }
+    }, [setProducts, promotion]);
 
     async function handleChange(event, promotionId) {
         event.preventDefault();
@@ -36,7 +36,7 @@ export default function PromotionRow({ promotion }) {
 
     useEffect(() => {
         getProducts();
-    })
+    }, [getProducts]);
 
     return <AnimatePresence>
         <motion.tr

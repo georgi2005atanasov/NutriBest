@@ -10,7 +10,7 @@ export default function NavToggler() {
     const { isAdmin, isEmployee } = useAuth(token); // employee also
 
     return <div className="col-md-6 p-0">
-        <div className="container">
+        <div className="container p-1">
             <div className="row">
                 <div className="col-md-12">
                     <div className={`${styles["menu"]} d-flex justify-content-end align-items-start`}>

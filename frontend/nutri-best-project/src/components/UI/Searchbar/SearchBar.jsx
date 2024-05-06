@@ -5,7 +5,8 @@ import searchBar from "./css/SearchBar.module.css";
 import { useSubmit } from "react-router-dom";
 import CategoriesList from "./CategoriesList";
 
-export default function SearchBar() {
+// eslint-disable-next-line react/prop-types
+export default function SearchBar({ categories }) {
     const text = useRef();
     const submit = useSubmit();
     const token = getAuthToken();
@@ -26,10 +27,6 @@ export default function SearchBar() {
         sessionStorage.setItem("search", text.current.value);
         text.current.value = "";
         return submit(null, { action: "/products/all", method: "get" });
-    }
-
-    function setFilter(filter, value) {
-        sessionStorage.setItem(filter, value);
     }
 
     return <div className="col-md-4 d-flex flex-column">
@@ -55,7 +52,7 @@ export default function SearchBar() {
             </div>
         </div>
         <div className={`${searchBar["categories-wrapper"]} d-flex justify-content-between align-items-center`}>
-            <CategoriesList isAdmin={isAdmin} setFilter={setFilter} />
+            <CategoriesList categories={categories} isAdmin={isAdmin} />
         </div>
-    </div>
+    </div>;
 }

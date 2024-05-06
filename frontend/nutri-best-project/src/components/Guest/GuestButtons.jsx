@@ -14,7 +14,7 @@ export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
     >
         <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end`}>
             <div className="row d-flex justify-content-end">
-                <div className="col-lg-12 d-flex justify-content-end p-0 me-2">
+                <div className="col-lg-12 d-flex justify-content-end p-0 me-sm-2">
                     <NavigationLink
                         route={"/products/all?page=1"}
                         text={"All"}
@@ -34,7 +34,7 @@ export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
                         text={"Sign up"}
                         className="text-center" />
 
-                    <div className={isAdmin ? `px-2 p-lg-4 py-2 mx-1 ${styles["nav-link"]} ${colors["admin-color"]}` : `${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
+                    <div id={styles["shopping-cart-wrapper"]} className={`${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
                         <Link className="text-center" to="cart-modal">
                             <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                         </Link>

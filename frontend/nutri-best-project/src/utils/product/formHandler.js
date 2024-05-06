@@ -18,9 +18,9 @@ export function getProductForm(productModel) {
 export function getProductCategories(productModel) {
     const categories = [];
 
-    for (const { name, value } of CATEGORIES) {
-        if (name in productModel) {
-            categories.push(value);
+    for (const { name } of CATEGORIES) {
+        if (name.replace(" ", "") in productModel) {
+            categories.push(name);
         }
     }
 

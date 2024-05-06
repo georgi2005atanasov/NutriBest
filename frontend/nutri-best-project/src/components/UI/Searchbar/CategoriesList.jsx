@@ -16,7 +16,7 @@ export default function CategoriesList({ categories, isAdmin }) {
         >
             <div className="row">
                 {categories && categories.slice(0, 4).map(x =>
-                    <CategoryNavItem key={x.value.replace(" ", "")} isAdmin={isAdmin} category={x.value} />)}
+                    <CategoryNavItem key={x.name.replace(" ", "")} isAdmin={isAdmin} category={x.name} />)}
             </div>
         </motion.div>
 
@@ -29,7 +29,7 @@ export default function CategoriesList({ categories, isAdmin }) {
         >
             <div className="row">
                 {categories && categories.slice(4, 8).map(x =>
-                    <CategoryNavItem key={x.name} isAdmin={isAdmin} category={x.value} />)}
+                    <CategoryNavItem key={x.name} isAdmin={isAdmin} category={x.name} />)}
             </div>
         </motion.div>
     </>

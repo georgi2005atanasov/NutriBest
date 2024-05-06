@@ -38,21 +38,21 @@ export default function MultiSelectCategory({ data, errorStyle, productCategorie
 
     return <div className={`${styles["category-container"]} pt-2 pb-0`}>
         {categories && categories.map((category) => (
-            <div key={category.value} className={styles["category-item"]}>
+            <div key={category.name} className={styles["category-item"]}>
                 <input
                     type="checkbox"
-                    name={category.name}
-                    id={category.name}
-                    value={category.value}
+                    name={category.name.replace(" ", "")}
+                    id={category.name.replace(" ", "")}
+                    value={category.name}
                     onChange={handleCheckboxChange}
-                    checked={selectedCategories.some(x => x == category.value)}
+                    checked={selectedCategories.some(x => x == category.name)}
                     className={`${styles["category-checkbox"]} ${styles["nav-link"]}`}
                 />
-                <label htmlFor={category.name} className={`${styles["category-label"]} ${isAdmin ? colors["admin-color-text"] : colors["user-color-text"]}`}>
-                    {category.value} {categoriesCount != undefined && <>
+                <label htmlFor={category.name.replace(" ", "")} className={`${styles["category-label"]} ${isAdmin ? colors["admin-color-text"] : colors["user-color-text"]}`}>
+                    {category.name} {categoriesCount != undefined && <>
                         ({categoriesCount &&
-                            categoriesCount.filter(x => x.category == category.value)[0] != undefined ?
-                            categoriesCount.filter(x => x.category == category.value)[0].count : "0"})
+                            categoriesCount.filter(x => x.category == category.name)[0] != undefined ?
+                            categoriesCount.filter(x => x.category == category.name)[0].count : "0"})
                     </>}
                 </label>
             </div>

@@ -1,5 +1,6 @@
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { allCategories } from "../../../../backend/api/categories";
+import { allBrands } from "../../../../backend/api/brands";
 
 // export const CATEGORIES = [
 //     { name: "proteins", value: "Proteins" },
@@ -32,9 +33,11 @@ import { allCategories } from "../../../../backend/api/categories";
 // ];
 
 export let CATEGORIES = [];
+export let BRANDS = [];
 
 export const CategoryContext = createContext({
     categories: CATEGORIES,
+    brands: [],
     selectedCategories: [],
     setSelectedCategories: () => { }
 });
@@ -45,18 +48,27 @@ export default function CategoryContextProvider({ children }) {
         sessionStorage.getItem("categories").split("+").filter(x => x != "") :
         []);
     const [categories, setCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
 
     async function getCategories() {
         const response = await allCategories();
         CATEGORIES = response;
         setCategories(response);
     }
+
+    async function getBrands() {
+        const response = await allBrands();
+        BRANDS = response;
+        setBrands(response);
+    }
+
     useEffect(() => {
         getCategories();
+        getBrands();
     }, []);
 
     return <CategoryContext.Provider
-        value={{ categories, selectedCategories, setSelectedCategories }}>
+        value={{ categories, selectedCategories, setSelectedCategories, brands }}>
         {children}
     </CategoryContext.Provider>
 }

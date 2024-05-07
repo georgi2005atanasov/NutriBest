@@ -12,6 +12,7 @@ import CategoryContextProvider from "../../store/CategoryContext";
 import PromotionCategory from "../../components/UI/Promotions/PromotionCategory";
 import { useState } from "react";
 import DiscountType from "../../components/UI/Promotions/DiscountType";
+import SelectBrand from "../../components/UI/Form/SelectBrand";
 
 export const OPTIONS = [
     "amount",
@@ -27,6 +28,12 @@ export default function PromotionForm({ header, data, promotion }) {
         promotion.category ?
         promotion.category :
         "");
+
+    const [selectedBrand, setSelectedBrand] = useState(promotion &&
+        promotion.brand ?
+        promotion.brand :
+        "");
+
     const navigation = useNavigation();
 
     const isSubmitting = navigation.state === "submitting";
@@ -158,6 +165,11 @@ export default function PromotionForm({ header, data, promotion }) {
                                 <PromotionCategory onSelect={setSelectedCategory} category={promotion && promotion.category} />
                             </div>
 
+                            <div className={`${styles["add-promotion-category"]} mt-2`}>
+                                <div className={styles["promotion-category-label"]}>Brand (optional):</div>
+                                <SelectBrand onSelect={setSelectedBrand} brand={promotion && promotion.brand} />
+                            </div>
+
                             {data && data.errors && Object.keys(data.errors).includes("message") &&
                                 <InputError
                                     styles={styles["error-par"]}
@@ -171,6 +183,7 @@ export default function PromotionForm({ header, data, promotion }) {
                             />
 
                             <input type="hidden" name="category" value={selectedCategory} />
+                            {/* <input type="hidden" name="brand" value={selectedBrand} /> */}
 
                             <div className="mb-4"></div>
                         </div>

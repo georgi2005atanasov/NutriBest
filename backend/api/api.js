@@ -1,19 +1,22 @@
-import { 
-    addProduct, 
-    getProductById, 
-    allProducts, 
-    editProduct, 
-    deleteProduct, 
-    getIdentifiers, 
-    getImageByProductId, 
+import {
+    addProduct,
+    getProductById,
+    allProducts,
+    editProduct,
+    deleteProduct,
+    getIdentifiers,
+    getImageByProductId,
     getProductsByCategories,
-    getProductDetailsByIdAndName } from "./products";
-import { 
-    getFormFile } from "./images";
-import { 
-    getProfileDetails, 
-    editUser, 
-    deleteUser } from "./profile";
+    getProductDetailsByIdAndName
+} from "./products";
+import {
+    getFormFile
+} from "./images";
+import {
+    getProfileDetails,
+    editUser,
+    deleteUser
+} from "./profile";
 import {
     allPromotions,
     changeProductPromotion,
@@ -24,6 +27,7 @@ import {
     getPromotionById,
     getProductsOfPromotion
 } from "./promotions";
+import { allBrands } from "./brands";
 
 export { addProduct };
 export { getProductById };
@@ -46,3 +50,4 @@ export { getPromotionById };
 export { editPromotion };
 export { getProductsOfPromotion };
 export { getProductDetailsByIdAndName };
+export { allBrands };

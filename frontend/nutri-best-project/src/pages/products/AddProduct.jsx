@@ -1,7 +1,7 @@
 import { cleanFilters, getFormData } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation"
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
-import { addProduct } from "../../../../../backend/api/api";
+import { addProduct, allBrands } from "../../../../../backend/api/api";
 import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import ProductForm from "./ProductForm";
@@ -23,9 +23,14 @@ export default function AddProductPage() {
     return <ProductForm header={"Add New Product"} data={data} />
 }
 
-export function loader() {
+export async function loader() {
     cleanFilters();
-    return null;
+
+    var brands = await allBrands();
+
+    return {
+        brands
+    };
 }
 
 // eslint-disable-next-line no-unused-vars

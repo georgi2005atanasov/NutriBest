@@ -25,8 +25,9 @@ export default function PromotionRow({ promotion }) {
         event.preventDefault();
         const result = await changeStatus(promotionId);
 
-        if (result.message) {
-            setMessage(result.message);
+        if (!result.ok) {
+            const { message } = await result.json();
+            setMessage(message);
         }
 
         getProducts();

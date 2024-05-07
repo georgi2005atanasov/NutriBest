@@ -14,7 +14,7 @@ export default function NavToggler() {
             <div className="row">
                 <div className="col-md-12">
                     <div className={`${styles["menu"]} d-flex justify-content-end align-items-start`}>
-                        <input type="checkbox" id={styles["check"]} />
+                        <input type="checkbox" id={!isAdmin && !isEmployee ? `${styles["check-admin"]}` : `${styles["check"]}`} />
                         <label htmlFor={styles["check"]} className={`d-flex justify-content-center align-items-center ${styles["button"]} ${isAdmin ? colors["admin-color"] : colors["user-color"]}`}>
                             {isAdmin || isEmployee ? <i className="fa fa-cogs d-flex" aria-hidden="true"></i> : <>
                                 <span></span>

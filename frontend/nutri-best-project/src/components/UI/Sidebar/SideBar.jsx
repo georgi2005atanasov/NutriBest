@@ -7,13 +7,14 @@ import { buildQuery, getFilters } from "../../../utils/utils";
 import CategoryFilter from "./CategoryFilter";
 import PriceFilter from "./PriceFilter";
 import AlphaFilter from "./AlphaFilter";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import BrandFilter from "./BrandFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
-    const { selectedCategories } = useContext(CategoryContext);
+    const { selectedCategories, brands } = useContext(CategoryContext);
 
-    const { page, categories, price, alpha } = getFilters();
+    const { page, categories, price, alpha, brand } = getFilters();
 
     const submit = useSubmit();
 
@@ -29,7 +30,7 @@ export default function SideBar({ isVisible, toggleSidebar }) {
         const query = buildQuery(page, categories, price, alpha);
 
         submit(query);
-    }, [selectedCategories, submit, price, page, categories, alpha]);
+    }, [selectedCategories, submit, price, page, categories, alpha, brand]);
 
     return <>
         <div className={`${styles["filter-header"]} w-100 d-flex justify-content-between align-items-center`}>
@@ -54,6 +55,16 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                         transition={{ duration: 0.6 }}
                     >
                         <PriceFilter price={price} selectedBtn={styles["selected-filter"]} />
+                    </motion.div>
+
+                    <div className="mb-1"></div>
+
+                    <motion.div
+                        initial={{ x: -100, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <BrandFilter brands={brands} />
                     </motion.div>
 
                     <div className="mb-1"></div>

@@ -6,7 +6,7 @@ export async function getFormData(request) {
     return dataToReturn;
 }
 
-export function buildQuery(page, categories, price, alpha, productsView, search, priceRange) {
+export function buildQuery(page, categories, price, alpha, productsView, search, priceRange, brand) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
         query += `&categories=${categories.split("+").join("+and+")}`;
@@ -26,7 +26,10 @@ export function buildQuery(page, categories, price, alpha, productsView, search,
     if (priceRange && priceRange.length && priceRange.length != 0) {
         query += `&priceRange=${priceRange}`;
     }
-
+    if (brand && brand != "") {
+        query += `&brand=${brand}`;
+    }
+    
     return query;
 }
 
@@ -35,8 +38,9 @@ export function getFilters() {
     const categories = sessionStorage.getItem("categories");
     const price = sessionStorage.getItem("price");
     const alpha = sessionStorage.getItem("alpha");
+    const brand = sessionStorage.getItem("brand");
 
-    return { page, categories, price, alpha };
+    return { page, categories, price, alpha, brand };
 }
 
 export function cleanFilters() {
@@ -48,6 +52,7 @@ export function cleanFilters() {
     sessionStorage.setItem("search", "");
     sessionStorage.setItem("priceRange", "");
     sessionStorage.setItem("alpha", "");
+    sessionStorage.setItem("brand", "");
 }
 
 export function getDate(dateString) {

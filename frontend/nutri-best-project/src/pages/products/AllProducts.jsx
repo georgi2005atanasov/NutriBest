@@ -128,7 +128,7 @@ export default function AllProducts() {
     </>;
 }
 
-async function loadProductsData(page, categories, price, alpha, productsView, search, priceRange) {
+async function loadProductsData(page, categories, price, alpha, productsView, search, priceRange, brand) {
     async function storeImages(productsRows) {
         const products = productsRows.flat();
 
@@ -144,7 +144,7 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
             sessionStorage.setItem("page", 1);
         }
 
-        let products = await allProducts(Number(page), categories, price, alpha, productsView, search, priceRange);
+        let products = await allProducts(Number(page), categories, price, alpha, productsView, search, priceRange, brand);
 
         if (!products.ok) {
             sessionStorage.setItem("productsCount", 0);
@@ -180,6 +180,7 @@ export async function loader({ request, params }) {
     const productsView = sessionStorage.getItem("productsView") || PRODUCTS_VIEWS.all;
     const search = sessionStorage.getItem("search") || "";
     const priceRange = sessionStorage.getItem("priceRange") || "";
+    const brand = sessionStorage.getItem("brand") || "";
 
     if (!currentPage || isNaN(currentPage)) {
         return redirect("/?message=Invalid page number provided.&type=danger");
@@ -189,7 +190,7 @@ export async function loader({ request, params }) {
 
     return defer({
         productsRows: await loadProductsData(
-            page, categories, price, alpha, productsView, search, priceRange),
+            page, categories, price, alpha, productsView, search, priceRange, brand),
         promotions: await getPromotions(),
         page,
         productsView,

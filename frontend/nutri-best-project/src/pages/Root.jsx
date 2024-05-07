@@ -9,6 +9,7 @@ import Loader from "../components/UI/Shared/Loader";
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PRICE = "";
 export const DEFAULT_CATEGORY = "";
+export const DEFAULT_BRAND = "";
 export const DEFAULT_ALPHA = "";
 export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 
@@ -29,6 +30,9 @@ export default function RootLayout() {
         }
         if (!sessionStorage.getItem("categories")) {
             sessionStorage.setItem("categories", DEFAULT_CATEGORY);
+        }
+        if (!sessionStorage.getItem("brand")) {
+            sessionStorage.setItem("brand", DEFAULT_BRAND);
         }
         if (!sessionStorage.getItem("page")) {
             sessionStorage.setItem("page", DEFAULT_PAGE);

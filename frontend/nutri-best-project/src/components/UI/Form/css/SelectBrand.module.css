@@ -11,6 +11,8 @@
     width: 40%;
     border-radius: 5px;
     border: 1px solid #efefea;
+    font-weight: 600;
+    color: #161614;
 }
 
 .dropdown-list {

@@ -21,8 +21,11 @@ export function getPromotionForm(promotion) {
     }
 
     if (promotion.category) {
-        
         formData.append("category", promotion.category);
+    }
+
+    if (promotion.brand) {
+        formData.append("brand", promotion.brand);
     }
 
     return formData;

@@ -107,3 +107,7 @@
     width: 240px;
     height: 295px;
 }
+
+.category-header {
+    font-size: 17px !important;
+}

@@ -11,11 +11,13 @@ import InputError from "../../components/UI/Form/InputError";
 import { Form, useNavigation } from "react-router-dom";
 import styles from "./css/ProductForm.module.css";
 import { motion } from "framer-motion";
-
+import SelectBrand from "../../components/UI/Form/SelectBrand";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function ProductForm({ product = null, data, header }) {
     const navigation = useNavigation();
+    const [brand, setBrand] = useState(product && product.brand || "");
 
     const isSubmitting = navigation.state === "submitting";
 
@@ -95,7 +97,16 @@ export default function ProductForm({ product = null, data, header }) {
                                 placeholder=""
                             />
 
-                            <div className="categories-wrapper">
+                            <SelectBrand onSelect={setBrand} brand={product && product.brand} />
+
+                            {data && data.errors && Object.keys(data.errors).includes("Brand") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Brand"][0]}
+                                />}
+                            
+                            <div className="categories-wrapper mt-3">
+                                <h5 className={`ms-2 ${styles["category-header"]}`}>Category:</h5>
                                 <MultiSelectCategory productCategories={product ? product.categories : undefined} />
                                 {data && data.errors && Object.keys(data.errors).includes("Category") &&
                                     <InputError
@@ -121,6 +132,8 @@ export default function ProductForm({ product = null, data, header }) {
                                 wrapperStyles={styles["add-product-input"]}
                                 disabled={isSubmitting}
                             />
+
+                            <input type="hidden" name="brand" id="brand" value={brand} />
 
                             <div className="mb-4"></div>
                         </div>

@@ -23,6 +23,10 @@ export function getProductErrors(productModel) {
         data.errors["Image"] = ["Image is required!"];
     }
 
+    if (!productModel.brand) {
+        data.errors["Brand"] = ["Brand is required!"];
+    }
+
     if (isNaN(productModel.quantity) && productModel.quantity != null) {
         data.errors["Quantity"] = ["Quantity must be a number!"];
     }

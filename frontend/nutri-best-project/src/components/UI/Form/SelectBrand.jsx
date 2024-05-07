@@ -1,16 +1,14 @@
+/* eslint-disable react/prop-types */
 import styles from "./css/SelectBrand.module.css";
 import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CategoryContext } from "../../../store/CategoryContext";
 
-// eslint-disable-next-line react/prop-types
 export default function SelectBrand({ onSelect, brand }) {
     const { brands } = useContext(CategoryContext);
-    console.log(brands);
-    console.log(brands);
 
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(null);
+    const [selected, setSelected] = useState(brand && brand.name || "");
 
     const handleSelect = (option) => {
         setSelected(option);
@@ -20,8 +18,8 @@ export default function SelectBrand({ onSelect, brand }) {
 
     return (
         <div className="dropdown">
-            <button type="button" className={styles["dropdown-button"]} onClick={() => setIsOpen(!isOpen)}>
-                {selected || brand || "Select category (optional)"}
+            <button type="button" className={`${styles["dropdown-button"]}`} onClick={() => setIsOpen(!isOpen)}>
+                {selected || brand || `Select Brand`}
             </button>
             <AnimatePresence>
                 {isOpen && (

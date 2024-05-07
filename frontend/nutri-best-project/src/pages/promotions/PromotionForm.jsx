@@ -183,7 +183,7 @@ export default function PromotionForm({ header, data, promotion }) {
                             />
 
                             <input type="hidden" name="category" value={selectedCategory} />
-                            {/* <input type="hidden" name="brand" value={selectedBrand} /> */}
+                            <input type="hidden" name="brand" value={selectedBrand} />
 
                             <div className="mb-4"></div>
                         </div>

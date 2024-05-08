@@ -18,6 +18,7 @@ import PromotionsLayout from './pages/promotions/PromotionsLayout';
 import ProductDetailsPage, { loader as productDetailsLoader } from './pages/products/ProductDetails';
 import CategoriesLayout from './pages/categories/CategoriesLayout';
 import AllCategories from './pages/categories/AllCategories';
+import AddCategoryPage, { action as addCategory } from './pages/categories/AddCategory';
 
 const router = createBrowserRouter([
   {
@@ -68,7 +69,8 @@ const router = createBrowserRouter([
 
       {
         path: 'categories', element: <CategoriesLayout />, children: [
-          { index: true, element: <AllCategories /> }
+          { index: true, element: <AllCategories /> },
+          { path: 'add', element: <AddCategoryPage />, action: addCategory }
         ]
       }
     ],

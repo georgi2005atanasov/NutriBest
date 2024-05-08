@@ -4,13 +4,15 @@ import CategoryItem from "./CategoryItem";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { CategoryContext } from "../../store/CategoryContext";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useSubmit } from "react-router-dom";
 import { useContext, useEffect } from "react";
+import AddCategoryButton from "../../components/UI/Buttons/Categories/AddCategoryButton";
 
 const Categories = () => {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const { categories } = useContext(CategoryContext);
+    const submit = useSubmit();
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -31,12 +33,13 @@ const Categories = () => {
     }, [setSearchParams]);
 
     return <>
-        {message && <Message message={message} messageType={messageType} />}
+        {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
         <div className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}>
             <h2 className={"d-flex justify-content-center align-items-center m-0 mb-4"}>
                 Our Categories
             </h2>
+            <AddCategoryButton />
             <div className="row w-75 text-center">
                 {categories.map((category, index) => (
                     <div className="col-lg-3 col-md-4" key={index}>

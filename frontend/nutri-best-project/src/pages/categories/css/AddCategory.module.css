@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Montserrat+Alternates:wght@300&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Reddit+Mono:wght@200..900&family=Sometype+Mono:ital@1&display=swap');
+
+.add-category-header {
+    color: #1a1817;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+}
+
+.add-category-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.add-category-input input, .add-category-input textarea {
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+.add-category-input input::placeholder {
+    color: #807a63;
+}
+
+.add-category-input button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #ed6008;
+    color: #221f1c;
+    font-weight: 600;
+    width: 100%;
+    transition: ease-in 0.3s;
+}
+
+.add-category-input button:hover {
+    background-color: #b07731;
+}
+
+.add-category-input label {
+    color: #161614;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.add-category-input input:focus, .add-product-input textarea:focus {
+    border: none;
+    box-shadow: 0 0 8px #a5591c;
+}
+
+.error-par {
+    color: red;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}

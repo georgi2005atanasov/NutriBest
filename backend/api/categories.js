@@ -6,12 +6,12 @@ export async function allCategories() {
     return await response.json();
 }
 
-export async function addCategory() {
+export async function addCategory(data) {
     const token = getAuthToken();
 
     const response = await fetch("https://localhost:7056/categories", {
         method: "POST",
-        body: productModel,
+        body: data,
         headers: {
             "Authorization": `Bearer ${token}`
         }

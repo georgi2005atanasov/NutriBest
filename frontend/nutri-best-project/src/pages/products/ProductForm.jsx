@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import styles from "./css/ProductForm.module.css";
 import CategoryContextProvider from "../../store/CategoryContext";
 import Header from "../../components/UI/Shared/Header";
 import FormButton from "../../components/UI/Form/FormButton";
@@ -9,7 +10,6 @@ import FormTextArea from "../../components/UI/Form/FormTextArea";
 import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
 import InputError from "../../components/UI/Form/InputError";
 import SelectBrand from "../../components/UI/Form/SelectBrand";
-import styles from "./css/ProductForm.module.css";
 import { motion } from "framer-motion";
 import { Form, useNavigation } from "react-router-dom";
 import { useState } from "react";

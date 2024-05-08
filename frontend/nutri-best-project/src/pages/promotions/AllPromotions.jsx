@@ -74,6 +74,8 @@ export default function AllPromotionsPage() {
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Status</th>
+                        <th>Brand</th>
+                        <th>Category</th>
                         <th>Actions</th>
                         <th>Applied to</th>
                     </tr>

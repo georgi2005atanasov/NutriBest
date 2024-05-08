@@ -1,5 +1,6 @@
 .categories-container {
-    background: #F0F0F0;
+    background: linear-gradient(to bottom, #e1e1e1, #b2b2b2);
+    /* background: #e1e1e1; */
     width: 100% !important;
     padding: 20px;
 }

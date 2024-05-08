@@ -88,6 +88,12 @@ export default function PromotionRow({ promotion }) {
                     <InputError text={message} styles={"text-danger"} />
                 </motion.div>}
             </motion.td>
+            <td className={!promotion.brand ? styles["empty-field"] : ""}>
+                {promotion.brand ? `${promotion.brand}` : "-"}
+            </td>
+            <td className={`${!promotion.category ? styles["empty-field"] : ""}`}>
+                {promotion.category ? `${promotion.category}` : "-"}
+            </td>
             <td>
                 <div className="d-flex justify-content-evenly">
                     <EditPromotionButton promotion={promotion} />

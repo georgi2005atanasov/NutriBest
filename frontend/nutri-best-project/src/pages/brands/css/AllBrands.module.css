@@ -1,11 +1,11 @@
-.categories-container {
+.brands-container {
     background: linear-gradient(to bottom, #f4f4f4, #bdb5b5);
     /* background: #e1e1e1; */
     width: 100% !important;
-    padding: 20px;
+    padding: 39px;
 }
 
-.categories-title {
+.brands-title {
     text-align: center;
     color: #333;
 }

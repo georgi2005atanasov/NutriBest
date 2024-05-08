@@ -38,6 +38,7 @@ export let BRANDS = [];
 export const CategoryContext = createContext({
     categories: CATEGORIES,
     brands: [],
+    setBrands: () => {},
     selectedCategories: [],
     setSelectedCategories: () => { }
 });
@@ -63,12 +64,16 @@ export default function CategoryContextProvider({ children }) {
     }
 
     useEffect(() => {
-        getCategories();
-        getBrands();
+        async function getData() {
+            getCategories();
+            getBrands();
+        }
+
+        getData();
     }, []);
 
     return <CategoryContext.Provider
-        value={{ categories, selectedCategories, setSelectedCategories, brands }}>
+        value={{ categories, selectedCategories, setSelectedCategories, brands, setBrands }}>
         {children}
     </CategoryContext.Provider>
 }

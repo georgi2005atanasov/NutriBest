@@ -1,21 +1,20 @@
 import Modal from "./Modal";
 import styles from "./css/DeleteProductModal.module.css";
-import { deleteCategory } from "../../../../../backend/api/api";
+// import { deleteCategory } from "../../../../../backend/api/api";
 import { CategoryContext } from "../../store/CategoryContext";
 import { redirect, useSubmit } from "react-router-dom";
 import { forwardRef, useContext } from "react";
 
 // eslint-disable-next-line react/prop-types
-const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }, ref) {
+const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
     const submit = useSubmit();
-    const { categories, setSelectedCategories } = useContext(CategoryContext);
-    console.log(categories);
+    const { brands, setBrands } = useContext(CategoryContext);
 
     async function handleDelete(event) {
         try {
             event.stopPropagation();
 
-            const result = await deleteCategory(category);
+            // const result = await deleteCategory(category);
 
             window.scrollTo({
                 top: 0,
@@ -25,19 +24,15 @@ const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }
 
             ref.current.close();
 
-            if (result.ok == false) {
-                submit("message=This category is already deleted, try to refresh!&type=danger",
-                { action: "/categories", method: "get" });
+            // if (result.ok == false) {
+            //     submit("message=This category is already deleted, try to refresh!&type=danger",
+            //         { action: "/brands", method: "GET" });
 
-                return;
-            }
+            //     return;
+            // }
 
-            setSelectedCategories(prev => {
-                return [...prev.filter(x => x.name != category)];
-            });
-
-            return submit("message=Successfully deleted category!&type=success",
-                { action: "/categories", method: "get" });
+            return submit("message=Successfully deleted brand!&type=success",
+                { action: "/brands", method: "GET" });
         } catch (error) {
             return redirect("/error");
         }
@@ -51,7 +46,7 @@ const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }
         <div className={styles["modal"]}>
             <div className={styles["modal-content"]}>
                 <h4 className={`text ${styles["delete-modal"]}`}>Are you sure you want to delete this category?</h4>
-                <div>All the products and promotions within the &apos;{category}&apos; category will be deleted.</div>
+                <div>All the products and promotions within the &apos;{brand}&apos; category will be deleted.</div>
                 <div className={styles["modal-buttons"]}>
                     <button type="submit" onClick={handleDelete} className={styles["delete-btn"]}>Yes, Delete</button>
                     <form method="dialog" action="">
@@ -63,4 +58,4 @@ const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }
     </Modal>;
 });
 
-export default DeleteCategoryModal;
+export default DeleteBrandModal;

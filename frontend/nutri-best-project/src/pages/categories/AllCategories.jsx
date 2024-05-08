@@ -8,11 +8,10 @@ import { useSearchParams, useSubmit } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import AddCategoryButton from "../../components/UI/Buttons/Categories/AddCategoryButton";
 
-const Categories = () => {
+const AllCategories = () => {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const { categories } = useContext(CategoryContext);
-    const submit = useSubmit();
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -36,7 +35,7 @@ const Categories = () => {
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
         <div className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}>
-            <h2 className={"d-flex justify-content-center align-items-center m-0 mb-4"}>
+            <h2 className={"d-flex justify-content-center align-items-center m-0 mb-4 text-dark"}>
                 Our Categories
             </h2>
             <AddCategoryButton />
@@ -51,4 +50,4 @@ const Categories = () => {
     </>
 }
 
-export default Categories;
+export default AllCategories;

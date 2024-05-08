@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/SelectBrand.module.css";
-import { useContext, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { CategoryContext } from "../../../store/CategoryContext";
+import { motion, AnimatePresence } from "framer-motion";
+import { useContext, useState } from "react";
 
 export default function SelectBrand({ onSelect, brand }) {
     const { brands } = useContext(CategoryContext);

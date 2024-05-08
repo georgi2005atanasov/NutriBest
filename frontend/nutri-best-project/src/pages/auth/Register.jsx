@@ -8,8 +8,8 @@ import Loader from "../../components/UI/Shared/Loader";
 import { register } from "../../../../../backend/api/auth";
 import { getFormData } from "../../utils/utils";
 import useAuth from "../../hooks/useAuth";
-import { Form, json, redirect, useActionData, useSubmit, useOutletContext, useNavigation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { Form, json, redirect, useActionData, useSubmit, useOutletContext, useNavigation } from "react-router-dom";
 
 export default function RegisterPage() {
     const data = useActionData();

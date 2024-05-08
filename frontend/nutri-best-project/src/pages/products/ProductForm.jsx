@@ -8,10 +8,10 @@ import ImageField from "../../components/UI/Form/ImageField";
 import FormTextArea from "../../components/UI/Form/FormTextArea";
 import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
 import InputError from "../../components/UI/Form/InputError";
-import { Form, useNavigation } from "react-router-dom";
+import SelectBrand from "../../components/UI/Form/SelectBrand";
 import styles from "./css/ProductForm.module.css";
 import { motion } from "framer-motion";
-import SelectBrand from "../../components/UI/Form/SelectBrand";
+import { Form, useNavigation } from "react-router-dom";
 import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types

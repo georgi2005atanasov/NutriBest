@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import styles from "../Form/css/SelectBrand.module.css";
-import selected from "./css/SideBar.module.css";
-import DropdownMenu from "../Dropdown/DropdownMenu"
+import styles from "../../Form/css/SelectBrand.module.css";
+import selected from "../css/SideBar.module.css";
+import DropdownMenu from "../../Dropdown/DropdownMenu"
 import { motion } from "framer-motion"
 import { useSubmit } from "react-router-dom";
 

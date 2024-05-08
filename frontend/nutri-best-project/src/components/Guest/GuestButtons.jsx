@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 import NavigationLink from "../Navigation/NavigationLink";
 import colors from "../../App.module.css";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
     return <motion.div

@@ -1,5 +1,5 @@
+import styles from "../css/Filter.module.css";
 import { Link } from "react-router-dom";
-import styles from "./css/Filter.module.css";
 
 // eslint-disable-next-line react/prop-types
 export default function AscFilter({ text = "Ascending order", identifier }) {

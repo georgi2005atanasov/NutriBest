@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/Profile.module.css";
 import FormInput from "../../components/UI/Form/FormInput";
-import ProfileChange from "./ProfileChange";
 import InputError from "../../components/UI/Form/InputError";
-import { useCallback, useState } from "react";
-import { useActionData } from "react-router-dom";
+import ProfileChange from "./ProfileChange";
 import MultiSelectGender from "./MultiSelectGender";
+import { useActionData } from "react-router-dom";
+import { useCallback, useState } from "react";
 
 export default function ProfileForm({ profile }) {
     const data = useActionData();

@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useSubmit } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
 
 function valuetext(value) {
   return `${value}°C`;

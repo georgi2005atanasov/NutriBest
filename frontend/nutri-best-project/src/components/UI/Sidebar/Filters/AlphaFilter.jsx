@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import DropdownMenu from "../Dropdown/DropdownMenu";
-import NoneFilter from "../Buttons/NoneFilter";
-import AscFilter from "../Buttons/AscFilter";
-import DescFilter from "../Buttons/DescFilter";
+import DropdownMenu from "../../Dropdown/DropdownMenu";
+import NoneFilter from "../../Buttons/Filters/NoneFilter";
+import AscFilter from "../../Buttons/Filters/AscFilter";
+import DescFilter from "../../Buttons/Filters/DescFilter";
 
 export default function AlphaFilter({ alpha, selectedBtn, alphaCount }) {
     return <DropdownMenu text={"Alphabetically"} filtersNumber={alphaCount}>

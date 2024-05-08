@@ -1,14 +1,14 @@
 import styles from "./css/SideBar.module.css";
-import { useContext, useEffect } from "react";
-import { useSubmit } from "react-router-dom";
-import { CategoryContext } from "../../../store/CategoryContext";
-import ClearFiltersButton from "../Buttons/ClearFiltersButton";
+import CategoryFilter from "./Filters/CategoryFilter";
+import PriceFilter from "./Filters/PriceFilter";
+import AlphaFilter from "./Filters/AlphaFilter";
+import BrandFilter from "./Filters/BrandFilter";
+import ClearFiltersButton from "../Buttons/Delete/ClearFiltersButton";
 import { buildQuery, getFilters } from "../../../utils/utils";
-import CategoryFilter from "./CategoryFilter";
-import PriceFilter from "./PriceFilter";
-import AlphaFilter from "./AlphaFilter";
 import { motion } from "framer-motion";
-import BrandFilter from "./BrandFilter";
+import { CategoryContext } from "../../../store/CategoryContext";
+import { useSubmit } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {

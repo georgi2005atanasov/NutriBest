@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line react/prop-types
 export default function RegisterCheckBox({text}) {
     return <div className="checkbox px-3 d-flex justify-content-start">

@@ -1,5 +1,5 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
 // eslint-disable-next-line react/prop-types
 const Modal = forwardRef(function Modal({ children }, ref) {

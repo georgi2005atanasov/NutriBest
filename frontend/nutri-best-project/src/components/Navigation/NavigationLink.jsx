@@ -1,6 +1,6 @@
 import styles from "./MainNavigation.module.css";
-import { Link } from "react-router-dom";
 import colors from "../../App.module.css";
+import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 export default function NavigationLink({ route, text, isAdmin, ...props }) {

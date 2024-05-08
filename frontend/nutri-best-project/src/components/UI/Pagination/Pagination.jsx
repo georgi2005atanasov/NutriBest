@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import { NavLink } from "react-router-dom";
 import styles from "./css/Pagination.module.css";
-import { useState, useEffect, memo } from "react";
 import { PRODUCTS_VIEWS } from "../../../pages/Root";
+import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 
+// might fetch these numbers, because they are coupled with the api
 const PRODUCTS_PER_PAGE = 6.0;
 const PRODUCTS_PER_TABLE = 10.0;
 

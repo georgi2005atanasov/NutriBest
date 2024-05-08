@@ -1,4 +1,4 @@
-import styles from "./css/EditProfileButton.module.css";
+import styles from "../css/EditProfileButton.module.css";
 import { motion } from "framer-motion";
 
 // eslint-disable-next-line react/prop-types

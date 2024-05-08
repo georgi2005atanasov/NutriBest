@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useRef } from "react";
 import styles from "./css/CategoryItem.module.css";
-import { motion } from "framer-motion";
 import DeleteCategoryModal from "../../components/Modals/DeleteCategoryModal";
+import { motion } from "framer-motion";
 import { useSubmit } from "react-router-dom";
+import { useRef } from "react";
 
 export default function CategoryItem({ category, isVerified }) {
     const submit = useSubmit();

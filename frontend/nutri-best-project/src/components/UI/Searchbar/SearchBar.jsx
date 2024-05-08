@@ -1,9 +1,9 @@
-import { useRef } from "react";
 import useAuth from "../../../hooks/useAuth";
-import { getAuthToken } from "../../../utils/auth";
 import searchBar from "./css/SearchBar.module.css";
-import { useSubmit } from "react-router-dom";
 import CategoriesList from "../CategoriesList/CategoriesList";
+import { getAuthToken } from "../../../utils/auth";
+import { useSubmit } from "react-router-dom";
+import { useRef } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function SearchBar({ categories }) {

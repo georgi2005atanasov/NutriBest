@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/PromotionForm.module.css";
-import { motion } from "framer-motion";
 import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
 import FormInput from "../../components/UI/Form/FormInput";
 import InputError from "../../components/UI/Form/InputError";
 import FormTextArea from "../../components/UI/Form/FormTextArea";
 import FormButton from "../../components/UI/Form/FormButton";
-import { useNavigation, Form } from "react-router-dom";
-import CategoryContextProvider from "../../store/CategoryContext";
-import PromotionCategory from "../../components/UI/Promotions/PromotionCategory";
-import { useState } from "react";
 import DiscountType from "../../components/UI/Promotions/DiscountType";
 import SelectBrand from "../../components/UI/Form/SelectBrand";
+import PromotionCategory from "../../components/UI/Promotions/PromotionCategory";
+import CategoryContextProvider from "../../store/CategoryContext";
+import { motion } from "framer-motion";
+import { useNavigation, Form } from "react-router-dom";
+import { useState } from "react";
 
 export const OPTIONS = [
     "amount",

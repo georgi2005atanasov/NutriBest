@@ -65,7 +65,7 @@ export default function CategoryContextProvider({ children }) {
     useEffect(() => {
         getCategories();
         getBrands();
-    }, [categories]);
+    }, []);
 
     return <CategoryContext.Provider
         value={{ categories, selectedCategories, setSelectedCategories, brands }}>

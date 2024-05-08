@@ -1,7 +1,7 @@
-import styles from "./css/DeleteProfileButton.module.css";
+import styles from "../css/DeleteProfileButton.module.css";
+import DeleteProfileModal from "../../../Modals/DeleteProfileModal";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import DeleteProfileModal from "../../Modals/DeleteProfileModal";
 
 export default function DeleteProfileButton() {
     const dialog = useRef();

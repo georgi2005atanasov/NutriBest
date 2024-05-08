@@ -1,8 +1,8 @@
-import DropdownMenu from "../Dropdown/DropdownMenu";
-import NoneFilter from "../Buttons/NoneFilter";
-import AscFilter from "../Buttons/AscFilter";
-import DescFilter from "../Buttons/DescFilter";
-import RangePriceFilter from "../Buttons/RangePriceFilter";
+import DropdownMenu from "../../Dropdown/DropdownMenu";
+import NoneFilter from "../../Buttons/Filters/NoneFilter";
+import AscFilter from "../../Buttons/Filters/AscFilter";
+import DescFilter from "../../Buttons/Filters/DescFilter";
+import RangePriceFilter from "../../Buttons/Filters/RangePriceFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function PriceFilter({ price, selectedBtn }) {

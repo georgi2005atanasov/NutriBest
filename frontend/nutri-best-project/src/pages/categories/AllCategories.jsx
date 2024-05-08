@@ -1,16 +1,16 @@
 import styles from "./css/AllCategories.module.css";
-import { useContext, useEffect } from "react";
-import { CategoryContext } from "../../store/CategoryContext";
-import { useSearchParams, useSubmit } from "react-router-dom";
-import CategoryItem from "./CategoryItem";
 import Message from "../../components/UI/Shared/Message";
+import CategoryItem from "./CategoryItem";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
+import { CategoryContext } from "../../store/CategoryContext";
+import { useSearchParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
 const Categories = () => {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
-    const { categories, setSelectedCategories } = useContext(CategoryContext);
+    const { categories } = useContext(CategoryContext);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -23,7 +23,7 @@ const Categories = () => {
                 prev.delete("message");
                 return prev;
             })
-        }, 2000);
+        }, 2500);
 
         return () => {
             clearTimeout(timeout);

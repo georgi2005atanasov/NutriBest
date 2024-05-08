@@ -1,17 +1,17 @@
 import styles from "./css/AllProducts.module.css";
-import { Suspense, useState, useEffect, useCallback } from "react";
-import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
-import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import Pagination from "../../components/UI/Pagination/Pagination";
-import ProductsList from "./ProductsList";
 import Message from "../../components/UI/Shared/Message";
-import useAuth from "../../hooks/useAuth";
+import ChangeLayoutButton from "../../components/UI/Buttons/Edit/ChangeLayoutButton";
+import FilterSidebar from "../../components/UI/Sidebar/Filters/FilterSidebar";
+import ProductsList from "./ProductsList";
 import { PRODUCTS_VIEWS } from "../Root";
 import Table from "./Table";
-import ChangeLayoutButton from "../../components/UI/Buttons/ChangeLayoutButton";
-import FilterSidebar from "../../components/UI/Sidebar/FilterSidebar";
+import useAuth from "../../hooks/useAuth";
 import { allPromotions } from "../../../../../backend/api/api";
+import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
+import { Suspense, useState, useEffect, useCallback } from "react";
 
 export default function AllProducts() {
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);

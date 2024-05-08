@@ -1,5 +1,5 @@
+import styles from "../css/AddToCartButton.module.css";
 import { Link } from "react-router-dom";
-import styles from "./css/AddToCartButton.module.css";
 
 // eslint-disable-next-line react/prop-types
 export default function AddToCartButton({ isValidPromotion }) {

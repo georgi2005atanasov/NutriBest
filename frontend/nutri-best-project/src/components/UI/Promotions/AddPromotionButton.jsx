@@ -1,6 +1,6 @@
+import NavigationLink from "../../Navigation/NavigationLink"
 import useAuth from "../../../hooks/useAuth";
 import { getAuthToken } from "../../../utils/auth"
-import NavigationLink from "../../Navigation/NavigationLink"
 
 export default function AddPromotionButton() {
     const token = getAuthToken();

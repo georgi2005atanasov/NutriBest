@@ -1,7 +1,7 @@
 import styles from "./css/PromotionCategory.module.css";
-import { useContext, useState } from "react";
 import { CategoryContext } from "../../../store/CategoryContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { useContext, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function PromotionCategory({ onSelect, category }) {

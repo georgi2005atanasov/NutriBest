@@ -1,8 +1,8 @@
-import styles from "./css/ClearFiltersButton.module.css";
+import styles from "../css/ClearFiltersButton.module.css";
+import { cleanFilters } from "../../../../utils/utils";
+import { CategoryContext } from "../../../../store/CategoryContext";
 import { useSubmit } from "react-router-dom";
 import { useContext } from "react";
-import { CategoryContext } from "../../../store/CategoryContext";
-import { cleanFilters } from "../../../utils/utils";
 
 export default function ClearFiltersButton() {
     const submit = useSubmit();

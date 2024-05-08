@@ -1,8 +1,8 @@
-import SideBar from "./SideBar";
-import SideBarToggler from "./SideBarToggler";
-import styles from "./css/FilterSidebar.module.css";
-import { memo } from "react";
+import styles from "../css/FilterSidebar.module.css";
+import SideBar from "../SideBar";
+import SideBarToggler from "../SideBarToggler";
 import { motion } from "framer-motion";
+import { memo } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default memo(function FilterSidebar({ toggleSidebar, isSidebarVisible }) {

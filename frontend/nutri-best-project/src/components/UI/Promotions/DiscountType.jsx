@@ -1,7 +1,7 @@
 import styles from "./css/DiscountType.module.css";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { OPTIONS } from "../../../pages/promotions/PromotionForm";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function DiscountType({ onSelect }) {

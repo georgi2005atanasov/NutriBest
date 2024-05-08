@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/ProductItem.module.css";
 import alt from "../../assets/fallback-image.png";
-import { Link, useLoaderData } from "react-router-dom";
-import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
-import { useState, useEffect } from "react";
+import styles from "./css/ProductItem.module.css";
+import AddToCartButton from "../../components/UI/Buttons/Add/AddToCartButton";
+import DeleteProductButton from "../../components/UI/Buttons/Delete/DeleteProductButton";
+import EditProductButton from "../../components/UI/Buttons/Edit/EditProductButton";
+import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
+import { getImageByProductId } from "../../../../../backend/api/api";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
-import DeleteProductButton from "../../components/UI/Buttons/DeleteProductButton";
-import EditProductButton from "../../components/UI/Buttons/EditProductButton";
-import { getImageByProductId } from "../../../../../backend/api/api";
 import { getPrice } from "../../utils/product/products";
-import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');

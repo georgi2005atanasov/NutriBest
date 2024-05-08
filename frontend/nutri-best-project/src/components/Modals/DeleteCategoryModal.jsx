@@ -1,9 +1,9 @@
-import { forwardRef, useContext, memo } from "react";
 import Modal from "./Modal";
 import styles from "./css/DeleteProductModal.module.css";
-import { redirect, useSubmit } from "react-router-dom";
 import { deleteCategory } from "../../../../../backend/api/api";
 import { CategoryContext } from "../../store/CategoryContext";
+import { redirect, useSubmit } from "react-router-dom";
+import { forwardRef, useContext } from "react";
 
 // eslint-disable-next-line react/prop-types
 const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }, ref) {
@@ -15,7 +15,7 @@ const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }
         try {
             event.stopPropagation();
 
-            await deleteCategory(category);
+            const result = await deleteCategory(category);
 
             window.scrollTo({
                 top: 0,
@@ -24,6 +24,13 @@ const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }
             });
 
             ref.current.close();
+
+            if (result.ok == false) {
+                submit("message=This category is already deleted, try to refresh!&type=danger",
+                { action: "/categories", method: "get" });
+
+                return;
+            }
 
             setSelectedCategories(prev => {
                 return [...prev.filter(x => x.name != category)];

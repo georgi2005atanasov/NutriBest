@@ -1,11 +1,11 @@
-import { redirect, useSubmit, useActionData, useRouteLoaderData } from "react-router-dom";
-import { editPromotion, getPromotionById } from "../../../../../backend/api/api";
 import PromotionForm from "./PromotionForm";
+import { editPromotion, getPromotionById } from "../../../../../backend/api/api";
 import { getPromotionErrors } from "../../utils/promotion/validation";
-import { getFormData } from "../../utils/utils";
 import { getPromotionForm } from "../../utils/promotion/formHandler";
-import useAuth from "../../hooks/useAuth";
+import { getFormData } from "../../utils/utils";
 import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import { redirect, useSubmit, useActionData, useRouteLoaderData } from "react-router-dom";
 
 export default function EditPromotionPage() {
     const promotion = useRouteLoaderData("promoLoader");

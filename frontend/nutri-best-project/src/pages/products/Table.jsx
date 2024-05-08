@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useLoaderData } from "react-router-dom";
 import styles from "../css/Table.module.css";
 import ProductRow from "./ProductRow";
 import { motion } from "framer-motion";
+import { useLoaderData } from "react-router-dom";
 
 export default function Table({ productsRows }) {
     const { promotions } = useLoaderData();

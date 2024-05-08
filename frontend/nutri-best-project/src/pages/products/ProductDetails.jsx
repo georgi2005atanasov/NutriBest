@@ -1,6 +1,6 @@
-import { useLoaderData } from "react-router-dom";
 import { getProductDetailsByIdAndName } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
+import { useLoaderData } from "react-router-dom";
 
 export default function ProductDetailsPage() {
     const { product } = useLoaderData();

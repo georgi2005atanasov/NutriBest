@@ -1,8 +1,8 @@
-import { forwardRef } from "react";
 import Modal from "./Modal";
 import styles from "./css/DeletePromotionModal.module.css";
-import { redirect, useSubmit } from "react-router-dom";
 import { deletePromotion } from "../../../../../backend/api/api";
+import { redirect, useSubmit } from "react-router-dom";
+import { forwardRef } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default forwardRef(function DeletePromotionModal({ promotionId }, ref) {

@@ -1,6 +1,6 @@
 import { redirect, useLoaderData, json, useActionData, useSubmit, useRouteLoaderData } from "react-router-dom";
-import { editProduct, getProductById } from "../../../../../backend/api/api";
 import ProductForm from "./ProductForm";
+import { editProduct, getProductById } from "../../../../../backend/api/api";
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
 import { getFormData } from "../../utils/utils";
 import { cleanFilters } from "../../utils/utils";

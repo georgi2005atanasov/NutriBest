@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "./MainNavigation.module.css";
-import { Link } from "react-router-dom"
 import logo from "../../assets/another-nutri-best-logo.png";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"
 
 export default function NavLogo() {
     return <motion.div

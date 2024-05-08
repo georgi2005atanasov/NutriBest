@@ -1,8 +1,8 @@
-import styles from "../../../pages/products/css/ProductItem.module.css";
-import { useRef } from "react";
-import table from "../../../pages/css/Table.module.css";
+import styles from "../../../../pages/products/css/ProductItem.module.css";
+import table from "../../../../pages/css/Table.module.css";
+import DeleteProductModal from "../../../Modals/DeleteProductModal";
 import { Link } from "react-router-dom";
-import DeleteProductModal from "../../Modals/DeleteProductModal";
+import { useRef } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function DeleteProductButton({ productId, isTable = false }) {

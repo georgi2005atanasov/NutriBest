@@ -1,10 +1,10 @@
 import { cleanFilters, getFormData } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation"
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
+import ProductForm from "./ProductForm";
+import useAuth from "../../hooks/useAuth";
 import { addProduct, allBrands } from "../../../../../backend/api/api";
 import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import ProductForm from "./ProductForm";
 
 const SUCCESS_MESSAGE = "Successfully added new product!&success"
 

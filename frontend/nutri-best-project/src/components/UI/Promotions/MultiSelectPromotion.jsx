@@ -1,9 +1,9 @@
 import styles from "./css/MultiSelectPromotion.module.css";
-import { useLoaderData, useSubmit } from "react-router-dom";
-import { changeProductPromotion } from "../../../../../../backend/api/api";
-import { useState } from "react";
 import InvalidPromotionMessage from "./InvalidPromotionMessage";
+import { changeProductPromotion } from "../../../../../../backend/api/api";
 import { motion } from "framer-motion";
+import { useLoaderData, useSubmit } from "react-router-dom";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function MultiSelectPromotion({ promotionId, productId }) {

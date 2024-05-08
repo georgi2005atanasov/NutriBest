@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
-import { useEffect, useState, } from "react";
-import { getImageByProductId } from "../../../../../backend/api/products";
-import { Link } from "react-router-dom";
-import DeleteProductButton from "../../components/UI/Buttons/DeleteProductButton";
-import EditProductButton from "../../components/UI/Buttons/EditProductButton";
-import { getPrice } from "../../utils/product/products";
 import promotionStyles from "./css/ProductItem.module.css";
+import { getImageByProductId } from "../../../../../backend/api/products";
+import DeleteProductButton from "../../components/UI/Buttons/Delete/DeleteProductButton";
+import EditProductButton from "../../components/UI/Buttons/Edit/EditProductButton";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
+import { getPrice } from "../../utils/product/products";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function ProductRow({ product, promotions }) {
     const [src, setSrc] = useState('');

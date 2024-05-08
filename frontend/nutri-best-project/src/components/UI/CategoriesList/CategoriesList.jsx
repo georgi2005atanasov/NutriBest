@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/CategoriesList.module.css";
-import { motion } from "framer-motion";
 import CategoryNavItem from "./CategoryNavItem";
+import { motion } from "framer-motion";
 
 export default function CategoriesList({ categories, isAdmin }) {
     return <>

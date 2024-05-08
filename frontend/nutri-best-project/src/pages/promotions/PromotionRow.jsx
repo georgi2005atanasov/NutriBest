@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/PromotionRow.module.css";
-import { motion, AnimatePresence } from "framer-motion"
-import { getDate } from "../../utils/utils"
-import { Link } from "react-router-dom";
 import EditPromotionButton from "../../components/UI/Promotions/EditPromotionButton";
 import DeletePromotionButton from "../../components/UI/Promotions/DeletePromotionButton";
-import { changeStatus, getProductsOfPromotion } from "../../../../../backend/api/api.js";
-import { useSubmit } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react";
 import InputError from "../../components/UI/Form/InputError.jsx";
+import { getDate } from "../../utils/utils";
+import { changeStatus, getProductsOfPromotion } from "../../../../../backend/api/api.js";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSubmit, Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 
 export default function PromotionRow({ promotion }) {
     const submit = useSubmit();

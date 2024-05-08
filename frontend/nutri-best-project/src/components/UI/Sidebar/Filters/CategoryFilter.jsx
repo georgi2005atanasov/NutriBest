@@ -1,5 +1,5 @@
-import DropdownMenu from "../Dropdown/DropdownMenu";
-import MultiSelectCategory from "../Form/MultiSelectCategory";
+import DropdownMenu from "../../Dropdown/DropdownMenu";
+import MultiSelectCategory from "../../Form/MultiSelectCategory";
 
 // eslint-disable-next-line react/prop-types
 export default function CategoryFilter({ categoriesCount }) {

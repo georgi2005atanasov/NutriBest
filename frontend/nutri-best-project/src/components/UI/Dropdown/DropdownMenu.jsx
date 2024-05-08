@@ -1,6 +1,6 @@
-import { useState } from "react";
 import styles from "./css/DropdownMenu.module.css";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function DropdownMenu({ children, text, filtersNumber = 0 }) {

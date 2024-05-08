@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect } from 'react';
 import styles from './css/MultiSelect.module.css';
-import { CategoryContext } from '../../../store/CategoryContext';
+import colors from "../../../App.module.css";
 import InputError from './InputError';
 import { getProductsByCategories } from '../../../../../../backend/api/api';
-import { useRouteLoaderData } from 'react-router-dom';
+import { CategoryContext } from '../../../store/CategoryContext';
 import useAuth from '../../../hooks/useAuth';
-import colors from "../../../App.module.css";
+import { useRouteLoaderData } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 
 export default function MultiSelectCategory({ data, errorStyle, productCategories = null }) {
     const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);

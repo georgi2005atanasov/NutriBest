@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/ChangeLayoutButton.module.css";
+import styles from "../css/ChangeLayoutButton.module.css";
 
 export default function ChangeLayoutButton({ text, ...props }) {
     return <div>

@@ -1,14 +1,14 @@
 import styles from "../css/Table.module.css";
-import { redirect, useRouteLoaderData, useSearchParams, useSubmit, Link } from "react-router-dom";
-import { allPromotions } from "../../../../../backend/api/promotions";
-import { motion } from "framer-motion";
 import PromotionRow from "./PromotionRow";
 import Header from "../../components/UI/Shared/Header";
 import Message from "../../components/UI/Shared/Message";
-import { useEffect } from "react";
 import AddPromotionButton from "../../components/UI/Promotions/AddPromotionButton";
+import { allPromotions } from "../../../../../backend/api/promotions";
 import { getAuthToken } from "../../utils/auth";
+import { motion } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
+import { redirect, useRouteLoaderData, useSearchParams, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AllPromotionsPage() {
     const token = getAuthToken();

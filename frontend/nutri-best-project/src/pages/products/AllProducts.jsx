@@ -63,7 +63,7 @@ export default function AllProducts() {
     return <>
         <AnimatePresence>
             <motion.div
-                className="all-products d-flex justify-content-end"
+                className="all-products d-flex justify-content-md-end justify-content-center"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}

@@ -6,7 +6,7 @@ import { action as logoutAction } from './pages/auth/Logout';
 import HomePage from './pages/Home';
 import AddProductPage, { action as addProductAction, loader as removeFilters } from './pages/products/AddProduct';
 import AllProducts, { loader as getAllProducts } from './pages/products/AllProducts';
-import ProductsLayout from './pages/products/Products';
+import ProductsLayout from './pages/products/ProductsLayout';
 import ErrorPage from './pages/Error';
 import MultiSelectCategory, { loader as getCategoriesCount } from './components/UI/Form/MultiSelectCategory';
 import EditProduct, { loader as productLoader, action as editProduct } from './pages/products/EditProduct';
@@ -16,6 +16,8 @@ import AddPromotionPage, { action as addPromotion } from './pages/promotions/Add
 import EditPromotionPage, { loader as promotionLoader, action as editPromotion } from './pages/promotions/EditPromotion';
 import PromotionsLayout from './pages/promotions/PromotionsLayout';
 import ProductDetailsPage, { loader as productDetailsLoader } from './pages/products/ProductDetails';
+import CategoriesLayout from './pages/categories/CategoriesLayout';
+import AllCategories from './pages/categories/AllCategories';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,12 @@ const router = createBrowserRouter([
             path: 'edit/:id', element: <EditPromotionPage />, id: "promoLoader",
             loader: promotionLoader, action: editPromotion
           }
+        ]
+      },
+
+      {
+        path: 'categories', element: <CategoriesLayout />, children: [
+          { index: true, element: <AllCategories /> }
         ]
       }
     ],

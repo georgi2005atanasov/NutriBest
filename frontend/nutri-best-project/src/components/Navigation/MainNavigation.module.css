@@ -188,15 +188,6 @@ nav a {
     border-bottom: 1px solid #b4ac97;
 }
 
-#check-admin:checked~nav {
-    height: 288px;
-}
-
-#check-admin:checked~nav a {
-    padding: 10px;
-    opacity: 1;
-}
-
 #check:checked~nav {
     height: 288px;
 }

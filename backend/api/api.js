@@ -9,14 +9,17 @@ import {
     getProductsByCategories,
     getProductDetailsByIdAndName
 } from "./products";
+
 import {
     getFormFile
 } from "./images";
+
 import {
     getProfileDetails,
     editUser,
     deleteUser
 } from "./profile";
+
 import {
     allPromotions,
     changeProductPromotion,
@@ -27,7 +30,14 @@ import {
     getPromotionById,
     getProductsOfPromotion
 } from "./promotions";
-import { allBrands } from "./brands";
+
+import {
+    allBrands
+} from "./brands";
+import {
+    addCategory,
+    deleteCategory
+} from "./categories";
 
 export { addProduct };
 export { getProductById };
@@ -51,3 +61,4 @@ export { editPromotion };
 export { getProductsOfPromotion };
 export { getProductDetailsByIdAndName };
 export { allBrands };
+export { addCategory, deleteCategory };

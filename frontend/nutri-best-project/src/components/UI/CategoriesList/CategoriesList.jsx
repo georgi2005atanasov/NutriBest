@@ -4,8 +4,6 @@ import { motion } from "framer-motion";
 import CategoryNavItem from "./CategoryNavItem";
 
 export default function CategoriesList({ categories, isAdmin }) {
-    console.log(categories);
-
     return <>
         <motion.div
             initial={{ opacity: 0, y: -100 }}

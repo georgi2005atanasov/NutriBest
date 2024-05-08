@@ -3,7 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import { getAuthToken } from "../../../utils/auth";
 import searchBar from "./css/SearchBar.module.css";
 import { useSubmit } from "react-router-dom";
-import CategoriesList from "./CategoriesList";
+import CategoriesList from "../CategoriesList/CategoriesList";
 
 // eslint-disable-next-line react/prop-types
 export default function SearchBar({ categories }) {

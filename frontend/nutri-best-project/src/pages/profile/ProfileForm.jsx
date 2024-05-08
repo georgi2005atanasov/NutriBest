@@ -9,7 +9,6 @@ import MultiSelectGender from "./MultiSelectGender";
 
 export default function ProfileForm({ profile }) {
     const data = useActionData();
-    console.log(data);
     const [activeButtons, setActiveButtons] = useState([]);
 
     const handleChange = useCallback(function handleChange(event) {

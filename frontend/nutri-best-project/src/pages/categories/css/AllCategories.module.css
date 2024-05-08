@@ -1,0 +1,10 @@
+.categories-container {
+    background: #F0F0F0;
+    width: 100% !important;
+    padding: 20px;
+}
+
+.categories-title {
+    text-align: center;
+    color: #333;
+}

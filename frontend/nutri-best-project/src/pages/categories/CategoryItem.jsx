@@ -32,7 +32,6 @@ export default function CategoryItem({ category, isVerified }) {
         {isVerified == true ?
             <motion.i
                 className={`fa fa-trash-o d-flex justify-content-end ${styles["delete-icon"]}`} aria-hidden="true"
-                whileHover={{ color: "red" }}
                 onClick={(event) => handleDelete(event)}
             >
             </motion.i> :

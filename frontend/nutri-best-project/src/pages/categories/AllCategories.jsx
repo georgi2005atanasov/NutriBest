@@ -1,8 +1,7 @@
 import styles from "./css/AllCategories.module.css";
 import { useContext, useEffect } from "react";
 import { CategoryContext } from "../../store/CategoryContext";
-import { motion } from "framer-motion";
-import { useSubmit, useSearchParams } from "react-router-dom";
+import { useSearchParams, useSubmit } from "react-router-dom";
 import CategoryItem from "./CategoryItem";
 import Message from "../../components/UI/Shared/Message";
 import { getAuthToken } from "../../utils/auth";
@@ -11,7 +10,7 @@ import useAuth from "../../hooks/useAuth";
 const Categories = () => {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
-    const { categories } = useContext(CategoryContext);
+    const { categories, setSelectedCategories } = useContext(CategoryContext);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -41,7 +40,7 @@ const Categories = () => {
             <div className="row w-75 text-center">
                 {categories.map((category, index) => (
                     <div className="col-lg-3 col-md-4" key={index}>
-                        <CategoryItem category={category} isVerified={isAdmin || isEmployee} />
+                        <CategoryItem category={category} isVerified={(isAdmin || isEmployee)} />
                     </div>
                 ))}
             </div>

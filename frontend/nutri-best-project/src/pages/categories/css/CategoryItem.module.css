@@ -18,3 +18,7 @@
 .delete-icon {
     z-index: 1;
 }
+
+.delete-icon:hover {
+    color: red;
+}

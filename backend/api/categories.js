@@ -9,7 +9,7 @@ export async function allCategories() {
 export async function addCategory() {
     const token = getAuthToken();
 
-    const response = await fetch("https://localhost:7056/products", {
+    const response = await fetch("https://localhost:7056/categories", {
         method: "POST",
         body: productModel,
         headers: {
@@ -23,7 +23,7 @@ export async function addCategory() {
 export async function deleteCategory(category) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/products/${category}`, {
+    const response = await fetch(`https://localhost:7056/categories/${category}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`

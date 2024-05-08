@@ -1,4 +1,4 @@
-import styles from "../css/AddToCartButton.module.css";
+import styles from "./css/AddToCartButton.module.css";
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types

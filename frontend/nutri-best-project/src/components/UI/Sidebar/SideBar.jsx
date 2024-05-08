@@ -3,7 +3,7 @@ import CategoryFilter from "./Filters/CategoryFilter";
 import PriceFilter from "./Filters/PriceFilter";
 import AlphaFilter from "./Filters/AlphaFilter";
 import BrandFilter from "./Filters/BrandFilter";
-import ClearFiltersButton from "../Buttons/Delete/ClearFiltersButton";
+import ClearFiltersButton from "../Buttons/ClearFiltersButton";
 import { buildQuery, getFilters } from "../../../utils/utils";
 import { motion } from "framer-motion";
 import { CategoryContext } from "../../../store/CategoryContext";

@@ -1,6 +1,6 @@
-import styles from "../css/ClearFiltersButton.module.css";
-import { cleanFilters } from "../../../../utils/utils";
-import { CategoryContext } from "../../../../store/CategoryContext";
+import styles from "./css/ClearFiltersButton.module.css";
+import { cleanFilters } from "../../../utils/utils";
+import { CategoryContext } from "../../../store/CategoryContext";
 import { useSubmit } from "react-router-dom";
 import { useContext } from "react";
 

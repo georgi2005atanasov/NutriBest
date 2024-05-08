@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import alt from "../../assets/fallback-image.png";
 import styles from "./css/ProductItem.module.css";
-import AddToCartButton from "../../components/UI/Buttons/Add/AddToCartButton";
-import DeleteProductButton from "../../components/UI/Buttons/Delete/DeleteProductButton";
-import EditProductButton from "../../components/UI/Buttons/Edit/EditProductButton";
+import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
+import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
+import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 import { getImageByProductId } from "../../../../../backend/api/api";
 import useAuth from "../../hooks/useAuth";

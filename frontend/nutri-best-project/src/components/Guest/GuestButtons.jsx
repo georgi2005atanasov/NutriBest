@@ -4,7 +4,7 @@ import colors from "../../App.module.css";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-export default function GuestButtons({ styles, shoppingBag, isAdmin }) {
+export default function GuestButtons({ styles, shoppingBag }) {
     return <motion.div
         className={`row d-flex justify-content-end mt-2 p-0 ps-5`}
         initial={{ opacity: 0, y: -20 }}

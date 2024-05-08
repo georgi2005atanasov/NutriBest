@@ -2,8 +2,8 @@
 import styles from "../css/Table.module.css";
 import promotionStyles from "./css/ProductItem.module.css";
 import { getImageByProductId } from "../../../../../backend/api/products";
-import DeleteProductButton from "../../components/UI/Buttons/Delete/DeleteProductButton";
-import EditProductButton from "../../components/UI/Buttons/Edit/EditProductButton";
+import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
+import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 import { getPrice } from "../../utils/product/products";
 import { motion, AnimatePresence } from "framer-motion";

@@ -4,7 +4,7 @@ import ProfileForm from "./ProfileForm.jsx";
 import ProfileDate from "./ProfileDate.jsx";
 import { getProfileDetails } from "../../../../../backend/api/api.js";
 import { editUser } from "../../../../../backend/api/api.js";
-import DeleteProfileButton from "../../components/UI/Buttons/Delete/DeleteProfileButton.jsx";
+import DeleteProfileButton from "../../components/UI/Buttons/Profile/DeleteProfileButton.jsx";
 import { getFormData } from "../../utils/utils.js";
 import { getAuthToken } from "../../utils/auth.js";
 import useAuth from "../../hooks/useAuth.js";

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import EditProfileButton from "../../components/UI/Buttons/Edit/EditProfileButton";
+import EditProfileButton from "../../components/UI/Buttons/Profile/EditProfileButton";
 import { Form } from "react-router-dom";
 
 export default function ProfileChange({ disabled, onBlur, identifier, children }) {

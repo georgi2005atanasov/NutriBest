@@ -1,24 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/CategoryItem.module.css";
-import DeleteCategoryModal from "../../components/Modals/DeleteCategoryModal";
 import { motion } from "framer-motion";
-import { useSubmit } from "react-router-dom";
-import { useRef } from "react";
 
 export default function CategoryItem({ onClick, onDelete, category, isVerified }) {
-    // const submit = useSubmit();
-    // const dialog = useRef();
-
-    // const handleCategoryClick = (category) => {
-    //     sessionStorage.setItem("categories", category);
-    //     submit(null, { action: `/products/all`, method: "GET" });
-    // };
-
-    // async function handleDelete(event) {
-    //     event.stopPropagation();
-    //     dialog.current.open();
-    // }
-
     return <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

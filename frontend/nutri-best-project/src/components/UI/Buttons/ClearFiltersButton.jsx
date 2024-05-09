@@ -1,12 +1,12 @@
 import styles from "./css/ClearFiltersButton.module.css";
 import { cleanFilters } from "../../../utils/utils";
-import { CategoryContext } from "../../../store/CategoryContext";
+import { CategoryBrandContext } from "../../../store/CategoryBrandContext";
 import { useSubmit } from "react-router-dom";
 import { useContext } from "react";
 
 export default function ClearFiltersButton() {
     const submit = useSubmit();
-    const { setSelectedCategories } = useContext(CategoryContext);
+    const { setSelectedCategories } = useContext(CategoryBrandContext);
 
     function handleClearFilters() {
         cleanFilters();

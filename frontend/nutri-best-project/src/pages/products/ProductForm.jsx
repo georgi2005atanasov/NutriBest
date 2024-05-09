@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/ProductForm.module.css";
-import CategoryContextProvider from "../../store/CategoryContext";
+import CategoryBrandContextProvider from "../../store/CategoryBrandContext";
 import Header from "../../components/UI/Shared/Header";
 import FormButton from "../../components/UI/Form/FormButton";
 import FormInput from "../../components/UI/Form/FormInput";
@@ -21,7 +21,7 @@ export default function ProductForm({ product = null, data, header }) {
 
     const isSubmitting = navigation.state === "submitting";
 
-    return <CategoryContextProvider>
+    return <CategoryBrandContextProvider>
         <motion.div
             className="w-100"
             initial={{ opacity: 0, y: -100 }}
@@ -141,5 +141,5 @@ export default function ProductForm({ product = null, data, header }) {
                 </div>
             </Form>
         </motion.div>
-    </CategoryContextProvider>
+    </CategoryBrandContextProvider>
 }

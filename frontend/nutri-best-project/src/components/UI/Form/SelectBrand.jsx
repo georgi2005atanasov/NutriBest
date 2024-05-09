@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/SelectBrand.module.css";
-import { CategoryContext } from "../../../store/CategoryContext";
+import { CategoryBrandContext } from "../../../store/CategoryBrandContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext, useState } from "react";
 
 export default function SelectBrand({ onSelect, brand }) {
-    const { brands } = useContext(CategoryContext);
+    const { brands } = useContext(CategoryBrandContext);
 
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState(brand && brand.name || "");

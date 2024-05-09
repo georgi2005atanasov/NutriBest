@@ -22,3 +22,11 @@
 .delete-icon:hover {
     color: red;
 }
+
+.details-icon {
+    z-index: 1;
+}
+
+.details-icon:hover {
+    color: #002fff;
+}

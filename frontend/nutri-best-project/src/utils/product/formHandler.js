@@ -1,4 +1,4 @@
-import { CATEGORIES } from "../../store/CategoryContext";
+import { CATEGORIES } from "../../store/CategoryBrandContext";
 
 export function getProductForm(productModel) {
     const formData = new FormData();

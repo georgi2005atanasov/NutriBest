@@ -4,12 +4,12 @@ import NavLogo from "./NavLogo";
 import NavToggler from "./NavToggler";
 import SearchBar from "../UI/Searchbar/SearchBar";
 import ScrollingText from "./ScrollingText";
-import { CategoryContext } from "../../store/CategoryContext";
+import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { motion } from "framer-motion";
 import { memo, useContext } from "react";
 
 const MainNavigation = memo(function MainNavigation() {
-    const { categories } = useContext(CategoryContext);
+    const { categories } = useContext(CategoryBrandContext);
 
     return <>
         <ScrollingText text={"🎉 Special Promotion: 20% off on all items until midnight! 🎉"} />

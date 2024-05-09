@@ -9,7 +9,7 @@ import FormButton from "../../components/UI/Form/FormButton";
 import DiscountType from "../../components/UI/Promotions/DiscountType";
 import SelectBrand from "../../components/UI/Form/SelectBrand";
 import PromotionCategory from "../../components/UI/Promotions/PromotionCategory";
-import CategoryContextProvider from "../../store/CategoryContext";
+import CategoryBrandContextProvider from "../../store/CategoryBrandContext";
 import { motion } from "framer-motion";
 import { useNavigation, Form } from "react-router-dom";
 import { useState } from "react";
@@ -38,7 +38,7 @@ export default function PromotionForm({ header, data, promotion }) {
 
     const isSubmitting = navigation.state === "submitting";
 
-    return <CategoryContextProvider>
+    return <CategoryBrandContextProvider>
         <motion.div
             className="w-100"
             initial={{ opacity: 0, y: -100 }}
@@ -191,5 +191,5 @@ export default function PromotionForm({ header, data, promotion }) {
                 </div>
             </Form>
         </motion.div>
-    </CategoryContextProvider>;
+    </CategoryBrandContextProvider>;
 }

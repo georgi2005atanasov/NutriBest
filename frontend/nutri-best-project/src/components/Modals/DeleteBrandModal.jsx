@@ -1,16 +1,13 @@
 import Modal from "./Modal";
 import styles from "./css/DeleteProductModal.module.css";
-// import { deleteCategory } from "../../../../../backend/api/api";
-import { CategoryContext } from "../../store/CategoryContext";
 import { redirect, useSubmit } from "react-router-dom";
-import { forwardRef, useContext } from "react";
+import { forwardRef } from "react";
 import { deleteBrandByName } from "../../../../../backend/api/brands";
 
 // eslint-disable-next-line react/prop-types
 const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
     const submit = useSubmit();
-    // const { brands, setBrands } = useContext(CategoryContext);
-
+    
     async function handleDelete(event) {
         try {
             event.stopPropagation();

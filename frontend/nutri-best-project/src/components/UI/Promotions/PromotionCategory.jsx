@@ -1,11 +1,11 @@
 import styles from "./css/PromotionCategory.module.css";
-import { CategoryContext } from "../../../store/CategoryContext";
+import { CategoryBrandContext } from "../../../store/CategoryBrandContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContext, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function PromotionCategory({ onSelect, category }) {
-    const { categories } = useContext(CategoryContext);
+    const { categories } = useContext(CategoryBrandContext);
 
     const [isOpen, setIsOpen] = useState(false);
     const [selected, setSelected] = useState(null);

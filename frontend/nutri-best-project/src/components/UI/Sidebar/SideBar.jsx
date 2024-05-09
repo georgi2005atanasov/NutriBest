@@ -6,13 +6,13 @@ import BrandFilter from "./Filters/BrandFilter";
 import ClearFiltersButton from "../Buttons/ClearFiltersButton";
 import { buildQuery, getFilters } from "../../../utils/utils";
 import { motion } from "framer-motion";
-import { CategoryContext } from "../../../store/CategoryContext";
+import { CategoryBrandContext } from "../../../store/CategoryBrandContext";
 import { useSubmit } from "react-router-dom";
 import { useContext, useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
-    const { selectedCategories, brands } = useContext(CategoryContext);
+    const { selectedCategories, brands } = useContext(CategoryBrandContext);
 
     const { page, categories, price, alpha, brand } = getFilters();
 

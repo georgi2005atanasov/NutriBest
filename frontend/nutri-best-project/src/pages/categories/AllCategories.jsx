@@ -5,17 +5,17 @@ import CategoryItem from "./CategoryItem";
 import { getAuthToken } from "../../utils/auth";
 import DeleteCategoryModal from "../../components/Modals/DeleteCategoryModal";
 import useAuth from "../../hooks/useAuth";
-import { CategoryContext } from "../../store/CategoryContext";
+import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { useSearchParams, useSubmit } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 
 const AllCategories = () => {
     const submit = useSubmit();
     const dialog = useRef();
-    const[category, setCategory] = useState("");
+    const [category, setCategory] = useState("");
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
-    const { categories } = useContext(CategoryContext);
+    const { categories } = useContext(CategoryBrandContext);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -60,7 +60,7 @@ const AllCategories = () => {
             <h2 className={"d-flex justify-content-center align-items-center m-0 mb-4 text-dark"}>
                 Our Categories
             </h2>
-            <AddCategoryButton />
+            {(isAdmin || isEmployee) && <AddCategoryButton />}
             <div className="row w-75 text-center">
                 {categories.map((category, index) => (
                     <div className="col-lg-3 col-md-4" key={index}>

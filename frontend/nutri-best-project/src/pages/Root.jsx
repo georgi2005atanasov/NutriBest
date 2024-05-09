@@ -1,7 +1,7 @@
 import MainNavigation from "../components/Navigation/MainNavigation";
 import Footer from "../components/UI/Shared/Footer";
 import Loader from "../components/UI/Shared/Loader";
-import CategoryContextProvider from "../store/CategoryContext";
+import CategoryBrandContextProvider from "../store/CategoryBrandContext";
 import { getAuthToken } from "../utils/auth";
 import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
@@ -56,10 +56,10 @@ export default function RootLayout() {
 
     return <>
         {isLoading && <Loader />}
-        <CategoryContextProvider>
+        <CategoryBrandContextProvider>
             <MainNavigation />
             <Outlet context={token} />
-        </CategoryContextProvider>
+        </CategoryBrandContextProvider>
         <Footer />
     </>
 }

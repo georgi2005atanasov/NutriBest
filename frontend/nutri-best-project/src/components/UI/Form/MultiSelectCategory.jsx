@@ -3,13 +3,13 @@ import styles from './css/MultiSelect.module.css';
 import colors from "../../../App.module.css";
 import InputError from './InputError';
 import { getProductsByCategories } from '../../../../../../backend/api/api';
-import { CategoryContext } from '../../../store/CategoryContext';
+import { CategoryBrandContext } from '../../../store/CategoryBrandContext';
 import useAuth from '../../../hooks/useAuth';
 import { useRouteLoaderData } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 
 export default function MultiSelectCategory({ data, errorStyle, productCategories = null }) {
-    const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryContext);
+    const { categories, selectedCategories, setSelectedCategories } = useContext(CategoryBrandContext);
     const categoriesCount = useRouteLoaderData("categoriesCount");
     
     const token = useRouteLoaderData("rootLoader");

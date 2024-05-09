@@ -1,14 +1,14 @@
 import Modal from "./Modal";
 import styles from "./css/DeleteProductModal.module.css";
 import { deleteCategory } from "../../../../../backend/api/api";
-import { CategoryContext } from "../../store/CategoryContext";
+import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { redirect, useSubmit } from "react-router-dom";
 import { forwardRef, useContext } from "react";
 
 // eslint-disable-next-line react/prop-types
 const DeleteCategoryModal = forwardRef(function DeleteCategoryModal({ category }, ref) {
     const submit = useSubmit();
-    const { categories, setSelectedCategories } = useContext(CategoryContext);
+    const { categories, setSelectedCategories } = useContext(CategoryBrandContext);
     console.log(categories);
 
     async function handleDelete(event) {

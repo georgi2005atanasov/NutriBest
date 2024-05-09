@@ -35,7 +35,7 @@ import { allBrands } from "../../../../backend/api/brands";
 export let CATEGORIES = [];
 export let BRANDS = [];
 
-export const CategoryContext = createContext({
+export const CategoryBrandContext = createContext({
     categories: CATEGORIES,
     brands: [],
     setBrands: () => {},
@@ -44,7 +44,7 @@ export const CategoryContext = createContext({
 });
 
 // eslint-disable-next-line react/prop-types
-export default function CategoryContextProvider({ children }) {
+export default function CategoryBrandContextProvider({ children }) {
     const [selectedCategories, setSelectedCategories] = useState(sessionStorage.getItem("categories") ?
         sessionStorage.getItem("categories").split("+").filter(x => x != "") :
         []);
@@ -72,8 +72,8 @@ export default function CategoryContextProvider({ children }) {
         getData();
     }, []);
 
-    return <CategoryContext.Provider
+    return <CategoryBrandContext.Provider
         value={{ categories, selectedCategories, setSelectedCategories, brands, setBrands }}>
         {children}
-    </CategoryContext.Provider>
+    </CategoryBrandContext.Provider>
 }

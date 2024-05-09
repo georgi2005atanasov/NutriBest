@@ -32,7 +32,10 @@ import {
 } from "./promotions";
 
 import {
-    allBrands
+    allBrands,
+    addBrand,
+    getImageByBrandName,
+    deleteBrandByName
 } from "./brands";
 import {
     addCategory,
@@ -61,4 +64,8 @@ export { editPromotion };
 export { getProductsOfPromotion };
 export { getProductDetailsByIdAndName };
 export { allBrands };
-export { addCategory, deleteCategory };
+export { addCategory };
+export { deleteCategory };
+export { addBrand };
+export { deleteBrandByName };
+export { getImageByBrandName };

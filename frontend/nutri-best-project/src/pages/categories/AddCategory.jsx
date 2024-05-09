@@ -7,11 +7,22 @@ import InputError from "../../components/UI/Form/InputError";
 import FormTextArea from "../../components/UI/Form/FormTextArea";
 import { addCategory } from "../../../../../backend/api/categories";
 import { motion } from "framer-motion";
-import { useNavigation, Form, useActionData, redirect } from "react-router-dom";
+import { useNavigation, Form, useActionData, useSubmit } from "react-router-dom";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function AddCategoryPage() {
     const data = useActionData();
     const navigation = useNavigation();
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+    const submit = useSubmit();
+
+    if (!isAdmin && !isEmployee) {
+        return submit("message=Page Not Found!&type=danger",
+            { action: "/", method: "GET" }
+        );
+    }
 
     const isSubmitting = navigation.state === "submitting";
     return <>

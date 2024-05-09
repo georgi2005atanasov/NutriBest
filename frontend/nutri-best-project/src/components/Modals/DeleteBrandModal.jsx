@@ -4,17 +4,18 @@ import styles from "./css/DeleteProductModal.module.css";
 import { CategoryContext } from "../../store/CategoryContext";
 import { redirect, useSubmit } from "react-router-dom";
 import { forwardRef, useContext } from "react";
+import { deleteBrandByName } from "../../../../../backend/api/brands";
 
 // eslint-disable-next-line react/prop-types
 const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
     const submit = useSubmit();
-    const { brands, setBrands } = useContext(CategoryContext);
+    // const { brands, setBrands } = useContext(CategoryContext);
 
     async function handleDelete(event) {
         try {
             event.stopPropagation();
 
-            // const result = await deleteCategory(category);
+            const result = await deleteBrandByName(brand);
 
             window.scrollTo({
                 top: 0,
@@ -24,12 +25,12 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
 
             ref.current.close();
 
-            // if (result.ok == false) {
-            //     submit("message=This category is already deleted, try to refresh!&type=danger",
-            //         { action: "/brands", method: "GET" });
+            if (result.ok == false) {
+                submit("message=Could not delete category, try to refresh!&type=danger",
+                    { action: "/brands", method: "GET" });
 
-            //     return;
-            // }
+                return;
+            }
 
             return submit("message=Successfully deleted brand!&type=success",
                 { action: "/brands", method: "GET" });

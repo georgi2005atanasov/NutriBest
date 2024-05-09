@@ -29,11 +29,13 @@ const AllBrands = () => {
     let messageType = searchParams.get("type");
 
     useEffect(() => {
-        if (brand != "" && modal == "delete") {
+        if (brand && modal == "delete") {
             dialogDelete.current.open();
         }
-        else if (brand != "" && modal == "details") {
+        else if (brand && modal == "details") {
             loadImage();
+            setBrand("");
+            setModal("");
         }
     }, [brand, modal]);
 

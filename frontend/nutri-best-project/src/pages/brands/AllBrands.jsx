@@ -1,26 +1,33 @@
 import styles from "./css/AllBrands.module.css";
-import brandStyle from "./css/BrandItem.module.css";
+// import brandStyle from "./css/BrandItem.module.css";
 import AddBrandButton from "../../components/UI/Buttons/Brands/AddBrandButton";
 import Message from "../../components/UI/Shared/Message";
-import { getAuthToken } from "../../utils/auth";
+import BrandItem from "./BrandItem";
 import useAuth from "../../hooks/useAuth";
-import { allBrands } from "../../../../../backend/api/brands";
+import { getAuthToken } from "../../utils/auth";
 import DeleteBrandModal from "../../components/Modals/DeleteBrandModal";
-import { motion } from "framer-motion";
-import { defer, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { CategoryContext } from "../../store/CategoryContext";
+import { useSearchParams, useSubmit } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
 
 const AllBrands = () => {
+    const dialog = useRef();
+    const submit = useSubmit();
+    const [brand, setBrand] = useState("");
+
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
-    const { brands } = useLoaderData();
-    const submit = useSubmit();
-    const dialog = useRef();
-
+    const { brands } = useContext(CategoryContext);
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
+
+    useEffect(() => {
+        if (brand != "") {
+            dialog.current.open();
+        }
+    }, [brand]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -36,17 +43,20 @@ const AllBrands = () => {
         }
     }, [setSearchParams]);
 
-    const handleBrandClick = (br) => {
-        sessionStorage.setItem("brands", br);
+    const handleBrandClick = (event, brand) => {
+        event.stopPropagation();
+        sessionStorage.setItem("brands", brand);
         submit(null, { action: `/products/all`, method: "GET" });
     };
 
-    async function handleDelete(event) {
+    async function handleDelete(event, brandName) {
         event.stopPropagation();
-        dialog.current.open();
+        setBrand(brandName);
     }
 
     return <>
+        <DeleteBrandModal ref={dialog} brand={brand.name} />
+
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
         <div className={`${styles["brands-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}>
@@ -58,42 +68,17 @@ const AllBrands = () => {
                 {brands &&
                     brands.some(x => !x.name) ?
                     null :
-                    <div>{brands.map(x =>
-                        <motion.div
-                            key={x.name}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            whileHover={{ scale: 1.05, y: -10, boxShadow: "0 4px 10px rgba(0,0,0,0.2)" }}
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ type: 'spring', stiffness: 300 }}
-                            className={`${brandStyle["brand-item"]} card`}
-                            onClick={() => handleBrandClick(x)}
-                        >
-                            <DeleteBrandModal ref={dialog} brand={x.name} />
-                            {isAdmin == true || isEmployee == true ?
-                                <motion.i
-                                    className={`fa fa-trash-o d-flex justify-content-end ${styles["delete-icon"]}`} aria-hidden="true"
-                                    onClick={(event) => handleDelete(event)}
-                                >
-                                </motion.i> :
-                                ""}
-                            <div className={`card-body mb-3 d-flex justify-content-center w-100`}>
-                                {x.name}
-                            </div>
-                        </motion.div>
-                    )}</div>}
-
+                    brands.map(x => <div key={x.name} className="col-lg-3 col-md-4">
+                        <BrandItem
+                            onClick={handleBrandClick}
+                            onDelete={handleDelete}
+                            isVerified={isAdmin || isEmployee}
+                            brand={x}
+                            ref={dialog} />
+                    </div>)}
             </div>
         </div>
-    </>
+    </>;
 }
 
 export default AllBrands;
-
-export async function loader() {
-    const brands = await allBrands();
-
-    return defer({
-        brands
-    });
-}

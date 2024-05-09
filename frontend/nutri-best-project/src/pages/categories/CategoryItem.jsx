@@ -5,19 +5,19 @@ import { motion } from "framer-motion";
 import { useSubmit } from "react-router-dom";
 import { useRef } from "react";
 
-export default function CategoryItem({ category, isVerified }) {
-    const submit = useSubmit();
-    const dialog = useRef();
+export default function CategoryItem({ onClick, onDelete, category, isVerified }) {
+    // const submit = useSubmit();
+    // const dialog = useRef();
 
-    const handleCategoryClick = (category) => {
-        sessionStorage.setItem("categories", category);
-        submit(null, { action: `/products/all`, method: "GET" });
-    };
+    // const handleCategoryClick = (category) => {
+    //     sessionStorage.setItem("categories", category);
+    //     submit(null, { action: `/products/all`, method: "GET" });
+    // };
 
-    async function handleDelete(event) {
-        event.stopPropagation();
-        dialog.current.open();
-    }
+    // async function handleDelete(event) {
+    //     event.stopPropagation();
+    //     dialog.current.open();
+    // }
 
     return <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -26,13 +26,12 @@ export default function CategoryItem({ category, isVerified }) {
         whileTap={{ scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 300 }}
         className={`${styles["category-item"]} card`}
-        onClick={() => handleCategoryClick(category.name)}
+        onClick={() => onClick(category.name)}
     >
-        <DeleteCategoryModal ref={dialog} category={category.name} />
         {isVerified == true ?
             <motion.i
                 className={`fa fa-trash-o d-flex justify-content-end ${styles["delete-icon"]}`} aria-hidden="true"
-                onClick={(event) => handleDelete(event)}
+                onClick={(event) => onDelete(event, category.name)}
             >
             </motion.i> :
             ""}

@@ -1,14 +1,18 @@
 import styles from "./css/AllCategories.module.css";
 import Message from "../../components/UI/Shared/Message";
+import AddCategoryButton from "../../components/UI/Buttons/Categories/AddCategoryButton";
 import CategoryItem from "./CategoryItem";
 import { getAuthToken } from "../../utils/auth";
+import DeleteCategoryModal from "../../components/Modals/DeleteCategoryModal";
 import useAuth from "../../hooks/useAuth";
 import { CategoryContext } from "../../store/CategoryContext";
 import { useSearchParams, useSubmit } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import AddCategoryButton from "../../components/UI/Buttons/Categories/AddCategoryButton";
+import { useContext, useEffect, useRef, useState } from "react";
 
 const AllCategories = () => {
+    const submit = useSubmit();
+    const dialog = useRef();
+    const[category, setCategory] = useState("");
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const { categories } = useContext(CategoryContext);
@@ -16,6 +20,12 @@ const AllCategories = () => {
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
+
+    useEffect(() => {
+        if (category != "") {
+            dialog.current.open();
+        }
+    }, [category]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -31,7 +41,19 @@ const AllCategories = () => {
         }
     }, [setSearchParams]);
 
+    const handleCategoryClick = (category) => {
+        sessionStorage.setItem("categories", category);
+        submit(null, { action: `/products/all`, method: "GET" });
+    };
+
+    async function handleDelete(event, categoryName) {
+        event.stopPropagation();
+        setCategory(categoryName);
+    }
+
     return <>
+        <DeleteCategoryModal ref={dialog} category={category} />
+
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
         <div className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}>
@@ -42,7 +64,11 @@ const AllCategories = () => {
             <div className="row w-75 text-center">
                 {categories.map((category, index) => (
                     <div className="col-lg-3 col-md-4" key={index}>
-                        <CategoryItem category={category} isVerified={(isAdmin || isEmployee)} />
+                        <CategoryItem
+                            onClick={handleCategoryClick}
+                            onDelete={handleDelete}
+                            category={category}
+                            isVerified={(isAdmin || isEmployee)} />
                     </div>
                 ))}
             </div>

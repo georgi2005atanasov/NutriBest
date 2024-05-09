@@ -45,8 +45,8 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
     return <Modal ref={ref}>
         <div className={styles["modal"]}>
             <div className={styles["modal-content"]}>
-                <h4 className={`text ${styles["delete-modal"]}`}>Are you sure you want to delete this category?</h4>
-                <div>All the products and promotions within the &apos;{brand}&apos; category will be deleted.</div>
+                <h4 className={`text ${styles["delete-modal"]}`}>Are you sure you want to delete this brand?</h4>
+                <div>All the products and promotions within the &apos;{brand}&apos; brand will be deleted.</div>
                 <div className={styles["modal-buttons"]}>
                     <button type="submit" onClick={handleDelete} className={styles["delete-btn"]}>Yes, Delete</button>
                     <form method="dialog" action="">

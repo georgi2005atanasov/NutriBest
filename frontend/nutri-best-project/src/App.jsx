@@ -20,7 +20,7 @@ import CategoriesLayout from './pages/categories/CategoriesLayout';
 import AllCategories from './pages/categories/AllCategories';
 import AddCategoryPage, { action as addCategory } from './pages/categories/AddCategory';
 import BrandsLayout from './pages/brands/BrandsLayout';
-import AllBrands, { loader as brandsLoader } from './pages/brands/AllBrands';
+import AllBrands from './pages/brands/AllBrands';
 import AddBrandPage, { action as addBrand } from './pages/brands/AddBrand';
 
 const router = createBrowserRouter([
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
 
       {
         path: 'brands', element: <BrandsLayout />, children: [
-          { index: true, element: <AllBrands />, loader: brandsLoader },
+          { index: true, element: <AllBrands /> },
           { path: 'add', element: <AddBrandPage />, action: addBrand }
         ]
       }

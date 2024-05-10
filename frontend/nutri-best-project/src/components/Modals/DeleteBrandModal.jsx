@@ -5,7 +5,7 @@ import { forwardRef } from "react";
 import { deleteBrandByName } from "../../../../../backend/api/brands";
 
 // eslint-disable-next-line react/prop-types
-const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
+const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand, setBrand, setModal }, ref) {
     const submit = useSubmit();
     
     async function handleDelete(event) {
@@ -38,6 +38,8 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand }, ref) {
 
     function handleClose(event) {
         event.stopPropagation();
+        setBrand("");
+        setModal("");
     }
 
     return <Modal ref={ref}>

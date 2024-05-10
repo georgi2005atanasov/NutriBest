@@ -10,7 +10,7 @@ import BrandDetailsModal from "../../components/Modals/BrandDetailsModal";
 import { getImageByBrandName } from "../../../../../backend/api/api";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { useSearchParams, useSubmit, redirect } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 const AllBrands = () => {
     const dialogDelete = useRef();
@@ -28,16 +28,27 @@ const AllBrands = () => {
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
 
+    const loadImage = useCallback(async function loadImage() {
+        try {
+            const result = await getImageByBrandName(brand.name);
+            setImage(`data:${result.contentType};base64,${result.imageData}`);
+        } catch (error) {
+            return redirect("/error");
+        }
+    }, [brand.name]);
+
     useEffect(() => {
         if (brand && modal == "delete") {
             dialogDelete.current.open();
+            // setBrand("");
+            // setModal("");
         }
         else if (brand && modal == "details") {
             loadImage();
-            setBrand("");
-            setModal("");
+            // setBrand("");
+            // setModal("");
         }
-    }, [brand, modal]);
+    }, [brand, modal, loadImage]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -77,18 +88,19 @@ const AllBrands = () => {
         setModal("details");
     }
 
-    async function loadImage() {
-        try {
-            const result = await getImageByBrandName(brand.name);
-            setImage(`data:${result.contentType};base64,${result.imageData}`);
-        } catch (error) {
-            return redirect("/error");
-        }
-    }
-
     return <>
-        <DeleteBrandModal ref={dialogDelete} brand={brand.name} />
-        <BrandDetailsModal ref={dialogDetails} image={image} brand={brand} />
+        <DeleteBrandModal
+            ref={dialogDelete}
+            brand={brand.name}
+            setBrand={setBrand}
+            setModal={setModal}
+        />
+        <BrandDetailsModal
+            ref={dialogDetails}
+            image={image}
+            brand={brand}
+            setBrand={setBrand}
+            setModal={setModal} />
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 

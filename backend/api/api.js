@@ -41,6 +41,16 @@ import {
     addCategory,
     deleteCategory
 } from "./categories";
+import {
+    allPackages,
+    addPackage,
+    deletePackage
+} from "./packages";
+import {
+    allFlavours,
+    addFlavour,
+    deleteFlavour
+} from "./flavours";
 
 export { addProduct };
 export { getProductById };
@@ -69,3 +79,9 @@ export { deleteCategory };
 export { addBrand };
 export { deleteBrandByName };
 export { getImageByBrandName };
+export { allPackages };
+export { addPackage };
+export { deletePackage };
+export { allFlavours };
+export { addFlavour };
+export { deleteFlavour };

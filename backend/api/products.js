@@ -64,12 +64,12 @@ export async function getProductDetailsByIdAndName(id, name) {
     return await response.json();
 } 
 
-export async function editProduct(productModel) {
+export async function editProduct(productModel, id) {
     const token = getAuthToken();
 
     if (token != "EXPIRED" && token != 0) {
 
-        const response = await fetch(`https://localhost:7056/products`, {
+        const response = await fetch(`https://localhost:7056/products/${id}`, {
             method: "PUT",
             body: productModel,
             headers: {

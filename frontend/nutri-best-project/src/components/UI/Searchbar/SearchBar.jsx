@@ -11,7 +11,7 @@ export default function SearchBar({ categories }) {
     const submit = useSubmit();
     const token = getAuthToken();
 
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
     function handleChange(event) {
         if (event.key === "Enter") {
@@ -52,7 +52,7 @@ export default function SearchBar({ categories }) {
             </div>
         </div>
         <div className={`${searchBar["categories-wrapper"]} d-flex justify-content-between align-items-center`}>
-            <CategoriesList categories={categories} isAdmin={isAdmin} />
+            <CategoriesList categories={categories} isAdmin={isAdmin || isEmployee} />
         </div>
     </div>;
 }

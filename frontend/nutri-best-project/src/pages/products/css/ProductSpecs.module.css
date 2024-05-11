@@ -1,0 +1,19 @@
+.specs-header {
+    font-size: 17px !important;
+}
+
+.flavour-header {
+    font-size: 15px !important;
+    margin: 0;
+}
+
+.package-header {
+    font-size: 15px !important;
+    margin: 0;
+}
+
+@media (max-width: 1200px) {
+    .package-wrapper {
+        margin-top: 7px;
+    }
+}

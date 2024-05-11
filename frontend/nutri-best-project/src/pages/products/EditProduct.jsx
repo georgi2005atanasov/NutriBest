@@ -71,10 +71,9 @@ export async function action({ request, params }) {
     }
 
     const formData = getProductForm(productModel);
-    formData.append("productId", Number(id));
 
     try {
-        const response = await editProduct(formData);
+        const response = await editProduct(formData, id);
 
         let data = { errors: {} };
 

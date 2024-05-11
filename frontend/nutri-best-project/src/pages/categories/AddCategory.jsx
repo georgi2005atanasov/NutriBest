@@ -4,10 +4,9 @@ import FormInput from "../../components/UI/Form/FormInput";
 import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
 import InputError from "../../components/UI/Form/InputError";
-import FormTextArea from "../../components/UI/Form/FormTextArea";
 import { addCategory } from "../../../../../backend/api/categories";
 import { motion } from "framer-motion";
-import { useNavigation, Form, useActionData, useSubmit } from "react-router-dom";
+import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 
@@ -54,19 +53,6 @@ export default function AddCategoryPage() {
                                 placeholder="Vitamins, Creatines..."
                             />
 
-                            <FormTextArea
-                                styles={styles["add-category-input"]}
-                                text="Description"
-                                error={
-                                    data && data.errors && Object.keys(data.errors).includes("Description") &&
-                                    <InputError
-                                        styles={styles["error-par"]}
-                                        text={data.errors["Description"][0]}
-                                    />}
-                                id="description"
-                                name="description"
-                                rows={9} />
-
                             {data && data.errors && Object.keys(data.errors).includes("message") &&
                                 <InputError
                                     styles={styles["error-par"]}
@@ -94,9 +80,7 @@ export async function action({ request, params }) {
 
         if (response.ok == false) {
             const data = await response.json();
-            if (data.message) {
-                return data;
-            }
+            return data;
         }
 
         window.scrollTo({

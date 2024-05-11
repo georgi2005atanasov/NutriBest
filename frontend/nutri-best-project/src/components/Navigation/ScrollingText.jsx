@@ -1,20 +1,17 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { allPromotions } from '../../../../../backend/api/promotions';
 
-const ScrollingText = ({ text }) => {
-    // const marqueeVariants = {
-    //     animate: {
-    //         x: [1000, -2000], // Adjust the values based on your text and container width
-    //         transition: {
-    //             x: {
-    //                 repeat: Infinity,
-    //                 repeatType: "loop",
-    //                 duration: 25, // Adjust timing to your liking
-    //                 ease: "linear",
-    //                 delay: 0
-    //             }
-    //         }
-    //     }
-    // };
+const ScrollingText = () => {
+    const [promotion, setPromotion] = useState();
+    useEffect(() => {
+        async function getPromotion() {
+            const promotions = await allPromotions();
+            setPromotion(promotions[0]);
+        }
+
+        getPromotion();
+    }, []);
 
     const marqueeVariants = {
         animate: {
@@ -50,7 +47,7 @@ const ScrollingText = ({ text }) => {
                 animate="animate"
                 whileHover={{cursor: "pointer"}}
             >
-                {text}
+                {promotion && promotion.description}
             </motion.div>
         </div>
     );

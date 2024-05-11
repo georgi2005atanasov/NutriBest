@@ -35,7 +35,7 @@ export default function AddBrandPage() {
             transition={{ duration: 0.5 }}
         >
             {isSubmitting && <Loader />}
-            <Header text={"Add Category"} styles={styles["add-brand-header"]} />
+            <Header text={"Add Brand"} styles={styles["add-brand-header"]} />
             <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
                 <div className="container">
                     <div className="row d-flex justify-content-center">
@@ -72,10 +72,10 @@ export default function AddBrandPage() {
                                 <BrandImageField />
                             </div>
 
-                            {data && data.errors && Object.keys(data.errors).includes("message") &&
+                            {data && data.message &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["message"][0]}
+                                    text={data.message}
                                 />}
 
                             <FormButton
@@ -97,8 +97,10 @@ export async function action({ request, params }) {
     try {
         const response = await addBrand(brandData);
 
-        if (response.message) {
-            return redirect(`/brands?message=${response.message}&type=danger`);
+        if (!response.ok) {
+            const data = await response.json();
+            return data;
+            // return redirect(`/brands?message=${message}&type=danger`);
         }
 
         window.scrollTo({

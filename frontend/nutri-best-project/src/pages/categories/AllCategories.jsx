@@ -22,7 +22,7 @@ const AllCategories = () => {
     let messageType = searchParams.get("type");
 
     useEffect(() => {
-        if (category != "") {
+        if (category) {
             dialog.current.open();
         }
     }, [category]);
@@ -52,7 +52,11 @@ const AllCategories = () => {
     }
 
     return <>
-        <DeleteCategoryModal ref={dialog} category={category} />
+        <DeleteCategoryModal
+            ref={dialog}
+            categories={categories}
+            category={category}
+            setCategory={setCategory} />
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 

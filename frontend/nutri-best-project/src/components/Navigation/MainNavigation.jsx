@@ -12,7 +12,7 @@ const MainNavigation = memo(function MainNavigation() {
     const { categories } = useContext(CategoryBrandContext);
 
     return <>
-        <ScrollingText text={"🎉 Special Promotion: 20% off on all items until midnight! 🎉"} />
+        <ScrollingText />
         <motion.div
             id="main-navigation"
             className={`container-fluid me-5 ${styles["main-navigation"]}`}

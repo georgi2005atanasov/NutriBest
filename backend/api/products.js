@@ -126,3 +126,11 @@ export async function getIdentifiers() {
 
     return await response.json();
 }
+
+export async function getProductSpecs(id, name) {
+    const response = await fetch(`https://localhost:7056/products/specs/${id}/${name}`, {
+        method: "GET"
+    });
+
+    return response;
+}

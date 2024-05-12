@@ -6,11 +6,12 @@ import { getFormData } from "../../utils/utils";
 import { cleanFilters } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation";
 import useAuth from "../../hooks/useAuth";
+import { getProductSpecs } from "../../../../../backend/api/products";
 
-const SUCCESS_MESSAGE = "Successfully edited the product!&success" 
+const SUCCESS_MESSAGE = "Successfully edited the product!&success"
 
 export default function EditProduct() {
-    const { productData } = useLoaderData();
+    const { productData, productSpecs } = useLoaderData();
     const data = useActionData();
 
     const submit = useSubmit();
@@ -23,7 +24,11 @@ export default function EditProduct() {
             { action: "/", method: "get" })
     }
 
-    return <ProductForm header={"Edit Product"} product={productData} data={data} />
+    return <ProductForm
+        header={"Edit Product"}
+        product={productData} 
+        productSpecs={productSpecs}
+        data={data} />
 }
 
 export async function loader({ request, params }) {
@@ -37,9 +42,17 @@ export async function loader({ request, params }) {
         }
 
         const productData = await data.json();
+        const specs = await getProductSpecs(id, productData.name);
+
+        if (!specs.ok) {
+            return redirect("/?message=Invalid Product was selected");
+        }
+
+        const productSpecs = await specs.json();
 
         return {
-            productData
+            productData,
+            productSpecs
         };
     } catch (error) {
         return redirect("/error");
@@ -52,6 +65,7 @@ export async function action({ request, params }) {
     const productModel = await getFormData(request)
     productModel.categories = getProductCategories(productModel);
 
+    //this is maybe redundant i do not store images on the local storage
     localStorage.removeItem(`image-${id}`);
 
     let priceToCheck = productModel.price;
@@ -89,7 +103,7 @@ export async function action({ request, params }) {
 
         window.scrollTo({
             top: 0,
-            left: 0, 
+            left: 0,
             behavior: 'smooth'
         });
 

@@ -189,7 +189,7 @@ nav a {
 }
 
 #check:checked~nav {
-    height: 288px;
+    height: 338px;
 }
 
 #check:checked~nav a {

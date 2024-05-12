@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import SelectFlavour from "../../components/UI/Form/SelectFlavour";
 
-export default function ProductSpecs({ data }) {
+export default function ProductSpecs({ data, currProductSpecs }) {
     const { packages, flavours, setProductSpecs, productSpecs } = useContext(ProductSpecsContext);
 
     const [spec, setSpec] = useState({
@@ -18,8 +18,10 @@ export default function ProductSpecs({ data }) {
     })
 
     useEffect(() => {
-        console.log(productSpecs);
-    }, [productSpecs]);
+        if (currProductSpecs) {
+            setProductSpecs(currProductSpecs);
+        }
+    }, [setProductSpecs, currProductSpecs]);
 
     if (!packages || packages.length == 0) {
         return null;
@@ -51,8 +53,29 @@ export default function ProductSpecs({ data }) {
         });
     }
 
+    function removeSpec(flavour, grams) {
+        setProductSpecs(prev => {
+            const specToRemove = prev.find(x => x.flavour == flavour && x.grams == grams);
+            console.log(specToRemove);
+            return [...prev.filter(x => x != specToRemove)];
+        });
+    }
+
     return <div className="container-fluid">
-        <div className="row mt-1 mb-5">{JSON.stringify(productSpecs)}</div>
+        {productSpecs.length > 0 ?
+            <>
+                {productSpecs.map(x =>
+                    <div key={`${x.flavour}${x.grams}`} className="row d-flex align-items-center">
+                        <div className={`${specsStyle["spec-container"]} d-flex col-md-8 me-1 justify-content-center align-items-center`}>
+                            Flavour: {x.flavour}, Package: {x.grams}g, Quantity: {x.quantity}
+                        </div>
+                        <button onClick={() => removeSpec(x.flavour, x.grams)} type="button" className={`${specsStyle["remove-button"]} d-flex col-md-3 justify-content-center align-items-center`}>Remove</button>
+                    </div>)}
+                <div>Total: {productSpecs
+                    .map(x => x.quantity)
+                    .reduce((acc, x) => acc += x, 0)} products</div>
+            </> :
+            undefined}
         <div className="row d-flex justify-content-evenly align-items-center">
             <div className="col-xl-3 d-flex flex-column align-items-center justify-content-center">
                 <h5 className={specsStyle["flavour-header"]}>Flavour:</h5>

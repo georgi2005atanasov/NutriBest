@@ -17,7 +17,7 @@ import { Form, useNavigation } from "react-router-dom";
 import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-export default function ProductForm({ product = null, data, header }) {
+export default function ProductForm({ product = null, productSpecs = null, data, header }) {
     const navigation = useNavigation();
     const [brand, setBrand] = useState(product && product.brand || "");
 
@@ -84,7 +84,7 @@ export default function ProductForm({ product = null, data, header }) {
                                     placeholder="100 BGN"
                                 />
 
-                                <FormInput
+                                {product && product.quantity && <FormInput
                                     styles={`${styles["add-product-input"]}`}
                                     text="Quantity"
                                     error={
@@ -96,9 +96,9 @@ export default function ProductForm({ product = null, data, header }) {
                                     id="quantity"
                                     type="number"
                                     name="quantity"
-                                    defaultValue={product ? product.quantity : undefined}
+                                    value={product ? product.quantity : undefined}
                                     placeholder=""
-                                />
+                                />}
 
                                 <SelectBrand onSelect={setBrand} brand={product && product.brand} />
 
@@ -110,7 +110,7 @@ export default function ProductForm({ product = null, data, header }) {
 
 
                                 <h5 className={`mt-4 mb-1 ${styles["specs-header"]}`}>Specifications:</h5>
-                                <ProductSpecs data={data} />
+                                <ProductSpecs data={data} currProductSpecs={productSpecs} />
 
                                 <div className="categories-wrapper mt-3">
                                     <h5 className={`ms-2 ${styles["category-header"]}`}>Category:</h5>

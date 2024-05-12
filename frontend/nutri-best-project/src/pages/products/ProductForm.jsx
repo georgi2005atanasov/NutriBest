@@ -20,7 +20,6 @@ import { useState } from "react";
 export default function ProductForm({ product = null, data, header }) {
     const navigation = useNavigation();
     const [brand, setBrand] = useState(product && product.brand || "");
-    // const [specs, setSpecs] = useState([]);
 
     const isSubmitting = navigation.state === "submitting";
 
@@ -103,14 +102,15 @@ export default function ProductForm({ product = null, data, header }) {
 
                                 <SelectBrand onSelect={setBrand} brand={product && product.brand} />
 
-                                <h5 className={`mt-4 mb-1 ${styles["specs-header"]}`}>Specifications:</h5>
-                                <ProductSpecs data={data} />
-
                                 {data && data.errors && Object.keys(data.errors).includes("Brand") &&
                                     <InputError
                                         styles={styles["error-par"]}
                                         text={data.errors["Brand"][0]}
                                     />}
+
+
+                                <h5 className={`mt-4 mb-1 ${styles["specs-header"]}`}>Specifications:</h5>
+                                <ProductSpecs data={data} />
 
                                 <div className="categories-wrapper mt-3">
                                     <h5 className={`ms-2 ${styles["category-header"]}`}>Category:</h5>

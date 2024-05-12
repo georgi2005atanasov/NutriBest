@@ -3,23 +3,25 @@ import styles from "./css/SelectPackage.module.css"; // using select package sty
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-export default function SelectFlavour({ flavours }) {
+export default function SelectFlavour({ flavours, spec, setSpec }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [flavour, setFlavour] = useState(0);
 
     if (!flavours || flavours.length === 0) {
         return null;
     }
 
     const handleSelect = (option) => {
-        setFlavour(option);
+        setSpec(prev => {
+            prev.flavour = option;
+            return prev;
+        })
         setIsOpen(false);
     };
 
     return (
         <div className="dropdown d-flex justify-content-center align-items-center">
             <button type="button" className={`${styles["dropdown-button"]}`} onClick={() => setIsOpen(!isOpen)}>
-                {flavour ? `${flavour}` : `Flavour`}
+                {spec.flavour ? `${spec.flavour}` : `Flavour`}
             </button>
             {isOpen && (
                 <motion.ul

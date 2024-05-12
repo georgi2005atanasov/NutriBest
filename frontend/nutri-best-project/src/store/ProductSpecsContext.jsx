@@ -2,7 +2,7 @@ import { allFlavours, allPackages } from "../../../../backend/api/api";
 import { createContext, useEffect, useState } from "react";
 
 export const ProductSpecsContext = createContext({
-    productSpecs: [{flavour: "", quantity: 0, grams: 0}],
+    productSpecs: [],
     setProductSpecs: () => {},
     packages: [],
     flavours: []

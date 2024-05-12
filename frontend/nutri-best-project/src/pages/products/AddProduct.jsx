@@ -36,7 +36,8 @@ export async function loader() {
 // eslint-disable-next-line no-unused-vars
 export async function action({ request, params }) {
     try {
-        const productModel = await getFormData(request)
+        const productModel = await getFormData(request);
+
         productModel.categories = getProductCategories(productModel);
 
         const checkProduct = getProductErrors(productModel);

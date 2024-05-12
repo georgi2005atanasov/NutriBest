@@ -22,6 +22,9 @@ import AddCategoryPage, { action as addCategory } from './pages/categories/AddCa
 import BrandsLayout from './pages/brands/BrandsLayout';
 import AllBrands from './pages/brands/AllBrands';
 import AddBrandPage, { action as addBrand } from './pages/brands/AddBrand';
+import FlavoursLayout from './pages/flavours/FlavoursLayout';
+import AllFlavours, { loader as flavoursLoader } from './pages/flavours/AllFlavours';
+import AddFlavourPage, { action as addFlavour } from './pages/flavours/AddFlavour';
 
 const router = createBrowserRouter([
   {
@@ -81,6 +84,13 @@ const router = createBrowserRouter([
         path: 'brands', element: <BrandsLayout />, children: [
           { index: true, element: <AllBrands /> },
           { path: 'add', element: <AddBrandPage />, action: addBrand }
+        ]
+      },
+
+      {
+        path: 'flavours', element: <FlavoursLayout />, children: [
+          { index: true, element: <AllFlavours />, loader: flavoursLoader },
+          { path: 'add', element: <AddFlavourPage />, action: addFlavour }
         ]
       }
     ],

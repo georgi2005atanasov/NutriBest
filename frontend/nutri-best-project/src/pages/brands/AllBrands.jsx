@@ -40,13 +40,9 @@ const AllBrands = () => {
     useEffect(() => {
         if (brand && modal == "delete") {
             dialogDelete.current.open();
-            // setBrand("");
-            // setModal("");
         }
         else if (brand && modal == "details") {
             loadImage();
-            // setBrand("");
-            // setModal("");
         }
     }, [brand, modal, loadImage]);
 

@@ -1,0 +1,46 @@
+.flavours-container {
+    background: linear-gradient(to bottom, #f4f4f4, #bdb5b5);
+    padding: 10px;
+    margin: 15px;
+}
+
+.flavour-card {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    margin: 10px;
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures nothing hangs out of the card */
+    transition: 1s;
+}
+
+.flavour-card:hover {
+    transform: scale(1.01);
+}
+
+.delete-icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer; /* Changes cursor to pointer when hovering over the icon */
+    color: #cc0000; /* Red color for the icon */
+}
+
+.delete-icon svg {
+    width: 24px; /* Set a standard size for the icon */
+    height: 24px;
+}
+
+.flavour-card p {
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}

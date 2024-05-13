@@ -71,7 +71,7 @@ export async function action({ request, params }) {
             behavior: 'smooth'
         });
 
-        return redirect("/promotions?message=Successfully edited promotion!&type=success");
+        return redirect("/promotions?message=Successfully Edited Promotion!&type=success");
     } catch (error) {
         return redirect("/error");
     }

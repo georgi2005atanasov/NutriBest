@@ -91,12 +91,6 @@ export default function ProductSpecs({ data, currProductSpecs }) {
                 <FormInput
                     styles={`${styles["add-product-input"]} p-0 m-0`}
                     text="Quantity"
-                    error={
-                        data && data.errors && Object.keys(data.errors).includes("Quantity") &&
-                        <InputError
-                            styles={styles["error-par"]}
-                            text={data.errors["Quantity"][0]}
-                        />}
                     id="quantity"
                     type="number"
                     name="quantity"
@@ -106,6 +100,12 @@ export default function ProductSpecs({ data, currProductSpecs }) {
                 />
             </div>
         </div>
+        {
+            data && data.errors && Object.keys(data.errors).includes("ProductSpecs") &&
+            <InputError
+                styles={styles["error-par"]}
+                text={data.errors["ProductSpecs"][0]}
+            />}
         <div className={`row ${styles["add-product-input"]} mt-0`}>
             <button type="button" onClick={handleAdd} className={`text-center m-0 mb-3`}>Add Specification</button>
         </div>

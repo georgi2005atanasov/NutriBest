@@ -53,14 +53,14 @@ export default function AddFlavourPage() {
                                 placeholder="Dark Chocolate, Vanilla..."
                             />
 
-                            {data && data.errors && Object.keys(data.errors).includes("message") &&
+                            {data && data.message &&
                                 <InputError
                                     styles={styles["error-par"]}
-                                    text={data.errors["message"][0]}
+                                    text={data.message}
                                 />}
 
                             <FormButton
-                                text={"Add Category"}
+                                text={"Add Flavour"}
                                 wrapperStyles={styles["add-flavour-input"]}
                                 disabled={isSubmitting}
                             />

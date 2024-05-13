@@ -100,7 +100,6 @@ export async function action({ request, params }) {
         if (!response.ok) {
             const data = await response.json();
             return data;
-            // return redirect(`/brands?message=${message}&type=danger`);
         }
 
         window.scrollTo({
@@ -109,7 +108,7 @@ export async function action({ request, params }) {
             behavior: 'smooth'
         });
 
-        return redirect(`/brands?message=Successfully Added new brand!&type=success`);
+        return redirect(`/brands?message=Successfully Added New Brand!&type=success`);
     } catch (error) {
         return redirect("/error");
     }

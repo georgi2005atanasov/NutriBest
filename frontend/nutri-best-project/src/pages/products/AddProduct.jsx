@@ -6,8 +6,6 @@ import useAuth from "../../hooks/useAuth";
 import { addProduct, allBrands } from "../../../../../backend/api/api";
 import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "react-router-dom";
 
-const SUCCESS_MESSAGE = "Successfully added new product!&success"
-
 export default function AddProductPage() {
     const data = useActionData();
     const submit = useSubmit();
@@ -68,7 +66,7 @@ export async function action({ request, params }) {
             behavior: 'smooth'
         });
 
-        localStorage.setItem("addMessage", SUCCESS_MESSAGE);
+        localStorage.setItem("addMessage", `Successfully Added Product '${productModel.name}'!&success`);
         return redirect("/products/all");
     } catch (error) {
         return json({ errors: { "message": ["An Error occured!"] } });

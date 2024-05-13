@@ -58,7 +58,7 @@ export async function action({ request, params }) {
             behavior: 'smooth'
         });
 
-        return redirect("/promotions/?message=Successfully added new promotion&type=success");
+        return redirect(`/promotions/?message=Successfully Added New Promotion!&type=success`);
     } catch (error) {
         return redirect("/error");
     }

@@ -43,7 +43,8 @@ export async function loader() {
         const result = await getProfileDetails();
 
         if (!result.ok) {
-            console.log("handle error");
+            // some handling
+            return redirect("/error");
         }
 
         const profileDetails = await result.json();

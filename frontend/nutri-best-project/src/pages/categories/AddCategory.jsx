@@ -89,7 +89,7 @@ export async function action({ request, params }) {
             behavior: 'smooth'
         });
 
-        return redirect("/categories?message=Successfully added new Category!&type=success");
+        return redirect("/categories?message=Successfully Added New Category!&type=success");
     } catch (error) {
         return redirect("/error");
     }

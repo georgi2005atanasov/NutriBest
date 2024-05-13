@@ -28,10 +28,14 @@ export default function ImageField({ styles, data, product = null }) {
     }
 
     function getImage(event) {
-        const imageFile = event.target.files[0];
-        if (imageFile) {
-            const imageToSet = URL.createObjectURL(imageFile);
-            setImage(imageToSet);
+        try {
+            const imageFile = event.target.files[0];
+            if (imageFile) {
+                const imageToSet = URL.createObjectURL(imageFile);
+                setImage(imageToSet);
+            }
+        } catch (error) {
+            console.error('Failed to get image:', error);
         }
     }
 

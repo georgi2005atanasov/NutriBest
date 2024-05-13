@@ -8,8 +8,6 @@ import { getProductErrors } from "../../utils/product/validation";
 import useAuth from "../../hooks/useAuth";
 import { getProductSpecs } from "../../../../../backend/api/products";
 
-const SUCCESS_MESSAGE = "Successfully edited the product!&success"
-
 export default function EditProduct() {
     const { productData, productSpecs } = useLoaderData();
     const data = useActionData();
@@ -107,7 +105,7 @@ export async function action({ request, params }) {
             behavior: 'smooth'
         });
 
-        localStorage.setItem("editMessage", SUCCESS_MESSAGE);
+        localStorage.setItem("editMessage", `Successfully Edited Product '${productModel.name}'!&success`);
         return redirect("/products/all");
     } catch (error) {
         return json({ errors: { "message": ["An Error occured!"] } });

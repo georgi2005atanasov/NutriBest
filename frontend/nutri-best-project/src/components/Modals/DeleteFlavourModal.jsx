@@ -1,18 +1,18 @@
 import Modal from "./Modal";
-import styles from "./css/DeleteProductModal.module.css";
+import styles from "./css/DeleteFlavourModal.module.css";
+import { deleteFlavour } from "../../../../../backend/api/api";
 import { redirect, useSubmit } from "react-router-dom";
 import { forwardRef } from "react";
-import { deleteBrandByName } from "../../../../../backend/api/brands";
 
 // eslint-disable-next-line react/prop-types
-const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand, setBrand, setModal }, ref) {
+const DeleteFlavourModal = forwardRef(function DeleteFlavourModal({ flavour, setFlavour, flavours }, ref) {
     const submit = useSubmit();
-    
+
     async function handleDelete(event) {
         try {
             event.stopPropagation();
 
-            const result = await deleteBrandByName(brand);
+            const result = await deleteFlavour(flavour);
 
             window.scrollTo({
                 top: 0,
@@ -23,14 +23,16 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand, setBrand,
             ref.current.close();
 
             if (result.ok == false) {
-                submit(`message=Brand '${brand}' is Already Deleted, Try to Refresh!&type=danger`,
-                    { action: "/brands", method: "GET" });
+                submit(`message=Flavour '${flavour}' is Already Deleted, Try to Refresh!&type=danger`,
+                    { action: "/flavours", method: "get" });
 
                 return;
             }
 
-            return submit(`message=Successfully Deleted Brand '${brand}'!&type=success`,
-                { action: "/brands", method: "GET" });
+            setFlavour("");
+
+            return submit(`message=Successfully Deleted Flavour '${flavour}'!&type=success`,
+                { action: "/flavours", method: "get" });
         } catch (error) {
             return redirect("/error");
         }
@@ -38,15 +40,14 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand, setBrand,
 
     function handleClose(event) {
         event.stopPropagation();
-        setBrand("");
-        setModal("");
+        setFlavour("");
     }
 
     return <Modal ref={ref}>
         <div className={styles["modal"]}>
             <div className={styles["modal-content"]}>
-                <h4 className={`text ${styles["delete-modal"]}`}>Are You Sure You Want to Delete &apos;{brand}&apos; Brand?</h4>
-                <div>All the Products and Promotions Within the &apos;{brand}&apos; Brand Will be Deleted.</div>
+                <h4 className={`text ${styles["delete-modal"]}`}>Are You Sure You Want to Delete Flavour &apos;{flavour}&apos;?</h4>
+                <div className="text-center">All the Products With Flavour &apos;{flavour}&apos; Will be Deleted.</div>
                 <div className={styles["modal-buttons"]}>
                     <button type="submit" onClick={handleDelete} className={styles["delete-btn"]}>Yes, Delete</button>
                     <form method="dialog" action="">
@@ -58,4 +59,4 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand, setBrand,
     </Modal>;
 });
 
-export default DeleteBrandModal;
+export default DeleteFlavourModal;

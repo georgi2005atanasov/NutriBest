@@ -55,7 +55,6 @@ const router = createBrowserRouter([
           }
         ]
       },
-      { path: 'error', element: <ErrorPage /> },
       { path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile },
 
       {

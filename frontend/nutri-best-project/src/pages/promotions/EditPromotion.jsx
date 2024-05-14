@@ -7,7 +7,7 @@ import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { redirect, useSubmit, useActionData, useRouteLoaderData } from "react-router-dom";
 
-export default function EditPromotionPage() {
+export default function EditPromotion() {
     const promotion = useRouteLoaderData("promoLoader");
     const data = useActionData();
     const token = getAuthToken();

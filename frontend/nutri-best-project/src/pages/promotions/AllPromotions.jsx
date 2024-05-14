@@ -10,7 +10,7 @@ import useAuth from "../../hooks/useAuth";
 import { redirect, useRouteLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function AllPromotionsPage() {
+export default function AllPromotions() {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();

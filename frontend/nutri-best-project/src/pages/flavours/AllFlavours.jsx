@@ -2,19 +2,26 @@ import styles from "./css/AllFlavours.module.css";
 import Message from "../../components/UI/Shared/Message";
 import AddFlavourButton from "../../components/UI/Buttons/Flavours/AddFlavourButton";
 import FlavourItem from "./FlavourItem";
-import { allFlavours } from "../../../../../backend/api/flavours";
-import { redirect, useLoaderData, useSearchParams } from "react-router-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
 import DeleteFlavourModal from "../../components/Modals/DeleteFlavourModal";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import { allFlavours } from "../../../../../backend/api/flavours";
+import { motion } from "framer-motion";
+import { redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function AllFlavours() {
     const dialog = useRef();
+    const submit = useSubmit();
     const { flavours } = useLoaderData();
     const [flavour, setFlavour] = useState("");
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
+
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
 
     useEffect(() => {
         if (flavour) {
@@ -41,6 +48,11 @@ export default function AllFlavours() {
         setFlavour(name);
     }, []);
 
+    if (!isAdmin && !isEmployee) {
+        return submit("message=Page Not Found!&type=danger",
+            { action: "/", method: "GET" });
+    }
+
     return <>
         <DeleteFlavourModal
             flavour={flavour}
@@ -49,7 +61,13 @@ export default function AllFlavours() {
             ref={dialog} />
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
-        <div className="container-fluid d-flex flex-column align-items-center">
+        <motion.div 
+        className="container-fluid d-flex flex-column align-items-center"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ duration: 0.5 }}
+        >
             <div className={`row d-flex justify-content-center ${styles["flavours-container"]}`}>
                 <h2 className={"row d-flex justify-content-center align-items-center m-0 mb-3 pt-3 text-dark"}>
                     All Flavours
@@ -68,7 +86,7 @@ export default function AllFlavours() {
                     </div>
                 ))}
             </div>
-        </div>
+        </motion.div>
     </>
 }
 

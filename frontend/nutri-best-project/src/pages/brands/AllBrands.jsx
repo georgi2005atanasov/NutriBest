@@ -2,13 +2,14 @@ import styles from "./css/AllBrands.module.css";
 // import brandStyle from "./css/BrandItem.module.css";
 import AddBrandButton from "../../components/UI/Buttons/Brands/AddBrandButton";
 import Message from "../../components/UI/Shared/Message";
+import DeleteBrandModal from "../../components/Modals/DeleteBrandModal";
+import BrandDetailsModal from "../../components/Modals/BrandDetailsModal";
 import BrandItem from "./BrandItem";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
-import DeleteBrandModal from "../../components/Modals/DeleteBrandModal";
-import BrandDetailsModal from "../../components/Modals/BrandDetailsModal";
 import { getImageByBrandName } from "../../../../../backend/api/api";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
+import { motion } from "framer-motion";
 import { useSearchParams, useSubmit, redirect } from "react-router-dom";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
@@ -100,7 +101,13 @@ const AllBrands = () => {
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
-        <div className={`${styles["brands-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}>
+        <motion.div
+            className={`${styles["brands-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5 }}
+        >
             <h2 className={`d-flex justify-content-center align-items-center m-0 mb-4 ${styles["brands-title"]}`}>
                 Our Brands
             </h2>
@@ -118,7 +125,7 @@ const AllBrands = () => {
                             brand={x} />
                     </div>)}
             </div>
-        </div>
+        </motion.div>
     </>;
 }
 

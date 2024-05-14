@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function ProductDetailsPage() {
+export default function ProductDetails() {
     const [src, setSrc] = useState("");
     const token = getAuthToken();
     const { isAdmin } = useAuth(token);

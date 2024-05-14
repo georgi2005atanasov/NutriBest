@@ -44,15 +44,19 @@ export function getFilters() {
 }
 
 export function cleanFilters() {
-    sessionStorage.setItem("categories", "");
-    sessionStorage.setItem("price", "");
-    sessionStorage.setItem("page", 1);
-    
-    sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
-    sessionStorage.setItem("search", "");
-    sessionStorage.setItem("priceRange", "");
-    sessionStorage.setItem("alpha", "");
-    sessionStorage.setItem("brand", "");
+    try {
+        sessionStorage.setItem("categories", "");
+        sessionStorage.setItem("price", "");
+        sessionStorage.setItem("page", 1);
+        
+        sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
+        sessionStorage.setItem("search", "");
+        sessionStorage.setItem("priceRange", "");
+        sessionStorage.setItem("alpha", "");
+        sessionStorage.setItem("brand", "");
+    } catch (error) {
+        return;
+    }
 }
 
 export function getDate(dateString) {

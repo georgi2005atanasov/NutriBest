@@ -6,6 +6,7 @@ import { getAuthToken } from "../../utils/auth";
 import DeleteCategoryModal from "../../components/Modals/DeleteCategoryModal";
 import useAuth from "../../hooks/useAuth";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
+import { motion } from "framer-motion";
 import { useSearchParams, useSubmit } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
 
@@ -60,7 +61,13 @@ const AllCategories = () => {
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
-        <div className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}>
+        <motion.div 
+        className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}
+        initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5 }}
+        >
             <h2 className={"d-flex justify-content-center align-items-center m-0 mb-4 text-dark"}>
                 Our Categories
             </h2>
@@ -76,7 +83,7 @@ const AllCategories = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </motion.div>
     </>
 }
 

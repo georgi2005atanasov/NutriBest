@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { addProduct, allBrands } from "../../../../../backend/api/api";
 import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "react-router-dom";
 
-export default function AddProductPage() {
+export default function AddProduct() {
     const data = useActionData();
     const submit = useSubmit();
 

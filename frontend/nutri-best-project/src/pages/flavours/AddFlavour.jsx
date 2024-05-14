@@ -10,7 +10,7 @@ import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { addFlavour } from "../../../../../backend/api/api";
 
-export default function AddFlavourPage() {
+export default function AddFlavour() {
     const data = useActionData();
     const navigation = useNavigation();
     const token = getAuthToken();

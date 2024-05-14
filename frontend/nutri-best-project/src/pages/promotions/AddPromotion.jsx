@@ -7,7 +7,7 @@ import { addPromotion } from "../../../../../backend/api/promotions";
 import useAuth from "../../hooks/useAuth";
 import { useActionData, useSubmit, redirect } from "react-router-dom";
 
-export default function AddPromotionPage() {
+export default function AddPromotion() {
     const token = getAuthToken();
     const data = useActionData();
     const {isAdmin, isEmployee} = useAuth(token);

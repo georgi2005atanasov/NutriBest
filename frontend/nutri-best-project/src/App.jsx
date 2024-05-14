@@ -27,7 +27,7 @@ import AllFlavours, { loader as flavoursLoader } from './pages/flavours/AllFlavo
 import AddFlavour, { action as addFlavour } from './pages/flavours/AddFlavour';
 import PackagesLayout from './pages/packages/PackagesLayout';
 import AllPackages, { loader as packagesLoader } from './pages/packages/AllPackages';
-import AddPackage from './pages/packages/AddPackage';
+import AddPackage, { action as addPackage } from './pages/packages/AddPackage';
 import MoreLayout from './pages/more/MoreLayout';
 
 const router = createBrowserRouter([
@@ -100,7 +100,7 @@ const router = createBrowserRouter([
       {
         path: 'packages', element: <PackagesLayout />, children: [
           { index: true, element: <AllPackages />, loader: packagesLoader },
-          { path: 'add', element: <AddPackage />, action: addFlavour }
+          { path: 'add', element: <AddPackage />, action: addPackage }
         ]
       },
       {

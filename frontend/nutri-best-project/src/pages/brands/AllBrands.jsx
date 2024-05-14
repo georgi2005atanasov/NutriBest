@@ -69,7 +69,7 @@ const AllBrands = () => {
 
     const handleBrandClick = (event, brand) => {
         event.stopPropagation();
-        sessionStorage.setItem("brands", brand);
+        sessionStorage.setItem("brand", brand);
         submit(null, { action: `/products/all`, method: "GET" });
     };
 

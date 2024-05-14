@@ -38,6 +38,8 @@
     z-index: 1;
     border-radius: 5px;
     transition: opacity 1.5s;
+    max-height: 300px; /* ADDITIONAL STYLING */
+    overflow-y: auto !important;
 }
 
 .dropdown-option {

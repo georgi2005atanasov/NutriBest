@@ -39,7 +39,7 @@ export default function NavToggler() {
                             <a className={colors["admin-color"]} href="/brands">
                                 {"Brands"}
                             </a>
-                            <a className={colors["admin-color"]} href="/more">
+                            <a className={colors["admin-color"]} href={isAdmin || isEmployee ? "/more" : "/products/all?page=1"}>
                                 {"More..."}
                             </a>
                         </nav>

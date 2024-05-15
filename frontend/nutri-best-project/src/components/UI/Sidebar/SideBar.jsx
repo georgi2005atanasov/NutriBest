@@ -10,12 +10,13 @@ import { CategoryBrandContext } from "../../../store/CategoryBrandContext";
 import { useSubmit } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import QuantityFilter from "./Filters/QuantityFilter";
+import FlavourFilter from "./Filters/FlavourFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories, brands } = useContext(CategoryBrandContext);
 
-    const { page, categories, price, alpha, brand, quantities } = getFilters();
+    const { page, categories, price, alpha, brand, quantities, flavours } = getFilters();
 
     const submit = useSubmit();
 
@@ -28,10 +29,10 @@ export default function SideBar({ isVisible, toggleSidebar }) {
             sessionStorage.setItem("price", price);
         }
 
-        const query = buildQuery(page, categories, price, alpha, "", "", "", brand, quantities.trimStart("+"));
+        const query = buildQuery(page, categories, price, alpha, "", "", "", brand, quantities.trimStart("+"), flavours);
 
         submit(query);
-    }, [selectedCategories, submit, price, page, categories, alpha, brand, quantities]);
+    }, [selectedCategories, submit, price, page, categories, alpha, brand, quantities, flavours]);
 
     return <>
         <div className={`${styles["filter-header"]} w-100 d-flex justify-content-between align-items-center`}>
@@ -86,6 +87,16 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                         transition={{ duration: 0.7 }}
                     >
                         <QuantityFilter quantities={quantities} />
+                    </motion.div>
+
+                    <div className="mb-1"></div>
+
+                    <motion.div
+                        initial={{ x: -100, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.7 }}
+                    >
+                        <FlavourFilter flavours={flavours} />
                     </motion.div>
 
                     <ClearFiltersButton />

@@ -128,7 +128,7 @@ export default function AllProducts() {
     </>;
 }
 
-async function loadProductsData(page, categories, price, alpha, productsView, search, priceRange, brand, quantities) {
+async function loadProductsData(page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours) {
     async function storeImages(productsRows) {
         const products = productsRows.flat();
 
@@ -140,11 +140,11 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
     }
 
     try {
-        if (categories || price || alpha || brand || priceRange || quantities) {
+        if (categories || price || alpha || brand || priceRange || quantities || flavours) {
             sessionStorage.setItem("page", 1);
         }
 
-        let products = await allProducts(Number(page), categories, price, alpha, productsView, search, priceRange, brand, quantities);
+        let products = await allProducts(Number(page), categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours);
 
         if (!products.ok) {
             sessionStorage.setItem("productsCount", 0);
@@ -182,6 +182,7 @@ export async function loader({ request, params }) {
     const priceRange = sessionStorage.getItem("priceRange") || "";
     const brand = sessionStorage.getItem("brand") || "";
     const quantities = sessionStorage.getItem("quantities") || "";
+    const flavours = sessionStorage.getItem("flavours") || "";
 
     if (!currentPage || isNaN(currentPage)) {
         return redirect("/?message=Invalid page number provided.&type=danger");
@@ -191,7 +192,7 @@ export async function loader({ request, params }) {
 
     return defer({
         productsRows: await loadProductsData(
-            page, categories, price, alpha, productsView, search, priceRange, brand, quantities),
+            page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours),
         promotions: await getPromotions(),
         page,
         productsView,

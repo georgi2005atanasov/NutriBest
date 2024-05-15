@@ -24,8 +24,8 @@ export async function addProduct(productModel) {
     }
 }
 
-export async function allProducts(page, categories = "", price = "", alpha = "", productsView = "", search = "", priceRange = [], brand = "", quantities = "") {
-    const query = buildQuery(page, categories, price, alpha, productsView, search, priceRange, brand, quantities);
+export async function allProducts(page, categories = "", price = "", alpha = "", productsView = "", search = "", priceRange = [], brand = "", quantities = "", flavours = "") {
+    const query = buildQuery(page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours);
     const token = getAuthToken();
 
     const response = await fetch(`https://localhost:7056/products${query}`, {
@@ -62,7 +62,7 @@ export async function getProductDetailsByIdAndName(id, name) {
     });
 
     return await response.json();
-} 
+}
 
 export async function editProduct(productModel, id) {
     const token = getAuthToken();
@@ -98,7 +98,7 @@ export async function deleteProduct(productId) {
                 "Authorization": `Bearer ${token}`
             }
         });
-        
+
         return response;
     }
 }
@@ -113,6 +113,22 @@ export async function getProductsByCategories() {
 
 export async function getProductsByQuantity() {
     const response = await fetch(`https://localhost:7056/products/by-quantity-count`, {
+        method: "GET"
+    });
+
+    return await response.json();
+}
+
+export async function getProductsByBrand() {
+    const response = await fetch(`https://localhost:7056/products/by-brand-count`, {
+        method: "GET"
+    });
+
+    return await response.json();
+}
+
+export async function getProductsByFlavour() {
+    const response = await fetch(`https://localhost:7056/products/by-flavour-count`, {
         method: "GET"
     });
 

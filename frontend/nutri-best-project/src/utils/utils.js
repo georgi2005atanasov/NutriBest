@@ -6,7 +6,7 @@ export async function getFormData(request) {
     return dataToReturn;
 }
 
-export function buildQuery(page, categories, price, alpha, productsView, search, priceRange, brand, quantities) {
+export function buildQuery(page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours) {
     let query = `?page=${page}`;
     if (categories && categories != "") {
         query += `&categories=${categories.split("+").join("+and+")}`;
@@ -32,6 +32,9 @@ export function buildQuery(page, categories, price, alpha, productsView, search,
     if (quantities && quantities != "") {
         query += `&quantities=${quantities}`
     }
+    if (flavours && flavours != "") {
+        query += `&flavours=${flavours}`
+    }
     
     return query;
 }
@@ -43,8 +46,9 @@ export function getFilters() {
     const alpha = sessionStorage.getItem("alpha");
     const brand = sessionStorage.getItem("brand");
     const quantities = sessionStorage.getItem("quantities");
+    const flavours = sessionStorage.getItem("flavours");
 
-    return { page, categories, price, alpha, brand, quantities };
+    return { page, categories, price, alpha, brand, quantities, flavours };
 }
 
 export function cleanFilters() {
@@ -59,6 +63,7 @@ export function cleanFilters() {
         sessionStorage.setItem("alpha", "");
         sessionStorage.setItem("brand", "");
         sessionStorage.setItem("quantities", "");
+        sessionStorage.setItem("flavours", "");
     } catch (error) {
         return;
     }

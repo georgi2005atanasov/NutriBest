@@ -12,6 +12,7 @@ export const DEFAULT_CATEGORY = "";
 export const DEFAULT_BRAND = "";
 export const DEFAULT_ALPHA = "";
 export const DEFAULT_QUANTITY = "";
+export const DEFAULT_FLAVOURS = "";
 export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 
 export default function RootLayout() {
@@ -38,8 +39,11 @@ export default function RootLayout() {
         if (!sessionStorage.getItem("page")) {
             sessionStorage.setItem("page", DEFAULT_PAGE);
         }
-        if (!sessionStorage.getItem("quantity")) {
-            sessionStorage.setItem("quantity", DEFAULT_QUANTITY);
+        if (!sessionStorage.getItem("quantities")) {
+            sessionStorage.setItem("quantities", DEFAULT_QUANTITY);
+        }
+        if (!sessionStorage.getItem("flavours")) {
+            sessionStorage.setItem("flavours", DEFAULT_FLAVOURS);
         }
     });
 

@@ -8,6 +8,7 @@ import {
     getImageByProductId,
     getProductsByCategories,
     getProductsByQuantity,
+    getProductsByBrand,
     getProductDetailsByIdAndName
 } from "./products";
 
@@ -60,6 +61,7 @@ export { editProduct };
 export { deleteProduct };
 export { getProductsByCategories };
 export { getProductsByQuantity };
+export { getProductsByBrand };
 export { getImageByProductId };
 export { getIdentifiers };
 export { getFormFile };

@@ -11,7 +11,7 @@ export default function BrandFilter({ brands }) {
     function handleSelect(brand) {
         sessionStorage.setItem("brand", brand);
 
-        submit(null, {action: "", method: "GET"});
+        submit(null, { action: "", method: "GET" });
     }
 
     return <DropdownMenu filtersNumber={sessionStorage.getItem("brand") ? 1 : 0} text={"Brand"}>
@@ -22,6 +22,15 @@ export default function BrandFilter({ brands }) {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
         >
+            <motion.li
+                className={`${styles["dropdown-item"]} mt-2
+                ${sessionStorage.getItem("brand") === "" ? selected["selected-filter"] : null} text-center`}
+                onClick={() => handleSelect("")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 1.0 }}
+            >
+                None
+            </motion.li>
             {brands.map(b => (
                 <motion.li
                     key={b.name}

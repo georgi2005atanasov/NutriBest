@@ -7,9 +7,9 @@ import useAuth from '../../../hooks/useAuth';
 import { useSubmit } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-export default function MultiSelectQuantity({ newQuantities = null }) {
+export default function MultiSelectQuantity({ newQuantities = null, selected, setSelected }) {
     const [quantities, setQuantities] = useState([]);
-    const [selected, setSelected] = useState([]);
+    // const [selected, setSelected] = useState([]);
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
@@ -42,7 +42,7 @@ export default function MultiSelectQuantity({ newQuantities = null }) {
             return newValue;
         });
 
-        return submit(null, {action: "/products/all", method: "GET"});
+        // return submit(null, {action: "/products/all", method: "GET"});
     };
 
     if (quantities.length == 0) {

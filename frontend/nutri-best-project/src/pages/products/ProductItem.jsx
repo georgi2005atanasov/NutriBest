@@ -38,7 +38,7 @@ export default function ProductItem({ product }) {
     if (promotions.filter(x => x.isActive).some(x => x.promotionId == product.promotionId)) {
         return <AnimatePresence>
             <motion.section
-                className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card p-3 pb-2 pt-2`}
+                className={`${styles["promotion-wrapper"]} ${styles["product-item"]} card pb-2`}
                 id={product.productId}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export default function ProductItem({ product }) {
 
     return <AnimatePresence>
         <motion.section
-            className={`${styles["product-item"]} card p-3 pt-2`}
+            className={`${styles["product-item"]} card pb-2`}
             id={product.productId}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}

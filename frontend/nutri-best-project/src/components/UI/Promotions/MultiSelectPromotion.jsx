@@ -28,7 +28,7 @@ export default function MultiSelectPromotion({ promotionId, productId }) {
             .filter(x => x.isActive)
             .some(x => x.promotionId == promotionId) ? promotionId : ""}
             key={productId} title="promotion" onChange={setNewPromotion}
-            className={`${styles["custom-select"]} me-5 mb-1 p-1`}
+            className={`${styles["custom-select"]} ms-1 mt-1 me-5 mb-1 p-1 w-75`}
         >
             <motion.option
                 value=""
@@ -36,7 +36,7 @@ export default function MultiSelectPromotion({ promotionId, productId }) {
                 Choose Promotion
             </motion.option>
             {promotions && promotions.length > 0 && promotions.filter(x => x.isActive)
-                .map(p => <motion.option className={styles["option"]} key={p.promotionId} value={p.promotionId}>{p.description.substring(0, 30)}</motion.option>)}
+                .map(p => <motion.option className={styles["option"]} key={p.promotionId} value={p.promotionId}>{p.description}</motion.option>)}
         </motion.select>
         {message && <InvalidPromotionMessage message={message} />}
     </>

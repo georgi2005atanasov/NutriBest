@@ -8,13 +8,15 @@ import { buildQuery, getFilters } from "../../../utils/utils";
 import { motion } from "framer-motion";
 import { CategoryBrandContext } from "../../../store/CategoryBrandContext";
 import { useSubmit } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import QuantityFilter from "./Filters/QuantityFilter";
 import FlavourFilter from "./Filters/FlavourFilter";
 
 // eslint-disable-next-line react/prop-types
 export default function SideBar({ isVisible, toggleSidebar }) {
     const { selectedCategories, brands } = useContext(CategoryBrandContext);
+    const [selectedQuantities, setSelectedQuantities] = useState();
+    const [selectedFlavours, setSelectedFlavours] = useState();
 
     const { page, categories, price, alpha, brand, quantities, flavours } = getFilters();
 
@@ -86,7 +88,10 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.7 }}
                     >
-                        <QuantityFilter quantities={quantities} />
+                        <QuantityFilter
+                            quantities={quantities}
+                            selected={selectedQuantities}
+                            setSelected={setSelectedQuantities} />
                     </motion.div>
 
                     <div className="mb-1"></div>
@@ -96,7 +101,10 @@ export default function SideBar({ isVisible, toggleSidebar }) {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.7 }}
                     >
-                        <FlavourFilter flavours={flavours} />
+                        <FlavourFilter
+                            flavours={flavours}
+                            selected={selectedFlavours}
+                            setSelected={setSelectedFlavours} />
                     </motion.div>
 
                     <ClearFiltersButton />

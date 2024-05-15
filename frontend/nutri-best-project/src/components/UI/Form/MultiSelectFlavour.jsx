@@ -1,23 +1,20 @@
 /* eslint-disable react/prop-types */
 import styles from './css/MultiSelect.module.css';
 import colors from "../../../App.module.css";
-import { getProductsByBrand, getProductsByQuantity } from '../../../../../../backend/api/api';
 import { getAuthToken } from '../../../utils/auth';
 import useAuth from '../../../hooks/useAuth';
 import { useSubmit } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductsByFlavour } from '../../../../../../backend/api/products';
 
-export default function MultiSelectFlavour({ newFlavours }) {
+export default function MultiSelectFlavour({ newFlavours, selected, setSelected }) {
     const [flavours, setFlavours] = useState([]);
-    const [selected, setSelected] = useState([]);
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
-    const submit = useSubmit();
 
     useEffect(() => {
         setSelected(sessionStorage.getItem("flavours").split(" and "));
-    }, [newFlavours.length]);
+    }, [newFlavours.length, setSelected]);
 
     useEffect(() => {
         async function getQuantities() {
@@ -40,8 +37,6 @@ export default function MultiSelectFlavour({ newFlavours }) {
             sessionStorage.setItem("flavours", newValue.filter(x => x).join(" and "))
             return newValue;
         });
-
-        return submit(null, { action: "/products/all", method: "GET" });
     };
 
     if (flavours.length == 0) {

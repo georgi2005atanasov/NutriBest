@@ -5,7 +5,10 @@ export const ProductSpecsContext = createContext({
     productSpecs: [],
     setProductSpecs: () => {},
     packages: [],
-    flavours: []
+    setPackages: () => {},
+    flavours: [],
+    setFlavours: () => {},
+
 });
 
 // eslint-disable-next-line react/prop-types
@@ -34,7 +37,7 @@ export default function ProductSpecsContextProvider({ children }) {
     }, []);
 
     return <ProductSpecsContext.Provider
-        value={{ productSpecs, setProductSpecs, packages, flavours }}>
+        value={{ productSpecs, setProductSpecs, packages, flavours, setPackages, setFlavours }}>
         {children}
     </ProductSpecsContext.Provider>
 }

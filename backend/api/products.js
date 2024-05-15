@@ -64,6 +64,20 @@ export async function getProductDetailsByIdAndName(id, name) {
     return await response.json();
 }
 
+export async function setProductDetailsById(id, data) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/products/details/${id}`, {
+        method: "POST",
+        body: data,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    return await response.json();
+}
+
 export async function editProduct(productModel, id) {
     const token = getAuthToken();
 

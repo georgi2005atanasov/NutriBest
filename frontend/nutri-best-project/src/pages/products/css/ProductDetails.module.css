@@ -17,3 +17,21 @@
     }
 }
 
+.promotion-box {
+    width: 85px; 
+    height: 85px;
+    background-color: #CC0000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    color: white;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 17px; 
+    transition: 0.3s;
+}
+
+.promotion-box {
+    background-color: #b30202;
+}

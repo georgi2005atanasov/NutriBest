@@ -11,7 +11,6 @@ import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
 import InputError from "../../components/UI/Form/InputError";
 import SelectBrand from "../../components/UI/Form/SelectBrand";
 import ProductSpecs from "./ProductSpecs";
-import ProductSpecsContextProvider from "../../store/ProductSpecsContext";
 import { motion } from "framer-motion";
 import { Form, useNavigation } from "react-router-dom";
 import { useState } from "react";
@@ -23,131 +22,129 @@ export default function ProductForm({ product = null, productSpecs = null, data,
 
     const isSubmitting = navigation.state === "submitting";
 
-    return <CategoryBrandContextProvider>
-        <ProductSpecsContextProvider>
-            <motion.div
-                className="w-100"
-                initial={{ opacity: 0, y: -100 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 100 }}
-                transition={{ duration: 0.5 }}
-            >
-                {isSubmitting && <Loader />}
-                <Header text={header} styles={`${styles["add-product-header"]}`} />
-                <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
-                    <div className="container">
-                        <div className="row d-flex justify-content-center">
-                            <div className="col-lg-5">
-                                <FormInput
-                                    styles={styles["add-product-input"]}
-                                    text="Product Name"
-                                    error={
-                                        data && data.errors && Object.keys(data.errors).includes("Name") &&
-                                        <InputError
-                                            styles={styles["error-par"]}
-                                            text={data.errors["Name"][0]}
-                                        />}
-                                    id="name"
-                                    type="text"
-                                    name="name"
-                                    defaultValue={product ? product.name : undefined}
-                                    placeholder="Protein, Creatine..."
-                                />
+    return <>
+        <motion.div
+            className="w-100"
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            transition={{ duration: 0.5 }}
+        >
+            {isSubmitting && <Loader />}
+            <Header text={header} styles={`${styles["add-product-header"]}`} />
+            <Form method="post" encType="multipart/form-data" className={styles["auth-form"]}>
+                <div className="container">
+                    <div className="row d-flex justify-content-center">
+                        <div className="col-lg-5">
+                            <FormInput
+                                styles={styles["add-product-input"]}
+                                text="Product Name"
+                                error={
+                                    data && data.errors && Object.keys(data.errors).includes("Name") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Name"][0]}
+                                    />}
+                                id="name"
+                                type="text"
+                                name="name"
+                                defaultValue={product ? product.name : undefined}
+                                placeholder="Protein, Creatine..."
+                            />
 
-                                <FormTextArea
-                                    styles={styles["add-product-input"]}
-                                    text="Description"
-                                    error={
-                                        data && data.errors && Object.keys(data.errors).includes("Description") &&
-                                        <InputError
-                                            styles={styles["error-par"]}
-                                            text={data.errors["Description"][0]}
-                                        />}
-                                    id="description"
-                                    name="description"
-                                    defaultValue={product ? product.description : undefined}
-                                    rows={9} />
+                            <FormTextArea
+                                styles={styles["add-product-input"]}
+                                text="Description"
+                                error={
+                                    data && data.errors && Object.keys(data.errors).includes("Description") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Description"][0]}
+                                    />}
+                                id="description"
+                                name="description"
+                                defaultValue={product ? product.description : undefined}
+                                rows={9} />
 
-                                <FormInput
-                                    styles={styles["add-product-input"]}
-                                    text="Price"
-                                    error={
-                                        data && data.errors && Object.keys(data.errors).includes("Price") &&
-                                        <InputError
-                                            styles={styles["error-par"]}
-                                            text={data.errors["Price"][0]}
-                                        />}
-                                    id="price"
-                                    type="text"
-                                    name="price"
-                                    defaultValue={product ? product.price : undefined}
-                                    placeholder="100 BGN"
-                                />
+                            <FormInput
+                                styles={styles["add-product-input"]}
+                                text="Price"
+                                error={
+                                    data && data.errors && Object.keys(data.errors).includes("Price") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Price"][0]}
+                                    />}
+                                id="price"
+                                type="text"
+                                name="price"
+                                defaultValue={product ? product.price : undefined}
+                                placeholder="100 BGN"
+                            />
 
-                                {product && product.quantity && <FormInput
-                                    styles={`${styles["add-product-input"]}`}
-                                    text="Quantity"
-                                    error={
-                                        data && data.errors && Object.keys(data.errors).includes("Quantity") &&
-                                        <InputError
-                                            styles={styles["error-par"]}
-                                            text={data.errors["Quantity"][0]}
-                                        />}
-                                    id="quantity"
-                                    type="number"
-                                    name="quantity"
-                                    value={product ? product.quantity : undefined}
-                                    placeholder=""
+                            {product && product.quantity && <FormInput
+                                styles={`${styles["add-product-input"]}`}
+                                text="Quantity"
+                                error={
+                                    data && data.errors && Object.keys(data.errors).includes("Quantity") &&
+                                    <InputError
+                                        styles={styles["error-par"]}
+                                        text={data.errors["Quantity"][0]}
+                                    />}
+                                id="quantity"
+                                type="number"
+                                name="quantity"
+                                value={product ? product.quantity : undefined}
+                                placeholder=""
+                            />}
+
+                            <SelectBrand onSelect={setBrand} brand={product && product.brand} />
+
+                            {data && data.errors && Object.keys(data.errors).includes("Brand") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["Brand"][0]}
                                 />}
 
-                                <SelectBrand onSelect={setBrand} brand={product && product.brand} />
 
-                                {data && data.errors && Object.keys(data.errors).includes("Brand") &&
+                            <h5 className={`mt-4 mb-1 ${styles["specs-header"]}`}>Specifications:</h5>
+                            <ProductSpecs data={data} currProductSpecs={productSpecs} />
+
+                            <div className="categories-wrapper mt-3">
+                                <h5 className={`ms-2 ${styles["category-header"]}`}>Category:</h5>
+                                <MultiSelectCategory productCategories={product ? product.categories : undefined} />
+                                {data && data.errors && Object.keys(data.errors).includes("Category") &&
                                     <InputError
                                         styles={styles["error-par"]}
-                                        text={data.errors["Brand"][0]}
+                                        text={data.errors["Category"][0]}
                                     />}
-
-
-                                <h5 className={`mt-4 mb-1 ${styles["specs-header"]}`}>Specifications:</h5>
-                                <ProductSpecs data={data} currProductSpecs={productSpecs} />
-
-                                <div className="categories-wrapper mt-3">
-                                    <h5 className={`ms-2 ${styles["category-header"]}`}>Category:</h5>
-                                    <MultiSelectCategory productCategories={product ? product.categories : undefined} />
-                                    {data && data.errors && Object.keys(data.errors).includes("Category") &&
-                                        <InputError
-                                            styles={styles["error-par"]}
-                                            text={data.errors["Category"][0]}
-                                        />}
-                                    <p className="mb-4"></p>
-                                </div>
-
-                                <ImageField
-                                    styles={styles}
-                                    data={data}
-                                    product={product} />
-
-                                {data && data.errors && Object.keys(data.errors).includes("message") &&
-                                    <InputError
-                                        styles={styles["error-par"]}
-                                        text={data.errors["message"][0]}
-                                    />}
-
-                                <FormButton
-                                    text={header}
-                                    wrapperStyles={styles["add-product-input"]}
-                                    disabled={isSubmitting}
-                                />
-
-                                <input type="hidden" name="brand" id="brand" value={brand} />
-
-                                <div className="mb-4"></div>
+                                <p className="mb-4"></p>
                             </div>
+
+                            <ImageField
+                                styles={styles}
+                                data={data}
+                                product={product} />
+
+                            {data && data.errors && Object.keys(data.errors).includes("message") &&
+                                <InputError
+                                    styles={styles["error-par"]}
+                                    text={data.errors["message"][0]}
+                                />}
+
+                            <FormButton
+                                text={header}
+                                wrapperStyles={styles["add-product-input"]}
+                                disabled={isSubmitting}
+                            />
+
+                            <input type="hidden" name="brand" id="brand" value={brand} />
+
+                            <div className="mb-4"></div>
                         </div>
                     </div>
-                </Form>
-            </motion.div>
-        </ProductSpecsContextProvider>
-    </CategoryBrandContextProvider>
+                </div>
+            </Form>
+        </motion.div>
+    </>
 }

@@ -21,7 +21,7 @@ export default function SelectFlavour({ flavours, spec, setSpec }) {
     return (
         <div className="dropdown d-flex justify-content-center align-items-center">
             <button type="button" className={`${styles["dropdown-button"]}`} onClick={() => setIsOpen(!isOpen)}>
-                {spec.flavour ? `${spec.flavour}` : `Flavour`}
+                {spec && spec.flavour ? `${spec.flavour}` : `Flavour`}
             </button>
             {isOpen && (
                 <motion.ul

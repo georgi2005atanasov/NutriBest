@@ -9,7 +9,9 @@ import {
     getProductsByCategories,
     getProductsByQuantity,
     getProductsByBrand,
-    getProductDetailsByIdAndName
+    getProductDetailsByIdAndName,
+    setProductDetailsById,
+    getProductSpecs
 } from "./products";
 
 import {
@@ -62,7 +64,10 @@ export { deleteProduct };
 export { getProductsByCategories };
 export { getProductsByQuantity };
 export { getProductsByBrand };
+export { getProductDetailsByIdAndName };
+export { setProductDetailsById };
 export { getImageByProductId };
+export { getProductSpecs };
 export { getIdentifiers };
 export { getFormFile };
 export { getProfileDetails };
@@ -76,7 +81,6 @@ export { addPromotion };
 export { getPromotionById };
 export { editPromotion };
 export { getProductsOfPromotion };
-export { getProductDetailsByIdAndName };
 export { allBrands };
 export { addCategory };
 export { deleteCategory };

@@ -13,7 +13,7 @@ export default function MultiSelectCategory({ data, errorStyle, productCategorie
     const categoriesCount = useRouteLoaderData("categoriesCount");
     
     const token = useRouteLoaderData("rootLoader");
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
     useEffect(() => {
         if (productCategories) {
@@ -48,7 +48,7 @@ export default function MultiSelectCategory({ data, errorStyle, productCategorie
                     checked={selectedCategories.some(x => x == category.name)}
                     className={`${styles["category-checkbox"]} ${styles["nav-link"]}`}
                 />
-                <label htmlFor={category.name.replace(" ", "")} className={`${styles["category-label"]} ${isAdmin ? colors["admin-color-text"] : colors["user-color-text"]}`}>
+                <label htmlFor={category.name.replace(" ", "")} className={`${styles["category-label"]} ${isAdmin || isEmployee ? colors["admin-color-text"] : colors["user-color-text"]}`}>
                     {category.name} {categoriesCount != undefined && <>
                         ({categoriesCount &&
                             categoriesCount.filter(x => x.category == category.name)[0] != undefined ?

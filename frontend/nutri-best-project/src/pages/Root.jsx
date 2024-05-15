@@ -11,6 +11,7 @@ export const DEFAULT_PRICE = "";
 export const DEFAULT_CATEGORY = "";
 export const DEFAULT_BRAND = "";
 export const DEFAULT_ALPHA = "";
+export const DEFAULT_QUANTITY = "";
 export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 
 export default function RootLayout() {
@@ -36,6 +37,9 @@ export default function RootLayout() {
         }
         if (!sessionStorage.getItem("page")) {
             sessionStorage.setItem("page", DEFAULT_PAGE);
+        }
+        if (!sessionStorage.getItem("quantity")) {
+            sessionStorage.setItem("quantity", DEFAULT_QUANTITY);
         }
     });
 

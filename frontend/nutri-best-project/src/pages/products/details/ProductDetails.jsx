@@ -2,9 +2,6 @@ import alt from "../../../assets/fallback-image.png";
 import styles from "../css/ProductDetails.module.css";
 import itemStyles from "../css/ProductItem.module.css";
 import { getPrice } from "../../../utils/product/products";
-import EditProductButton from "../../../components/UI/Buttons/Products/EditProductButton";
-import DeleteProductButton from "../../../components/UI/Buttons/Products/DeleteProductButton";
-import AddToCartButton from "../../../components/UI/Buttons/AddToCartButton";
 import MultiSelectPromotion from "../../../components/UI/Promotions/MultiSelectPromotion";
 import { allPromotions, getProductDetailsByIdAndName, getProductSpecs, getImageByProductId } from "../../../../../../backend/api/api";
 import { getAuthToken } from "../../../utils/auth";
@@ -48,12 +45,12 @@ export default function ProductDetails() {
 
     if (promotion != null) {
         return <>
-            <div className="container mt-5 d-flex justify-content-start">
-                {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
-            </div>
+            {isAdmin || isEmployee && <div className="container mt-5 d-flex justify-content-start">
+                <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />
+            </div>}
 
             <motion.div
-                className="container mt-5 d-flex flex-lg-row flex-column"
+                className="container d-flex flex-lg-row flex-column"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
@@ -119,9 +116,9 @@ export default function ProductDetails() {
     }
 
     return <>
-        <div className="container mt-5 d-flex justify-content-start">
-            {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
-        </div>
+        {isAdmin || isEmployee && <div className="container mt-5 d-flex justify-content-start">
+                <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />
+            </div>}
 
         <motion.div
             className="container mt-3 d-flex flex-lg-row flex-column"
@@ -130,7 +127,7 @@ export default function ProductDetails() {
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.7 }}
         >
-            <div className="col-lg-6 d-flex flex-column">
+            <div className="col-lg-7 d-flex flex-column">
                 <PagesNav
                     product={product.name}
                     wrapperStyle={styles["previous-pages"]}
@@ -149,7 +146,7 @@ export default function ProductDetails() {
                 </section>
             </div>
 
-            <div className="ms-md-3 col-lg-6 d-flex flex-column my-5">
+            <div className="ms-md-3 col-lg-5 d-flex flex-column my-5">
                 <MainDetails product={product} />
 
                 <section className="card m-2 py-4 px-0 d-flex">
@@ -163,9 +160,9 @@ export default function ProductDetails() {
                     <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
 
                     <DetailsButtons
-                            productId={product.productId}
-                            isVerified={isAdmin || isEmployee}
-                            promotion={promotion} />
+                        productId={product.productId}
+                        isVerified={isAdmin || isEmployee}
+                        promotion={promotion} />
                 </section>
 
                 <div className="mb-2"></div>

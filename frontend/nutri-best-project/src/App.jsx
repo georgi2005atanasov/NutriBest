@@ -15,7 +15,7 @@ import AllPromotions, { loader as promotionsLoader } from './pages/promotions/Al
 import AddPromotion, { action as addPromotion } from './pages/promotions/AddPromotion';
 import EditPromotion, { loader as promotionLoader, action as editPromotion } from './pages/promotions/EditPromotion';
 import PromotionsLayout from './pages/promotions/PromotionsLayout';
-import ProductDetails, { loader as productDetailsLoader } from './pages/products/ProductDetails';
+import ProductDetails, { loader as productDetailsLoader } from './pages/products/details/ProductDetails';
 import CategoriesLayout from './pages/categories/CategoriesLayout';
 import AllCategories from './pages/categories/AllCategories';
 import AddCategoryPage, { action as addCategory } from './pages/categories/AddCategory';

@@ -11,9 +11,11 @@ import { allPromotions } from "../../../../../backend/api/api";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
-import { Suspense, useState, useEffect, useCallback } from "react";
+import { Suspense, useState, useEffect, useCallback, useContext } from "react";
+import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 
 export default function AllProducts() {
+    const { setProductSpecs } = useContext(ProductSpecsContext);
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
     const token = useRouteLoaderData("rootLoader");
     const { isAdmin } = useAuth(token);
@@ -24,6 +26,11 @@ export default function AllProducts() {
     let { message, messageType } = getMessage(searchParams);
 
     const { productsRows, page } = useLoaderData();
+
+    useEffect(() => {
+        setProductSpecs({});
+    }, [setProductSpecs]); // resetting this because it sets where it
+    // must not
 
     useEffect(() => {
         if (message) {

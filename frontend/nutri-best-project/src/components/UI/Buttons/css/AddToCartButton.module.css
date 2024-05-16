@@ -1,5 +1,5 @@
-
 .add-to-cart-btn {
+    white-space: nowrap;
     background-color: #333;
     text-decoration: none;
     color: white;

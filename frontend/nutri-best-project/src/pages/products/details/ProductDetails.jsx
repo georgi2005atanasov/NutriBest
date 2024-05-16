@@ -107,8 +107,8 @@ export default function ProductDetails() {
                             promotion={promotion} />
                     </section>
 
-                    <DescriptionBox product={product} />
-                    <HowToUseBox product={product} />
+                    <DescriptionBox product={product} isVerified={isAdmin || isEmployee} />
+                    <HowToUseBox product={product} isVerified={isAdmin || isEmployee} />
                     <hr className="mt-3" />
                 </div>
             </motion.div>
@@ -167,8 +167,8 @@ export default function ProductDetails() {
 
                 <div className="mb-2"></div>
 
-                <DescriptionBox product={product} />
-                <HowToUseBox product={product} />
+                <DescriptionBox product={product} isVerified={isAdmin || isEmployee} />
+                <HowToUseBox product={product} isVerified={isAdmin || isEmployee} />
                 <hr className="mt-3" />
             </div>
         </motion.div>

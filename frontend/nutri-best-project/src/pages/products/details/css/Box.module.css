@@ -1,0 +1,12 @@
+.edit-area {
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+.save-btn {
+    background-color: gold;
+}

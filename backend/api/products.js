@@ -102,6 +102,26 @@ export async function editProduct(productModel, id) {
     }
 }
 
+export async function partialEditProduct(id, productModel) {
+    const token = getAuthToken();
+
+    if (token != "EXPIRED" && token != 0) {
+
+        const response = await fetch(`https://localhost:7056/products/${id}`, {
+            method: "PATCH",
+            body: productModel,
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        
+        return await response.json();
+    }
+    else {
+        throw Error("Token expired!")
+    }
+}
+
 export async function deleteProduct(productId) {
     const token = getAuthToken();
 

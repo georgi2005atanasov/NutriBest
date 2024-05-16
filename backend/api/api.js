@@ -11,7 +11,8 @@ import {
     getProductsByBrand,
     getProductDetailsByIdAndName,
     setProductDetailsById,
-    getProductSpecs
+    getProductSpecs,
+    partialEditProduct
 } from "./products";
 
 import {
@@ -60,6 +61,7 @@ export { addProduct };
 export { getProductById };
 export { allProducts };
 export { editProduct };
+export { partialEditProduct };
 export { deleteProduct };
 export { getProductsByCategories };
 export { getProductsByQuantity };

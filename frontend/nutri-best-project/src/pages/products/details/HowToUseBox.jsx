@@ -2,5 +2,9 @@
 import Box from "./Box";
 
 export default function HowToUseBox({ product, isVerified }) {
-    return <Box item={product.howToUse} name="How to Use" isVerified={isVerified} />
+    return <Box
+        product={product}
+        item={product.howToUse}
+        name="How to Use"
+        isVerified={isVerified} />
 }

@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/Box.module.css";
+import InputError from "../../../components/UI/Form/InputError";
+import { setProductDetailsById, partialEditProduct } from "../../../../../../backend/api/api";
 import { motion } from "framer-motion";
+import { useSubmit } from "react-router-dom";
 import { useRef, useState } from "react";
 
-
-export default function Box({ item, name, isVerified }) {
+export default function Box({ product, item, name, isVerified }) {
     const [isOpen, setIsOpen] = useState(false); // State to manage the description visibility
     const [isChanging, setIsChanging] = useState(false);
+    const [error, setError] = useState("");
     const itemValue = useRef(item);
+    const submit = useSubmit();
 
     // Function to toggle the description visibility
     const toggleOpen = () => {
@@ -21,10 +25,31 @@ export default function Box({ item, name, isVerified }) {
 
     const handleChange = () => {
         setIsChanging(prev => !prev);
+        return submit(null); // used for automatic refresh
     }
 
-    const handleSave = () => {
-        console.log(itemValue.current.value);
+    const handleSave = async () => {
+        console.log(product.productId);
+
+        const data = new FormData();
+
+        if (name == "How to Use") {
+            data.set("howToUse", itemValue.current.value);
+            await setProductDetailsById(product.productId, data);
+            setError("");
+        }
+        else if (name == "Description") {
+            data.set("description", itemValue.current.value);
+            const response = await partialEditProduct(product.productId, data);
+
+            if (response.errors) {
+                setError(response.errors["Description"][0]);
+                return;
+            }
+
+            setError("");
+        }
+
         handleChange();
     }
 
@@ -59,14 +84,20 @@ export default function Box({ item, name, isVerified }) {
                     className={styles["edit-area"]}
                     ref={itemValue}
                     defaultValue={item} rows={15} />}
+
+                {isVerified && error &&
+                    <InputError text={error} styles="text-danger mb-3" />}
+
                 {isVerified &&
-                    <button
-                        onClick={!isChanging ? handleChange : handleSave}
-                        type="button"
-                        className={`ms-3 border-0 p-3 px-5 ${isChanging && styles["save-btn"]}`}
-                    >
-                        {!isChanging ? "Edit" : "Save"}
-                    </button>}
+                    <>
+                        <button
+                            onClick={!isChanging ? handleChange : handleSave}
+                            type="button"
+                            className={`ms-3 border-0 p-3 px-5 ${isChanging && styles["save-btn"]}`}
+                        >
+                            {!isChanging ? "Edit" : "Save"}
+                        </button>
+                    </>}
             </div>
         </motion.div>
     </>;

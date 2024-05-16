@@ -25,8 +25,6 @@ export default function ProductDetails() {
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
     const { product, promotion, productPackages, productFlavours } = useLoaderData();
 
-    console.log(product);
-
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);

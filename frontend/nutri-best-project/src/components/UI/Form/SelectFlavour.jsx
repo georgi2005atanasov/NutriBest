@@ -24,25 +24,27 @@ export default function SelectFlavour({ flavours, spec, setSpec }) {
                 {spec && spec.flavour ? `${spec.flavour}` : `Flavour`}
             </button>
             {isOpen && (
-                <motion.ul
-                    className={`${styles["dropdown-list"]}`}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                >
-                    {flavours.map(x => (
-                        <motion.li
-                            key={x.name}
-                            className={styles["dropdown-item"]}
-                            onClick={() => handleSelect(x.name)}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 1.0 }}
-                        >
-                            {x.name}
-                        </motion.li>
-                    ))}
-                </motion.ul>
+                <div className="position-relative w-75">
+                    <motion.ul
+                        className={`${styles["dropdown-list"]}`}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {flavours.map(x => (
+                            <motion.li
+                                key={x.name}
+                                className={`${styles["dropdown-item"]}`}
+                                onClick={() => handleSelect(x.name)}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 1.0 }}
+                            >
+                                {x.name}
+                            </motion.li>
+                        ))}
+                    </motion.ul>
+                </div>
             )}
         </div>
     );

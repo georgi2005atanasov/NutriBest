@@ -1,0 +1,16 @@
+.serving-size-input {
+    border-radius: 5px !important;
+    background-color: #f0f0f0 !important;
+    transition: 0.7s;
+    transition: border-color 0.4s, box-shadow 0.4s;
+    outline: none;
+}
+
+.serving-size-input:focus {
+    border: none;
+    box-shadow: 0 0 8px #a5591c;
+}
+
+.save-btn {
+    background-color: gold;
+}

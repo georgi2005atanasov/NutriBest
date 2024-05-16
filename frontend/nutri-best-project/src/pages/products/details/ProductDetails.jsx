@@ -24,7 +24,7 @@ export default function ProductDetails() {
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
     const { product, promotion, productPackages, productFlavours } = useLoaderData();
-
+    console.log(product);
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
@@ -77,10 +77,10 @@ export default function ProductDetails() {
                 </div>
 
                 <div className="ms-md-3 col-lg-5 d-flex flex-column mt-5">
-                    <MainDetails product={product} />
+                    <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
-                    <section className="card m-2 py-4 px-0 d-flex">
-                        <h2 className="product-price text-center mt-2">
+                    <section className="border m-2 py-4 px-0">
+                        <h2 className="product-price text-center mt-0">
                             <span className={itemStyles["new-price"]}>
                                 {getPrice(product.price, promotion.discountPercentage).toFixed(2)} BGN
                             </span>
@@ -115,8 +115,8 @@ export default function ProductDetails() {
 
     return <>
         {isAdmin || isEmployee && <div className="container mt-5 d-flex justify-content-start">
-                <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />
-            </div>}
+            <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />
+        </div>}
 
         <motion.div
             className="container mt-3 d-flex flex-lg-row flex-column"
@@ -145,10 +145,10 @@ export default function ProductDetails() {
             </div>
 
             <div className="ms-md-3 col-lg-5 d-flex flex-column my-5">
-                <MainDetails product={product} />
+                <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
-                <section className="card m-2 py-4 px-0 d-flex">
-                    <h2 className="product-price text-center mb-3 mt-2">
+                <section className="border m-2 py-4 px-0">
+                    <h2 className="product-price text-center mb-3 mt-0">
                         <span>
                             {(product.price).toFixed(2)} BGN
                         </span>

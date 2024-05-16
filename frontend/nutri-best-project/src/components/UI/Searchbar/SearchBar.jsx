@@ -29,7 +29,7 @@ export default function SearchBar({ categories }) {
         return submit(null, { action: "/products/all", method: "get" });
     }
 
-    return <div className="col-md-4 d-flex flex-column">
+    return <div className="col-md-4 d-flex flex-column p-1">
         <div className="d-flex">
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-md-12 d-flex justify-content-center align-items-center">

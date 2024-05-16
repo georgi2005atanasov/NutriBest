@@ -81,10 +81,10 @@ export default function AllProducts() {
                         <div className="p-0 row d-flex justify-content-xl-between justify-content-center align-items-start">
                             <div className="container">
                                 <div className="row">
-                                    <div className="d-flex offset-md-3 text-center">
+                                    <div className="d-flex offset-md-3 offset-lg-2 offset-xl-3 text-center">
                                         <h3>Products</h3>
                                     </div>
-                                    <div className="d-flex offset-md-3 text-center">
+                                    <div className="d-flex offset-md-3 offset-lg-2 offset-xl-3 text-center">
                                         <p className="mb-2">{sessionStorage.getItem("productsCount")} products found</p>
                                     </div>
 

@@ -35,3 +35,23 @@
 .promotion-box {
     background-color: #b30202;
 }
+
+.previous-pages:hover {
+    cursor: pointer;
+}
+
+.page-promo {
+    transition: 0.4s;
+}
+
+.page-promo:hover {
+    color: #CC0000 !important;
+}
+
+.page {
+    transition: 0.4s;
+}
+
+.page:hover {
+    color: #2457ff !important;
+}

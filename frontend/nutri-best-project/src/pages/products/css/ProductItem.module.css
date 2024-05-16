@@ -59,7 +59,7 @@
 
 .edit-btn:hover,
 .delete-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.01);
 }
 
 .fallback-image {
@@ -118,7 +118,6 @@
 }
 
 .promotion-wrapper {
-    /* border-color: #CC0000; */
     background-color: rgb(241, 241, 241);
 }
 

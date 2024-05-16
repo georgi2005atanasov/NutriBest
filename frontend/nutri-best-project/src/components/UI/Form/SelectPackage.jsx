@@ -36,7 +36,7 @@ export function SelectPackage({ packages, spec, setSpec }) {
                             key={p.grams}
                             className={styles["dropdown-item"]}
                             onClick={() => handleSelect(p.grams)}
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 1.0 }}
                         >
                             {p.grams}g

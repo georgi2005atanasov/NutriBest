@@ -3,11 +3,11 @@ import { createContext, useEffect, useState } from "react";
 
 export const ProductSpecsContext = createContext({
     productSpecs: [],
-    setProductSpecs: () => {},
+    setProductSpecs: () => { },
     packages: [],
-    setPackages: () => {},
+    setPackages: () => { },
     flavours: [],
-    setFlavours: () => {},
+    setFlavours: () => { },
 
 });
 

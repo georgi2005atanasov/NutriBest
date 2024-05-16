@@ -2,6 +2,8 @@ import alt from "../../assets/fallback-image.png";
 import styles from "./css/ProductDetails.module.css";
 import itemStyles from "./css/ProductItem.module.css";
 import { getPrice } from "../../utils/product/products";
+import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
+import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
 import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
 import { allPromotions, getProductDetailsByIdAndName, getProductSpecs, getImageByProductId } from "../../../../../backend/api/api";
@@ -11,21 +13,17 @@ import { motion } from "framer-motion";
 import { redirect, useLoaderData } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import SelectFlavour from "../../components/UI/Form/SelectFlavour";
+import { SelectPackage } from "../../components/UI/Form/SelectPackage";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
-import ProductSpecsContextProvider from "../../store/ProductSpecsContext";
 
 export default function ProductDetails() {
     const [src, setSrc] = useState("");
     const token = getAuthToken();
-    const { productSpecs, setProductSpecs, flavours, packages, setPackages, setFlavours } = useContext(ProductSpecsContext);
     const { isAdmin, isEmployee } = useAuth(token);
-    const { product, promotions, promotion, specs } = useLoaderData();
-    const [flavour, setFlavour] = useState("");
-    const [grams, setGrams] = useState(0);
+    const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
+    const { product, promotion, productPackages, productFlavours } = useLoaderData();
 
-    console.log(specs);
-    console.log(flavours);
-    console.log(packages);
+    console.log(product);
 
     useEffect(() => {
         async function getImage(productId) {
@@ -43,18 +41,12 @@ export default function ProductDetails() {
         setSrc(src);
     }, [product]);
 
-    useEffect(() => {
-        setPackages(specs.map(x => ({ grams: x.grams })));
-        // i may think over how i set the flavours but this works totally fine
-        setFlavours(specs.map(x => ({ flavour: x.flavour, name: x.flavour })));
-    }, [specs, setPackages, setFlavours]);
-
     if (promotion != null) {
         return <>
             <div className="container mt-5 d-flex justify-content-start">
                 {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
             </div>
-            
+
             <motion.div
                 className="container mt-5 d-flex flex-md-row flex-column"
                 initial={{ opacity: 0, y: -50 }}
@@ -63,6 +55,10 @@ export default function ProductDetails() {
                 transition={{ duration: 0.7 }}
             >
                 <div className="col-md-4 d-flex flex-column">
+                    <div className={styles["previous-pages"]}>
+                        <span onClick={() => history.back()} className={`${styles["page-promo"]} text-secondary`}>All &gt; </span>
+                        <span className={`${styles["page-promo"]} text-secondary`}>{product.name}</span>
+                    </div>
                     <h3 className={`${itemStyles["promotion-name"]} product-name text-start mt-2 mb-2`}>
                         {product.name}
                     </h3>
@@ -83,14 +79,16 @@ export default function ProductDetails() {
                     <hr className="m-1" />
                     <div className="ms-3">Manufacturer: {product.brand}</div>
                     <hr className="m-1" />
-                    <h3 className="product-price text-center mb-2">
+                    <div className="ms-3">How to Use: {product.howToUse}</div>
+                    <hr className="m-1" />
+                    <h2 className="product-price text-center mb-2">
                         <span className={itemStyles["new-price"]}>
                             {getPrice(product.price, promotion.discountPercentage).toFixed(2)} BGN
                         </span>
                         <span className={itemStyles["original-price"]}>
                             {(product.price).toFixed(2)} BGN
                         </span>
-                    </h3>
+                    </h2>
 
                     <div className="d-flex justify-content-center text-secondary">
                         Saved:&nbsp;
@@ -98,8 +96,17 @@ export default function ProductDetails() {
                             {((product.price) - getPrice(product.price, promotion.discountPercentage)).toFixed(2)} BGN
                         </span>
                     </div>
-                    <SelectFlavour flavours={flavours} spec={flavours} setSpec={setFlavours} />
-                    <AddToCartButton isValidPromotion={promotion != null} wrapperStyles="mt-3" linkStyles="px-5 py-3" />
+                    <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
+                    <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+                    {isAdmin && isEmployee ?
+                        <AddToCartButton
+                            isValidPromotion={promotion != null}
+                            wrapperStyles="mt-3"
+                            linkStyles="px-5 py-3" /> :
+                        <div className="mt-3 d-flex flex-column align-items-center">
+                            <EditProductButton productId={product.productId} />
+                            <DeleteProductButton productId={product.productId} />
+                        </div>}
                 </div>
             </motion.div>
         </>;
@@ -111,13 +118,17 @@ export default function ProductDetails() {
         </div>
 
         <motion.div
-            className="container mt-5 d-flex flex-md-row flex-column"
+            className="container mt-3 d-flex flex-md-row flex-column"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.7 }}
         >
             <div className="col-md-4 d-flex flex-column">
+                <div className={styles["previous-pages"]}>
+                    <span onClick={() => history.back()} className={`${styles["page"]} text-secondary`}>All &gt; </span>
+                    <span className={`${styles["page"]} text-secondary`}>{product.name}</span>
+                </div>
                 <h2 className={`${itemStyles["promotion-name"]} product-name text-start mt-2 mb-3`}>
                     {product.name}
                 </h2>
@@ -130,19 +141,33 @@ export default function ProductDetails() {
                 </section>
             </div>
             <div className="ms-md-5 col-md-6 d-flex flex-column mt-5">
+                <h5>{product.name}</h5>
                 <hr className="m-1" />
                 <div className="ms-3">Related Categories: {product.categories.join(", ")}</div>
                 <hr className="m-1" />
                 <div className="ms-3">Manufacturer: {product.brand}</div>
                 <hr className="m-1" />
+                <div className="ms-3">How to Use: {product.howToUse}</div>
 
-                <h3 className="product-price text-center mb-2">
+                <hr className="m-1" />
+
+                <h2 className="product-price text-center mb-2">
                     <span>
                         {(product.price).toFixed(2)} BGN
                     </span>
-                </h3>
-                <SelectFlavour />
-                <AddToCartButton isValidPromotion={promotion != null} wrapperStyles="mt-3" linkStyles="px-5 py-3" />
+                </h2>
+                <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
+                <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+
+                {!isAdmin && !isEmployee ?
+                    <AddToCartButton
+                        isValidPromotion={promotion != null}
+                        wrapperStyles="mt-3"
+                        linkStyles="px-5 py-3" /> :
+                    <div className="mt-3 d-flex flex-column align-items-center">
+                        <EditProductButton productId={product.productId} />
+                        <DeleteProductButton productId={product.productId} />
+                    </div>}
             </div>
         </motion.div>
     </>;
@@ -163,10 +188,29 @@ export async function loader({ request, params }) {
 
     const specs = await specsResponse.json();
 
+    const uniqueGrams = new Map();
+    const uniqueFlavours = new Map();
+
+    // Populate the Map
+    specs.forEach(item => {
+        if (!uniqueGrams.has(item.grams)) {
+            uniqueGrams.set(item.grams, item);
+        }
+
+        if (!uniqueFlavours.has(item.flavour)) {
+            uniqueFlavours.set(item.flavour, { flavour: item.flavour, name: item.flavour });
+        }
+    });
+
+    const productPackages = Array.from(uniqueGrams.values());
+    const productFlavours = Array.from(uniqueFlavours.values());
+
     return {
         product,
         promotions,
         promotion,
-        specs
+        specs,
+        productPackages,
+        productFlavours
     };
 }

@@ -28,11 +28,13 @@
     padding: 10px;
     margin: 0;
     z-index: 1;
+    max-width: 200px !important
 }
 
 .dropdown-item {
     padding: 10px;
     cursor: pointer;
+    max-width: 200px !important;
 }
 
 .dropdown-item:hover {

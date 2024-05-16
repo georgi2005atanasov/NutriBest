@@ -5,7 +5,7 @@ import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
-import { getImageByProductId } from "../../../../../backend/api/api";
+import { getImageByProductId, getProductSpecs } from "../../../../../backend/api/api";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
 import { getPrice } from "../../utils/product/products";
@@ -79,7 +79,6 @@ export default function ProductItem({ product }) {
                     <AddToCartButton isValidPromotion={promotions
                         .filter(x => x.isActive)
                         .some(x => x.promotionId == product.promotionId)} />}
-
             </motion.section>
         </AnimatePresence>
     }

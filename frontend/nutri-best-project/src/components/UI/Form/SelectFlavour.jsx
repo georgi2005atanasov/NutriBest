@@ -19,13 +19,13 @@ export default function SelectFlavour({ flavours, spec, setSpec }) {
     };
 
     return (
-        <div className="dropdown d-flex justify-content-center align-items-center">
+        <div className="dropdown d-flex flex-column justify-content-center align-items-center">
             <button type="button" className={`${styles["dropdown-button"]}`} onClick={() => setIsOpen(!isOpen)}>
                 {spec && spec.flavour ? `${spec.flavour}` : `Flavour`}
             </button>
             {isOpen && (
                 <motion.ul
-                    className={styles["dropdown-list"]}
+                    className={`${styles["dropdown-list"]}`}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -36,7 +36,7 @@ export default function SelectFlavour({ flavours, spec, setSpec }) {
                             key={x.name}
                             className={styles["dropdown-item"]}
                             onClick={() => handleSelect(x.name)}
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 1.0 }}
                         >
                             {x.name}

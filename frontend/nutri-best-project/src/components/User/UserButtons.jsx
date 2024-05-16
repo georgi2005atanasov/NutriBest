@@ -1,10 +1,23 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
 import colors from "../../App.module.css";
 import NavigationLink from "../Navigation/NavigationLink";
+import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { allPackages } from "../../../../../backend/api/packages";
+import { allFlavours } from "../../../../../backend/api/flavours";
 
 export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
+    const { packages, flavours, setPackages, setFlavours } = useContext(ProductSpecsContext);
+
+    async function resetContext() {
+        const responsePackage = await allPackages();
+        const responseFlavours = await allFlavours();
+        setPackages(responsePackage);
+        setFlavours(responseFlavours);
+    }
+
     return <>
         <motion.div
             className="row my-2 p-0 d-flex justify-content-end align-items-center"
@@ -21,6 +34,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                         route={"/products/add"}
                         text={"Add Product"}
                         isAdmin={isAdmin}
+                        onClick={resetContext}
                         className={`d-flex justify-content-center align-items-center p-md-1`} />
                 </> :
                     undefined}

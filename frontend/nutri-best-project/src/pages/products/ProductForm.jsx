@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/ProductForm.module.css";
-import CategoryBrandContextProvider from "../../store/CategoryBrandContext";
 import Header from "../../components/UI/Shared/Header";
 import FormButton from "../../components/UI/Form/FormButton";
 import FormInput from "../../components/UI/Form/FormInput";

@@ -3,7 +3,7 @@ import styles from "../css/ProductDetails.module.css";
 import itemStyles from "../css/ProductItem.module.css";
 import { getPrice } from "../../../utils/product/products";
 import MultiSelectPromotion from "../../../components/UI/Promotions/MultiSelectPromotion";
-import { allPromotions, getProductDetailsByIdAndName, getProductSpecs, getImageByProductId } from "../../../../../../backend/api/api";
+import { allPromotions, getProductDetailsByIdAndName, getProductSpecs, getImageByProductId, getNutritionFactsByProductIdAndName } from "../../../../../../backend/api/api";
 import { getAuthToken } from "../../../utils/auth";
 import useAuth from "../../../hooks/useAuth";
 import { motion } from "framer-motion";
@@ -14,20 +14,17 @@ import { SelectPackage } from "../../../components/UI/Form/SelectPackage";
 import { ProductSpecsContext } from "../../../store/ProductSpecsContext";
 import MainDetails from "./MainDetails";
 import PagesNav from "./PagesNav";
-import DescriptionBox from "./DescriptionBox";
-import HowToUseBox from "./HowToUseBox";
 import DetailsButtons from "./DetailsButtons";
-import WhyChooseBox from "./WhyChooseBox";
-import IngredientsBox from "./IngredientsBox";
 import DetailsWrapper from "./DetailsWrapper";
+import NutritionFacts from "./NutritionFacts";
 
 export default function ProductDetails() {
     const [src, setSrc] = useState("");
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
-    const { product, promotion, productPackages, productFlavours } = useLoaderData();
-    console.log(product);
+    const { product, promotion, productPackages, productFlavours, nutritionFacts } = useLoaderData();
+    console.log(nutritionFacts);
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
@@ -111,6 +108,15 @@ export default function ProductDetails() {
                     <DetailsWrapper product={product} isVerified={isAdmin || isEmployee} />
                 </div>
             </motion.div>
+
+            <motion.div
+                className="d-flex flex-column align-items-center justify-content-center m-2"
+            >
+                <NutritionFacts
+                    nutriFacts={nutritionFacts}
+                    product={product}
+                    isVerified={isAdmin || isEmployee} />
+            </motion.div>
         </>;
     }
 
@@ -167,6 +173,15 @@ export default function ProductDetails() {
                 <DetailsWrapper product={product} isVerified={isAdmin || isEmployee} />
             </div>
         </motion.div>
+
+        <motion.div
+            className="d-flex flex-column align-items-center justify-content-center m-2"
+        >
+            <NutritionFacts
+                nutriFacts={nutritionFacts}
+                product={product}
+                isVerified={isAdmin || isEmployee} />
+        </motion.div>
     </>;
 }
 
@@ -176,8 +191,8 @@ export async function loader({ request, params }) {
     const product = await getProductDetailsByIdAndName(id, name);
     const promotions = await allPromotions();
     const promotion = promotions.filter(x => x.isActive && x.promotionId == product.promotionId)[0] || null;
-
     const specsResponse = await getProductSpecs(id, name);
+    const nutritionFacts = await getNutritionFactsByProductIdAndName(id, name);
 
     if (!specsResponse.ok) {
         return redirect("/error");
@@ -208,6 +223,7 @@ export async function loader({ request, params }) {
         promotion,
         specs,
         productPackages,
-        productFlavours
+        productFlavours,
+        nutritionFacts
     };
 }

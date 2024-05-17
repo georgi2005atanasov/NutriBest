@@ -13,17 +13,20 @@ import {
     setProductDetailsById,
     getProductSpecs,
     partialEditProduct
-} from "./products";
+}
+    from "./products";
 
 import {
     getFormFile
-} from "./images";
+}
+    from "./images";
 
 import {
     getProfileDetails,
     editUser,
     deleteUser
-} from "./profile";
+}
+    from "./profile";
 
 import {
     allPromotions,
@@ -34,28 +37,38 @@ import {
     editPromotion,
     getPromotionById,
     getProductsOfPromotion
-} from "./promotions";
+}
+    from "./promotions";
 
 import {
     allBrands,
     addBrand,
     getImageByBrandName,
     deleteBrandByName
-} from "./brands";
+}
+    from "./brands";
 import {
     addCategory,
     deleteCategory
-} from "./categories";
+}
+    from "./categories";
 import {
     allPackages,
     addPackage,
     deletePackage
-} from "./packages";
+}
+    from "./packages";
 import {
     allFlavours,
     addFlavour,
     deleteFlavour
-} from "./flavours";
+}
+    from "./flavours";
+import {
+    getNutritionFactsByProductIdAndName,
+    setNutritionFactsByProductId
+}
+    from "./nutritionFacts";
 
 export { addProduct };
 export { getProductById };
@@ -95,3 +108,5 @@ export { deletePackage };
 export { allFlavours };
 export { addFlavour };
 export { deleteFlavour };
+export { getNutritionFactsByProductIdAndName };
+export { setNutritionFactsByProductId };

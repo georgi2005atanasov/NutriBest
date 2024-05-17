@@ -26,7 +26,7 @@ export default function MainDetails({ product, isVerified }) {
 
 
     return <>
-        <h5 className="mt-4">{product.name}</h5>
+        <h5 className="mt-md-4">{product.name}</h5>
         <hr className="m-1" />
         <div className="ms-3">Related Categories: <strong>{product.categories.join(", ")}</strong></div>
         <hr className="m-1" />

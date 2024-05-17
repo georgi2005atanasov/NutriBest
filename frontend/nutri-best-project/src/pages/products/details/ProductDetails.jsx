@@ -48,7 +48,7 @@ export default function ProductDetails() {
             </div>}
 
             <motion.div
-                className="container d-flex flex-lg-row flex-column"
+                className="container mt-md-0 mt-4 d-flex flex-lg-row flex-column"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 50 }}
@@ -76,7 +76,7 @@ export default function ProductDetails() {
                     </section>
                 </div>
 
-                <div className="ms-md-3 col-lg-5 d-flex flex-column mt-3">
+                <div className="ms-md-3 col-lg-5 d-flex flex-column mt-lg-3 mt-2">
                     <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                     <section className="border m-2 py-4 px-0">
@@ -126,7 +126,7 @@ export default function ProductDetails() {
         </div>}
 
         <motion.div
-            className="container mt-3 d-flex flex-lg-row flex-column"
+            className="container mt-md-0 mt-4 d-flex flex-lg-row flex-column"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
@@ -151,7 +151,7 @@ export default function ProductDetails() {
                 </section>
             </div>
 
-            <div className="ms-md-3 col-lg-5 d-flex flex-column my-5">
+            <div className="ms-md-3 col-lg-5 d-flex flex-column mt-lg-5 mt-2">
                 <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                 <section className="border m-2 py-4 px-0">
@@ -175,7 +175,7 @@ export default function ProductDetails() {
         </motion.div>
 
         <motion.div
-            className="d-flex flex-column align-items-center justify-content-center m-2"
+            className="d-flex flex-column align-items-center justify-content-center"
         >
             <NutritionFacts
                 nutriFacts={nutritionFacts}

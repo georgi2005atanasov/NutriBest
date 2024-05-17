@@ -3,7 +3,7 @@ import styles from "./css/Box.module.css";
 import InputError from "../../../components/UI/Form/InputError";
 import { setProductDetailsById, partialEditProduct } from "../../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { useSubmit } from "react-router-dom";
+import { redirect, useSubmit } from "react-router-dom";
 import { useRef, useState } from "react";
 
 export default function Box({ product, item, name, isVerified }) {
@@ -33,24 +33,38 @@ export default function Box({ product, item, name, isVerified }) {
 
         const data = new FormData();
 
-        if (name == "How to Use") {
-            data.set("howToUse", itemValue.current.value);
-            await setProductDetailsById(product.productId, data);
-            setError("");
-        }
-        else if (name == "Description") {
-            data.set("description", itemValue.current.value);
-            const response = await partialEditProduct(product.productId, data);
+        try {
+            if (name == "How to Use") {
+                data.set("howToUse", itemValue.current.value);
+                await setProductDetailsById(product.productId, data);
+                setError("");
+            }
+            else if (name == "Description") {
+                data.set("description", itemValue.current.value);
+                const response = await partialEditProduct(product.productId, data);
 
-            if (response.errors) {
-                setError(response.errors["Description"][0]);
-                return;
+                if (response.errors) {
+                    setError(response.errors["Description"][0]);
+                    return;
+                }
+
+                setError("");
+            }
+            else if (name == "Why Choose?") {
+                data.set("whyChoose", itemValue.current.value);
+                await setProductDetailsById(product.productId, data);
+                setError("");
+            }
+            else if (name == "Ingredients") {
+                data.set("ingredients", itemValue.current.value);
+                await setProductDetailsById(product.productId, data);
+                setError("");
             }
 
-            setError("");
+            handleChange();
+        } catch (error) {
+            return redirect("/error");
         }
-
-        handleChange();
     }
 
     return <>

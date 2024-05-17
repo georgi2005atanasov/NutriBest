@@ -17,6 +17,9 @@ import PagesNav from "./PagesNav";
 import DescriptionBox from "./DescriptionBox";
 import HowToUseBox from "./HowToUseBox";
 import DetailsButtons from "./DetailsButtons";
+import WhyChooseBox from "./WhyChooseBox";
+import IngredientsBox from "./IngredientsBox";
+import DetailsWrapper from "./DetailsWrapper";
 
 export default function ProductDetails() {
     const [src, setSrc] = useState("");
@@ -76,7 +79,7 @@ export default function ProductDetails() {
                     </section>
                 </div>
 
-                <div className="ms-md-3 col-lg-5 d-flex flex-column mt-5">
+                <div className="ms-md-3 col-lg-5 d-flex flex-column mt-3">
                     <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                     <section className="border m-2 py-4 px-0">
@@ -105,9 +108,7 @@ export default function ProductDetails() {
                             promotion={promotion} />
                     </section>
 
-                    <DescriptionBox product={product} isVerified={isAdmin || isEmployee} />
-                    <HowToUseBox product={product} isVerified={isAdmin || isEmployee} />
-                    <hr className="mt-3" />
+                    <DetailsWrapper product={product} isVerified={isAdmin || isEmployee} />
                 </div>
             </motion.div>
         </>;
@@ -163,11 +164,7 @@ export default function ProductDetails() {
                         promotion={promotion} />
                 </section>
 
-                <div className="mb-2"></div>
-
-                <DescriptionBox product={product} isVerified={isAdmin || isEmployee} />
-                <HowToUseBox product={product} isVerified={isAdmin || isEmployee} />
-                <hr className="mt-3" />
+                <DetailsWrapper product={product} isVerified={isAdmin || isEmployee} />
             </div>
         </motion.div>
     </>;

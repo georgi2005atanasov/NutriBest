@@ -206,6 +206,10 @@ nav a {
     padding: 13px !important;
 }
 
+#shopping-cart-wrapper:hover {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 390px) {
     #shopping-cart-wrapper {
         padding: 10px !important;

@@ -9,6 +9,7 @@ export default function DetailsButtons({ productId, isVerified, promotion }) {
         {!isVerified ?
             <div className="d-flex justify-content-evenly flex-lg-row flex-column">
                 <AddToCartButton
+                    productId={productId}
                     isValidPromotion={promotion != null}
                     wrapperStyles="mt-3"
                     linkStyles="px-4 py-4" />

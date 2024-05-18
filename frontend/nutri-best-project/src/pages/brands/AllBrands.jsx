@@ -2,7 +2,7 @@ import styles from "./css/AllBrands.module.css";
 import AddBrandButton from "../../components/UI/Buttons/Brands/AddBrandButton";
 import Message from "../../components/UI/Shared/Message";
 import DeleteBrandModal from "../../components/Modals/Delete/DeleteBrandModal";
-import BrandDetailsModal from "../../components/Modals/BrandDetailsModal";
+import BrandDetailsModal from "../../components/Modals/Details/BrandDetailsModal";
 import BrandItem from "./BrandItem";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";

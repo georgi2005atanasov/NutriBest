@@ -11,7 +11,7 @@ export default function ClearFiltersButton() {
     function handleClearFilters() {
         cleanFilters();
         setSelectedCategories([]);
-        submit(`page=1`);
+        submit(null);
     }
 
     return <button onClick={handleClearFilters} className={`${styles["clear-filters-btn"]} p-2 border-0 rounded-1 mt-1`}>

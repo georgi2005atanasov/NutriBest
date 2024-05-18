@@ -3,13 +3,18 @@ import colors from "../../App.module.css";
 import NavigationLink from "../Navigation/NavigationLink";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { allPackages } from "../../../../../backend/api/packages";
 import { allFlavours } from "../../../../../backend/api/flavours";
 
-export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag }) {
-    const { packages, flavours, setPackages, setFlavours } = useContext(ProductSpecsContext);
+export default function UserButtons({ styles, isVerified, handleLogout, shoppingBag }) {
+    const dialog = useRef();
+
+    const { setPackages, setFlavours } = useContext(ProductSpecsContext);
+    
+    function openCart() {
+        dialog.current.open();
+    }
 
     async function resetContext() {
         const responsePackage = await allPackages();
@@ -27,13 +32,13 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
             transition={{ duration: 0.4 }}
         >
             <div className="col-6 p-0 d-flex justify-content-end align-items-center me-1">
-                {isAdmin ? <>
+                {isVerified ? <>
                     <div className="mx-1"></div>
 
                     <NavigationLink
                         route={"/products/add"}
                         text={"Add Product"}
-                        isAdmin={isAdmin}
+                        isAdmin={isVerified}
                         onClick={resetContext}
                         className={`d-flex justify-content-center align-items-center p-md-1`} />
                 </> :
@@ -54,7 +59,7 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                         <NavigationLink
                             route={`/products/all?page=1`}
                             text={"All"}
-                            isAdmin={isAdmin}
+                            isAdmin={isVerified}
                             className={`text-center`} />
 
                         <div className="mx-1"></div>
@@ -62,23 +67,25 @@ export default function UserButtons({ styles, isAdmin, handleLogout, shoppingBag
                         <NavigationLink
                             route={"/profile"}
                             text={"Profile"}
-                            isAdmin={isAdmin}
+                            isAdmin={isVerified}
                             className={`text-center p-md-1`} />
                         <div className="mx-1"></div>
 
                         <NavigationLink
                             text={"Logout"}
                             onClick={handleLogout}
-                            isAdmin={isAdmin}
+                            isAdmin={isVerified}
                             className={`text-center border-0 p-md-1`} />
 
                         <div className="mx-1"></div>
 
-                        {!isAdmin ?
-                            <div id={styles["shopping-cart-wrapper"]} className={isAdmin ? `px-2 p-lg-4 ${styles["nav-link"]} ${colors["admin-color"]}` : `${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
-                                <Link className="text-center" to="cart-modal">
-                                    <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
-                                </Link>
+                        {!isVerified ?
+                            <div
+                                onClick={openCart}
+                                id={styles["shopping-cart-wrapper"]}
+                                className={`${colors["user-color"]} 
+                        ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
+                                <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                             </div> :
                             undefined}
                     </div>

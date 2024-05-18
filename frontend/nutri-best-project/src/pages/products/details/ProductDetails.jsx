@@ -24,7 +24,7 @@ export default function ProductDetails() {
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
     const { product, promotion, productPackages, productFlavours, nutritionFacts } = useLoaderData();
-    console.log(nutritionFacts);
+    
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);

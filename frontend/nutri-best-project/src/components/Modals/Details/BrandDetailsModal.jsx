@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import Modal from "./Modal";
-import styles from "./css/BrandDetailsModal.module.css";
+import Modal from "../Modal";
+import styles from "../css/BrandDetailsModal.module.css";
 import { forwardRef } from "react";
 
 // eslint-disable-next-line react/prop-types

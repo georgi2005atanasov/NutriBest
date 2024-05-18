@@ -8,7 +8,7 @@ import { useLoaderData, useSubmit } from "react-router-dom";
 
 export default function NavButtons() {
     const token = useLoaderData("rootLoader");
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
     const submit = useSubmit();
 
@@ -19,7 +19,7 @@ export default function NavButtons() {
     if (token && token != "EXPIRED" && token != 0) {
         return <UserButtons
             styles={styles}
-            isAdmin={isAdmin}
+            isVerified={isAdmin || isEmployee}
             handleLogout={handleLogout}
             shoppingBag={shoppingBag} />
     }

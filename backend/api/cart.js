@@ -33,3 +33,25 @@ export async function addToCart(productId, count) {
 
     return response;
 }
+
+export async function getCart() {
+    const token = getAuthToken();
+
+    if (!token || token == "EXPIRED") {
+        const response = await fetch(`https://localhost:7056/cart/guest/get`, {
+            method: "GET",
+            credentials: "include"
+        });
+
+        return await response.json();
+    }
+
+    const response = await fetch(`https://localhost:7056/cart/user/get`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return await response.json();
+}

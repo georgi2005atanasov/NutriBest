@@ -70,7 +70,8 @@ import {
 }
     from "./nutritionFacts";
 import {
-    addToCart
+    addToCart,
+    getCart
 }
     from "./cart";
 
@@ -116,3 +117,4 @@ export { deleteFlavour };
 export { getNutritionFactsByProductIdAndName };
 export { setNutritionFactsByProductId };
 export { addToCart };
+export { getCart };

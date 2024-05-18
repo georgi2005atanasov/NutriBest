@@ -1,0 +1,40 @@
+.cart-modal {
+    padding: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 15px 25px;
+    margin: 10px;
+    border: none !important;
+    color: white;
+    background-color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-btn {
+    background-color: #555;
+    border-radius: 5px;
+    border: 0 !important;
+}
+
+.close-btn:hover {
+    background-color: #606060;
+}
+
+.checkout-btn {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.checkout-btn:hover {
+    background-color: #606060;
+}

@@ -66,7 +66,7 @@ dialog {
 .modal-buttons button {
     padding: 15px 25px;
     margin: 10px;
-    border: none;
+    border: none !important;
     color: white;
     background-color: #333;
     cursor: pointer;
@@ -86,12 +86,10 @@ dialog {
 .close-btn {
     background-color: #555;
     border-radius: 5px;
-    /* Dark gray */
 }
 
 .close-btn:hover {
     background-color: #606060;
-    /* Darker gray */
 }
 
 .delete-modal {

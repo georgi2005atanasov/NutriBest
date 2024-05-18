@@ -6,6 +6,7 @@ import ProductSpecsContextProvider from "../store/ProductSpecsContext";
 import { getAuthToken } from "../utils/auth";
 import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
+import CartContextProvider from "../store/CartContext";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PRICE = "";
@@ -67,8 +68,10 @@ export default function RootLayout() {
         {isLoading && <Loader />}
         <CategoryBrandContextProvider>
             <ProductSpecsContextProvider>
-                <MainNavigation />
-                <Outlet context={token} />
+                <CartContextProvider>
+                    <MainNavigation />
+                    <Outlet context={token} />
+                </CartContextProvider>
             </ProductSpecsContextProvider>
         </CategoryBrandContextProvider>
         <Footer />

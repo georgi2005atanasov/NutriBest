@@ -1,27 +1,19 @@
 /* eslint-disable react/prop-types */
 import colors from "../../App.module.css";
-import { getCart } from "../../../../../backend/api/api";
+import CartModal from "../Modals/Cart/CartModal";
 import NavigationLink from "../Navigation/NavigationLink";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import CartModal from "../Modals/Cart/CartModal";
+import { useRef } from "react";
 
 export default function GuestButtons({ styles, shoppingBag }) {
-    const [cart, setCart] = useState("");
     const dialog = useRef();
 
-    async function openCart() {
-        async function handleCart() {
-            const cart = await getCart();
-            setCart(cart);
-        }
-
-        await handleCart();
+    function openCart() {
         dialog.current.open();
     }
 
     return <>
-        <CartModal cart={cart} ref={dialog} />
+        <CartModal ref={dialog} />
 
         <motion.div
             className={`row d-flex justify-content-end mt-2 p-0 ps-5`}

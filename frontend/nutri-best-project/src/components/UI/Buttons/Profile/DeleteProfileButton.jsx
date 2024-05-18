@@ -1,5 +1,5 @@
 import styles from "../css/DeleteProfileButton.module.css";
-import DeleteProfileModal from "../../../Modals/DeleteProfileModal";
+import DeleteProfileModal from "../../../Modals/Delete/DeleteProfileModal";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 

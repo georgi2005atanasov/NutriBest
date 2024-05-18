@@ -1,7 +1,7 @@
 import styles from "./css/AllPackages.module.css";
 import Message from "../../components/UI/Shared/Message";
 import PackageItem from "./PackageItem";
-import DeletePackageModal from "../../components/Modals/DeletePackageModal";
+import DeletePackageModal from "../../components/Modals/Delete/DeletePackageModal";
 import AddPackageButton from "../../components/UI/Buttons/Packages/AddPackageButton";
 import { allPackages } from "../../../../../backend/api/api";
 import { getAuthToken } from "../../utils/auth";

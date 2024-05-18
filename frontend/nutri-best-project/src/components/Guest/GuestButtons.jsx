@@ -4,8 +4,15 @@ import colors from "../../App.module.css";
 import buttonsStyle from "./css/GuestButtons.module.css";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 export default function GuestButtons({ styles, shoppingBag }) {
+    const cart = useRef();
+
+    function openCart() {
+
+    }
+
     return <motion.div
         className={`row d-flex justify-content-end mt-2 p-0 ps-5`}
         initial={{ opacity: 0, y: -20 }}
@@ -36,7 +43,7 @@ export default function GuestButtons({ styles, shoppingBag }) {
                         className="text-center" />
 
                     <div id={styles["shopping-cart-wrapper"]} className={`${colors["user-color"]} ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
-                        <Link className="text-center" to="cart-modal">
+                        <Link className="text-center" onClick>
                             <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
                         </Link>
                     </div>

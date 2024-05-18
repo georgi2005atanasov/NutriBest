@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/PromotionButtons.module.css";
-import DeletePromotionModal from "../../Modals/DeletePromotionModal";
+import DeletePromotionModal from "../../Modals/Delete/DeletePromotionModal";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 

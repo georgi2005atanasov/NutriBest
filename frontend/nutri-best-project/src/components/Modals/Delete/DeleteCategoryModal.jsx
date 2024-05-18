@@ -1,6 +1,6 @@
-import Modal from "./Modal";
-import styles from "./css/DeleteProductModal.module.css";
-import { deleteCategory } from "../../../../../backend/api/api";
+import Modal from "../Modal";
+import styles from "../css/DeleteProductModal.module.css";
+import { deleteCategory } from "../../../../../../backend/api/api";
 import { redirect, useSubmit } from "react-router-dom";
 import { forwardRef } from "react";
 

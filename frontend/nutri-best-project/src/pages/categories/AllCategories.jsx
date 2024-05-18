@@ -3,7 +3,7 @@ import Message from "../../components/UI/Shared/Message";
 import AddCategoryButton from "../../components/UI/Buttons/Categories/AddCategoryButton";
 import CategoryItem from "./CategoryItem";
 import { getAuthToken } from "../../utils/auth";
-import DeleteCategoryModal from "../../components/Modals/DeleteCategoryModal";
+import DeleteCategoryModal from "../../components/Modals/Delete/DeleteCategoryModal";
 import useAuth from "../../hooks/useAuth";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { motion } from "framer-motion";

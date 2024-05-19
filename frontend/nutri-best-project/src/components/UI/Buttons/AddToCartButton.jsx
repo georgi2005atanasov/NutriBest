@@ -36,7 +36,7 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
                 ${styles["add-to-cart-btn"]}`}>
                 Add to Cart
             </button>
-            {error && <InputError text={error} />}
+            {error && <InputError styles="text-danger" text={error} />}
         </div>
     </>;
 }

@@ -3,6 +3,8 @@ dialog {
     border-radius: 10px;
     padding: 0;
     animation: slide-up 0.3s ease-out forwards;
+    overflow-y: auto;
+    max-height: 400px;
 }
 
 .modal {

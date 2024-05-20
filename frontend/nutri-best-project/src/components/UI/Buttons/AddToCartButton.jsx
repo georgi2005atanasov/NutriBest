@@ -1,6 +1,6 @@
 import styles from "./css/AddToCartButton.module.css";
 import CartModal from "../../Modals/Cart/CartModal";
-import { addToCart } from "../../../../../../backend/api/cart";
+import { addToCart, getCart } from "../../../../../../backend/api/cart";
 import { useContext, useRef, useState } from "react";
 import InputError from "../Form/InputError";
 import { CartContext } from "../../../store/CartContext";
@@ -12,21 +12,19 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
     const [error, setError] = useState();
 
     async function handleCartAdd() {
-        const response = await addToCart(productId, 1);
-
-        if (!response.ok) {
-            const result = await response.json();
-            setError(result.message);
-            return;
-        }
-
-        if (error) {
-            setError("");
-        }
-
-        fetch(setCurrentProducts())
-        .then(() => dialog.current.open());
-
+        await addToCart(productId, 1)
+            .then(async (response) => {
+                if (!response.ok) {
+                    const result = await response.json();
+                    setError(result.message);
+                    return;
+                }
+                if (error) {
+                    setError("");
+                }
+            })
+            .then(() => setCurrentProducts())
+            .then(() => dialog.current.open());
     }
 
     return <>

@@ -69,25 +69,45 @@ dialog {
     outline: none;
 }
 
-.clean-cart-btn {
-    background-color: #555555;
-    border-radius: 5px;
-    outline: none;
-    min-width: 161px;
-    min-height: 54px;
-    /* Dark gray */
+.add-counter {
+    border: none;
+    max-width: 40px;
+    max-height: 40px;
+    text-align: center;
+    outline: none !important;
 }
 
-.clean-cart-btn:hover {
-    background-color: #606060;
-    outline: none;
+#plus-btn, #minus-btn {
+    min-width: 30px;
+    min-height: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-name {
+    max-width: 150px;
+    min-width: 100px;
+}
+
+.product-cart-line {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.close-cart-icon {
+    cursor: pointer;
+    font-size: 20px;
 }
 
 .clean-cart-icon {
+    font-size: 20px;
     cursor: pointer;
-    transition: 0.6s;
+    transition: 0.7s;
 }
 
 .clean-cart-icon:hover {
-    color: crimson;
+    color: rgb(194, 16, 16);
 }

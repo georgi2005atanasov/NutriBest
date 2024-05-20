@@ -82,3 +82,12 @@ dialog {
     background-color: #606060;
     outline: none;
 }
+
+.clean-cart-icon {
+    cursor: pointer;
+    transition: 0.6s;
+}
+
+.clean-cart-icon:hover {
+    color: crimson;
+}

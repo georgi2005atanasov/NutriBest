@@ -55,3 +55,12 @@ export async function getCart() {
 
     return await response.json();
 }
+
+export async function cleanCart() {
+    const response = await fetch(`https://localhost:7056/cart/guest/clean`, {
+        method: "DELETE",
+        credentials: "include"
+    });
+
+    return response;
+}

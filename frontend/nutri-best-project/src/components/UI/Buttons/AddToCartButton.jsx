@@ -1,12 +1,14 @@
 import styles from "./css/AddToCartButton.module.css";
 import CartModal from "../../Modals/Cart/CartModal";
 import { addToCart } from "../../../../../../backend/api/cart";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import InputError from "../Form/InputError";
+import { CartContext } from "../../../store/CartContext";
 
 // eslint-disable-next-line react/prop-types
 export default function AddToCartButton({ productId, wrapperStyles = "", linkStyles = "", isValidPromotion }) {
     const dialog = useRef();
+    const { setCurrentProducts } = useContext(CartContext);
     const [error, setError] = useState();
 
     async function handleCartAdd() {
@@ -22,7 +24,9 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
             setError("");
         }
 
-        dialog.current.open();
+        fetch(setCurrentProducts())
+        .then(() => dialog.current.open());
+
     }
 
     return <>

@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import colors from "../../App.module.css";
+import CartButton from "../Modals/Cart/CartButton";
 import NavigationLink from "../Navigation/NavigationLink";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import { motion } from "framer-motion";
-import { useContext, useRef } from "react";
 import { allPackages } from "../../../../../backend/api/packages";
 import { allFlavours } from "../../../../../backend/api/flavours";
+import { useContext, useRef } from "react";
 
-export default function UserButtons({ styles, isVerified, handleLogout, shoppingBag }) {
+export default function UserButtons({ isVerified, handleLogout }) {
     const dialog = useRef();
 
     const { setPackages, setFlavours } = useContext(ProductSpecsContext);
-    
+
     function openCart() {
         dialog.current.open();
     }
@@ -80,13 +80,7 @@ export default function UserButtons({ styles, isVerified, handleLogout, shopping
                         <div className="mx-1"></div>
 
                         {!isVerified ?
-                            <div
-                                onClick={openCart}
-                                id={styles["shopping-cart-wrapper"]}
-                                className={`${colors["user-color"]} 
-                        ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
-                                <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
-                            </div> :
+                            <CartButton openCart={openCart} /> :
                             undefined}
                     </div>
                 </div>

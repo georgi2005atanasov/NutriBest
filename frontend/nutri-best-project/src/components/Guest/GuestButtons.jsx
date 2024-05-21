@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import colors from "../../App.module.css";
+import CartButton from "../Modals/Cart/CartButton";
 import CartModal from "../Modals/Cart/CartModal";
 import NavigationLink from "../Navigation/NavigationLink";
 import { motion } from "framer-motion";
@@ -11,7 +12,7 @@ export default function GuestButtons({ styles, shoppingBag }) {
     function openCart() {
         dialog.current.open();
     }
-
+    
     return <>
         <CartModal ref={dialog} />
 
@@ -44,13 +45,7 @@ export default function GuestButtons({ styles, shoppingBag }) {
                             text={"Sign up"}
                             className="text-center" />
 
-                        <div
-                            onClick={openCart}
-                            id={styles["shopping-cart-wrapper"]}
-                            className={`${colors["user-color"]} 
-                        ${styles["nav-link"]} px-2 p-lg-4 mx-1`}>
-                            <img className={styles["cart-icon"]} src={shoppingBag} alt="Shopping bag" />
-                        </div>
+                        <CartButton openCart={openCart} />
                     </div>
                 </div>
             </div>

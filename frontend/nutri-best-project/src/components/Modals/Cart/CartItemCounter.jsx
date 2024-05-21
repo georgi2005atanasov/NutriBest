@@ -42,6 +42,12 @@ export default function CartItemCounter({ product, count }) {
     async function handleEnter(event, productId) {
         event.stopPropagation();
         if (event.key == "Enter") {
+            if (countRef.current.value > count) {
+                await addToCart(productId, countRef.current.value - count);
+            }
+            else if (countRef.current.value < count) {
+                await removeFromCart(productId, count - countRef.current.value);
+            }
             // countRef.current.value
             event.target.blur();
         }

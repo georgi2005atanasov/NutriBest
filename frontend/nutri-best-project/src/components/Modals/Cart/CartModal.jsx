@@ -23,7 +23,7 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
     }
 
     return <Modal ref={ref}>
-        <div className="d-flex justify-content-between align-items-center">
+        <div className={`d-flex justify-content-between align-items-center`}>
             <motion.i
                 className={`mx-2 mt-2 fa fa-trash-o d-flex align-items-start justify-content-start ${styles["clean-cart-icon"]}`} aria-hidden="true"
                 onClick={onClean}
@@ -69,7 +69,7 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
                 </form>
                 <button className={`${styles["checkout-btn"]} border-0`}>Go To Checkout</button>
             </div>
-        </div >
+        </div>
     </Modal>;
 });
 

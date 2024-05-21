@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import CartModal from "../Modals/Cart/CartModal";
 import CartButton from "../Modals/Cart/CartButton";
 import NavigationLink from "../Navigation/NavigationLink";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
@@ -24,6 +25,8 @@ export default function UserButtons({ isVerified, handleLogout }) {
     }
 
     return <>
+        <CartModal ref={dialog} />
+
         <motion.div
             className="row my-2 p-0 d-flex justify-content-end align-items-center"
             initial={{ opacity: 0, y: -20 }}
@@ -54,7 +57,7 @@ export default function UserButtons({ isVerified, handleLogout }) {
         >
             <div className={`col-12 p-0 d-flex justify-content-end`}>
                 <div className="row d-flex justify-content-end">
-                    <div className="col-lg-12 col-8 d-flex justify-content-end p-0 me-2">
+                    <div className="col-lg-12 col-8 d-flex justify-content-end p-0 me-0">
                         {/* gotta add more tools buttons for admin soon */}
                         <NavigationLink
                             route={`/products/all?page=1`}
@@ -76,8 +79,6 @@ export default function UserButtons({ isVerified, handleLogout }) {
                             onClick={handleLogout}
                             isAdmin={isVerified}
                             className={`text-center border-0 p-md-1`} />
-
-                        <div className="mx-1"></div>
 
                         {!isVerified ?
                             <CartButton openCart={openCart} /> :

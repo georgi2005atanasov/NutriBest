@@ -6,7 +6,7 @@ import NavigationLink from "../Navigation/NavigationLink";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 
-export default function GuestButtons({ styles, shoppingBag }) {
+export default function GuestButtons({ styles }) {
     const dialog = useRef();
 
     function openCart() {

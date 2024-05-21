@@ -64,3 +64,17 @@ export async function cleanCart() {
 
     return response;
 }
+
+export async function removeFromCart(productId, count) {
+    const response = await fetch(`https://localhost:7056/cart/guest/remove`, {
+        method: "DELETE",
+        body: JSON.stringify({
+            productId,
+            count
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    })
+}

@@ -1,22 +1,48 @@
+/* eslint-disable react/prop-types */
 import styles from "./css/CartModal.module.css";
+import { addToCart, removeFromCart } from "../../../../../../backend/api/cart";
+import { getCart } from "../../../../../../backend/api/cart";
+import { getImageByProductId } from "../../../../../../backend/api/api";
+import { CartContext } from "../../../store/CartContext";
+import { useContext, useRef } from "react";
 
-export default function CartItemCounter({ product }) {
+export default function CartItemCounter({ product, count }) {
+    const countRef = useRef(count);
+    const { setCart } = useContext(CartContext);
+
+    async function getCartProducts() {
+        const cartData = await getCart();
+
+        for (const { product } of cartData.cartProducts) {
+            product.image = await getImageByProductId(product.productId);
+        }
+
+        setCart(cartData);
+    }
+
     async function handleAdd(event, productId) {
-
+        await addToCart(productId, 1);
+        countRef.current.value = Number(countRef.current.value) + 1;
     }
 
     async function handleRemove(event, productId) {
+        await removeFromCart(productId, 1);
+        countRef.current.value = Number(countRef.current.value) - 1;
 
+        if (countRef.current.value == "0") {
+            await getCartProducts();
+        }
     }
 
     function handleBlur(event, productId) {
         event.stopPropagation();
+
     }
 
-    function handleEnter(event, productId) {
+    async function handleEnter(event, productId) {
         event.stopPropagation();
         if (event.key == "Enter") {
-            console.log(event.target.value);
+            // countRef.current.value
             event.target.blur();
         }
     }
@@ -32,7 +58,8 @@ export default function CartItemCounter({ product }) {
             onKeyDown={(event) => handleEnter(event, product.productId)}
             onBlur={(event) => handleBlur(event, product.productId)}
             className={`${styles["add-counter"]} bg-light`}
-            type="text" id="quantity" name="quantity" defaultValue={product.quantity} />
+            type="number" id="quantity" name="quantity" defaultValue={count}
+            ref={countRef} />
         <button
             onClick={(event) => handleAdd(event, product.productId)}
             id={styles["plus-btn"]}

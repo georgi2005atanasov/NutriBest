@@ -44,17 +44,17 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
 
                         <div className="ms-2 d-flex flex-column">
                             <h5 className={`mb-0 ${styles["product-name"]}`}>{x.product.name}</h5>
-                            <div className="text-italic ms-2">{x.count} x&nbsp;
+                            <div className="text-italic ms-2">
                                 {x.product.promotionId ?
                                     getPrice(x.product.price, x.product.discountPercentage).toFixed(2) :
-                                    x.product.price.toFixed(2)} BGN
+                                    x.product.price.toFixed(2)} BGN per package
                             </div>
                         </div>
 
                     </div>
                     <hr className={`${styles["product-cart-line"]} m-1`} />
                 </Link>
-                <CartItemCounter product={x.product} />
+                <CartItemCounter key={x.count} product={x.product} count={x.count} />
             </div>
 
             )}

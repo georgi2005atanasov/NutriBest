@@ -4,8 +4,7 @@ import { getImageByProductId } from "../../../../backend/api/products";
 
 export const CartContext = createContext({
     cart: {},
-    setCart: () => { },
-    setCurrentProducts: () => {}
+    setCart: () => { }
 });
 
 // eslint-disable-next-line react/prop-types
@@ -27,7 +26,7 @@ export default function CartContextProvider({ children }) {
     }, []);
 
     return <CartContext.Provider
-        value={{ cart, setCart, setCurrentProducts: getCartProducts }}>
+        value={{ cart, setCart }}>
         {children}
     </CartContext.Provider>
 }

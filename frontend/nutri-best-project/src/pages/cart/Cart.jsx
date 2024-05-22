@@ -7,12 +7,12 @@ import { getImageByProductId } from "../../../../../backend/api/api";
 import { CartContext } from "../../store/CartContext";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 
 export default function Cart() {
     const { cart, setCart } = useContext(CartContext);
 
-    async function getCartProducts() {
+    const getCartProducts = useCallback(async function getCartProducts() {
         const cartData = await getCart();
 
         for (const { product } of cartData.cartProducts) {
@@ -20,7 +20,7 @@ export default function Cart() {
         }
 
         setCart(cartData);
-    }
+    }, [setCart]);
 
     async function removeProduct(event, productId, count) {
         await removeFromCart(productId, count);
@@ -35,24 +35,28 @@ export default function Cart() {
         transition={{ duration: 0.7 }}
     >
         <h2 className="m-0 d-flex mb-3 ms-3">Your Cart</h2>
-        {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(x => <div key={x.productId} className={`d-flex flex-sm-row flex-column justify-content-between align-items-sm-center align-items-start m-3`}>
+        {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(x => <div key={x.productId} className={`position-relative d-flex flex-sm-row flex-column justify-content-between align-items-sm-center align-items-start m-3`}>
+            {x.product.discountPercentage &&
+                <div className={styles["promotion-box"]}>
+                    {Math.floor(x.product.discountPercentage)} <strong>%</strong>
+                </div>}
             <Link className={`${styles["product-cart-item"]} ${styles["cart-item"]} w-50`} to={`/products/details/${x.product.productId}/${x.product.name}`}>
                 <hr className={`${styles["product-cart-line"]}`} />
                 <div className="d-flex justify-content-start align-items-center m-1">
                     <img className={styles["cart-image"]} src={`data:${x.product.image.contentType};base64,${x.product.image.imageData}`} alt={x.product.name} />
 
                     <div className="ms-2">
-                        <h5 className={`mb-0 ${styles["product-name"]}`}>{x.product.name}</h5>
+                        <h4 className={`mb-0 ${styles["product-name"]}`}>{x.product.name}</h4>
                     </div>
                 </div>
             </Link>
             <div className={`d-flex justify-content-between align-items-center w-50`}>
                 <CartItemCounter key={x.count} styles={styles} product={x.product} count={x.count} />
-                <h4 className={`${styles["item-price"]} text-italic d-flex justify-content-center align-items-center`}>
+                <h3 className={`${styles["item-price"]} text-italic d-flex justify-content-center align-items-center`}>
                     {x.product.promotionId ?
                         getPrice(x.product.price, x.product.discountPercentage).toFixed(2) :
                         x.product.price.toFixed(2)} BGN
-                </h4>
+                </h3>
             </div>
             <motion.i
                 onClick={(event) => removeProduct(event, x.productId, x.count)} className={`fa fa-trash-o ${styles["delete-icon"]}`} aria-hidden="true"

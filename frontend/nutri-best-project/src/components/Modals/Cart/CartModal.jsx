@@ -29,18 +29,19 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
     }
 
     return <Modal ref={ref}>
-        <div className={`d-flex justify-content-center align-items-center`}>
-            <motion.i
+        <div className={`d-flex justify-content-end align-items-center mb-0`}>
+            {/* <motion.i
                 className={`mx-2 mt-2 fa fa-times d-flex justify-content-end ${styles["close-cart-icon"]}`} aria-hidden="true"
                 onClick={handleClose}
             >
-            </motion.i>
+            </motion.i> */}
         </div>
 
         <div
             className={`${styles["cart-modal"]} d-flex flex-column justify-content-center align-items-evenly`}
         >
             <div className={styles["modal-buttons"]}>
+                <button onClick={handleClose} className={`${styles["close-btn"]} border-0 w-100`}>Close</button>
                 <button onClick={goToCheckout} className={`${styles["checkout-btn"]} border-0 w-100`}>Go To Checkout</button>
             </div>
             <hr className="m-1" />

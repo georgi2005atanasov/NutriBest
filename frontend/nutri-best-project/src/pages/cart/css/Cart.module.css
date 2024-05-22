@@ -1,7 +1,8 @@
 .cart-image {
-    max-width: 190px;
-    max-height: 190px;
+    max-width: 120px !important;
+    max-height: 120px !important;
     height: auto;
+    width: 100%;
 }
 
 .product-cart-item {
@@ -130,4 +131,22 @@ input[type="number"]::-webkit-outer-spin-button {
     /* .product-cart-item {
         position: relative;
     } */
+}
+
+.promotion-box {
+    width: 45px;
+    height: 45px;
+    background-color: #CC0000;
+    position: absolute;
+    display: flex;
+    top: -10px;
+    left: 95px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px;
+    font-weight: bolder;
+    color: white;
+    z-index: 1;
+    font-size: 17px;
+    transition: 0.3s;
 }

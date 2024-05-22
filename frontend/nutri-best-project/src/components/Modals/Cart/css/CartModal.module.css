@@ -9,6 +9,7 @@ dialog {
 
 .cart-modal {
     padding: 5px;
+    padding-top: 0;
     margin: 0 auto;
 }
 
@@ -41,6 +42,16 @@ dialog {
 .checkout-btn:hover {
     background-color: #606060;
 }
+
+.close-btn {
+    background-color: #555;
+    border-radius: 5px;
+}
+
+.close-btn:hover {
+    background-color: #9c5454;
+}
+
 
 .cart-image {
     max-width: 100px;

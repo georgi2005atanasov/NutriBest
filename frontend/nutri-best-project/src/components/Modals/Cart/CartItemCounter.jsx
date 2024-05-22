@@ -33,30 +33,36 @@ export default function CartItemCounter({ styles, product, count }) {
     }
 
     async function handleRemove(event, productId) {
-        await removeFromCart(productId, 1);
+        const response = await removeFromCart(productId, 1);
+        if (!response.ok) {
+            const data = await response.json();
+            setError(data.message);
+            return;
+        }
+
         countRef.current.value = Number(countRef.current.value) - 1;
         await getCartProducts();
     }
 
     async function handleEnteredValue(productId) {
-        await setProductInCart(productId, Number(countRef.current.value));
-    }
-
-    async function handleBlur(event, productId) {
         if (Number(countRef.current.value) < 0) {
             setError("Invalid product count!");
             return;
         }
-        await handleEnteredValue(productId);
+        const response = await setProductInCart(productId, Number(countRef.current.value));
+        if (!response.ok) {
+            const data = await response.json();
+            setError(data.message);
+            return;
+        }
         await getCartProducts();
     }
 
     async function handleEnter(event, productId) {
         event.stopPropagation();
         if (event.key == "Enter") {
-            await handleEnteredValue(productId);
+            handleEnteredValue(productId);
             event.target.blur();
-            await getCartProducts();
         }
     }
 
@@ -72,7 +78,6 @@ export default function CartItemCounter({ styles, product, count }) {
                     </button>
                     <input
                         onKeyDown={(event) => handleEnter(event, product.productId)}
-                        onBlur={(event) => handleBlur(event, product.productId)}
                         className={`${styles["add-counter"]} bg-light`}
                         type="number" id="quantity" name="quantity" defaultValue={count}
                         ref={countRef} />

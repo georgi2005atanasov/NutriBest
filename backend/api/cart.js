@@ -47,3 +47,19 @@ export async function removeFromCart(productId, count) {
 
     return response;
 }
+
+export async function setProductInCart(productId, count) {
+    const response = await fetch(`https://localhost:7056/cart/set`, {
+        method: "POST",
+        body: JSON.stringify({
+            productId,
+            count
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    });
+
+    return response;
+}

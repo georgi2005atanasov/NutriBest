@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { addToCart, removeFromCart } from "../../../../../../backend/api/cart";
 import { getCart } from "../../../../../../backend/api/cart";
-import { getImageByProductId } from "../../../../../../backend/api/api";
+import { getImageByProductId, setProductInCart } from "../../../../../../backend/api/api";
 import { CartContext } from "../../../store/CartContext";
 import { useContext, useRef, useState } from "react";
 
@@ -39,33 +39,22 @@ export default function CartItemCounter({ styles, product, count }) {
     }
 
     async function handleEnteredValue(productId) {
-        if (countRef.current.value > count) {
-            const response = await addToCart(productId, countRef.current.value - count);
-            if (!response.ok) {
-                const data = await response.json();
-                setError(data.message);
-                return;
-            }
-        }
-        else if (countRef.current.value < count) {
-            const response = await removeFromCart(productId, count - countRef.current.value);
-            if (!response.ok) {
-                const data = await response.json();
-                setError(data.message);
-                return;
-            }
-        }
+        await setProductInCart(productId, Number(countRef.current.value));
     }
 
     async function handleBlur(event, productId) {
-        handleEnteredValue(productId);
+        if (Number(countRef.current.value) < 0) {
+            setError("Invalid product count!");
+            return;
+        }
+        await handleEnteredValue(productId);
         await getCartProducts();
     }
 
     async function handleEnter(event, productId) {
         event.stopPropagation();
         if (event.key == "Enter") {
-            handleEnteredValue(productId);
+            await handleEnteredValue(productId);
             event.target.blur();
             await getCartProducts();
         }

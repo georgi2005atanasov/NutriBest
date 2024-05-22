@@ -14,7 +14,7 @@
 .add-counter {
     border: none;
     max-width: 40px;
-    max-height: 40px;
+    min-height: 40px;
     text-align: center;
     outline: none !important;
 }
@@ -51,7 +51,7 @@ input[type="number"]::-webkit-outer-spin-button {
     min-width: 150px;
     width: 100%;
     position: absolute;
-    margin: -1px;
+    margin: -15px;
 }
 
 .close-cart-icon {
@@ -78,4 +78,56 @@ input[type="number"]::-webkit-outer-spin-button {
 .item-price {
     max-width: 190px !important;
     min-width: 170px;
+}
+
+.delete-icon {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-icon:hover {
+    color: rgb(156, 19, 19);
+}
+
+@media screen and (max-width: 635px) {
+    .delete-icon {
+        margin-left: 30px !important;
+    }
+
+    .cart-item {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .delete-icon {
+        position: absolute;
+        margin-left: 370px !important;
+        margin-bottom: 90px !important;
+    }
+
+    .product-cart-item {
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .delete-icon {
+        margin-left: 300px !important;
+    }
+
+    /* .product-cart-item {
+        position: relative;
+    } */
+}
+
+@media screen and (max-width: 350px) {
+    .delete-icon {
+        margin-left: 240px !important;
+    }
+
+    /* .product-cart-item {
+        position: relative;
+    } */
 }

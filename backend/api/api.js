@@ -72,7 +72,9 @@ import {
 import {
     addToCart,
     getCart,
-    cleanCart
+    cleanCart,
+    removeFromCart,
+    setProductInCart
 }
     from "./cart";
 
@@ -120,3 +122,5 @@ export { setNutritionFactsByProductId };
 export { addToCart };
 export { getCart };
 export { cleanCart };
+export { removeFromCart };
+export { setProductInCart };

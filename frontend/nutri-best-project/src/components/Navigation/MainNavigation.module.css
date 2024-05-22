@@ -47,7 +47,7 @@
 }
 
 .nav-link {
-    padding: 7px 25px;
+    padding: 7px 24px;
     background-color: #f5f3ef;
     margin: 0;
     border: none;
@@ -58,6 +58,12 @@
     align-items: center;
     color: #333;
     white-space: nowrap;
+}
+
+@media screen and (max-width: 339px) {
+    .nav-link {
+        width: 80%;
+    }
 }
 
 .nav-link a {
@@ -214,4 +220,8 @@ nav a {
     #shopping-cart-wrapper {
         padding: 10px !important;
     }
+}
+
+.nav-buttons {
+    max-width: 100px;
 }

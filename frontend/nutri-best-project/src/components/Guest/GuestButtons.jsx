@@ -12,7 +12,7 @@ export default function GuestButtons({ styles }) {
     function openCart() {
         dialog.current.open();
     }
-    
+
     return <>
         <CartModal ref={dialog} />
 
@@ -23,9 +23,9 @@ export default function GuestButtons({ styles }) {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.4 }}
         >
-            <div className={`${styles["nav-buttons"]} col-12 p-0 d-flex justify-content-end me-0`}>
+            <div className={`col-12 p-0 d-flex justify-content-end me-0`}>
                 <div className="row d-flex justify-content-end">
-                    <div className="col-lg-12 d-flex justify-content-end p-0 me-sm-2">
+                    <div className={`${styles["nav-buttons"]} col-lg-12 d-flex justify-content-end p-0 me-sm-2`}>
                         <NavigationLink
                             route={"/products/all?page=1"}
                             text={"All"}

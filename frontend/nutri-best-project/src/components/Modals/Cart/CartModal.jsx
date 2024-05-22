@@ -53,7 +53,7 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
                 </motion.i>
             </div>
             <hr className="m-1" />
-            {cart && cart.cartProducts.map(x => <div key={x.productId} className="d-flex flex-md-row flex-column justify-content-between">
+            {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(x => <div key={x.productId} className="d-flex flex-md-row flex-column justify-content-between">
                 <Link onClick={handleClose} className={`${styles["product-cart-item"]}`} to={`/products/details/${x.product.productId}/${x.product.name}`}>
                     <div className="d-flex justify-content-start align-items-center m-1">
                         <img className={styles["cart-image"]} src={`data:${x.product.image.contentType};base64,${x.product.image.imageData}`} alt={x.product.name} />
@@ -71,7 +71,6 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
                 </Link>
                 <CartItemCounter key={x.count} styles={styles} product={x.product} count={x.count} />
             </div>
-
             )}
         </div>
     </Modal>;

@@ -16,7 +16,8 @@ export default function Cart() {
         exit={{ opacity: 0, y: 50 }}
         transition={{ duration: 0.7 }}
     >
-        {cart && cart.cartProducts.map(x => <div key={x.productId} className={`d-flex flex-sm-row flex-column justify-content-between align-items-center`}>
+        <h2 className="m-0 d-flex mb-3 ms-3">Your Cart</h2>
+        {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(x => <div key={x.productId} className={`d-flex flex-sm-row flex-column justify-content-between align-items-md-center align-items-start`}>
             <Link className={`${styles["product-cart-item"]} ${styles["cart-item"]}`} to={`/products/details/${x.product.productId}/${x.product.name}`}>
                 <hr className={`${styles["product-cart-line"]}`} />
                 <div className="d-flex justify-content-start align-items-center m-1">
@@ -27,20 +28,20 @@ export default function Cart() {
                     </div>
                 </div>
             </Link>
-            <div className="d-flex justify-content-evenly align-items-center">
-                <h5 className="text-italic m-0 d-flex align-items-center">
+            <div className="d-flex justify-content-between align-items-center">
+                <CartItemCounter key={x.count} styles={styles} product={x.product} count={x.count} />
+                <h5 className={`${styles["item-price"]} text-italic d-flex justify-content-center align-items-center`}>
                     {x.product.promotionId ?
                         getPrice(x.product.price, x.product.discountPercentage).toFixed(2) :
                         x.product.price.toFixed(2)} BGN
                 </h5>
-                <CartItemCounter key={x.count} styles={styles} product={x.product} count={x.count} />
             </div>
         </div>
 
         )}
         <hr className="m-1" />
-        <h3 className="ms-2 d-flex align-items-end">
-            Total: {cart && cart.totalPrice.toFixed(2)} BGN
+        <h3 className="ms-2 d-flex align-items-end justify-content-center">
+            Total: {cart && cart.totalPrice && cart.totalPrice.toFixed(2)} BGN
         </h3>
         <hr className="m-1" />
     </motion.div>

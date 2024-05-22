@@ -12,7 +12,8 @@ import {
     getProductDetailsByIdAndName,
     setProductDetailsById,
     getProductSpecs,
-    partialEditProduct
+    partialEditProduct,
+    getRelated
 }
     from "./products";
 
@@ -90,6 +91,7 @@ export { getProductsByQuantity };
 export { getProductsByBrand };
 export { getProductDetailsByIdAndName };
 export { setProductDetailsById };
+export { getRelated };
 export { getImageByProductId };
 export { getProductSpecs };
 export { getIdentifiers };

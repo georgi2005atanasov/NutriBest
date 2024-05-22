@@ -17,6 +17,7 @@ import PagesNav from "./PagesNav";
 import DetailsButtons from "./DetailsButtons";
 import DetailsWrapper from "./DetailsWrapper";
 import NutritionFacts from "./NutritionFacts";
+import RelatedProducts from "./RelatedProducts";
 
 export default function ProductDetails() {
     const [src, setSrc] = useState("");
@@ -24,7 +25,7 @@ export default function ProductDetails() {
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
     const { product, promotion, productPackages, productFlavours, nutritionFacts } = useLoaderData();
-    
+
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
@@ -43,7 +44,7 @@ export default function ProductDetails() {
 
     if (promotion != null) {
         return <>
-            {isAdmin || isEmployee && <div className="container mt-5 d-flex justify-content-start">
+            {(isAdmin || isEmployee) && <div className="container mt-5 d-flex justify-content-start">
                 <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />
             </div>}
 
@@ -66,7 +67,7 @@ export default function ProductDetails() {
 
                     <section className="d-flex justify-content-end">
                         <div className={styles["promotion-box"]}>
-                            {promotion && Math.floor(promotion.discountPercentage)}<strong>%</strong>
+                            {promotion && Math.floor(product.discountPercentage)}<strong>%</strong>
                         </div>
                         {src ? <img
                             className={`${itemStyles["product-image"]} 
@@ -82,7 +83,7 @@ export default function ProductDetails() {
                     <section className="border m-2 py-4 px-0">
                         <h2 className="product-price text-center mt-0">
                             <span className={itemStyles["new-price"]}>
-                                {getPrice(product.price, promotion.discountPercentage).toFixed(2)} BGN
+                                {getPrice(product.price, product.discountPercentage).toFixed(2)} BGN
                             </span>
                             <span className={itemStyles["original-price"]}>
                                 {(product.price).toFixed(2)} BGN
@@ -92,7 +93,7 @@ export default function ProductDetails() {
                         <div className="d-flex justify-content-center text-secondary">
                             Saved:&nbsp;
                             <span className={`text-center ${itemStyles["new-price"]}`}>
-                                {((product.price) - getPrice(product.price, promotion.discountPercentage)).toFixed(2)} BGN
+                                {((product.price) - getPrice(product.price, product.discountPercentage)).toFixed(2)} BGN
                             </span>
                         </div>
 
@@ -117,11 +118,13 @@ export default function ProductDetails() {
                     product={product}
                     isVerified={isAdmin || isEmployee} />
             </motion.div>
+
+            <RelatedProducts product={product} />
         </>;
     }
 
     return <>
-        {isAdmin || isEmployee && <div className="container mt-5 d-flex justify-content-start">
+        {(isAdmin || isEmployee) && <div className="container mt-5 d-flex justify-content-start">
             <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />
         </div>}
 
@@ -182,6 +185,8 @@ export default function ProductDetails() {
                 product={product}
                 isVerified={isAdmin || isEmployee} />
         </motion.div>
+
+        <RelatedProducts product={product} />
     </>;
 }
 

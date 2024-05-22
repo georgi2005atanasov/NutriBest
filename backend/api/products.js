@@ -114,7 +114,7 @@ export async function partialEditProduct(id, productModel) {
                 "Authorization": `Bearer ${token}`
             }
         });
-        
+
         return await response.json();
     }
     else {
@@ -188,6 +188,21 @@ export async function getIdentifiers() {
 export async function getProductSpecs(id, name) {
     const response = await fetch(`https://localhost:7056/products/specs/${id}/${name}`, {
         method: "GET"
+    });
+
+    return response;
+}
+
+export async function getRelated(categories, productId) {
+    const response = await fetch(`https://localhost:7056/products/related`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            categories,
+            productId
+        })
     });
 
     return response;

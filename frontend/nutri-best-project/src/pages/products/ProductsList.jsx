@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import ProductItem from "./ProductItem";
 
-export default function ProductsList({ productsRows }) {
+export default function ProductsList({ productsRows, sizes="" }) {
     return productsRows && productsRows.length && productsRows.length != 0 ? productsRows.map(row =>
         <div key={row[0].name} className="row d-flex justify-content-lg-evenly justify-content-between mb-4">
             {row.map(p => {
-                return <div className="col-md-3 col-lg-4" key={p.productId}>
+                return <div className={sizes ? `${sizes}` : "col-md-3 col-lg-4"} key={p.productId}>
                     <ProductItem product={p} />
                 </div>;
             })}

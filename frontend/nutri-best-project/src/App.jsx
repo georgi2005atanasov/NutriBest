@@ -29,6 +29,7 @@ import PackagesLayout from './pages/packages/PackagesLayout';
 import AllPackages, { loader as packagesLoader } from './pages/packages/AllPackages';
 import AddPackage, { action as addPackage } from './pages/packages/AddPackage';
 import MoreLayout from './pages/more/MoreLayout';
+import Cart from './pages/cart/Cart';
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'more', element: <MoreLayout />
+      },
+      {
+        path: 'cart', element: <Cart />
       }
     ],
     id: "rootLoader",

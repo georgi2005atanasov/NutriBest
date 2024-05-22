@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/CartModal.module.css";
 import { addToCart, removeFromCart } from "../../../../../../backend/api/cart";
 import { getCart } from "../../../../../../backend/api/cart";
 import { getImageByProductId } from "../../../../../../backend/api/api";
 import { CartContext } from "../../../store/CartContext";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 
-export default function CartItemCounter({ product, count }) {
+export default function CartItemCounter({ styles, product, count }) {
+    const [error, setError] = useState("");
     const countRef = useRef(count);
     const { setCart } = useContext(CartContext);
 
@@ -21,56 +21,81 @@ export default function CartItemCounter({ product, count }) {
     }
 
     async function handleAdd(event, productId) {
-        await addToCart(productId, 1);
+        const response = await addToCart(productId, 1);
+        if (!response.ok) {
+            const data = await response.json();
+            setError(data.message);
+            return;
+        }
+
         countRef.current.value = Number(countRef.current.value) + 1;
+        await getCartProducts();
     }
 
     async function handleRemove(event, productId) {
         await removeFromCart(productId, 1);
         countRef.current.value = Number(countRef.current.value) - 1;
+        await getCartProducts();
+    }
 
-        if (countRef.current.value == "0") {
-            await getCartProducts();
+    async function handleEnteredValue(productId) {
+        if (countRef.current.value > count) {
+            const response = await addToCart(productId, countRef.current.value - count);
+            if (!response.ok) {
+                const data = await response.json();
+                setError(data.message);
+                return;
+            }
+        }
+        else if (countRef.current.value < count) {
+            const response = await removeFromCart(productId, count - countRef.current.value);
+            if (!response.ok) {
+                const data = await response.json();
+                setError(data.message);
+                return;
+            }
         }
     }
 
-    function handleBlur(event, productId) {
-        event.stopPropagation();
-
+    async function handleBlur(event, productId) {
+        handleEnteredValue(productId);
+        await getCartProducts();
     }
 
     async function handleEnter(event, productId) {
         event.stopPropagation();
         if (event.key == "Enter") {
-            if (countRef.current.value > count) {
-                await addToCart(productId, countRef.current.value - count);
-            }
-            else if (countRef.current.value < count) {
-                await removeFromCart(productId, count - countRef.current.value);
-            }
-            // countRef.current.value
+            handleEnteredValue(productId);
             event.target.blur();
+            await getCartProducts();
         }
     }
 
-    return <div className="ms-md-3 d-md-flex align-items-center justify-content-center">
-        <button
-            onClick={(event) => handleRemove(event.target.value, product.productId)}
-            id={styles["minus-btn"]}
-            className="border-0 m-1">
-            -
-        </button>
-        <input
-            onKeyDown={(event) => handleEnter(event, product.productId)}
-            onBlur={(event) => handleBlur(event, product.productId)}
-            className={`${styles["add-counter"]} bg-light`}
-            type="number" id="quantity" name="quantity" defaultValue={count}
-            ref={countRef} />
-        <button
-            onClick={(event) => handleAdd(event, product.productId)}
-            id={styles["plus-btn"]}
-            className="border-0 m-1">
-            +
-        </button>
-    </div>
+    return <>
+        <div className="ms-md-3 d-flex align-items-center justify-content-center">
+            <div className="d-flex flex-column">
+                <div className="d-flex align-items-center justify-content-center">
+                    <button
+                        onClick={(event) => handleRemove(event.target.value, product.productId)}
+                        id={styles["minus-btn"]}
+                        className="border-0 m-1">
+                        -
+                    </button>
+                    <input
+                        onKeyDown={(event) => handleEnter(event, product.productId)}
+                        onBlur={(event) => handleBlur(event, product.productId)}
+                        className={`${styles["add-counter"]} bg-light`}
+                        type="number" id="quantity" name="quantity" defaultValue={count}
+                        ref={countRef} />
+                    <button
+                        onClick={(event) => handleAdd(event, product.productId)}
+                        id={styles["plus-btn"]}
+                        className="border-0 m-1">
+                        +
+                    </button>
+                </div>
+                {error && <span className="d-flex text-danger">{error}</span>}
+            </div>
+        </div>
+    </>
 }

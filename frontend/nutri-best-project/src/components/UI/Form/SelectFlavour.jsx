@@ -12,9 +12,8 @@ export default function SelectFlavour({ flavours, spec, setSpec }) {
 
     const handleSelect = (option) => {
         setSpec(prev => {
-            prev.flavour = option;
-            return prev;
-        })
+            return { ...prev, flavour: option };
+        });
         setIsOpen(false);
     };
 

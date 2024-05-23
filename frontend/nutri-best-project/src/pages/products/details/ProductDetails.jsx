@@ -7,7 +7,7 @@ import { allPromotions, getProductDetailsByIdAndName, getProductSpecs, getImageB
 import { getAuthToken } from "../../../utils/auth";
 import useAuth from "../../../hooks/useAuth";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect, useRouteLoaderData } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import SelectFlavour from "../../../components/UI/Form/SelectFlavour";
 import { SelectPackage } from "../../../components/UI/Form/SelectPackage";
@@ -24,7 +24,7 @@ export default function ProductDetails() {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
-    const { product, promotion, productPackages, productFlavours, nutritionFacts } = useLoaderData();
+    const { product, promotion, productPackages, productFlavours, nutritionFacts } = useRouteLoaderData("productDetails");
 
     useEffect(() => {
         async function getImage(productId) {

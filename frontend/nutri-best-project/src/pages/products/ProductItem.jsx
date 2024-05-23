@@ -10,8 +10,9 @@ import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
 import { getPrice } from "../../utils/product/products";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useEffect } from "react";
+import AddToCartRedirect from "./AddToCartRedirect";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
@@ -76,11 +77,10 @@ export default function ProductItem({ product }) {
                             <DeleteProductButton productId={product.productId} />
                         </div>
                     </div> :
-                    <AddToCartButton
-                        productId={product.productId}
-                        isValidPromotion={promotions
-                            .filter(x => x.isActive)
-                            .some(x => x.promotionId == product.promotionId)} />}
+                    <AddToCartRedirect
+                        promotions={promotions}
+                        product={product}
+                    />}
             </motion.section>
         </AnimatePresence>
     }
@@ -118,9 +118,10 @@ export default function ProductItem({ product }) {
                         <DeleteProductButton productId={product.productId} />
                     </div>
                 </div> :
-                <AddToCartButton
-                    productId={product.productId}
-                    promotionId={product.promotionId} />}
+                <AddToCartRedirect
+                promotions={promotions}
+                product={product}
+            />}
         </motion.section>
     </AnimatePresence>
 }

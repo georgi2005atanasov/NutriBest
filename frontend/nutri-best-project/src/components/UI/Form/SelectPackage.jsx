@@ -12,9 +12,8 @@ export function SelectPackage({ packages, spec, setSpec }) {
 
     const handleSelect = (option) => {
         setSpec(prev => {
-            prev.grams = option;
-            return prev;
-        })
+            return {...prev, grams: option};
+        });
         setIsOpen(false);
     };
 

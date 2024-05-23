@@ -5,6 +5,7 @@ dialog {
     animation: slide-up 0.3s ease-out forwards;
     overflow-y: auto;
     max-height: 450px;
+    min-height: 300px;
 }
 
 .cart-modal {

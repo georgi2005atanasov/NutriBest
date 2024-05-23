@@ -36,7 +36,7 @@ export default function Cart() {
         transition={{ duration: 0.7 }}
     >
         <h2 className="m-0 d-flex mb-3 ms-3">Your Cart</h2>
-        {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(x => <div key={`${x.productId}-${x.flavour}`} className={`position-relative d-flex flex-sm-row flex-column justify-content-between align-items-sm-center align-items-start m-3`}>
+        {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(x => <div key={`${x.productId}-${x.flavour}-${x.grams}`} className={`position-relative d-flex flex-sm-row flex-column justify-content-between align-items-sm-center align-items-start m-3`}>
             {x.product.discountPercentage &&
                 <div className={styles["promotion-box"]}>
                     {Math.floor(x.product.discountPercentage)} <strong>%</strong>

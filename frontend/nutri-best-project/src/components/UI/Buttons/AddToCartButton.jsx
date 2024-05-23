@@ -1,5 +1,6 @@
 import styles from "./css/AddToCartButton.module.css";
 import CartModal from "../../Modals/Cart/CartModal";
+import ChooseSpecsModal from "../../Modals/Cart/ChooseSpecsModal";
 import { addToCart, getCart } from "../../../../../../backend/api/cart";
 import { getImageByProductId } from "../../../../../../backend/api/api";
 import { useContext, useRef, useState } from "react";
@@ -8,12 +9,11 @@ import { ProductSpecsContext } from "../../../store/ProductSpecsContext";
 
 // eslint-disable-next-line react/prop-types
 export default function AddToCartButton({ productId, wrapperStyles = "", linkStyles = "", isValidPromotion }) {
-    const dialog = useRef();
+    const cartDialog = useRef();
+    const specsDialog = useRef();
     const { setCart } = useContext(CartContext);
     const { productSpecs } = useContext(ProductSpecsContext);
     const [error, setError] = useState();
-
-    console.log(productSpecs);
 
     async function getCartProducts() {
         const cartData = await getCart();
@@ -27,6 +27,11 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
 
     async function handleCartAdd() {
         if (!productSpecs.flavour || !productSpecs.grams) {
+            if (specsDialog.current) {
+                specsDialog.current.open();
+                return;
+            }
+            
             setError("Choose flavour/package!");
             return;
         }
@@ -40,11 +45,12 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
             setError("");
         }
         await getCartProducts()
-        dialog.current.open();
+        cartDialog.current.open();
     }
 
     return <>
-        <CartModal ref={dialog} />
+        <CartModal ref={cartDialog} />
+        <ChooseSpecsModal ref={specsDialog} />
         <div className="d-flex flex-column">
             <div className={`text-center ${wrapperStyles}`}>
                 <button

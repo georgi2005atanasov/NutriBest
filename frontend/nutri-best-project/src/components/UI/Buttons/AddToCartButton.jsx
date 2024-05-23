@@ -3,14 +3,17 @@ import CartModal from "../../Modals/Cart/CartModal";
 import { addToCart, getCart } from "../../../../../../backend/api/cart";
 import { getImageByProductId } from "../../../../../../backend/api/api";
 import { useContext, useRef, useState } from "react";
-import InputError from "../Form/InputError";
 import { CartContext } from "../../../store/CartContext";
+import { ProductSpecsContext } from "../../../store/ProductSpecsContext";
 
 // eslint-disable-next-line react/prop-types
 export default function AddToCartButton({ productId, wrapperStyles = "", linkStyles = "", isValidPromotion }) {
     const dialog = useRef();
     const { setCart } = useContext(CartContext);
+    const { productSpecs } = useContext(ProductSpecsContext);
     const [error, setError] = useState();
+
+    console.log(productSpecs);
 
     async function getCartProducts() {
         const cartData = await getCart();
@@ -23,7 +26,11 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
     }
 
     async function handleCartAdd() {
-        const response = await addToCart(productId, 1);
+        if (!productSpecs.flavour || !productSpecs.grams) {
+            setError("Choose flavour/package!");
+            return;
+        }
+        const response = await addToCart(productId, 1, productSpecs.flavour, productSpecs.grams);
         if (!response.ok) {
             const result = await response.json();
             setError(result.message);
@@ -38,16 +45,21 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
 
     return <>
         <CartModal ref={dialog} />
-
-        <div className={`text-center ${wrapperStyles}`}>
-            <button
-                onClick={handleCartAdd}
-                className={`${linkStyles} 
+        <div className="d-flex flex-column">
+            <div className={`text-center ${wrapperStyles}`}>
+                <button
+                    onClick={handleCartAdd}
+                    className={`${linkStyles} 
                 ${isValidPromotion == true ? styles["promotion-btn"] : null}
                 ${styles["add-to-cart-btn"]}`}>
-                Add to Cart
-            </button>
-            {error && <InputError styles="text-danger" text={error} />}
+                    Add to Cart
+                </button>
+            </div>
+            <div className="d-flex justify-content-center align-items-center">
+                {error && <span className="d-flex justify-content-center align-items-center text-danger">
+                    {error}
+                </span>}
+            </div>
         </div>
     </>;
 }

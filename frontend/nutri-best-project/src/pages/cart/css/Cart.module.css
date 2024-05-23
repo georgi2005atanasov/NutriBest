@@ -139,7 +139,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: #CC0000;
     position: absolute;
     display: flex;
-    top: -10px;
+    top: -12px;
     left: 95px;
     justify-content: center;
     align-items: center;

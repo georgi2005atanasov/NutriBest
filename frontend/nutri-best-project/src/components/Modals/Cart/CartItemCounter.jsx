@@ -5,7 +5,7 @@ import { getImageByProductId, setProductInCart } from "../../../../../../backend
 import { CartContext } from "../../../store/CartContext";
 import { useContext, useRef, useState } from "react";
 
-export default function CartItemCounter({ styles, product, count }) {
+export default function CartItemCounter({ styles, product, count, flavour, grams }) {
     const [error, setError] = useState("");
     const countRef = useRef(count);
     const { setCart } = useContext(CartContext);
@@ -20,8 +20,11 @@ export default function CartItemCounter({ styles, product, count }) {
         setCart(cartData);
     }
 
-    async function handleAdd(event, productId) {
-        const response = await addToCart(productId, 1);
+    async function handleAdd(event) {
+        const response = await addToCart(product.productId, 
+            1, 
+            flavour,
+            grams);
         if (!response.ok) {
             const data = await response.json();
             setError(data.message);
@@ -32,8 +35,11 @@ export default function CartItemCounter({ styles, product, count }) {
         await getCartProducts();
     }
 
-    async function handleRemove(event, productId) {
-        const response = await removeFromCart(productId, 1);
+    async function handleRemove(event) {
+        const response = await removeFromCart(product.productId,
+            1,
+            flavour,
+            grams);
         if (!response.ok) {
             const data = await response.json();
             setError(data.message);
@@ -44,12 +50,15 @@ export default function CartItemCounter({ styles, product, count }) {
         await getCartProducts();
     }
 
-    async function handleEnteredValue(productId) {
+    async function handleEnteredValue() {
         if (Number(countRef.current.value) < 0) {
             setError("Invalid product count!");
             return;
         }
-        const response = await setProductInCart(productId, Number(countRef.current.value));
+        const response = await setProductInCart(product.productId,
+            Number(countRef.current.value),
+            flavour,
+            grams);
         if (!response.ok) {
             const data = await response.json();
             setError(data.message);
@@ -58,10 +67,10 @@ export default function CartItemCounter({ styles, product, count }) {
         await getCartProducts();
     }
 
-    async function handleEnter(event, productId) {
+    async function handleEnter(event) {
         event.stopPropagation();
         if (event.key == "Enter") {
-            handleEnteredValue(productId);
+            handleEnteredValue(product.productId);
             event.target.blur();
         }
     }
@@ -71,18 +80,18 @@ export default function CartItemCounter({ styles, product, count }) {
             <div className="d-flex flex-column">
                 <div className="d-flex align-items-center justify-content-center">
                     <button
-                        onClick={(event) => handleRemove(event.target.value, product.productId)}
+                        onClick={(event) => handleRemove(event.target.value)}
                         id={styles["minus-btn"]}
                         className="border-0 m-1">
                         -
                     </button>
                     <input
-                        onKeyDown={(event) => handleEnter(event, product.productId)}
+                        onKeyDown={(event) => handleEnter(event)}
                         className={`${styles["add-counter"]} bg-light`}
                         type="number" id="quantity" name="quantity" defaultValue={count}
                         ref={countRef} />
                     <button
-                        onClick={(event) => handleAdd(event, product.productId)}
+                        onClick={(event) => handleAdd(event)}
                         id={styles["plus-btn"]}
                         className="border-0 m-1">
                         +

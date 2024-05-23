@@ -12,7 +12,6 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
     const { setCart } = useContext(CartContext);
     const { productSpecs } = useContext(ProductSpecsContext);
     const [error, setError] = useState();
-
     async function getCartProducts() {
         const cartData = await getCart();
 
@@ -28,17 +27,31 @@ export default function AddToCartButton({ productId, wrapperStyles = "", linkSty
             setError("Choose flavour/package!");
             return;
         }
+
         const response = await addToCart(productId, 1, productSpecs.flavour, productSpecs.grams);
+
         if (!response.ok) {
             const result = await response.json();
             setError(result.message);
             return;
         }
+
         if (error) {
             setError("");
         }
+
+        const { name } = await response.json();
+
+        localStorage.setItem("cartMessage", `Successfully Added '${name}'!`);
+        
         await getCartProducts()
         cartDialog.current.open();
+
+        window.scrollTo({
+            top: 516,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     return <>

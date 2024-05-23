@@ -1,7 +1,7 @@
 dialog {
     border-radius: 0 !important;
     border: none;
-    padding: 10px;
+    padding: 40px !important;
     animation: slide-up 0.3s ease-out forwards;
     overflow-y: auto;
     max-height: 450px;
@@ -21,7 +21,16 @@ dialog {
     align-items: center;
     border: none !important;
     text-align: center;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: green;
+    /* or any color you prefer */
+    font-weight: bold;
     margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
 }
 
 .modal-buttons button {

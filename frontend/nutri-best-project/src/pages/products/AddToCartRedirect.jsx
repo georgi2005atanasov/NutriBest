@@ -6,6 +6,12 @@ export default function AddToCartRedirect({ promotions, product }) {
     const submit = useSubmit();
 
     function handleAddToCart() {
+        window.scrollTo({
+            top: 516,
+            left: 0,
+            behavior: 'smooth'
+        });
+
         return submit(null, { action: `/products/details/${product.productId}/${product.name}`, method: "GET" });
     }
 

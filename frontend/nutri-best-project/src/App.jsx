@@ -31,6 +31,8 @@ import AddPackage, { action as addPackage } from './pages/packages/AddPackage';
 import MoreLayout from './pages/more/MoreLayout';
 import Cart from './pages/cart/Cart';
 import AllPromoCodes, { loader as getAllPromoCodes } from './pages/promo-codes/AllPromoCodes';
+import PromoCodeForm, { action as createPromoCodes } from './pages/promo-codes/PromoCodeForm';
+import PromoCodesLayout from './pages/promo-codes/PromoCodesLayout';
 
 const router = createBrowserRouter([
   {
@@ -112,7 +114,15 @@ const router = createBrowserRouter([
         path: 'cart', element: <Cart />
       },
       {
-        path: 'promo-codes', element: <AllPromoCodes />, loader: getAllPromoCodes
+        path: 'promo-codes', element: <PromoCodesLayout />,
+        children: [
+          {
+            index: true, element: <AllPromoCodes />, loader: getAllPromoCodes
+          },
+          {
+            path: 'add', element: <PromoCodeForm />, action: createPromoCodes
+          }
+        ]
       }
     ],
     id: "rootLoader",

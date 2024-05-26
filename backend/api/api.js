@@ -79,7 +79,9 @@ import {
 }
     from "./cart";
 import {
-    allPromoCodes
+    allPromoCodes,
+    deletePromoCodes,
+    createPromoCodes
 }
     from "./promoCodes";
 
@@ -130,3 +132,5 @@ export { cleanCart };
 export { removeFromCart };
 export { setProductInCart };
 export { allPromoCodes };
+export { deletePromoCodes };
+export { createPromoCodes };

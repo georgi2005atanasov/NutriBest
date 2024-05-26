@@ -78,7 +78,10 @@ import {
     setProductInCart
 }
     from "./cart";
-
+import {
+    allPromoCodes
+}
+    from "./promoCodes";
 
 export { addProduct };
 export { getProductById };
@@ -126,3 +129,4 @@ export { getCart };
 export { cleanCart };
 export { removeFromCart };
 export { setProductInCart };
+export { allPromoCodes };

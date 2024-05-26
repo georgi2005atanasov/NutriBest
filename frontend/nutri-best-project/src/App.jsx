@@ -30,7 +30,7 @@ import AllPackages, { loader as packagesLoader } from './pages/packages/AllPacka
 import AddPackage, { action as addPackage } from './pages/packages/AddPackage';
 import MoreLayout from './pages/more/MoreLayout';
 import Cart from './pages/cart/Cart';
-import PromoCodes from './pages/promo-codes/PromoCodes';
+import AllPromoCodes, { loader as getAllPromoCodes } from './pages/promo-codes/AllPromoCodes';
 
 const router = createBrowserRouter([
   {
@@ -112,7 +112,7 @@ const router = createBrowserRouter([
         path: 'cart', element: <Cart />
       },
       {
-        path: 'promo-codes', element: <PromoCodes />
+        path: 'promo-codes', element: <AllPromoCodes />, loader: getAllPromoCodes
       }
     ],
     id: "rootLoader",

@@ -1,0 +1,14 @@
+.remove-button {
+    background-color: #d9534f; /* Bootstrap's btn-danger color for immediate recognition */
+    color: white; /* White text for high contrast */
+    border: none; /* No border for a flat design */
+    padding: 25px !important; /* Comfortable padding */
+    font-weight: bold; /* Bold text to emphasize action */
+    border-radius: 4px; /* Slight rounding of corners */
+    cursor: pointer; /* Cursor indicates clickable item */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.remove-button:hover {
+    background-color: #c9302c; /* Slightly darker shade on hover */
+}

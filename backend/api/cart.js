@@ -84,3 +84,18 @@ export async function applyPromoCode(code) {
 
     return response;
 }
+
+export async function removePromoCode(code) {
+    const response = await fetch(`https://localhost:7056/cart/remove-promo-code`, {
+        method: "DELETE",
+        body: JSON.stringify({
+            code
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    });
+
+    return response;
+}

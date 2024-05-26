@@ -1,13 +1,13 @@
 import styles from "./css/Cart.module.css";
-import { getCart } from "../../../../../backend/api/api";
+import { getCart, removePromoCode } from "../../../../../backend/api/api";
 import { removeFromCart } from "../../../../../backend/api/api";
 import { getImageByProductId } from "../../../../../backend/api/api";
-import { CartContext } from "../../store/CartContext";
-import { motion } from "framer-motion";
-import { useCallback, useContext } from "react";
 import CartSummary from "./CartSummary";
 import CartItem from "./CartItem";
 import PromoCodeField from "./PromoCodeField";
+import { CartContext } from "../../store/CartContext";
+import { motion } from "framer-motion";
+import { useCallback, useContext } from "react";
 
 export default function Cart() {
     const { cart, setCart } = useContext(CartContext);
@@ -24,6 +24,16 @@ export default function Cart() {
 
     async function removeProduct(event, productId, count, flavour, grams) {
         await removeFromCart(productId, count, flavour, grams);
+        await getCartProducts();
+    }
+
+    async function handleCodeRemove() {
+        const response = await removePromoCode(cart.code);
+
+        if (!response.ok) {
+            return;
+        }
+
         await getCartProducts();
     }
 
@@ -46,6 +56,6 @@ export default function Cart() {
 
         <PromoCodeField updateCart={getCartProducts} />
         
-        <CartSummary cart={cart} />
+        <CartSummary cart={cart} handleCodeRemove={handleCodeRemove} />
     </motion.div>
 }

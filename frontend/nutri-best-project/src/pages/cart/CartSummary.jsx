@@ -2,7 +2,7 @@
 import styles from "./css/CartSummary.module.css";
 import { motion } from "framer-motion";
 
-const CartSummary = ({ cart }) => (
+const CartSummary = ({ cart, handleCodeRemove }) => (
     <div className={styles["cart-summary"]}>
         <motion.h2
             className={styles["total-price"]}
@@ -20,7 +20,15 @@ const CartSummary = ({ cart }) => (
         >
             Saved: {cart && cart.totalSaved && cart.totalSaved.toFixed(2)} BGN
         </motion.h2>
-        <span className="p-2 card">Applied Promo Code: <strong>{cart && cart.code && cart.code}</strong></span>
+        {cart && cart.code &&
+            <div className="d-flex justify-content-center align-items-start">
+                <span className="p-2 card p-4 mt-3">
+                    Applied Promo Code: <strong>{cart.code}</strong>
+                </span>
+                <span>
+                    <i onClick={handleCodeRemove} className={`fa fa-times ${styles["remove-code-button"]}`} aria-hidden="true"></i>
+                </span>
+            </div>}
     </div>
 );
 

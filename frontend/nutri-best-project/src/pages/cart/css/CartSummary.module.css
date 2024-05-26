@@ -32,3 +32,13 @@ h2 {
         font-size: 1.2em;
     }
 }
+
+.remove-code-button {
+    cursor: pointer;
+    font-size: 21px !important;
+    transition: 0.3s;
+}
+
+.remove-code-button:hover {
+    color: crimson;
+}

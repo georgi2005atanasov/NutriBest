@@ -8,11 +8,9 @@
 
 .promo-code-input {
     border: 1px solid #ccc;
-    border-radius: 4px;
     padding: 10px;
     font-size: 16px;
-    margin-right: 10px;
-    width: 200px;
+    max-width: 160px;
     background-color: white;
     color: #333;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -32,7 +30,6 @@
     color: #333;
     background-color: #e0e0e0;
     border: 1px solid #ccc;
-    border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -50,4 +47,10 @@
 button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(192, 192, 192, 0.5);
+}
+
+.code-message {
+    color: #007d1e !important;
+    padding: 10px;
+    background-color: #c8dec8 !important;
 }

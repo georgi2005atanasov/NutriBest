@@ -3,6 +3,7 @@
 }
 
 .category-from-nav {
+    cursor: pointer;
 }
 
 .category-from-nav:first-child {

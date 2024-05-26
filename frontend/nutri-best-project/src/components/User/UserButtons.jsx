@@ -57,7 +57,7 @@ export default function UserButtons({ isVerified, handleLogout }) {
         >
             <div className={`col-12 p-0 d-flex justify-content-end`}>
                 <div className="row d-flex justify-content-end">
-                    <div className="col-lg-12 col-8 d-flex justify-content-end p-0 me-0">
+                    <div className={`col-lg-12 col-8 d-flex justify-content-end p-0 ${isVerified ? 'me-3' : 'me-0'}`}>
                         {/* gotta add more tools buttons for admin soon */}
                         <NavigationLink
                             route={`/products/all?page=1`}

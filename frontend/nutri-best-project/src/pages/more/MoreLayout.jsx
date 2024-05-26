@@ -17,17 +17,24 @@ export default function MoreLayout() {
             transition={{ duration: 0.5 }}
         >
             <div className="row d-flex justify-content-center">
-                <div className="col-md-6 d-flex justify-content-center mb-5">
+                <div className="col-md-4 d-flex justify-content-center mb-5">
                     <NavigationLink
                         route={`/packages`}
                         text={"Packages"}
                         isAdmin={isAdmin || isEmployee}
                         className={`${styles["item"]} text-center p-5`} />
                 </div>
-                <div className="col-md-6 d-flex justify-content-center mb-5">
+                <div className="col-md-4 d-flex justify-content-center mb-5">
                     <NavigationLink
                         route={`/flavours`}
                         text={"Flavours"}
+                        isAdmin={isAdmin || isEmployee}
+                        className={`${styles["item"]} text-center p-5`} />
+                </div>
+                <div className="col-md-4 d-flex justify-content-center mb-5">
+                    <NavigationLink
+                        route={`/promo-codes`}
+                        text={"Promo Codes"}
                         isAdmin={isAdmin || isEmployee}
                         className={`${styles["item"]} text-center p-5`} />
                 </div>

@@ -75,7 +75,8 @@ import {
     getCart,
     cleanCart,
     removeFromCart,
-    setProductInCart
+    setProductInCart,
+    applyPromoCode
 }
     from "./cart";
 import {
@@ -131,6 +132,7 @@ export { getCart };
 export { cleanCart };
 export { removeFromCart };
 export { setProductInCart };
+export { applyPromoCode };
 export { allPromoCodes };
 export { deletePromoCodes };
 export { createPromoCodes };

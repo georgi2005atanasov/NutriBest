@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useCallback, useContext } from "react";
 import CartSummary from "./CartSummary";
 import CartItem from "./CartItem";
+import PromoCodeField from "./PromoCodeField";
 
 export default function Cart() {
     const { cart, setCart } = useContext(CartContext);
@@ -42,6 +43,9 @@ export default function Cart() {
                 removeProduct={removeProduct} />
         )}
         <hr className="m-0 mb-4" />
+
+        <PromoCodeField updateCart={getCartProducts} />
+        
         <CartSummary cart={cart} />
     </motion.div>
 }

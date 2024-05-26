@@ -20,6 +20,7 @@ const CartSummary = ({ cart }) => (
         >
             Saved: {cart && cart.totalSaved && cart.totalSaved.toFixed(2)} BGN
         </motion.h2>
+        <span className="p-2 card">Applied Promo Code: <strong>{cart && cart.code && cart.code}</strong></span>
     </div>
 );
 

@@ -1,0 +1,53 @@
+.promo-code-input {
+    min-height: 45px;
+}
+
+.promo-code-button {
+    min-height: 45px;
+}
+
+.promo-code-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    width: 200px;
+    background-color: white;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border 0.3s ease;
+}
+
+.promo-code-input:focus {
+    border: 1px solid #999;
+    outline: none;
+}
+
+/* Button styling */
+.promo-code-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.promo-code-button:hover {
+    background-color: #d5d5d5;
+}
+
+.promo-code-button:active {
+    background-color: #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(192, 192, 192, 0.5);
+}

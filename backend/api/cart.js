@@ -40,7 +40,7 @@ export async function removeFromCart(productId, count, flavour, grams) {
         body: JSON.stringify({
             productId,
             count,
-            flavour, 
+            flavour,
             grams
         }),
         headers: {
@@ -60,6 +60,21 @@ export async function setProductInCart(productId, count, flavour, grams) {
             count,
             flavour,
             grams
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include"
+    });
+
+    return response;
+}
+
+export async function applyPromoCode(code) {
+    const response = await fetch(`https://localhost:7056/cart/apply-promo-code`, {
+        method: "POST",
+        body: JSON.stringify({
+            code
         }),
         headers: {
             "Content-Type": "application/json"

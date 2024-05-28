@@ -22,9 +22,14 @@ const ProfileSideBar = () => {
                 transition={{ type: 'spring', stiffness: 300 }}
             >
                 <div className="d-flex flex-column">
-                    <Link to="/profile" className="d-flex ms-2 justify-content-center">Profile</Link>
+                    <Link to="/profile" className="d-flex ms-2 justify-content-center align-items-center">
+                        Profile
+                    </Link>
                     <hr className='m-1 me-0' />
-                    <Link to="/profile/address" className="d-flex ms-2 justify-content-center">Address</Link>
+                    <Link to="/profile/address" className="d-flex ms-2 justify-content-center align-items-center">
+                        Address
+                    </Link>
+                    <hr className='m-1 me-0' />
                 </div>
             </motion.aside>
         </div>

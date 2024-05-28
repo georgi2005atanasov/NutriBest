@@ -35,6 +35,7 @@ import PromoCodeForm, { action as createPromoCodes } from './pages/promo-codes/P
 import PromoCodesLayout from './pages/promo-codes/PromoCodesLayout';
 import OrderLayout from './pages/order/OrderLayout';
 import OrderForm, { loader as loadOrder } from './pages/order/OrderForm';
+import AddressForm, { loader as loadAddress } from './pages/profile/address/AddressForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -65,8 +66,12 @@ const router = createBrowserRouter([
           }
         ]
       },
-      { path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile },
-
+      {
+        path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile,
+      },
+      {
+        path: 'profile/address', element: <AddressForm />, loader: loadAddress
+      },
       {
         path: 'promotions', element: <PromotionsLayout />, children: [
           {
@@ -129,7 +134,7 @@ const router = createBrowserRouter([
       {
         path: 'order', element: <OrderLayout />, children: [
           {
-            index: true, element: <OrderForm />, loader: loadOrder 
+            index: true, element: <OrderForm />, loader: loadOrder
           }
         ]
       }

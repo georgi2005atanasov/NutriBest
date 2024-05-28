@@ -6,16 +6,16 @@
     height: 50%;
     background-color: #f0f0f0; /* Light grey background */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
-    padding: 20px;
     padding-right: 0;
     display: flex;
     flex-direction: column;
-    z-index: 1000; /* Ensure it is on top */
+    z-index: 1; /* Ensure it is on top */
 }
 
 .sidebar a {
     color: #333; /* Dark grey text for links */
-    padding: 10px 0;
+    padding: 15px;
+    margin-left: 45px !important;
     text-decoration: none;
     transition: color 0.3s;
 }

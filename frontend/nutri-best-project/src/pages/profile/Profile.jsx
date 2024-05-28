@@ -9,7 +9,7 @@ import { getFormData } from "../../utils/utils.js";
 import { getAuthToken } from "../../utils/auth.js";
 import useAuth from "../../hooks/useAuth.js";
 import { motion } from "framer-motion";
-import { Link, redirect, useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import ProfileSideBar from "./ProfileSideBar.jsx";
 
 export default function Profile() {

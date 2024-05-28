@@ -42,3 +42,19 @@ export async function deleteUser() {
 
     return response;
 }
+
+export async function getUserAddress() {
+    const token = getAuthToken();
+
+    if (token != "EXPIRED" && token != 0) {
+
+        const response = await fetch(`https://localhost:7056/profile/address`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        return response;
+    }
+}

@@ -25,7 +25,8 @@ import {
 import {
     getProfileDetails,
     editUser,
-    deleteUser
+    deleteUser,
+    getUserAddress
 }
     from "./profile";
 
@@ -86,6 +87,10 @@ import {
     createPromoCodes
 }
     from "./promoCodes";
+import {
+    allCitiesWithCountries
+}
+    from "./cities";
 
 export { addProduct };
 export { getProductById };
@@ -103,9 +108,12 @@ export { getImageByProductId };
 export { getProductSpecs };
 export { getIdentifiers };
 export { getFormFile };
+
 export { getProfileDetails };
 export { editUser };
 export { deleteUser };
+export { getUserAddress };
+
 export { allPromotions };
 export { changeProductPromotion };
 export { changeStatus };
@@ -114,6 +122,7 @@ export { addPromotion };
 export { getPromotionById };
 export { editPromotion };
 export { getProductsOfPromotion };
+
 export { allBrands };
 export { addCategory };
 export { deleteCategory };
@@ -128,6 +137,7 @@ export { addFlavour };
 export { deleteFlavour };
 export { getNutritionFactsByProductIdAndName };
 export { setNutritionFactsByProductId };
+
 export { addToCart };
 export { getCart };
 export { cleanCart };
@@ -135,6 +145,9 @@ export { removeFromCart };
 export { setProductInCart };
 export { applyPromoCode };
 export { removePromoCode };
+
 export { allPromoCodes };
 export { deletePromoCodes };
 export { createPromoCodes };
+
+export { allCitiesWithCountries };

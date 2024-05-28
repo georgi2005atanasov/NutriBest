@@ -19,7 +19,6 @@ export default function Profile() {
 
     return <>
         <div className="p-0 d-flex align-items-center justify-content-between">
-            <ProfileSideBar />
             <motion.div
                 className={`container-fluid d-flex flex-column align-items-center justify-content-center p-0`}
                 initial={{ opacity: 0, y: -50 }}
@@ -27,7 +26,8 @@ export default function Profile() {
                 exit={{ opacity: 0, y: 50 }}
                 transition={{ duration: 0.5 }}
             >
-                <hr className={styles["profile-info-line"]} />
+                <ProfileSideBar />
+                <hr className={`${styles["profile-info-line"]}`} />
                 <Header text={"Profile Details"} styles={"d-flex justify-content-center align-items-center"} />
                 <div className="row mt-1 w-100 d-flex align-items-start justify-content-center">
                     <div className="my-4 col-lg-6 d-flex flex-column justify-content-center">

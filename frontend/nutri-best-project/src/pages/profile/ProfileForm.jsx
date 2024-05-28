@@ -63,7 +63,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-md-5 ms-md-5"
+                className={styles["profile-input-width"]}
             />
         </ProfileChange>
 
@@ -87,7 +87,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="mx-md-3"
+                className={styles["profile-input-width"]}
             />
         </ProfileChange>
 
@@ -111,7 +111,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-md-5 ms-md-4"
+                className={styles["profile-input-user-name"]}
             />
         </ProfileChange>
 
@@ -135,7 +135,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-md-4 ms-md-5"
+                className={styles["profile-input-width"]}
             />
         </ProfileChange>
 

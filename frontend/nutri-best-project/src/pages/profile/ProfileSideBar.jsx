@@ -1,37 +1,32 @@
+import styles from "./css/ProfileSideBar.module.css";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom'; // Assuming you're using Next.js
-import styles from './css/ProfileSideBar.module.css'; // Import your CSS module
 
 const ProfileSideBar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
     const toggleSidebar = () => {
-        setIsOpen(!isOpen);
+        setIsSidebarVisible(!isSidebarVisible);
     };
 
     return (
-        <div className='mt-5'>
+        <div className={styles["sidebar-container"]}>
             <button className={styles["toggle-button"]} onClick={toggleSidebar}>
-                ☰
+                <strong>≡</strong>
             </button>
-            <motion.aside
-                className={styles.sidebar}
-                initial={{ x: '-100%' }}
-                animate={{ x: isOpen ? 0 : '-100%' }}
-                transition={{ type: 'spring', stiffness: 300 }}
-            >
-                <div className="d-flex flex-column">
-                    <Link to="/profile" className="d-flex ms-2 justify-content-center align-items-center">
-                        Profile
-                    </Link>
-                    <hr className='m-1 me-0' />
-                    <Link to="/profile/address" className="d-flex ms-2 justify-content-center align-items-center">
-                        Address
-                    </Link>
-                    <hr className='m-1 me-0' />
-                </div>
-            </motion.aside>
+            {isSidebarVisible && (
+                <motion.div
+                    initial={{ opacity: 0 }} // Start with the component invisible
+                    animate={{ opacity: 1 }} // Animate to fully visible
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className={`d-flex flex-column ${styles["sidebar"]}`}>
+                        <Link className="d-flex justify-content-center align-items-center" to="/profile">Profile</Link>
+                        <Link className="d-flex justify-content-center align-items-center" to="/profile/address">Address</Link>
+                    </div>
+                </motion.div>
+            )}
         </div>
     );
 };

@@ -9,15 +9,29 @@
     min-width: 400px;
 }
 
+.profile-input-width {
+    margin: 10px;
+}
+
+.profile-input-user-name {
+    margin: 15px;
+    margin-right: 40px;
+}
+
 @media (max-width: 572px) {
     .profile-input input {
         min-width: 270px;
-        margin-left: 35px !important;
+        margin-left: 14px !important;
     }
 
     .profile-input {
         display: block;
         text-align: center;
+    }
+
+    .profile-input-user-name {
+        margin: 15px;
+        margin-right: 0px;
     }
 }
 

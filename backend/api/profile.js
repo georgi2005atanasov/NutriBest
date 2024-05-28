@@ -58,3 +58,21 @@ export async function getUserAddress() {
         return response;
     }
 }
+
+export async function setUserAddress(data) {
+    const token = getAuthToken();
+
+    if (token != "EXPIRED" && token != 0) {
+
+        const response = await fetch(`https://localhost:7056/profile/address`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        return response;
+    }
+}

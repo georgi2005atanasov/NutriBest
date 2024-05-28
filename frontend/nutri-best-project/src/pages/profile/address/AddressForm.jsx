@@ -1,17 +1,23 @@
 import styles from "../css/Profile.module.css";
 import { FormControl, TextField, Autocomplete } from "@mui/material";
-import { allCitiesWithCountries, getUserAddress } from "../../../../../../backend/api/api";
+import { allCitiesWithCountries, getUserAddress, setUserAddress } from "../../../../../../backend/api/api";
 import { redirect, useLoaderData } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import ProfileSideBar from "../ProfileSideBar";
 import { getAuthToken } from "../../../utils/auth";
 import useAuth from "../../../hooks/useAuth";
+import Message from "../../../components/UI/Shared/Message";
 
 export default function AddressForm() {
     const token = getAuthToken();
     const { isAuthenticated } = useAuth(token);
     const { address, allCitiesCountries } = useLoaderData();
+    const [message, setMessage] = useState({
+        text: "",
+        type: ""
+    });
+    const isChanging = useRef(false);
 
     const [newAddress, setNewAddress] = useState({
         country: address && address.country || "",
@@ -47,14 +53,12 @@ export default function AddressForm() {
 
     const handleCountryChange = (event, newValue) => {
         const country = newValue ? newValue.country : '';
-        setNewAddress(prevState => ({ ...prevState, country, city: '' }));
         handleChange("country", country);
         handleChange("city", '');
     };
 
     const handleCityChange = (event, newValue) => {
         const city = newValue ? newValue.cityName : '';
-        setNewAddress(prevState => ({ ...prevState, city }));
         handleChange("city", city);
     };
 
@@ -62,16 +66,44 @@ export default function AddressForm() {
 
     const defaultCity = cities.find(city => city.cityName === newAddress.city) || null;
 
-
     function handleChange(identifier, value) {
         setNewAddress(prev => ({
             ...prev,
             [identifier]: value
         }));
+        isChanging.current = true;
     }
 
-    function handleSubmit() {
-        console.log(123);
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const response = await setUserAddress(newAddress);
+
+        if (!response.ok) {
+            const data = await response.json();
+
+            if (data.message) {
+                setMessage({
+                    text: data.message,
+                    type: "danger"
+                });
+                return;
+            }
+
+            setMessage({
+                text: "Invalid data!",
+                type: "danger"
+            });
+            return;
+        }
+
+        if (message) {
+            setMessage({
+                text: "Successfully Updated the Current Address!",
+                type: "success"
+            });
+        }
+
+        isChanging.current = false;
     }
 
     return (<>
@@ -85,6 +117,7 @@ export default function AddressForm() {
             <ProfileSideBar />
             <hr className={styles["profile-info-line"]} />
             <h2 className="d-flex justify-content-center mt-3 mb-3">Address</h2>
+            {message && <span className={message.type == "success" ? "text-success" : "text-danger"}>{message.text}</span>}
             <form onSubmit={handleSubmit} method="post" className="w-75 ms-3">
                 <FormControl fullWidth className="mt-4">
                     <Autocomplete
@@ -148,11 +181,18 @@ export default function AddressForm() {
                     id="streetNumber"
                     name="streetNumber"
                     label="Street Number"
-                    defaultValue={newAddress.postalCode}
+                    defaultValue={newAddress.streetNumber}
                     onChange={(event) => handleChange("streetNumber", event.target.value)}
                 />
 
-                <button>Set Address</button>
+                <div className="mb-2"></div>
+
+                {isChanging.current && <div className="d-flex justify-content-center align-items-center">
+                    <button className={`${styles["set-address-button"]} 
+                d-flex justify-content-center align-items-center`}>
+                        Set Address
+                    </button>
+                </div>}
             </form>
         </motion.div>
     </>);
@@ -174,7 +214,7 @@ export async function loader({ request, params }) {
             address: await response.json(),
             allCitiesCountries
         }
-    } catch (error) {
+    } catch (message) {
         return {
             address: "",
             allCitiesCountries: ""

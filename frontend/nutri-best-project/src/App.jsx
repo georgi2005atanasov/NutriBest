@@ -33,6 +33,8 @@ import Cart from './pages/cart/Cart';
 import AllPromoCodes, { loader as getAllPromoCodes } from './pages/promo-codes/AllPromoCodes';
 import PromoCodeForm, { action as createPromoCodes } from './pages/promo-codes/PromoCodeForm';
 import PromoCodesLayout from './pages/promo-codes/PromoCodesLayout';
+import OrderLayout from './pages/order/OrderLayout';
+import OrderForm, { loader as loadOrder } from './pages/order/OrderForm';
 
 const router = createBrowserRouter([
   {
@@ -121,6 +123,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'add', element: <PromoCodeForm />, action: createPromoCodes
+          }
+        ]
+      },
+      {
+        path: 'order', element: <OrderLayout />, children: [
+          {
+            index: true, element: <OrderForm />, loader: loadOrder 
           }
         ]
       }

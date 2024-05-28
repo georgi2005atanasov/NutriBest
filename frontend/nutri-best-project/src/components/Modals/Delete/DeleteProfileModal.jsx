@@ -35,7 +35,7 @@ export default forwardRef(function DeleteProductModal({ productId }, ref) {
                 <div className="text-center">
                     <h4 className={`text ${styles["delete-modal"]}`}>Are You Sure You Want to Delete Your Profile?</h4>
                 </div>
-                <div className={styles["modal-buttons"]}>
+                <div className={`${styles["modal-buttons"]} d-flex flex-md-row flex-column`}>
                     <button type="submit" onClick={handleDelete} className={styles["delete-btn"]}>Yes, Delete</button>
                     <form method="dialog">
                         <button className={styles["close-btn"]}>No, Cancel</button>

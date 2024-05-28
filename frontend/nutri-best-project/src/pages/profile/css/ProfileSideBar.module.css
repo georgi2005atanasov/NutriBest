@@ -1,0 +1,58 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 50%;
+    background-color: #f0f0f0; /* Light grey background */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+    padding: 20px;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000; /* Ensure it is on top */
+}
+
+.sidebar a {
+    color: #333; /* Dark grey text for links */
+    padding: 10px 0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.sidebar a:hover {
+    color: #ff6f61; /* Orange color on hover */
+}
+
+.toggle-button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px; /* Narrow width */
+    height: 50%; /* Full height */
+    background-color: #ff6f61; /* Orange background */
+    color: #ffffff; /* White text */
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1001; /* Ensure it is on top of the sidebar */
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-button:hover {
+    background-color: #ff8a75; /* Lighter orange on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.toggle-button:active {
+    background-color: #e65b54; /* Darker orange when clicked */
+    transform: scale(0.95); /* Slightly smaller when clicked */
+}
+
+.toggle-button:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.5); /* Custom focus outline */
+}

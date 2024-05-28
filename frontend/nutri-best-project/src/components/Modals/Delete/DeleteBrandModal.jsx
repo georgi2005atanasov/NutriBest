@@ -47,7 +47,7 @@ const DeleteBrandModal = forwardRef(function DeleteBrandModal({ brand, setBrand,
             <div className={styles["modal-content"]}>
                 <h4 className={`text ${styles["delete-modal"]}`}>Are You Sure You Want to Delete &apos;{brand}&apos; Brand?</h4>
                 <div>All the Products and Promotions Within the &apos;{brand}&apos; Brand Will be Deleted.</div>
-                <div className={styles["modal-buttons"]}>
+                <div className={`${styles["modal-buttons"]} d-flex flex-md-row flex-column`}>
                     <button type="submit" onClick={handleDelete} className={styles["delete-btn"]}>Yes, Delete</button>
                     <form method="dialog" action="">
                         <button onClick={handleClose} className={styles["close-btn"]}>No, Cancel</button>

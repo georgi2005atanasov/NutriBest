@@ -63,7 +63,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-5 ms-5"
+                className="me-md-5 ms-md-5"
             />
         </ProfileChange>
 
@@ -87,7 +87,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="mx-3"
+                className="mx-md-3"
             />
         </ProfileChange>
 
@@ -111,7 +111,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-5 ms-4"
+                className="me-md-5 ms-md-4"
             />
         </ProfileChange>
 
@@ -135,7 +135,7 @@ export default function ProfileForm({ profile }) {
                 placeholder=""
                 onFocus={handleFocus}
                 onChange={handleChange}
-                className="me-4 ms-5"
+                className="me-md-4 ms-md-5"
             />
         </ProfileChange>
 

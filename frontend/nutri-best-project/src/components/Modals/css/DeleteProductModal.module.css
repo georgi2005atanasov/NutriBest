@@ -76,6 +76,7 @@ dialog {
 .delete-btn {
     background-color: #f44336;
     border-radius: 5px;
+    outline: none !important;
     /* Red */
 }
 

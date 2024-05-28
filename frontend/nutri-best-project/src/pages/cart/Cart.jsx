@@ -8,6 +8,8 @@ import PromoCodeField from "./PromoCodeField";
 import { CartContext } from "../../store/CartContext";
 import { motion } from "framer-motion";
 import { useCallback, useContext } from "react";
+import NavigationLink from "../../components/Navigation/NavigationLink";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
     const { cart, setCart } = useContext(CartContext);
@@ -55,7 +57,11 @@ export default function Cart() {
         <hr className="m-0 mb-4" />
 
         <PromoCodeField updateCart={getCartProducts} />
-        
+
         <CartSummary cart={cart} handleCodeRemove={handleCodeRemove} />
+
+        <Link to={`/order`} className={styles["make-order"]}>
+            Make Order
+        </Link>
     </motion.div>
 }

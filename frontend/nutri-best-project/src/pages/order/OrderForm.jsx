@@ -79,9 +79,9 @@ export default function OrderForm() {
 
     return (
         <div className="container d-flex mt-3">
-            <div className="row">
+            <div className="row d-flex w-100">
                 <motion.div
-                    className="px-0 pb-3 card col-md-8 d-flex flex-column justify-content-center align-items-center"
+                    className="px-0 pb-3 card col-md-5 d-flex flex-column justify-content-center align-items-center"
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 50 }}
@@ -174,6 +174,7 @@ export default function OrderForm() {
                         <div className="mb-2"></div>
                     </form>
                 </motion.div>
+                <div className="col-md-4 d-flex">nnni</div>
             </div>
         </div>
     );

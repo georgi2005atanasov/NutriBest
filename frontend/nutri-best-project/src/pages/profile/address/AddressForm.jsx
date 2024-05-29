@@ -1,5 +1,6 @@
 import styles from "../css/Profile.module.css";
-import { FormControl, TextField, Autocomplete } from "@mui/material";
+import TextInput from "../../../components/UI/MUI Form Fields/TextInput";
+import AutoCompleteInput from "../../../components/UI/MUI Form Fields/AutoCompleteInput";
 import { allCitiesWithCountries, getUserAddress, setUserAddress } from "../../../../../../backend/api/api";
 import { redirect, useLoaderData } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
@@ -119,30 +120,31 @@ export default function AddressForm() {
             <h2 className="d-flex justify-content-center mt-3 mb-3">Address</h2>
             {message && <span className={message.type == "success" ? "text-success" : "text-danger"}>{message.text}</span>}
             <form onSubmit={handleSubmit} method="post" className="w-75 ms-3">
-                <FormControl fullWidth className="mt-4">
-                    <Autocomplete
-                        id="country"
-                        options={countries}
-                        getOptionLabel={(option) => option.country}
-                        renderInput={(params) => <TextField {...params} label="Country" />}
-                        value={defaultCountry}
-                        isOptionEqualToValue={(option, value) => option.country === value?.country}
-                        renderOption={(props, option) => (
-                            <li {...props} key={option.id}>
-                                {option.country}
-                            </li>
-                        )}
-                        onChange={handleCountryChange}
-                    />
-                </FormControl>
+                <AutoCompleteInput
+                    id="country"
+                    label="Country"
+                    options={countries}
+                    getOptionLabel={(option) => option.country}
+                    value={defaultCountry}
+                    width="100"
+                    isOptionEqualToValue={(option, value) => option.country === value?.country}
+                    renderOption={(props, option) => (
+                        <li {...props} key={option.id}>
+                            {option.country}
+                        </li>
+                    )}
+                    onChange={handleCountryChange}
+                />
 
-                <FormControl fullWidth className="mt-4">
-                    <Autocomplete
+                <div className="d-flex w-100">
+
+                    <AutoCompleteInput
                         id="city"
+                        label="City"
                         options={cities}
                         getOptionLabel={(option) => option.cityName}
-                        renderInput={(params) => <TextField {...params} label="City" />}
                         value={defaultCity}
+                        width="75"
                         isOptionEqualToValue={(option, value) => option.cityName === value?.cityName}
                         renderOption={(props, option) => (
                             <li {...props} key={option.id}>
@@ -151,37 +153,29 @@ export default function AddressForm() {
                         )}
                         onChange={handleCityChange}
                     />
-                </FormControl>
 
-                <div className="mt-3"></div>
+                    <TextInput
+                        id="postalCode"
+                        label="Postal Code"
+                        value={newAddress.postalCode}
+                        styles="w-25 ms-2"
+                        onChange={(event) => handleChange("postalCode", event.target.value)}
+                    />
+                </div>
 
-                <TextField
-                    fullWidth
-                    margin="normal"
-                    id="postalCode"
-                    name="postalCode"
-                    label="Postal Code"
-                    defaultValue={newAddress.postalCode && newAddress.postalCode}
-                    onChange={(event) => handleChange("postalCode", event.target.value)}
-                />
-
-                <TextField
-                    fullWidth
-                    margin="normal"
+                <TextInput
                     id="street"
-                    name="street"
                     label="Street"
-                    defaultValue={newAddress.street && newAddress.street}
+                    value={newAddress.street}
+                    styles="w-100"
                     onChange={(event) => handleChange("street", event.target.value)}
                 />
 
-                <TextField
-                    fullWidth
-                    margin="normal"
+                <TextInput
                     id="streetNumber"
-                    name="streetNumber"
                     label="Street Number"
-                    defaultValue={newAddress.streetNumber}
+                    value={newAddress.streetNumber}
+                    styles="w-100"
                     onChange={(event) => handleChange("streetNumber", event.target.value)}
                 />
 

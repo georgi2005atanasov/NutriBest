@@ -153,8 +153,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .make-order {
     margin-top: 5px;
-    background-color: #ff6f61;
-    color: #ffffff;
+    background-color: #bc1616;
+    color: #FFFFE0;
     text-decoration: none;
     border: none;
     padding: 10px 20px;
@@ -165,17 +165,6 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.make-order:hover {
-    background-color: #ff8a75;
-    transform: scale(1.05);
-}
-
 .make-order:active {
     background-color: #e65b54;
-    transform: scale(0.95);
-}
-
-.make-order:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.5);
 }

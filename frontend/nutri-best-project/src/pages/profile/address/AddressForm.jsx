@@ -189,7 +189,7 @@ export default function AddressForm() {
 
                 {isChanging.current && <div className="d-flex justify-content-center align-items-center">
                     <button className={`${styles["set-address-button"]} 
-                d-flex justify-content-center align-items-center`}>
+                            d-flex justify-content-center align-items-center`}>
                         Set Address
                     </button>
                 </div>}

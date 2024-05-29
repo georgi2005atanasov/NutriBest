@@ -2,7 +2,7 @@ import styles from "../profile/css/Profile.module.css";
 import { FormControlLabel, Checkbox } from "@mui/material";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
-import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress } from "../../../../../backend/api/api";
+import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
@@ -10,7 +10,7 @@ import ListOrder from "./ListOrder";
 import InvoiceForm from "./InvoiceForm";
 
 export default function OrderForm() {
-    const { address, userDetails, allCitiesCountries } = useLoaderData();
+    const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
     const [message, setMessage] = useState({
         text: "",
@@ -37,19 +37,23 @@ export default function OrderForm() {
             bullstat: "",
             personInCharge: "",
             VAT: ""
-        }
+        },
+        paymentMethod: paymentMethods && paymentMethods[0],
+        comment: ""
     });
+
+    console.log(order);
 
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
 
     useEffect(() => {
-        const uniqueCountries = allCitiesCountries.map((x, index) => ({ country: x.country, id: `country-${index}` }));
+        const uniqueCountries = allCitiesCountries && allCitiesCountries.map((x, index) => ({ country: x.country, id: `country-${index}` }));
         setCountries(uniqueCountries);
     }, [allCitiesCountries]);
 
     useEffect(() => {
-        const selectedCountry = allCitiesCountries.find(x => x.country === order.country);
+        const selectedCountry = allCitiesCountries && allCitiesCountries.find(x => x.country === order.country);
         if (selectedCountry) {
             setCities(selectedCountry.cities.map((y, index) => ({
                 cityName: y.cityName,
@@ -71,9 +75,14 @@ export default function OrderForm() {
         handleChange("city", city);
     };
 
-    const defaultCountry = countries.find(country => country.country === order.country) || null;
+    const handlePaymentChange = (event, newValue) => {
+        const paymentMethod = newValue ? newValue : '';
+        handleChange("paymentMethod", paymentMethod);
+    };
 
-    const defaultCity = cities.find(city => city.cityName === order.city) || null;
+    const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
+
+    const defaultCity = cities && cities.find(city => city.cityName === order.city) || null;
 
     function handleChange(identifier, value) {
         setOrder(prev => ({
@@ -100,7 +109,7 @@ export default function OrderForm() {
 
     return (
         <div className="container d-flex flex-column justify-content-center align-items-center mt-4">
-            <div className="row d-flex w-100">
+            <div className="row w-100">
                 <motion.div
                     className="px-0 pb-3 card col-md-5 d-flex flex-column justify-content-center align-items-center"
                     initial={{ opacity: 0, y: -50 }}
@@ -108,7 +117,7 @@ export default function OrderForm() {
                     exit={{ opacity: 0, y: 50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="d-flex justify-content-center mt-md-0 mt-3 mb-1">Create Order</h2>
+                    <h2 className="d-flex justify-content-center mt-2 mb-1">Create Order</h2>
                     {message && <span className={message.type === "success" ? "text-success" : "text-danger"}>{message.text}</span>}
                     <form onSubmit={handleSubmit} method="post" className="w-75 ms-3">
                         <TextInput
@@ -174,7 +183,7 @@ export default function OrderForm() {
                                 label="Postal Code"
                                 value={order.postalCode}
                                 styles="w-25 ms-3"
-                                onChange={(event) => handleChange("postalCode", event.target.value)}
+                                onChange={(event) => handleChange("postalCode", event.target.value.replace(" ", ""))}
                             />
                         </div>
 
@@ -205,7 +214,27 @@ export default function OrderForm() {
                                 label="I want an invoice"
                             />
 
-                            {order.hasInvoice && <InvoiceForm invoice={order.invoice} handleChange={handleInvoice} />}
+                            {order.hasInvoice && <InvoiceForm invoice={order.invoice} setInvoice={handleInvoice} />}
+
+                            <AutoCompleteInput
+                                id="paymentMethod"
+                                label="Payment Method"
+                                options={paymentMethods}
+                                getOptionLabel={(option) => option}
+                                value={order.paymentMethod}
+                                width="100"
+                                onChange={handlePaymentChange}
+                            />
+
+                            <TextInput
+                                id="outlined-multiline-static"
+                                label="Additional Comment"
+                                rows={4}
+                                value={order.comment}
+                                onChange={(event) => handleChange("comment", event.target.value)}
+                                variant="outlined"
+                                multiline
+                            />
                         </div>
 
                         <div className="mb-2"></div>
@@ -224,12 +253,16 @@ export async function loader({ request, params }) {
         const addressRes = await getUserAddress();
         const userDetailsRes = await getProfileDetails();
         const allCitiesCountries = await allCitiesWithCountries();
+        const paymentMethodsResult = await allPaymentMethods();
+
+        let paymentMethods = splitPascalCase(paymentMethodsResult);
 
         if (!addressRes || !userDetailsRes || addressRes.ok === false || userDetailsRes.ok === false) {
             return {
                 address: null,
                 userDetails: null,
-                allCitiesCountries
+                allCitiesCountries,
+                paymentMethods
             }
         }
 
@@ -239,13 +272,37 @@ export async function loader({ request, params }) {
         return {
             address,
             userDetails,
-            allCitiesCountries
+            allCitiesCountries,
+            paymentMethods
         }
     } catch (error) {
         return {
             address: null,
             userDetails: null,
-            allCitiesCountries: null
+            allCitiesCountries: null,
+            paymentMethods: null
         }
     }
+}
+
+function splitPascalCase(words) {
+    const paymentMethods = [];
+
+    for (const word of words) {
+        let result = [];
+        let currentWord = '';
+
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] === word[i].toUpperCase() && currentWord.length > 0) {
+                result.push(currentWord);
+                currentWord = word[i];
+            } else {
+                currentWord += word[i];
+            }
+        }
+        result.push(currentWord);
+        paymentMethods.push(result.join(" "));
+    }
+
+    return paymentMethods;
 }

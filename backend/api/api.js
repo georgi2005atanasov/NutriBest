@@ -92,6 +92,11 @@ import {
     allCitiesWithCountries
 }
     from "./cities";
+import {
+    allPaymentMethods
+}
+    from "./paymentMethods";
+
 
 export { addProduct };
 export { getProductById };
@@ -153,3 +158,5 @@ export { deletePromoCodes };
 export { createPromoCodes };
 
 export { allCitiesWithCountries };
+
+export { allPaymentMethods };

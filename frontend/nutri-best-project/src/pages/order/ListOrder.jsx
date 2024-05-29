@@ -9,7 +9,8 @@ export default function ListOrder() {
     const { cart, setCart } = useContext(CartContext);
 
     return <>
-        <div className={`${listStyles["list-order"]} mt-md-0 mt-5`}>
+        <CartSummary cart={cart} />
+        <div className={`${listStyles["list-order"]} card py-2 mt-md-0 mt-3`}>
             {cart && cart.cartProducts && cart.cartProducts.length > 0 && cart.cartProducts.map(item =>
                 <ListItem
                     key={`${item.productId}-${item.flavour}-${item.grams}`}
@@ -18,6 +19,5 @@ export default function ListOrder() {
             )}
 
         </div>
-        <CartSummary cart={cart} />
     </>
 }

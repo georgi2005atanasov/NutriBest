@@ -2,7 +2,6 @@ import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 
 export async function allPackages() {
     const response = await fetch(`https://localhost:7056/packages`);
-
     return await response.json();
 }
 

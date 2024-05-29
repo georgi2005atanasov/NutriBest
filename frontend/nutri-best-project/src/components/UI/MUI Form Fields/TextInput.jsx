@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { memo } from "react";
 
 // eslint-disable-next-line react/prop-types
-const TextInput = memo(function TextInput({ id, label, value, styles, onChange }) {
+const TextInput = memo(function TextInput({ id, label, value, styles, onChange, ...props }) {
     return (
         <TextField
             fullWidth
@@ -12,6 +12,7 @@ const TextInput = memo(function TextInput({ id, label, value, styles, onChange }
             label={label}
             value={value}
             onChange={onChange}
+            {...props}
         />
     );
 });

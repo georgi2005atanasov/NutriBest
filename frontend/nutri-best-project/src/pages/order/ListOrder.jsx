@@ -6,7 +6,7 @@ import { useContext } from "react";
 import ListItem from "./ListItem";
 
 export default function ListOrder() {
-    const { cart, setCart } = useContext(CartContext);
+    const { cart } = useContext(CartContext);
 
     return <>
         <CartSummary cart={cart} />
@@ -17,7 +17,6 @@ export default function ListOrder() {
                     styles={cartStyles}
                     cartItem={item} />
             )}
-
         </div>
     </>
 }

@@ -1,23 +1,25 @@
-import styles from "../profile/css/Profile.module.css";
+import styles from "./css/ListOrder.module.css";
 import { FormControlLabel, Checkbox } from "@mui/material";
+import ListOrder from "./ListOrder";
+import InvoiceForm from "./InvoiceForm";
+import Loader from "../../components/UI/Shared/Loader";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
 import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import ListOrder from "./ListOrder";
-import InvoiceForm from "./InvoiceForm";
+import { useState, useEffect, useRef, Suspense } from "react";
+
 
 export default function OrderForm() {
-    const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
-
+    const [countries, setCountries] = useState([]);
+    const [cities, setCities] = useState([]);
     const [message, setMessage] = useState({
         text: "",
         type: ""
     });
-
-    const isChanging = useRef(false);
+    
+    const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
     const [order, setOrder] = useState({
         country: address && address.country || "",
@@ -41,11 +43,6 @@ export default function OrderForm() {
         paymentMethod: paymentMethods && paymentMethods[0],
         comment: ""
     });
-
-    console.log(order);
-
-    const [countries, setCountries] = useState([]);
-    const [cities, setCities] = useState([]);
 
     useEffect(() => {
         const uniqueCountries = allCitiesCountries && allCitiesCountries.map((x, index) => ({ country: x.country, id: `country-${index}` }));
@@ -80,16 +77,11 @@ export default function OrderForm() {
         handleChange("paymentMethod", paymentMethod);
     };
 
-    const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
-
-    const defaultCity = cities && cities.find(city => city.cityName === order.city) || null;
-
     function handleChange(identifier, value) {
         setOrder(prev => ({
             ...prev,
             [identifier]: value
         }));
-        isChanging.current = true;
     }
 
     function handleInvoice(identifier, value) {
@@ -100,12 +92,14 @@ export default function OrderForm() {
                 [identifier]: value
             }
         }));
-        isChanging.current = true;
     }
 
     function handleSubmit() {
-
+        console.log(order);
     }
+
+    const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
+    const defaultCity = cities && cities.find(city => city.cityName === order.city) || null;
 
     return (
         <div className="container d-flex flex-column justify-content-center align-items-center mt-4">
@@ -176,6 +170,7 @@ export default function OrderForm() {
                                     </li>
                                 )}
                                 onChange={handleCityChange}
+                                // error={ }
                             />
 
                             <TextInput
@@ -241,8 +236,14 @@ export default function OrderForm() {
                     </form>
                 </motion.div>
                 <div className={`col-md-7 d-flex flex-column`}>
-                    <ListOrder />
+                    <div className="d-flex flex-column">
+                        <Suspense fallback={<Loader />}>
+                            <ListOrder />
+                        </Suspense>
+                        <button onClick={handleSubmit} className={styles["button-confirm-order"]}>Confirm Order</button>
+                    </div>
                 </div>
+
             </div>
         </div>
     );

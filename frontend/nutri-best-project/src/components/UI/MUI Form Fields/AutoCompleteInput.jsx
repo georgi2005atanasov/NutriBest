@@ -1,8 +1,8 @@
-import { TextField, FormControl, Autocomplete } from "@mui/material";
+import { TextField, FormControl, Autocomplete, FormHelperText } from "@mui/material";
 import { memo } from "react";
 
 // eslint-disable-next-line react/prop-types
-const AutoCompleteInput = memo(function AutoCompleteInput({ id, label, options, value, width, onChange, getOptionLabel, isOptionEqualToValue, renderOption }) {
+const AutoCompleteInput = memo(function AutoCompleteInput({ id, label, options, value, width, onChange, getOptionLabel, isOptionEqualToValue, renderOption, error }) {
     return (
         <FormControl fullWidth className={`mt-3 w-${width}`}>
             <Autocomplete
@@ -15,6 +15,7 @@ const AutoCompleteInput = memo(function AutoCompleteInput({ id, label, options, 
                 renderOption={renderOption}
                 onChange={onChange}
             />
+            {error && <FormHelperText className="text-danger">{error}</FormHelperText>}
         </FormControl>
     );
 });

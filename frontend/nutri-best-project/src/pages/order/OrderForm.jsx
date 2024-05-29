@@ -5,6 +5,7 @@ import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddre
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import ListOrder from "./ListOrder";
 
 export default function OrderForm() {
     const { address, userDetails, allCitiesCountries } = useLoaderData();
@@ -78,7 +79,7 @@ export default function OrderForm() {
     }
 
     return (
-        <div className="container d-flex mt-3">
+        <div className="container d-flex justify-content-center mt-4">
             <div className="row d-flex w-100">
                 <motion.div
                     className="px-0 pb-3 card col-md-5 d-flex flex-column justify-content-center align-items-center"
@@ -174,7 +175,7 @@ export default function OrderForm() {
                         <div className="mb-2"></div>
                     </form>
                 </motion.div>
-                <div className="col-md-4 d-flex">nnni</div>
+                <div className="col-md-7 d-flex flex-column"><ListOrder /></div>
             </div>
         </div>
     );

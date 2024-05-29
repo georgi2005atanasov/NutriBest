@@ -8,7 +8,6 @@ import PromoCodeField from "./PromoCodeField";
 import { CartContext } from "../../store/CartContext";
 import { motion } from "framer-motion";
 import { useCallback, useContext } from "react";
-import NavigationLink from "../../components/Navigation/NavigationLink";
 import { Link } from "react-router-dom";
 
 export default function Cart() {

@@ -1,0 +1,17 @@
+.list-order {
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.promo-box {
+    position: absolute;
+    top: -17px;
+    right: -17px !important;
+    background-color: brown;
+    color: white;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 8px;
+}

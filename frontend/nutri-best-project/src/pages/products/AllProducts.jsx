@@ -28,7 +28,7 @@ export default function AllProducts() {
     const { productsRows, page } = useLoaderData();
 
     useEffect(() => {
-        setProductSpecs({});
+        setProductSpecs([]);
     }, [setProductSpecs]); // resetting this because it sets where it
     // must not
 

@@ -48,8 +48,7 @@ export default function ProductSpecs({ data, currProductSpecs }) {
         }
 
         setProductSpecs(prev => {
-            return [...prev, JSON.parse(JSON.stringify(spec))]
-            //gotta create a copy of every new spec of the products
+            return [...prev, JSON.parse(JSON.stringify(spec))];
         });
     }
 
@@ -64,13 +63,14 @@ export default function ProductSpecs({ data, currProductSpecs }) {
     return <div className="container-fluid">
         {productSpecs.length > 0 ?
             <>
-                {productSpecs.map(x =>
-                    <div key={`${x.flavour}${x.grams}`} className="row d-flex align-items-center">
-                        <div className={`${specsStyle["spec-container"]} d-flex col-md-8 me-1 justify-content-center align-items-center`}>
-                            Flavour: {x.flavour}, Package: {x.grams}g, Quantity: {x.quantity}
-                        </div>
-                        <button onClick={() => removeSpec(x.flavour, x.grams)} type="button" className={`${specsStyle["remove-button"]} d-flex col-md-3 justify-content-center align-items-center`}>Remove</button>
-                    </div>)}
+                {productSpecs
+                    .map(x =>
+                        <div key={`${x.flavour}${x.grams}`} className="row d-flex align-items-center">
+                            <div className={`${specsStyle["spec-container"]} d-flex col-md-8 me-1 justify-content-center align-items-center`}>
+                                Flavour: {x.flavour}, Package: {x.grams}g, Quantity: {x.quantity}
+                            </div>
+                            <button onClick={() => removeSpec(x.flavour, x.grams)} type="button" className={`${specsStyle["remove-button"]} d-flex col-md-3 justify-content-center align-items-center`}>Remove</button>
+                        </div>)}
                 <div>Total: {productSpecs
                     .map(x => x.quantity)
                     .reduce((acc, x) => acc += x, 0)} products</div>

@@ -1,4 +1,5 @@
 import styles from "../profile/css/Profile.module.css";
+import { FormControlLabel, Checkbox } from "@mui/material";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
 import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress } from "../../../../../backend/api/api";
@@ -6,6 +7,7 @@ import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import ListOrder from "./ListOrder";
+import InvoiceForm from "./InvoiceForm";
 
 export default function OrderForm() {
     const { address, userDetails, allCitiesCountries } = useLoaderData();
@@ -25,11 +27,18 @@ export default function OrderForm() {
         streetNumber: address && address.streetNumber || "",
         name: userDetails && userDetails.name || "",
         email: userDetails && userDetails.email || "",
-        phoneNumber: ""
+        phoneNumber: "",
+        hasInvoice: false,
+        invoice: {
+            firstName: "",
+            lastName: "",
+            companyName: "",
+            phoneNumber: "",
+            bullstat: "",
+            personInCharge: "",
+            VAT: ""
+        }
     });
-
-    console.log(userDetails);
-    console.log(address);
 
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
@@ -74,12 +83,23 @@ export default function OrderForm() {
         isChanging.current = true;
     }
 
+    function handleInvoice(identifier, value) {
+        setOrder(prevOrder => ({
+            ...prevOrder,
+            invoice: {
+                ...prevOrder.invoice,
+                [identifier]: value
+            }
+        }));
+        isChanging.current = true;
+    }
+
     function handleSubmit() {
 
     }
 
     return (
-        <div className="container d-flex justify-content-center mt-4">
+        <div className="container d-flex flex-column justify-content-center align-items-center mt-4">
             <div className="row d-flex w-100">
                 <motion.div
                     className="px-0 pb-3 card col-md-5 d-flex flex-column justify-content-center align-items-center"
@@ -88,7 +108,7 @@ export default function OrderForm() {
                     exit={{ opacity: 0, y: 50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h2 className="d-flex justify-content-center mt-3 mb-1">Create Order</h2>
+                    <h2 className="d-flex justify-content-center mt-md-0 mt-3 mb-1">Create Order</h2>
                     {message && <span className={message.type === "success" ? "text-success" : "text-danger"}>{message.text}</span>}
                     <form onSubmit={handleSubmit} method="post" className="w-75 ms-3">
                         <TextInput
@@ -172,10 +192,28 @@ export default function OrderForm() {
                             onChange={(event) => handleChange("streetNumber", event.target.value)}
                         />
 
+                        <div className="d-flex flex-column">
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        onChange={(event) => handleChange("hasInvoice", event.target.checked)}
+                                        defaultValue={order.hasInvoice}
+                                        name="hasInvoice"
+                                        color="primary"
+                                    />
+                                }
+                                label="I want an invoice"
+                            />
+
+                            {order.hasInvoice && <InvoiceForm invoice={order.invoice} handleChange={handleInvoice} />}
+                        </div>
+
                         <div className="mb-2"></div>
                     </form>
                 </motion.div>
-                <div className="col-md-7 d-flex flex-column"><ListOrder /></div>
+                <div className={`col-md-7 d-flex flex-column`}>
+                    <ListOrder />
+                </div>
             </div>
         </div>
     );

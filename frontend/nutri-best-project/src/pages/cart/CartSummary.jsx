@@ -3,7 +3,7 @@ import styles from "./css/CartSummary.module.css";
 import { motion } from "framer-motion";
 
 const CartSummary = ({ cart, handleCodeRemove }) => (
-    <div className={styles["cart-summary"]}>
+    <div className={`${styles["cart-summary"]} m-3 mb-0`}>
         <motion.h2
             className={styles["total-price"]}
             initial={{ opacity: 0, y: -50 }}

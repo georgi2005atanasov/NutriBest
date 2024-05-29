@@ -4,10 +4,10 @@ import { getPrice } from "../../utils/product/products";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-export default function ListItem({ styles, cartItem, removeProduct }) {
+export default function ListItem({ styles, cartItem }) {
     return <motion.div
         key={`${cartItem.productId}-${cartItem.flavour}-${cartItem.grams}`}
-        className={`card position-relative d-flex flex-sm-row flex-column justify-content-between align-items-sm-center align-items-start m-3`}
+        className={`card position-relative d-flex flex-sm-row flex-column justify-content-between align-items-sm-center align-items-start m-3 mt-0`}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
@@ -22,23 +22,23 @@ export default function ListItem({ styles, cartItem, removeProduct }) {
                 <img className={styles["cart-image"]} src={`data:${cartItem.product.image.contentType};base64,${cartItem.product.image.imageData}`} alt={cartItem.product.name} />
 
                 <div className="ms-2">
-                    <h5 className={`mt-md-0 mt-4 mb-0 ${styles["product-name"]}`}>{cartItem.product.name} - {cartItem.flavour} {cartItem.grams}g</h5>
+                    <h6 className={`mt-md-0 mt-4 mb-0 ${styles["product-name"]}`}>{cartItem.product.name} - {cartItem.flavour} {cartItem.grams}g</h6>
                 </div>
             </div>
         </Link>
 
         <div className={`d-flex justify-content-between align-items-center w-50`}>
-            <h5 className={`${styles["item-price"]} text-italic d-flex justify-content-end align-items-center`}>
+            <h6 className={`${styles["item-price"]} text-italic d-flex justify-content-end align-items-center`}>
                 {cartItem.product.promotionId ?
                     getPrice(cartItem.product.price, cartItem.product.discountPercentage).toFixed(2) :
                     cartItem.product.price.toFixed(2)} BGN&nbsp;
                 <span className={`mb-5 
                         ${cartItem.product.promotionId ?
                         "text-danger" :
-                        "text-muted"}     `}>
+                        "text-secondary"}     `}>
                     x{cartItem.count}
                 </span>
-            </h5>
+            </h6>
         </div>
     </motion.div>
 }

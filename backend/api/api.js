@@ -96,6 +96,10 @@ import {
     allPaymentMethods
 }
     from "./paymentMethods";
+import {
+    createGuestOrder
+}
+    from "./orders";
 
 
 export { addProduct };
@@ -158,5 +162,6 @@ export { deletePromoCodes };
 export { createPromoCodes };
 
 export { allCitiesWithCountries };
-
 export { allPaymentMethods };
+
+export { createGuestOrder };

@@ -5,7 +5,7 @@ import InvoiceForm from "./InvoiceForm";
 import Loader from "../../components/UI/Shared/Loader";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
-import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods } from "../../../../../backend/api/api";
+import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods, createGuestOrder } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
 import { useState, useEffect, useRef, Suspense } from "react";
@@ -14,11 +14,8 @@ import { useState, useEffect, useRef, Suspense } from "react";
 export default function OrderForm() {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
-    const [message, setMessage] = useState({
-        text: "",
-        type: ""
-    });
-    
+    const [errors, setErrors] = useState([]);
+
     const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
     const [order, setOrder] = useState({
@@ -94,8 +91,20 @@ export default function OrderForm() {
         }));
     }
 
-    function handleSubmit() {
-        console.log(order);
+    async function handleSubmit() {
+        const data = JSON.parse(JSON.stringify(order));
+        if (!order.hasInvoice) {
+            delete data.invoice;
+        }
+        data.paymentMethod = data.paymentMethod.replaceAll(" ", "");
+
+        const result = await createGuestOrder(data);
+        if (result.errors) {
+            setErrors(result.errors);
+        }
+        if (result.message) {
+            setErrors({message: result.message});
+        }
     }
 
     const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
@@ -112,7 +121,6 @@ export default function OrderForm() {
                     transition={{ duration: 0.5 }}
                 >
                     <h2 className="d-flex justify-content-center mt-2 mb-1">Create Order</h2>
-                    {message && <span className={message.type === "success" ? "text-success" : "text-danger"}>{message.text}</span>}
                     <form onSubmit={handleSubmit} method="post" className="w-75 ms-3">
                         <TextInput
                             id="name"
@@ -120,6 +128,7 @@ export default function OrderForm() {
                             value={order.name}
                             styles="100"
                             onChange={(event) => handleChange("name", event.target.value)}
+                            error={errors && errors.Name}
                         />
 
                         <TextInput
@@ -129,6 +138,7 @@ export default function OrderForm() {
                             value={order.email}
                             styles="100"
                             onChange={(event) => handleChange("email", event.target.value)}
+                            error={errors && errors.Email}
                         />
 
                         <TextInput
@@ -137,6 +147,7 @@ export default function OrderForm() {
                             value={order.phoneNumber}
                             styles="w-100"
                             onChange={(event) => handleChange("phoneNumber", event.target.value)}
+                            error={errors && errors.PhoneNumber}
                         />
 
                         <AutoCompleteInput
@@ -153,6 +164,7 @@ export default function OrderForm() {
                                 </li>
                             )}
                             onChange={handleCountryChange}
+                            error={errors && errors.CountryName}
                         />
 
                         <div className="d-flex w-100">
@@ -170,7 +182,7 @@ export default function OrderForm() {
                                     </li>
                                 )}
                                 onChange={handleCityChange}
-                                // error={ }
+                                error={errors && errors.City}
                             />
 
                             <TextInput
@@ -179,6 +191,7 @@ export default function OrderForm() {
                                 value={order.postalCode}
                                 styles="w-25 ms-3"
                                 onChange={(event) => handleChange("postalCode", event.target.value.replace(" ", ""))}
+                                error={errors && errors.PostalCode}
                             />
                         </div>
 
@@ -187,6 +200,7 @@ export default function OrderForm() {
                             label="Street"
                             value={order.street}
                             onChange={(event) => handleChange("street", event.target.value)}
+                            error={errors && errors.Street}
                         />
 
                         <TextInput
@@ -209,7 +223,7 @@ export default function OrderForm() {
                                 label="I want an invoice"
                             />
 
-                            {order.hasInvoice && <InvoiceForm invoice={order.invoice} setInvoice={handleInvoice} />}
+                            {order.hasInvoice && <InvoiceForm errors={errors} invoice={order.invoice} setInvoice={handleInvoice} />}
 
                             <AutoCompleteInput
                                 id="paymentMethod"
@@ -219,6 +233,7 @@ export default function OrderForm() {
                                 value={order.paymentMethod}
                                 width="100"
                                 onChange={handlePaymentChange}
+                                error={errors && errors.PaymentMethod}
                             />
 
                             <TextInput
@@ -233,6 +248,7 @@ export default function OrderForm() {
                         </div>
 
                         <div className="mb-2"></div>
+                        {errors && errors.message && <span className="text-danger">{errors.message}</span>}
                     </form>
                 </motion.div>
                 <div className={`col-md-7 d-flex flex-column`}>

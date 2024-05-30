@@ -97,7 +97,8 @@ import {
 }
     from "./paymentMethods";
 import {
-    createGuestOrder
+    createGuestOrder,
+    createUserOrder
 }
     from "./orders";
 
@@ -165,3 +166,4 @@ export { allCitiesWithCountries };
 export { allPaymentMethods };
 
 export { createGuestOrder };
+export { createUserOrder };

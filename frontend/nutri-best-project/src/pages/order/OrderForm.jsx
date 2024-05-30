@@ -5,13 +5,17 @@ import InvoiceForm from "./InvoiceForm";
 import Loader from "../../components/UI/Shared/Loader";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
-import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods, createGuestOrder } from "../../../../../backend/api/api";
+import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods, createGuestOrder, createUserOrder } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useLoaderData } from "react-router-dom";
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 
 export default function OrderForm() {
+    const token = getAuthToken();
+    const { isAuthenticated } = useAuth(token);
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const [errors, setErrors] = useState([]);
@@ -21,7 +25,7 @@ export default function OrderForm() {
     const [order, setOrder] = useState({
         country: address && address.country || "",
         city: address && address.city || "",
-        postalCode: address && address.postalCode || "",
+        postalCode: address && address.postalCode.toString() || "",
         street: address && address.street || "",
         streetNumber: address && address.streetNumber || "",
         name: userDetails && userDetails.name || "",
@@ -98,12 +102,22 @@ export default function OrderForm() {
         }
         data.paymentMethod = data.paymentMethod.replaceAll(" ", "");
 
-        const result = await createGuestOrder(data);
-        if (result.errors) {
-            setErrors(result.errors);
-        }
-        if (result.message) {
-            setErrors({message: result.message});
+        if (!isAuthenticated) {
+            const result = await createGuestOrder(data);
+            if (result.errors) {
+                setErrors(result.errors);
+            }
+            if (result.message) {
+                setErrors({ message: result.message });
+            }
+        } else {
+            const result = await createUserOrder(data);
+            if (result.errors) {
+                setErrors(result.errors);
+            }
+            if (result.message) {
+                setErrors({ message: result.message });
+            }
         }
     }
 

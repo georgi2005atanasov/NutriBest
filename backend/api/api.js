@@ -98,7 +98,8 @@ import {
     from "./paymentMethods";
 import {
     createGuestOrder,
-    createUserOrder
+    createUserOrder,
+    getOrderById
 }
     from "./orders";
 
@@ -167,3 +168,4 @@ export { allPaymentMethods };
 
 export { createGuestOrder };
 export { createUserOrder };
+export { getOrderById };

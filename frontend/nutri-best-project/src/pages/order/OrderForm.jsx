@@ -5,10 +5,11 @@ import InvoiceForm from "./InvoiceForm";
 import Loader from "../../components/UI/Shared/Loader";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
-import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods, createGuestOrder, createUserOrder } from "../../../../../backend/api/api";
+import { CartContext } from "../../store/CartContext";
+import { getProfileDetails, getUserAddress, allCitiesWithCountries, allPaymentMethods, createGuestOrder, createUserOrder } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSubmit } from "react-router-dom";
-import { useState, useEffect, Suspense } from "react";
+import { useLoaderData, useSubmit } from "react-router-dom";
+import { useState, useEffect, Suspense, useContext } from "react";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 
@@ -20,6 +21,7 @@ export default function OrderForm() {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const [errors, setErrors] = useState([]);
+    const { cart } = useContext(CartContext);
 
     const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
@@ -45,6 +47,12 @@ export default function OrderForm() {
         paymentMethod: paymentMethods && paymentMethods[0],
         comment: ""
     });
+
+    useEffect(() => {
+        if (cart && cart.cartProducts.length == 0) {
+            submit("message=Your Cart is Empty!&type=danger", { action: "/", method: "GET" });
+        }
+    }, [cart, submit]);
 
     useEffect(() => {
         const uniqueCountries = allCitiesCountries && allCitiesCountries.map((x, index) => ({ country: x.country, id: `country-${index}` }));

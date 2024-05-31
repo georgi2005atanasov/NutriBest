@@ -28,3 +28,16 @@ export async function createUserOrder(data) {
 
     return await response.json();
 }
+
+export async function getOrderById(id) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/orders/${id}`, {
+        method: 'GET',
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return response;
+}

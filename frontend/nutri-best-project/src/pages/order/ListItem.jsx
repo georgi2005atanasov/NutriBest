@@ -19,7 +19,7 @@ export default function ListItem({ styles, cartItem }) {
             </div>}
         <Link className={`${styles["product-cart-item"]} w-50`} to={`/products/details/${cartItem.product.productId}/${cartItem.product.name}`}>
             <div className="d-flex justify-content-start align-items-center m-1">
-                <img className={styles["cart-image"]} src={`data:${cartItem.product.image.contentType};base64,${cartItem.product.image.imageData}`} alt={cartItem.product.name} />
+                <img className={styles["cart-image"]} src={`data:${cartItem.product.image && cartItem.product.image.contentType};base64,${cartItem.product.image && cartItem.product.image.imageData}`} alt={cartItem.product.name} />
 
                 <div className="ms-2">
                     <h6 className={`mt-md-0 mt-4 mb-0 ${styles["product-name"]}`}>{cartItem.product.name} - {cartItem.flavour} {cartItem.grams}g</h6>

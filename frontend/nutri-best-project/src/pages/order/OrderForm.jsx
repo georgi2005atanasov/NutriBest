@@ -120,6 +120,12 @@ export default function OrderForm() {
                 setErrors({ message: result.message });
             }
 
+            window.scrollTo({
+                top: 200,
+                left: 0,
+                behavior: 'smooth'
+            });
+
             // 000000 for styling purposes
             submit(`orderId=000000${result.id}`, {action:`/order/finished`, method: "GET"});
         } else {
@@ -130,6 +136,12 @@ export default function OrderForm() {
             if (result.message) {
                 setErrors({ message: result.message });
             }
+
+            window.scrollTo({
+                top: 200,
+                left: 0,
+                behavior: 'smooth'
+            });
 
             // 000000 for styling purposes
             submit(`orderId=000000${result.id}`, {action:`/order/finished`, method: "GET"});

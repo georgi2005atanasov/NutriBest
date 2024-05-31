@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
 import colors from "../../App.module.css";
+import { CartContext } from "../../store/CartContext";
 import CartButton from "../Modals/Cart/CartButton";
 import CartModal from "../Modals/Cart/CartModal";
 import NavigationLink from "../Navigation/NavigationLink";
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 
 export default function GuestButtons({ styles }) {
     const dialog = useRef();
+    const { cart } = useContext(CartContext);
 
     function openCart() {
-        dialog.current.open();
+        if (cart.cartProducts.length > 0) {
+            dialog.current.open();
+        }
     }
 
     return <>

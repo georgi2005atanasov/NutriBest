@@ -3,6 +3,7 @@ import CartModal from "../Modals/Cart/CartModal";
 import CartButton from "../Modals/Cart/CartButton";
 import NavigationLink from "../Navigation/NavigationLink";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
+import { CartContext } from "../../store/CartContext";
 import { motion } from "framer-motion";
 import { allPackages } from "../../../../../backend/api/packages";
 import { allFlavours } from "../../../../../backend/api/flavours";
@@ -12,10 +13,13 @@ export default function UserButtons({ isVerified, handleLogout }) {
     const dialog = useRef();
 
     const { setPackages, setFlavours } = useContext(ProductSpecsContext);
+    const { cart } = useContext(CartContext);
 
     function openCart() {
-        dialog.current.open();
-    }
+        if (cart.cartProducts.length > 0) {
+            dialog.current.open();
+        }
+    } // repeated in GuestButtons.jsx
 
     async function resetContext() {
         const responsePackage = await allPackages();

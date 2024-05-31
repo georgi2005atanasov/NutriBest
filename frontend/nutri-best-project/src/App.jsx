@@ -36,6 +36,7 @@ import PromoCodesLayout from './pages/promo-codes/PromoCodesLayout';
 import OrderLayout from './pages/order/OrderLayout';
 import OrderForm, { loader as loadOrder } from './pages/order/OrderForm';
 import AddressForm, { loader as loadAddress } from './pages/profile/address/AddressForm.jsx';
+import FinishedOrder, { loader as loadFinishedOrder } from './pages/order/FinishedOrder.jsx';
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,9 @@ const router = createBrowserRouter([
         path: 'order', element: <OrderLayout />, children: [
           {
             index: true, element: <OrderForm />, loader: loadOrder
+          },
+          {
+            path: 'finished', element: <FinishedOrder />, loader: loadFinishedOrder
           }
         ]
       }

@@ -7,7 +7,7 @@ import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
 import { getProfileDetails, getUserAddress, allCitiesWithCountries, setUserAddress, allPaymentMethods, createGuestOrder, createUserOrder } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useEffect, Suspense } from "react";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
@@ -16,6 +16,7 @@ import useAuth from "../../hooks/useAuth";
 export default function OrderForm() {
     const token = getAuthToken();
     const { isAuthenticated } = useAuth(token);
+    const submit = useSubmit();
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const [errors, setErrors] = useState([]);
@@ -110,6 +111,9 @@ export default function OrderForm() {
             if (result.message) {
                 setErrors({ message: result.message });
             }
+
+            // 000000 for styling purposes
+            submit(`orderId=000000${result.id}`, {action:`/order/finished`, method: "GET"});
         } else {
             const result = await createUserOrder(data);
             if (result.errors) {
@@ -118,6 +122,9 @@ export default function OrderForm() {
             if (result.message) {
                 setErrors({ message: result.message });
             }
+
+            // 000000 for styling purposes
+            submit(`orderId=000000${result.id}`, {action:`/order/finished`, method: "GET"});
         }
     }
 

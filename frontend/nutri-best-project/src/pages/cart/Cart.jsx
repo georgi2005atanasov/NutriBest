@@ -59,7 +59,7 @@ export default function Cart() {
 
         <CartSummary cart={cart} handleCodeRemove={handleCodeRemove} />
 
-        <Link onClick={() => {
+        {cart && cart.cartProducts.length > 0 && <Link onClick={() => {
             window.scrollTo({
                 top: 450,
                 left: 0,
@@ -67,6 +67,6 @@ export default function Cart() {
             });
         }} to={`/order`} className={styles["make-order"]}>
             Make Order
-        </Link>
+        </Link>}
     </motion.div>
 }

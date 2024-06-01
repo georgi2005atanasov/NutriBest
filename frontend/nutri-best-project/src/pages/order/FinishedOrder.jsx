@@ -40,7 +40,7 @@ export default function FinishedOrder() {
             await Promise.all(imagePromises);
             setCart(order.cart);
         }
-
+        
         if (order.cart) {
             storeImages();
         }

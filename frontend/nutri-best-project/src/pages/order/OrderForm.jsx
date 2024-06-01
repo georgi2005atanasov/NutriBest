@@ -6,10 +6,10 @@ import Loader from "../../components/UI/Shared/Loader";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
 import { CartContext } from "../../store/CartContext";
-import { getProfileDetails, getUserAddress, allCitiesWithCountries, allPaymentMethods, createGuestOrder, createUserOrder } from "../../../../../backend/api/api";
+import { getCart, getImageByProductId, getProfileDetails, getUserAddress, allCitiesWithCountries, allPaymentMethods, createGuestOrder, createUserOrder, sendConfirmOrderMessage } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { useLoaderData, useSubmit } from "react-router-dom";
-import { useState, useEffect, Suspense, useContext } from "react";
+import { redirect, useLoaderData, useSubmit } from "react-router-dom";
+import { useState, useEffect, Suspense, useContext, useCallback } from "react";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 
@@ -21,7 +21,7 @@ export default function OrderForm() {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const [errors, setErrors] = useState([]);
-    const { cart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext);
 
     const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
@@ -48,11 +48,15 @@ export default function OrderForm() {
         comment: ""
     });
 
-    useEffect(() => {
-        if (cart && cart.cartProducts.length == 0) {
-            submit("message=Your Cart is Empty!&type=danger", { action: "/", method: "GET" });
+    const getCartProducts = useCallback(async function getCartProducts() {
+        const cartData = await getCart();
+
+        for (const { product } of cartData.cartProducts) {
+            product.image = await getImageByProductId(product.productId);
         }
-    }, [cart, submit]);
+
+        setCart(cartData);
+    }, [setCart]);
 
     useEffect(() => {
         const uniqueCountries = allCitiesCountries && allCitiesCountries.map((x, index) => ({ country: x.country, id: `country-${index}` }));
@@ -104,20 +108,34 @@ export default function OrderForm() {
         }));
     }
 
+    async function sendConfirmation() {
+        await sendConfirmOrderMessage();
+    }
+
     async function handleSubmit() {
         const data = JSON.parse(JSON.stringify(order));
+
         if (!order.hasInvoice) {
             delete data.invoice;
         }
+
+        if (cart.cartProducts.length == 0) {
+            return submit("message=Your Cart is Empty&type=danger",
+                { action: "/", method: "GET" }
+            );
+        }
+
         data.paymentMethod = data.paymentMethod.replaceAll(" ", "");
 
         if (!isAuthenticated) {
             const result = await createGuestOrder(data);
             if (result.errors) {
                 setErrors(result.errors);
+                return;
             }
             if (result.message) {
                 setErrors({ message: result.message });
+                return;
             }
 
             window.scrollTo({
@@ -126,15 +144,23 @@ export default function OrderForm() {
                 behavior: 'smooth'
             });
 
-            // 000000 for styling purposes
-            submit(`orderId=000000${result.id}`, {action:`/order/finished`, method: "GET"});
+            await getCartProducts();
+
+            submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
+            await sendConfirmOrderMessage(order.email,
+                order.name,
+                result.id,
+                `http://localhost:5173/order/confirm?orderId=${result.id}`
+            );
         } else {
             const result = await createUserOrder(data);
             if (result.errors) {
                 setErrors(result.errors);
+                return;
             }
             if (result.message) {
                 setErrors({ message: result.message });
+                return;
             }
 
             window.scrollTo({
@@ -143,8 +169,14 @@ export default function OrderForm() {
                 behavior: 'smooth'
             });
 
-            // 000000 for styling purposes
-            submit(`orderId=000000${result.id}`, {action:`/order/finished`, method: "GET"});
+            await getCartProducts();
+
+            submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
+            await sendConfirmOrderMessage(order.email,
+                order.name,
+                result.id,
+                `http://localhost:5173/order/confirm?orderId=${result.id}`
+            );
         }
     }
 

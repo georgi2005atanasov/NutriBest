@@ -37,6 +37,7 @@ import OrderLayout from './pages/order/OrderLayout';
 import OrderForm, { loader as loadOrder } from './pages/order/OrderForm';
 import AddressForm, { loader as loadAddress } from './pages/profile/address/AddressForm.jsx';
 import FinishedOrder from './pages/order/FinishedOrder.jsx';
+import ConfirmOrder from './pages/order/ConfirmOrder.jsx';
 
 const router = createBrowserRouter([
   {
@@ -139,6 +140,9 @@ const router = createBrowserRouter([
           },
           {
             path: 'finished', element: <FinishedOrder />
+          },
+          {
+            path: 'confirm', element: <ConfirmOrder />
           }
         ]
       }

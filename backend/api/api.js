@@ -99,9 +99,14 @@ import {
 import {
     createGuestOrder,
     createUserOrder,
-    getOrderById
+    getOrderById,
+    confirmOrder
 }
     from "./orders";
+import {
+    sendConfirmOrderMessage
+}
+    from "./email";
 
 
 export { addProduct };
@@ -169,3 +174,6 @@ export { allPaymentMethods };
 export { createGuestOrder };
 export { createUserOrder };
 export { getOrderById };
+
+export { sendConfirmOrderMessage };
+export { confirmOrder };

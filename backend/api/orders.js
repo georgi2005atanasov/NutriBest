@@ -41,3 +41,16 @@ export async function getOrderById(id) {
 
     return response;
 }
+
+export async function confirmOrder(id) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/orders/confirm?orderId=${id}`, {
+        method: 'POST',
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return response;
+}

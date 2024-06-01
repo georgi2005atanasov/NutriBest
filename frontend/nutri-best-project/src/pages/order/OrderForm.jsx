@@ -28,7 +28,7 @@ export default function OrderForm() {
     const [order, setOrder] = useState({
         country: address && address.country || "",
         city: address && address.city || "",
-        postalCode: address && address.postalCode.toString() || "",
+        postalCode: address && address.postalCode && address.postalCode.toString() || "",
         street: address && address.street || "",
         streetNumber: address && address.streetNumber || "",
         name: userDetails && userDetails.name || "",

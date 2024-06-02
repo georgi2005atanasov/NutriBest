@@ -1,17 +1,31 @@
 import FormInput from "../../components/UI/Form/FormInput"
 import Header from "../../components/UI/Shared/Header";
-import Loader from "../../components/UI/Shared/Loader";
 import FormButton from "../../components/UI/Form/FormButton";
 import styles from "./Login.module.css";
 import { motion } from "framer-motion";
-import { Form, useActionData, useNavigation } from "react-router-dom";
-import { sendForgottenPasswordMessage } from "../../../../../backend/api/email";
+import { Form, redirect, useActionData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
 import { getFormData } from "../../utils/utils";
+import Loader from "../../components/UI/Shared/Loader";
+import { resetPassword } from "../../../../../backend/api/auth";
+import { useEffect } from "react";
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
     const data = useActionData();
-    console.log(data);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const submit = useSubmit();
+    const token = searchParams.get("token");
+    const email = searchParams.get("email");
+
     const navigation = useNavigation();
+
+    useEffect(() => {
+        if (data && data.message && data.message == "Password reset successful.") {
+            return submit("message=Password Reset Successfully!&type=success", {
+                action: "/login",
+                method: "GET"
+            });
+        }
+    }, [data, submit]);
 
     const isSubmitting = navigation.state === "submitting";
 
@@ -27,23 +41,34 @@ export default function ForgotPassword() {
                     <Loader /> :
                     undefined}
                 <div className="row">
-                    <Header text="Forgot Password" />
+                    <Header text="Reset Password" />
                 </div>
                 <div className="row d-flex flex-column align-items-center justify-content-center w-100">
                     <div className="col-lg-5">
                         <Form method="post">
                             <FormInput
                                 styles={`${styles["login-input"]} mb-0`}
-                                text="Email"
-                                id="email"
-                                type="email"
-                                name="email"
+                                text="New Password"
+                                id="newPassword"
+                                type="password"
+                                name="newPassword"
                             />
+                            <FormInput
+                                styles={`${styles["login-input"]} mb-0`}
+                                text="Confirm Password"
+                                id="confirmPassword"
+                                type="password"
+                                name="confirmPassword"
+                            />
+                            {data && data.message && <span className="text-danger">{data.message}</span>}
+
+                            <input type="hidden" name="token" id="token" value={token} />
+                            <input type="hidden" name="email" id="email" value={email} />
+
                             {data && data.errors && <span className="text-danger mt-3">Email is required!</span>}
                             {data && data.error && <span className="text-danger mt-3">{data.error}</span>}
-                            {data && data.message && <span className="text-success mt-3">{data.message}</span>}
                             <FormButton
-                                text="Send"
+                                text="Reset Password"
                                 wrapperStyles={`${styles["login-input"]}`}
                                 disabled={isSubmitting}
                             />
@@ -58,8 +83,7 @@ export default function ForgotPassword() {
 export async function action({ request, params }) {
     try {
         const data = await getFormData(request);
-        const response = await sendForgottenPasswordMessage(data.email);
-        const result = await response.json();
+        const result = await resetPassword(data.newPassword, data.confirmPassword, data.token, data.email);
 
         return result;
     } catch (error) {

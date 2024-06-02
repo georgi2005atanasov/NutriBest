@@ -2,7 +2,7 @@ export async function sendConfirmOrderMessage(email,
     customerName,
     orderId,
     confirmationUrl) {
-    const response = await fetch(`https://localhost:7056/email`, {
+    const response = await fetch(`https://localhost:7056/email/SendConfirmOrderEmail`, {
         method: "POST",
         body: JSON.stringify({
             to: email,
@@ -10,6 +10,20 @@ export async function sendConfirmOrderMessage(email,
             customerName,
             orderId,
             confirmationUrl,
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return response;
+}
+
+export async function sendForgottenPasswordMessage(email) {
+    const response = await fetch(`https://localhost:7056/email/ForgottenPassword`, {
+        method: "POST",
+        body: JSON.stringify({
+            to: email
         }),
         headers: {
             "Content-Type": "application/json"

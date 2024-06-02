@@ -11,16 +11,32 @@ import { setAuthToken, setTokenDuration } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { getFormData } from "../../utils/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation } from "react-router-dom";
+import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import Message from "../../components/UI/Shared/Message";
 
 export default function LoginPage() {
     const data = useActionData();
     const token = useOutletContext("rootLoader");
+    const [searchParams, setSearchParams] = useSearchParams();
     const { isAuthenticated } = useAuth(token);
     const submit = useSubmit();
     const navigation = useNavigation();
 
     const isSubmitting = navigation.state === "submitting";
+
+    const message = searchParams.get('message');
+    const messageType = searchParams.get('type');
+
+    useEffect(() => {
+        if (message) {
+            const timer = setTimeout(() => {
+                setSearchParams({});
+            }, 4000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [message, setSearchParams]);
 
     if (isAuthenticated) {
         submit(null, { action: "/", method: "get" })
@@ -35,6 +51,7 @@ export default function LoginPage() {
             {isSubmitting ?
                 <Loader /> :
                 undefined}
+            {message && <Message message={message} messageType={messageType} />}
             <Header text="Welcome back to NutriBest!" styles={styles["login-header"]} />
             <Form method="post">
                 <div className="container">

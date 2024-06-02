@@ -32,3 +32,20 @@ export async function login(userData) {
     
     return await response.json();
 }
+
+export async function resetPassword(newPassword, confirmPassword, token, email) {
+    const response = await fetch(`https://localhost:7056/identity/ResetPassword`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            newPassword, 
+            confirmPassword,
+            token,
+            email
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    
+    return await response.json();
+}

@@ -111,11 +111,7 @@ export default function OrderForm() {
             }
         }));
     }
-
-    async function sendConfirmation() {
-        await sendConfirmOrderMessage();
-    }
-
+    
     async function handleSubmit() {
         const data = JSON.parse(JSON.stringify(order));
 

@@ -2,7 +2,7 @@
 import { useSubmit } from "react-router-dom";
 import cartStyles from "../../components/UI/Buttons/css/AddToCartButton.module.css";
 
-export default function AddToCartRedirect({ promotions, product }) {
+export default function AddToCartRedirect({ isLoading, promotions, product }) {
     const submit = useSubmit();
 
     function handleAddToCart() {
@@ -18,7 +18,7 @@ export default function AddToCartRedirect({ promotions, product }) {
     return <div className="d-flex flex-column">
         <div className={`text-center`}>
             <button
-                onClick={handleAddToCart}
+                onClick={!isLoading ? handleAddToCart : () => {}}
                 className={`${promotions
                     .filter(x => x.isActive)
                     .some(x => x.promotionId == product.promotionId) == true ?

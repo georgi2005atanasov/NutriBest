@@ -83,7 +83,7 @@ export default function LoginPage() {
                                 disabled={isSubmitting}
                             />
                             {/* TODO Add functionality for forgotten password */}
-                            <FormLink route="/" styles={styles["form-link"]} text="Forgot password?" />
+                            <FormLink route="/forgot-password" styles={styles["form-link"]} text="Forgot password?" />
 
                             <FormLink route="/register" styles={styles["form-link"]} text="New User? Register Here" />
                         </div>

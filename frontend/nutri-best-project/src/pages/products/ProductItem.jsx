@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
 import alt from "../../assets/fallback-image.png";
 import styles from "./css/ProductItem.module.css";
-import AddToCartButton from "../../components/UI/Buttons/AddToCartButton";
 import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
 import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
-import { getImageByProductId, getProductSpecs } from "../../../../../backend/api/api";
+import { getImageByProductId } from "../../../../../backend/api/api";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
 import { getPrice } from "../../utils/product/products";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLoaderData, useSubmit } from "react-router-dom";
+import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AddToCartRedirect from "./AddToCartRedirect";
 
@@ -19,6 +18,9 @@ export default function ProductItem({ product }) {
     const token = getAuthToken();
     const { isAdmin } = useAuth(token);
     const { promotions } = useLoaderData();
+    const navigation = useNavigation();
+
+    const isLoading = navigation.state === "loading";
 
     useEffect(() => {
         async function getImage(productId) {
@@ -51,7 +53,7 @@ export default function ProductItem({ product }) {
                 <div className={styles["promotion-box"]}>
                     {product && Math.floor(product.discountPercentage)} <strong>%</strong>
                 </div>
-                <Link className={`${styles["product-item-link"]}`} to={`/products/details/${product.productId}/${product.name}`}>
+                <Link className={`${styles["product-item-link"]}`} to={!isLoading && `/products/details/${product.productId}/${product.name}`}>
                     {src ? <img
                         className={`${styles["product-image"]} 
                 ${styles["promotion-border"]}`}
@@ -78,6 +80,7 @@ export default function ProductItem({ product }) {
                         </div>
                     </div> :
                     <AddToCartRedirect
+                        isLoading={isLoading}
                         promotions={promotions}
                         product={product}
                     />}
@@ -96,7 +99,7 @@ export default function ProductItem({ product }) {
         >
             {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
 
-            <Link className={`${styles["product-item-link"]}`} to={`/products/details/${product.productId}/${product.name}`}>
+            <Link className={`${styles["product-item-link"]}`} to={!isLoading && `/products/details/${product.productId}/${product.name}`}>
                 {src ? <img
                     className={`${styles["product-image"]}`}
                     src={src} alt="Dynamic" /> :
@@ -119,6 +122,7 @@ export default function ProductItem({ product }) {
                     </div>
                 </div> :
                 <AddToCartRedirect
+                isLoading={isLoading}
                 promotions={promotions}
                 product={product}
             />}

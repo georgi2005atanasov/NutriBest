@@ -36,7 +36,8 @@ export async function getOrderById(id) {
         method: 'GET',
         headers: {
             "Authorization": `Bearer ${token}`
-        }
+        },
+        credentials: "include"
     })
 
     return response;

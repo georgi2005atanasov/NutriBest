@@ -8,7 +8,7 @@ import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteI
 import { CartContext } from "../../store/CartContext";
 import { getCart, getImageByProductId, getProfileDetails, getUserAddress, allCitiesWithCountries, allPaymentMethods, createGuestOrder, createUserOrder, sendConfirmOrderMessage } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSubmit } from "react-router-dom";
+import { useNavigation, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useEffect, Suspense, useContext, useCallback } from "react";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
@@ -24,6 +24,10 @@ export default function OrderForm() {
     const { cart, setCart } = useContext(CartContext);
 
     const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
+
+    const navigation = useNavigation();
+
+    const isSubmitting = navigation.state === "submitting";
 
     const [order, setOrder] = useState({
         country: address && address.country || "",
@@ -185,6 +189,7 @@ export default function OrderForm() {
 
     return (
         <div className="container d-flex flex-column justify-content-center align-items-center mt-4">
+            {isSubmitting && <Loader />}
             <div className="row w-100">
                 <motion.div
                     className="px-0 pb-3 card col-md-5 d-flex flex-column justify-content-center align-items-center"
@@ -329,7 +334,7 @@ export default function OrderForm() {
                         <Suspense fallback={<Loader />}>
                             <ListOrder />
                         </Suspense>
-                        <button onClick={handleSubmit} className={styles["button-confirm-order"]}>Confirm Order</button>
+                        <button onClick={!isSubmitting ? handleSubmit : () => {}} className={styles["button-confirm-order"]}>Confirm Order</button>
                     </div>
                 </div>
 

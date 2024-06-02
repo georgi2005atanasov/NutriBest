@@ -4,12 +4,13 @@ import { getOrderById, getImageByProductId } from "../../../../../backend/api/ap
 import { getDate } from "../../utils/utils";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Link, redirect, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useSubmit } from "react-router-dom";
 
 export default function FinishedOrder() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [order, setOrder] = useState({});
     const [cart, setCart] = useState([]);
+    const submit = useSubmit();
     const orderId = searchParams.get("orderId");
 
     console.log(order);
@@ -20,7 +21,8 @@ export default function FinishedOrder() {
             const response = await getOrderById(realId);
 
             if (!response.ok) {
-                return redirect("/error");
+                submit(null, { action: "/", method: "GET" });
+                return;
             }
 
             const orderToSet = await response.json();
@@ -29,7 +31,7 @@ export default function FinishedOrder() {
         }
 
         handleOrder();
-    }, [orderId]);
+    }, [orderId, submit]);
 
     useEffect(() => {
         async function storeImages() {
@@ -40,7 +42,7 @@ export default function FinishedOrder() {
             await Promise.all(imagePromises);
             setCart(order.cart);
         }
-        
+
         if (order.cart) {
             storeImages();
         }
@@ -75,7 +77,11 @@ export default function FinishedOrder() {
                             <p><strong>Order Date:</strong> {getDate(order.madeOn)}</p>
                         </div>
                         <div className="m-auto d-flex flex-column align-items-center justify-content-center">
-                            <span className="mt-3 text-italic text-danger">Visit your email to check your order!</span>
+                            <span className={`mt-3 text-italic ${!order.isConfirmed ? "text-danger" : "text-success"}`}>
+                                {!order.isConfirmed ?
+                                    "Visit Your Email to Confirm the Order!" :
+                                    "Order Confirmed!"}
+                            </span>
                             <Link className={styles["home-button"]} to="/">Return to Home Page</Link>
                         </div>
                     </div>

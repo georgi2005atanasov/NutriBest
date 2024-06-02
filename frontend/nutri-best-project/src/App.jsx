@@ -38,6 +38,7 @@ import OrderForm, { loader as loadOrder } from './pages/order/OrderForm';
 import AddressForm, { loader as loadAddress } from './pages/profile/address/AddressForm.jsx';
 import FinishedOrder from './pages/order/FinishedOrder.jsx';
 import ConfirmOrder from './pages/order/ConfirmOrder.jsx';
+import ForgotPassword from './pages/auth/ForgotPassword.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'login', element: <LoginPage />, action: loginAction },
+      { path: 'forgot-password', element: <ForgotPassword /> },
       { path: 'register', element: <RegisterPage />, action: registerAction },
       { path: 'logout', action: logoutAction },
       { path: 'home', element: <HomePage /> },

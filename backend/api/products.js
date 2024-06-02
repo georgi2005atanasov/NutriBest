@@ -207,3 +207,19 @@ export async function getRelated(categories, productId) {
 
     return response;
 }
+
+export async function getCurrentProductPrice(productId, flavour, grams) {
+    const response = await fetch(`https://localhost:7056/products/current-price`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            productId,
+            flavour,
+            package: grams
+        })
+    });
+
+    return await response.json();
+}

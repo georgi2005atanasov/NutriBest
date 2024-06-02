@@ -65,22 +65,6 @@ export default function ProductForm({ product = null, productSpecs = null, data,
                                 defaultValue={product ? product.description : undefined}
                                 rows={9} />
 
-                            <FormInput
-                                styles={styles["add-product-input"]}
-                                text="Price"
-                                error={
-                                    data && data.errors && Object.keys(data.errors).includes("Price") &&
-                                    <InputError
-                                        styles={styles["error-par"]}
-                                        text={data.errors["Price"][0]}
-                                    />}
-                                id="price"
-                                type="text"
-                                name="price"
-                                defaultValue={product ? product.price : undefined}
-                                placeholder="100 BGN"
-                            />
-
                             {product && product.quantity && <FormInput
                                 styles={`${styles["add-product-input"]}`}
                                 text="Quantity"

@@ -66,12 +66,6 @@ export async function action({ request, params }) {
     //this is maybe redundant i do not store images on the local storage
     localStorage.removeItem(`image-${id}`);
 
-    let priceToCheck = productModel.price;
-    priceToCheck = priceToCheck.replace(",", ".");
-    if (isNaN(priceToCheck)) {
-        return json({ errors: { "Price": ["Price must be a number!"] } });
-    }
-
     if (isNaN(id)) {
         return json({ errors: { "message": ["Invalid product identifier!"] } });
     }

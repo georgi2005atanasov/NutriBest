@@ -3,10 +3,6 @@ export function getProductErrors(productModel) {
         errors: {}
     };
 
-    if (productModel.price <= 0 || isNaN(productModel.price)) {
-        data.errors["Price"] = ["Price must be bigger than 0!"];
-    }
-
     if (productModel.categories.length <= 0) {
         data.errors["Category"] = ["You have to choose at least 1 category!"];
     }

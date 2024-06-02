@@ -3,7 +3,11 @@ import styles from "../css/ProductDetails.module.css";
 import itemStyles from "../css/ProductItem.module.css";
 import { getPrice } from "../../../utils/product/products";
 import MultiSelectPromotion from "../../../components/UI/Promotions/MultiSelectPromotion";
-import { allPromotions, getProductDetailsByIdAndName, getProductSpecs, getImageByProductId, getNutritionFactsByProductIdAndName } from "../../../../../../backend/api/api";
+import {
+    allPromotions, getProductDetailsByIdAndName, getProductSpecs,
+    getImageByProductId, getNutritionFactsByProductIdAndName,
+    getCurrentProductPrice
+} from "../../../../../../backend/api/api";
 import { getAuthToken } from "../../../utils/auth";
 import useAuth from "../../../hooks/useAuth";
 import { motion } from "framer-motion";
@@ -22,10 +26,13 @@ import RelatedProducts from "./RelatedProducts";
 export default function ProductDetails() {
     const [src, setSrc] = useState("");
     const token = getAuthToken();
+    const [currentPrice, setCurrentPrice] = useState(null);
+    const [error, setError] = useState("");
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
     const { product, promotion, productPackages, productFlavours, nutritionFacts } = useRouteLoaderData("productDetails");
 
+    console.log(currentPrice);
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
@@ -41,6 +48,26 @@ export default function ProductDetails() {
 
         setSrc(src);
     }, [product]);
+
+    useEffect(() => {
+        async function getCurrentPrice() {
+            const currentPrice = await getCurrentProductPrice(product.productId, productSpecs.flavour,
+                productSpecs.grams);
+
+            if (isNaN(currentPrice)) {
+                setError(`${productSpecs.flavour} of ${productSpecs.grams}g is not available!`);
+                setCurrentPrice(null);
+                return;
+            }
+
+            setError("");
+            setCurrentPrice(currentPrice);
+        }
+
+        if (productSpecs.flavour && productSpecs.grams) {
+            getCurrentPrice();
+        }
+    }, [productSpecs, product]);
 
     if (promotion != null) {
         return <>
@@ -81,24 +108,34 @@ export default function ProductDetails() {
                     <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                     <section className="border m-2 py-4 px-0">
-                        <h2 className="product-price text-center mt-0">
+                        <h3 className="product-price text-center mt-0">
                             <span className={itemStyles["new-price"]}>
-                                {getPrice(product.price, product.discountPercentage).toFixed(2)} BGN
+                                {!currentPrice ?
+                                    getPrice(product.price, product.discountPercentage).toFixed(2) :
+                                    getPrice(currentPrice, product.discountPercentage).toFixed(2)} BGN
                             </span>
                             <span className={itemStyles["original-price"]}>
-                                {(product.price).toFixed(2)} BGN
+                                {!currentPrice || error ?
+                                    `from ${(product.price).toFixed(2)} BGN` :
+                                    `${(currentPrice).toFixed(2)} BGN`}
                             </span>
-                        </h2>
+                        </h3>
 
                         <div className="d-flex justify-content-center text-secondary">
                             Saved:&nbsp;
                             <span className={`text-center ${itemStyles["new-price"]}`}>
-                                {((product.price) - getPrice(product.price, product.discountPercentage)).toFixed(2)} BGN
+                                {!currentPrice ?
+                                    ((product.price) - getPrice(product.price, product.discountPercentage)).toFixed(2) :
+                                    ((currentPrice) - getPrice(currentPrice, product.discountPercentage)).toFixed(2)} BGN
                             </span>
                         </div>
 
                         <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
                         <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+
+                        {error && <div className="d-flex justify-content-center mt-2">
+                            <span className="text-danger">{error}</span>
+                        </div>}
 
                         <DetailsButtons
                             productId={product.productId}
@@ -158,14 +195,20 @@ export default function ProductDetails() {
                 <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                 <section className="border m-2 py-4 px-0">
-                    <h2 className="product-price text-center mb-3 mt-0">
+                    <h3 className="product-price text-center mb-3 mt-0">
                         <span>
-                            {(product.price).toFixed(2)} BGN
+                            {!currentPrice || error ?
+                                `from ${(product.price).toFixed(2)} BGN` :
+                                `${(currentPrice).toFixed(2)} BGN`}
                         </span>
-                    </h2>
+                    </h3>
 
                     <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
                     <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+
+                    {error && <div className="d-flex justify-content-center mt-2">
+                        <span className="text-danger">{error}</span>
+                    </div>}
 
                     <DetailsButtons
                         productId={product.productId}

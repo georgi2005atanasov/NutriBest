@@ -14,8 +14,9 @@ export default function ProductSpecs({ data, currProductSpecs }) {
     const [spec, setSpec] = useState({
         flavour: "",
         grams: 0,
-        quantity: 0
-    })
+        quantity: 0,
+        price: ""
+    });
 
     useEffect(() => {
         if (currProductSpecs) {
@@ -38,8 +39,21 @@ export default function ProductSpecs({ data, currProductSpecs }) {
         })
     }
 
+    function handlePrice(event) {
+        if (isNaN(event.target.value) ||
+            Number(event.target.value) < 0 ||
+            Number(event.target.value) > 4000) {
+            return;
+        }
+
+        setSpec(prev => {
+            prev.price = event.target.value;
+            return prev;
+        })
+    }
+
     function handleAdd() {
-        if (!spec.flavour || !spec.grams || spec.quantity <= 0) {
+        if (!spec.flavour || !spec.grams || spec.quantity <= 0 || !spec.price) {
             return;
         }
 
@@ -67,13 +81,13 @@ export default function ProductSpecs({ data, currProductSpecs }) {
                     .map(x =>
                         <div key={`${x.flavour}${x.grams}`} className="row d-flex align-items-center">
                             <div className={`${specsStyle["spec-container"]} d-flex col-md-8 me-1 justify-content-center align-items-center`}>
-                                Flavour: {x.flavour}, Package: {x.grams}g, Quantity: {x.quantity}
+                                Flavour: {x.flavour}, Package: {x.grams}g, Quantity: {x.quantity}, Price: {x.price}
                             </div>
                             <button onClick={() => removeSpec(x.flavour, x.grams)} type="button" className={`${specsStyle["remove-button"]} d-flex col-md-3 justify-content-center align-items-center`}>Remove</button>
                         </div>)}
                 <div>Total: {productSpecs
                     .map(x => x.quantity)
-                    .reduce((acc, x) => acc += x, 0)} products</div>
+                    .reduce((acc, x) => acc += Number(x), 0)} products</div>
             </> :
             undefined}
         <div className="row d-flex justify-content-evenly align-items-center">
@@ -87,7 +101,7 @@ export default function ProductSpecs({ data, currProductSpecs }) {
                 <SelectPackage packages={packages} spec={spec} setSpec={setSpec} />
             </div>
 
-            <div className="col-xl-3 pt-2 ps-xl-3">
+            <div className="col-xl-2 pt-2 ps-xl-3">
                 <FormInput
                     styles={`${styles["add-product-input"]} p-0 m-0`}
                     text="Quantity"
@@ -96,6 +110,19 @@ export default function ProductSpecs({ data, currProductSpecs }) {
                     name="quantity"
                     defaultValue={spec.quantity}
                     onChange={handleQuantity}
+                    placeholder=""
+                />
+            </div>
+
+            <div className="col-xl-2 pt-2 ps-xl-3">
+                <FormInput
+                    styles={`${styles["add-product-input"]} p-0 m-0`}
+                    text="Price"
+                    id="price"
+                    type="text"
+                    name="price"
+                    defaultValue={spec.price}
+                    onChange={handlePrice}
                     placeholder=""
                 />
             </div>

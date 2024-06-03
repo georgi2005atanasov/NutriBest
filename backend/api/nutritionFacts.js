@@ -1,7 +1,7 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 
 export async function getNutritionFactsByProductIdAndName(id, name) {
-    const response = await fetch(`https://localhost:7056/products/nutri-facts/${id}/${name}`, {
+    const response = await fetch(`https://localhost:7056/Products/nutri-facts/${id}/${name}`, {
         method: "GET"
     });
 
@@ -11,7 +11,7 @@ export async function getNutritionFactsByProductIdAndName(id, name) {
 export async function setNutritionFactsByProductId(id, data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/products/nutri-facts/${id}`, {
+    const response = await fetch(`https://localhost:7056/Products/nutri-facts/${id}`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

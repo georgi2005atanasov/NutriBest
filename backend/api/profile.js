@@ -5,7 +5,7 @@ export async function getProfileDetails() {
 
     if (token != "EXPIRED" && token != null) {
 
-        const response = await fetch(`https://localhost:7056/profile/mine`, {
+        const response = await fetch(`https://localhost:7056/Profile/Mine`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -19,7 +19,7 @@ export async function getProfileDetails() {
 export async function editUser(data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/profile`, {
+    const response = await fetch(`https://localhost:7056/Profile`, {
         method: "PUT",
         body: data,
         headers: {
@@ -33,7 +33,7 @@ export async function editUser(data) {
 export async function deleteUser() {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/profile`, {
+    const response = await fetch(`https://localhost:7056/Profile`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -48,7 +48,7 @@ export async function getUserAddress() {
 
     if (token != "EXPIRED" && token != null) {
 
-        const response = await fetch(`https://localhost:7056/profile/address`, {
+        const response = await fetch(`https://localhost:7056/Profile/Address`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -64,7 +64,7 @@ export async function setUserAddress(data) {
 
     if (token != "EXPIRED" && token != null) {
 
-        const response = await fetch(`https://localhost:7056/profile/address`, {
+        const response = await fetch(`https://localhost:7056/Profile/Address`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

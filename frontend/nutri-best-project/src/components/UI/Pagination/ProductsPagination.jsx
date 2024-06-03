@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 const PRODUCTS_PER_PAGE = 6.0;
 const PRODUCTS_PER_TABLE = 10.0;
 
-export default function Pagination({ page, productsCount, productsView }) {
+export default function ProductsPagination({ page, productsCount, productsView }) {
     const productsPerPage = productsView == PRODUCTS_VIEWS.all ?
         PRODUCTS_PER_PAGE :
         PRODUCTS_PER_TABLE;

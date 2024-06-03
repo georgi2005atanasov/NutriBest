@@ -2,7 +2,7 @@ import { checkAuthErrors } from '../utils/util';
 import { getAuthToken } from '../../frontend/nutri-best-project/src/utils/auth';
 
 export async function register(userData) {
-    const response = await fetch('https://localhost:7056/identity/register', {
+    const response = await fetch('https://localhost:7056/Identity/Register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export async function register(userData) {
 }
 
 export async function login(userData) {
-    const response = await fetch('https://localhost:7056/identity/login', {
+    const response = await fetch('https://localhost:7056/Identity/Login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export async function login(userData) {
 }
 
 export async function resetPassword(newPassword, confirmPassword, token, email) {
-    const response = await fetch(`https://localhost:7056/identity/ResetPassword`, {
+    const response = await fetch(`https://localhost:7056/Identity/ResetPassword`, {
         method: 'PUT',
         body: JSON.stringify({
             newPassword, 

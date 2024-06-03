@@ -1,7 +1,7 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 
 export async function allBrands() {
-    const response = await fetch(`https://localhost:7056/brands`, {
+    const response = await fetch(`https://localhost:7056/Brands`, {
         method: "GET"
     });
 
@@ -9,7 +9,7 @@ export async function allBrands() {
 }
 
 export async function getImageByBrandName(brand) {
-    const response = await fetch(`https://localhost:7056/images/brand/${brand}`, {
+    const response = await fetch(`https://localhost:7056/Images/Brand/${brand}`, {
         method: "GET"
     });
 
@@ -19,7 +19,7 @@ export async function getImageByBrandName(brand) {
 export async function addBrand(brandData) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/brands`, {
+    const response = await fetch(`https://localhost:7056/Brands`, {
         method: "POST",
         body: brandData,
         headers: {
@@ -33,7 +33,7 @@ export async function addBrand(brandData) {
 export async function deleteBrandByName(brand) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/brands/${brand}`, {
+    const response = await fetch(`https://localhost:7056/Brands/${brand}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`

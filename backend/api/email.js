@@ -20,7 +20,7 @@ export async function sendConfirmOrderMessage(email,
 }
 
 export async function sendForgottenPasswordMessage(email) {
-    const response = await fetch(`https://localhost:7056/email/ForgottenPassword`, {
+    const response = await fetch(`https://localhost:7056/Email/ForgottenPassword`, {
         method: "POST",
         body: JSON.stringify({
             to: email,

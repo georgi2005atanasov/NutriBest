@@ -1,7 +1,7 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 
 export async function createGuestOrder(data) {
-    const response = await fetch('https://localhost:7056/guestsOrders', {
+    const response = await fetch('https://localhost:7056/GuestsOrders', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -16,7 +16,7 @@ export async function createGuestOrder(data) {
 export async function createUserOrder(data) {
     const token = getAuthToken();
 
-    const response = await fetch('https://localhost:7056/usersOrders', {
+    const response = await fetch('https://localhost:7056/UsersOrders', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -32,7 +32,7 @@ export async function createUserOrder(data) {
 export async function getOrderById(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/orders/${id}`, {
+    const response = await fetch(`https://localhost:7056/Orders/${id}`, {
         method: 'GET',
         headers: {
             "Authorization": `Bearer ${token}`
@@ -46,7 +46,7 @@ export async function getOrderById(id) {
 export async function confirmOrder(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/orders/confirm?orderId=${id}`, {
+    const response = await fetch(`https://localhost:7056/Orders/Confirm?orderId=${id}`, {
         method: 'POST',
         headers: {
             "Authorization": `Bearer ${token}`

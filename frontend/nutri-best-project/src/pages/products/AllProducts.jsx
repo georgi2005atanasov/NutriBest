@@ -1,5 +1,5 @@
 import styles from "./css/AllProducts.module.css";
-import Pagination from "../../components/UI/Pagination/Pagination";
+import ProductsPagination from "../../components/UI/Pagination/ProductsPagination";
 import Message from "../../components/UI/Shared/Message";
 import ChangeLayoutButton from "../../components/UI/Buttons/ChangeLayoutButton";
 import FilterSidebar from "../../components/UI/Sidebar/Filters/FilterSidebar";
@@ -126,7 +126,7 @@ export default function AllProducts() {
                     </div>
                     <div className="row d-flex justify-content-center">
                         <div className="col-lg-6 col-md-9">
-                            <Pagination productsView={productsView} page={page} productsCount={sessionStorage.getItem("productsCount")} />
+                            <ProductsPagination productsView={productsView} page={page} productsCount={sessionStorage.getItem("productsCount")} />
                         </div>
                     </div>
                 </div>

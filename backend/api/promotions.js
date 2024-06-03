@@ -2,7 +2,7 @@ import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 
 export async function allPromotions() {
     try {
-        const response = await fetch(`https://localhost:7056/promotions`);
+        const response = await fetch(`https://localhost:7056/Promotions`);
         return await response.json();
     } catch (error) {
         return null;
@@ -13,7 +13,7 @@ export async function changeProductPromotion(promotionId, productId) {
     const token = getAuthToken();
 
     if (!promotionId) {
-        const response = await fetch(`https://localhost:7056/promotions/remove-product-promotion/${productId}`,
+        const response = await fetch(`https://localhost:7056/Promotions/remove-product-promotion/${productId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -23,7 +23,7 @@ export async function changeProductPromotion(promotionId, productId) {
 
         return await response.json();
     } else {
-        const response = await fetch(`https://localhost:7056/promotions/add-product-promotion/${promotionId}/${productId}`,
+        const response = await fetch(`https://localhost:7056/Promotions/add-product-promotion/${promotionId}/${productId}`,
             {
                 method: "POST",
                 headers: {
@@ -38,7 +38,7 @@ export async function changeProductPromotion(promotionId, productId) {
 export async function addPromotion(data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/promotions`,
+    const response = await fetch(`https://localhost:7056/Promotions`,
         {
             method: "POST",
             body: data,
@@ -53,7 +53,7 @@ export async function addPromotion(data) {
 export async function changeStatus(promotionId) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/promotions/status/${promotionId}`,
+    const response = await fetch(`https://localhost:7056/Promotions/Status/${promotionId}`,
         {
             method: "PUT",
             headers: {
@@ -67,7 +67,7 @@ export async function changeStatus(promotionId) {
 export async function getPromotionById(promotionId) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/promotions/${promotionId}`,
+    const response = await fetch(`https://localhost:7056/Promotions/${promotionId}`,
         {
             method: "GET",
             headers: {
@@ -81,7 +81,7 @@ export async function getPromotionById(promotionId) {
 export async function editPromotion(promotionId, data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/promotions/${promotionId}`,
+    const response = await fetch(`https://localhost:7056/Promotions/${promotionId}`,
         {
             method: "PUT",
             body: data,
@@ -101,7 +101,7 @@ export async function editPromotion(promotionId, data) {
 export async function deletePromotion(promotionId) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/promotions/${promotionId}`,
+    const response = await fetch(`https://localhost:7056/Promotions/${promotionId}`,
         {
             method: "DELETE",
             headers: {
@@ -115,7 +115,7 @@ export async function deletePromotion(promotionId) {
 export async function getProductsOfPromotion(promotionId) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/promotions/${promotionId}/products`,
+    const response = await fetch(`https://localhost:7056/Promotions/${promotionId}/products`,
         {
             method: "GET",
             headers: {

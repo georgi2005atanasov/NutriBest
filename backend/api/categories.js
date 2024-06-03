@@ -1,7 +1,7 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 
 export async function allCategories() {
-    const response = await fetch(`https://localhost:7056/categories`);
+    const response = await fetch(`https://localhost:7056/Categories`);
 
     return await response.json();
 }
@@ -9,7 +9,7 @@ export async function allCategories() {
 export async function addCategory(data) {
     const token = getAuthToken();
 
-    const response = await fetch("https://localhost:7056/categories", {
+    const response = await fetch("https://localhost:7056/Categories", {
         method: "POST",
         body: data,
         headers: {
@@ -23,7 +23,7 @@ export async function addCategory(data) {
 export async function deleteCategory(category) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/categories/${category}`, {
+    const response = await fetch(`https://localhost:7056/Categories/${category}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`

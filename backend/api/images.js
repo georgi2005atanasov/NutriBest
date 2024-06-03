@@ -1,5 +1,5 @@
 export async function getFormFile(base64Image, imageData, fileName) {
-    const response = await fetch(`https://localhost:7056/images`, {
+    const response = await fetch(`https://localhost:7056/Images`, {
         method: "GET",
         body: JSON.stringify({
             base64Image,

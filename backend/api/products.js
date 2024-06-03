@@ -210,7 +210,7 @@ export async function getRelated(categories, productId) {
 
 export async function getCurrentProductPrice(productId, flavour, grams) {
     try {
-        const response = await fetch(`https://localhost:7056/products/current-price`, {
+        const response = await fetch(`https://localhost:7056/Products/current-price`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

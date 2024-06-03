@@ -40,8 +40,8 @@ export default function CartItem({styles, cartItem, removeProduct}) {
 
             <h3 className={`${styles["item-price"]} text-italic d-flex justify-content-center align-items-center`}>
                 {cartItem.product.promotionId ?
-                    getPrice(cartItem.product.price, cartItem.product.discountPercentage).toFixed(2) :
-                    cartItem.product.price.toFixed(2)} BGN
+                    getPrice(cartItem.price, cartItem.product.discountPercentage).toFixed(2) :
+                    cartItem.price.toFixed(2)} BGN
             </h3>
         </div>
 

@@ -100,22 +100,6 @@ export default function PromotionForm({ header, data, promotion }) {
                                 placeholder=""
                             />
 
-                            <FormInput
-                                styles={`${styles["add-promotion-input"]}`}
-                                text="Minimum price for a product (optional):"
-                                error={
-                                    data && data.errors && Object.keys(data.errors).includes("MinimumPrice") &&
-                                    <InputError
-                                        styles={styles["error-par"]}
-                                        text={data.errors["MinimumPrice"][0]}
-                                    />}
-                                id="minimumPrice"
-                                type="text"
-                                name="minimumPrice"
-                                defaultValue={promotion ? promotion.minimumPrice : undefined}
-                                placeholder=""
-                            />
-
                             <div className={`ms-3 ${styles["add-promotion-category"]} mb-4`}>
                                 <div className={styles["promotion-category-label"]}>Discount Type:</div>
                                 <div className="row w-100 d-flex justify-content-start align-items-center">

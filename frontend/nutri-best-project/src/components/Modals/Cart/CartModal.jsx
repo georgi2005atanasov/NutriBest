@@ -11,6 +11,7 @@ import { forwardRef, useContext, useEffect } from "react";
 // eslint-disable-next-line react/prop-types
 const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth in the future  
     const { cart, setCart } = useContext(CartContext);
+    console.log(cart);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -76,8 +77,8 @@ return <Modal ref={ref}>
                         <h5 className={`mb-0 ${styles["product-name"]}`}>{x.product.name}</h5>
                         <div className="text-italic ms-2">
                             {x.product.promotionId ?
-                                getPrice(x.product.price, x.product.discountPercentage).toFixed(2) :
-                                x.product.price.toFixed(2)} BGN per package
+                                getPrice(x.price, x.product.discountPercentage).toFixed(2) :
+                                x.price.toFixed(2)} BGN per package
                         </div>
                     </div>
                 </div>

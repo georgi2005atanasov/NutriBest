@@ -58,9 +58,6 @@ export default function PromotionRow({ promotion }) {
             <td className={!promotion.discountPercentage ? styles["empty-field"] : ""}>
                 {promotion.discountPercentage ? `${promotion.discountPercentage}%` : "-"}
             </td>
-            <td className={!promotion.minimumPrice ? styles["empty-field"] : ""}>
-                {promotion.minimumPrice ? `${promotion.minimumPrice} BGN` : "-"}
-            </td>
             <td>
                 {getDate(promotion.startDate)}
             </td>

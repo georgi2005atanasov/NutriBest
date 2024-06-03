@@ -59,7 +59,7 @@ export default function Cart() {
 
         <CartSummary cart={cart} handleCodeRemove={handleCodeRemove} />
 
-        {cart && cart.cartProducts.length > 0 && <Link onClick={() => {
+        {cart && cart.cartProducts && cart.cartProducts.length > 0 && <Link onClick={() => {
             window.scrollTo({
                 top: 450,
                 left: 0,

@@ -21,8 +21,8 @@ export default function CartItemCounter({ styles, product, count, flavour, grams
     }
 
     async function handleAdd(event) {
-        const response = await addToCart(product.productId, 
-            1, 
+        const response = await addToCart(product.productId,
+            1,
             flavour,
             grams);
         if (!response.ok) {

@@ -30,8 +30,8 @@ export default function ListItem({ styles, cartItem }) {
         <div className={`d-flex justify-content-between align-items-center w-50`}>
             <h6 className={`${styles["item-price"]} text-italic d-flex justify-content-end align-items-center`}>
                 {cartItem.product.promotionId ?
-                    getPrice(cartItem.product.price, cartItem.product.discountPercentage).toFixed(2) :
-                    cartItem.product.price.toFixed(2)} BGN&nbsp;
+                    getPrice(cartItem.price, cartItem.product.discountPercentage).toFixed(2) :
+                    cartItem.price && cartItem.price.toFixed(2)} BGN&nbsp;
                 <span className={`mb-5 
                         ${cartItem.product.promotionId ?
                         "text-danger" :

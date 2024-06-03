@@ -70,7 +70,6 @@ export default function AllPromotions() {
                         <th>Description</th>
                         <th>Discount Amount</th>
                         <th>Discount Percentage</th>
-                        <th>Min Price</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Status</th>

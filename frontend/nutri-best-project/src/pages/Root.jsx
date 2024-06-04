@@ -47,6 +47,9 @@ export default function RootLayout() {
         if (!sessionStorage.getItem("flavours")) {
             sessionStorage.setItem("flavours", DEFAULT_FLAVOURS);
         }
+        if (!sessionStorage.getItem("orders-page")) {
+            sessionStorage.setItem("orders-page", DEFAULT_PAGE);
+        }
     });
 
     useEffect(() => {

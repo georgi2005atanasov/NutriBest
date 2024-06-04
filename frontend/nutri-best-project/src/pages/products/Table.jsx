@@ -30,7 +30,7 @@ export default function Table({ productsRows }) {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody className="">
+                <tbody>
                     {products && products.map(p => <ProductRow key={`${p.productId}-${p.name}`} product={p} promotions={promotions} />)}
                 </tbody>
             </table>

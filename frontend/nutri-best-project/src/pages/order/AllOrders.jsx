@@ -1,14 +1,14 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
+import Search from "../../components/UI/Searchbar/Search";
+import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
+import OrderRow from "./OrderRow";
 import { allOrders } from "../../../../../backend/api/orders";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData } from "react-router-dom";
-import Search from "../../components/UI/Searchbar/Search";
 
 export default function AllOrders() {
-    const { orders } = useLoaderData();
-
-    console.log(orders);
+    const { data, ordersPage } = useLoaderData();
 
     return <motion.div
         className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-5 p-sm-4 p-1`}
@@ -28,6 +28,7 @@ export default function AllOrders() {
             <table className="">
                 <thead >
                     <tr>
+                        <th>Order</th>
                         <th>Is Finished</th>
                         <th>Is Confirmed</th>
                         <th>Made On</th>
@@ -36,30 +37,59 @@ export default function AllOrders() {
                         <th>Customer Name</th>
                         <th>Total Price</th>
                         <th>Is Anonymous</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody className="">
-
+                    {data && data.orders && data.orders.map(x => <OrderRow key={x.orderId} order={x} />)}
                 </tbody>
             </table>
+        </div>
+
+        <div className="card d-flex justify-content-center m-3 py-2">
+            <h6 className="text-center">
+                Total Orders: {data && data.totalOrders}
+            </h6>
+            <h6 className="text-center">
+                Total Products: {data && data.totalProducts}
+            </h6>
+            <h6 className="text-center">
+                Total Price Without Discounts: {data && data.totalPriceWithoutDiscount.toFixed(2)} BGN
+            </h6>
+            <h6 className="text-center">
+                Total Discount: {data && data.totalDiscounts.toFixed(2)} BGN
+            </h6>
+            <h6 className="text-center">
+                Total Profit: {data && data.totalPrice.toFixed(2)} BGN
+            </h6>
+        </div>
+
+        <div className="mt-3">
+            <OrdersPagination
+                page={ordersPage}
+                ordersCount={data.totalOrders} />
         </div>
     </motion.div>
 }
 
 export async function loader({ request, params }) {
-    const response = await allOrders();
+    const ordersPage = Number(sessionStorage.getItem("orders-page"));
+    const response = await allOrders(ordersPage);
 
+    console.log(ordersPage);
     if (!response) {
         return redirect("/?message=Page Not Found!&type=danger");
     }
 
     if (!response.ok) {
         return {
-            orders: []
+            data: [],
+            ordersPage
         }
     }
 
     return {
-        orders: await response.json()
+        data: await response.json(),
+        ordersPage
     };
 }

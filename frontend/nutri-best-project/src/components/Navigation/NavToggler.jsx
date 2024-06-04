@@ -21,7 +21,7 @@ export default function NavToggler() {
 
                         </label>
                         <nav>
-                            <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href="/">
+                            <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? `/orders` : `/`}>
                                 {!isAdmin ? "Home" : "Orders"}
                             </a>
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/products/all">

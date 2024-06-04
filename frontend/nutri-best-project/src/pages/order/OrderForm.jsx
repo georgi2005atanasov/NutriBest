@@ -113,7 +113,7 @@ export default function OrderForm() {
             }
         }));
     }
-    
+
     async function handleSubmit() {
         const data = JSON.parse(JSON.stringify(order));
 
@@ -131,6 +131,10 @@ export default function OrderForm() {
 
         if (!isAuthenticated) {
             const result = await createGuestOrder(data);
+
+            if (result.status && result.status == "400") {
+                return;
+            }
             if (result.errors) {
                 setErrors(result.errors);
                 return;
@@ -156,6 +160,10 @@ export default function OrderForm() {
             );
         } else {
             const result = await createUserOrder(data);
+
+            if (result.status && result.status == "400") {
+                return;
+            }
             if (result.errors) {
                 setErrors(result.errors);
                 return;
@@ -333,7 +341,7 @@ export default function OrderForm() {
                         <Suspense fallback={<Loader />}>
                             <ListOrder />
                         </Suspense>
-                        <button onClick={!isSubmitting ? handleSubmit : () => {}} className={styles["button-confirm-order"]}>Confirm Order</button>
+                        <button onClick={!isSubmitting ? handleSubmit : () => { }} className={styles["button-confirm-order"]}>Confirm Order</button>
                     </div>
                 </div>
 
@@ -379,7 +387,7 @@ export async function loader({ request, params }) {
     }
 }
 
-function splitPascalCase(words) {
+export function splitPascalCase(words) {
     const paymentMethods = [];
 
     for (const word of words) {

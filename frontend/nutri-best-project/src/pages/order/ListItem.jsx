@@ -35,7 +35,7 @@ export default function ListItem({ styles, cartItem }) {
                 <span className={`mb-5 
                         ${cartItem.product.promotionId ?
                         "text-danger" :
-                        "text-secondary"}     `}>
+                        "text-secondary"}`}>
                     x{cartItem.count}
                 </span>
             </h6>

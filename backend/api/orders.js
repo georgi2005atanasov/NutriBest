@@ -55,3 +55,20 @@ export async function confirmOrder(id) {
 
     return response;
 }
+
+export async function allOrders() {
+    const token = getAuthToken();
+
+    if (token) {
+        const response = await fetch("https://localhost:7056/Orders", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+    
+        return response;
+    }
+    
+    return null;
+}

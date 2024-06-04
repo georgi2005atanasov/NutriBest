@@ -101,7 +101,8 @@ import {
     createGuestOrder,
     createUserOrder,
     getOrderById,
-    confirmOrder
+    confirmOrder,
+    allOrders
 }
     from "./orders";
 import {
@@ -181,3 +182,4 @@ export { getOrderById };
 export { sendConfirmOrderMessage };
 export { confirmOrder };
 export { sendForgottenPasswordMessage };
+export { allOrders };

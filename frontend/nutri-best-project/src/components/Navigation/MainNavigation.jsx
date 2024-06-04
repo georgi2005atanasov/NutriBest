@@ -2,7 +2,7 @@ import styles from "./MainNavigation.module.css";
 import NavButtons from "./NavButtons";
 import NavLogo from "./NavLogo";
 import NavToggler from "./NavToggler";
-import SearchBar from "../UI/Searchbar/SearchBar";
+import NavSearchBar from "../UI/Searchbar/NavSearchBar";
 import ScrollingText from "./ScrollingText";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { motion } from "framer-motion";
@@ -21,7 +21,7 @@ const MainNavigation = memo(function MainNavigation() {
                 className="row d-flex justify-content-between align-items-center"
             >
                 <NavLogo />
-                <SearchBar categories={categories} />
+                <NavSearchBar categories={categories} />
                 <NavToggler />
                 <NavButtons />
             </div>

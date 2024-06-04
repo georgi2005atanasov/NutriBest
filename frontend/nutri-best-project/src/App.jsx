@@ -40,6 +40,7 @@ import FinishedOrder from './pages/order/FinishedOrder.jsx';
 import ConfirmOrder from './pages/order/ConfirmOrder.jsx';
 import ForgotPassword, {action as sendForgotPassword} from './pages/auth/ForgotPassword.jsx';
 import ResetPassword, {action as resetPassword} from './pages/auth/ResetPassword.jsx';
+import AllOrders, {loader as loadOrders} from './pages/order/AllOrders.jsx';
 
 const router = createBrowserRouter([
   {
@@ -149,6 +150,9 @@ const router = createBrowserRouter([
             path: 'confirm', element: <ConfirmOrder />
           }
         ]
+      },
+      {
+        path: 'orders', element: <AllOrders />, loader: loadOrders
       }
     ],
     id: "rootLoader",

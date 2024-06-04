@@ -2,6 +2,7 @@ import styles from "./css/FinishedOrder.module.css";
 import ListOrder from "./ListOrder";
 import { getOrderById, getImageByProductId } from "../../../../../backend/api/api";
 import { getDate } from "../../utils/utils";
+import { splitPascalCase } from "./OrderForm";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams, useSubmit } from "react-router-dom";
@@ -73,7 +74,7 @@ export default function FinishedOrder() {
                                     <span className="text-success">Yes</span> :
                                     <span className="text-danger">No</span>}
                             </p>
-                            <p><strong>Payment Method:</strong> Credit Card</p>
+                            <p><strong>Payment Method:</strong> {splitPascalCase(order.paymentMethod ? [order.paymentMethod] : [])}</p>
                             <p><strong>Order Date:</strong> {getDate(order.madeOn)}</p>
                             <p>
                                 <strong>Is Paid:</strong>&nbsp;
@@ -87,6 +88,10 @@ export default function FinishedOrder() {
                                     {order.isShipped ? "Yes" : "No"}
                                 </span>
                             </p>
+                            {order.paymentMethod === "BankTransfer" && <div className="py-2 bg-light">
+                                <h4>IBAN: {order.iban}</h4>
+                                <h6>Reason: #{orderId}</h6>
+                            </div>}
                         </div>
                         <div className="m-auto d-flex flex-column align-items-center justify-content-center">
                             <span className={`mt-3 text-italic ${!order.isConfirmed ? "text-danger" : "text-success"}`}>

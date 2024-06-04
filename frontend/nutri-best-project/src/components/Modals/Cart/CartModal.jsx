@@ -11,7 +11,6 @@ import { forwardRef, useContext, useEffect } from "react";
 // eslint-disable-next-line react/prop-types
 const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth in the future  
     const { cart, setCart } = useContext(CartContext);
-    console.log(cart);
     const navigate = useNavigate();
 
     useEffect(() => {

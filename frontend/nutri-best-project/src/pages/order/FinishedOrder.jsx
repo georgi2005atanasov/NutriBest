@@ -75,11 +75,23 @@ export default function FinishedOrder() {
                             </p>
                             <p><strong>Payment Method:</strong> Credit Card</p>
                             <p><strong>Order Date:</strong> {getDate(order.madeOn)}</p>
+                            <p>
+                                <strong>Is Paid:</strong>&nbsp;
+                                <span className={order.isShipped ? "text-success" : "text-danger"}>
+                                    {order.isPaid ? "Yes" : "No"}
+                                </span>
+                            </p>
+                            <p>
+                                <strong>Is Shipped:</strong>&nbsp;
+                                <span className={order.isShipped ? "text-success" : "text-danger"}>
+                                    {order.isShipped ? "Yes" : "No"}
+                                </span>
+                            </p>
                         </div>
                         <div className="m-auto d-flex flex-column align-items-center justify-content-center">
                             <span className={`mt-3 text-italic ${!order.isConfirmed ? "text-danger" : "text-success"}`}>
                                 {!order.isConfirmed ?
-                                    "Visit Your Email to Confirm the Order!" :
+                                    `Visit ${order.email} to Confirm the Order!` :
                                     "Order Confirmed!"}
                             </span>
                             <Link className={styles["home-button"]} to="/">Return to Home Page</Link>

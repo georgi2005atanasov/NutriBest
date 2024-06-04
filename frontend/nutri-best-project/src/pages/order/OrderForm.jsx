@@ -23,6 +23,8 @@ export default function OrderForm() {
     const [errors, setErrors] = useState([]);
     const { cart, setCart } = useContext(CartContext);
 
+    console.log(errors);
+
     const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
     const navigation = useNavigation();
@@ -266,6 +268,7 @@ export default function OrderForm() {
                                 styles="w-25 ms-3"
                                 onChange={(event) => handleChange("postalCode", event.target.value.replace(" ", ""))}
                                 error={errors && errors.PostalCode}
+                                type="number"
                             />
                         </div>
 

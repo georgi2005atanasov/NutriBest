@@ -14,7 +14,7 @@ export default function DetailsButtons({ productId, isVerified, promotion }) {
                     wrapperStyles="mt-3"
                     linkStyles="px-4 py-4" />
                 <BuyNowButton
-                    isValidPromotion={promotion != null}
+                    productId={productId}
                     wrapperStyles="mt-3"
                     linkStyles="px-4 py-4" />
             </div> :

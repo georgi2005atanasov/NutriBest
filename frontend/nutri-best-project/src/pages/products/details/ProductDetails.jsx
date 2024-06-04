@@ -32,7 +32,6 @@ export default function ProductDetails() {
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
     const { product, promotion, productPackages, productFlavours, nutritionFacts } = useRouteLoaderData("productDetails");
 
-    console.log(currentPrice);
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
@@ -108,7 +107,7 @@ export default function ProductDetails() {
                     <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                     <section className="border m-2 py-4 px-0">
-                        <h3 className="product-price text-center mt-0">
+                        <h2 className="product-price text-center mt-0">
                             <span className={itemStyles["new-price"]}>
                                 {!currentPrice ?
                                     getPrice(product.price, product.discountPercentage).toFixed(2) :
@@ -119,7 +118,7 @@ export default function ProductDetails() {
                                     `from ${(product.price).toFixed(2)} BGN` :
                                     `${(currentPrice).toFixed(2)} BGN`}
                             </span>
-                        </h3>
+                        </h2>
 
                         <div className="d-flex justify-content-center text-secondary">
                             Saved:&nbsp;
@@ -195,13 +194,13 @@ export default function ProductDetails() {
                 <MainDetails product={product} isVerified={isAdmin || isEmployee} />
 
                 <section className="border m-2 py-4 px-0">
-                    <h3 className="product-price text-center mb-3 mt-0">
+                    <h2 className="product-price text-center mb-3 mt-0">
                         <span>
                             {!currentPrice || error ?
-                                `from ${(product.price).toFixed(2)} BGN` :
+                                `${(product.price).toFixed(2)} BGN` :
                                 `${(currentPrice).toFixed(2)} BGN`}
                         </span>
-                    </h3>
+                    </h2>
 
                     <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
                     <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />

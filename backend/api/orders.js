@@ -72,3 +72,17 @@ export async function allOrders(page) {
 
     return null;
 }
+
+
+export async function getOrderByAdmin(id) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/Orders/Admin/${id}`, {
+        method: 'GET',
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return response;
+}

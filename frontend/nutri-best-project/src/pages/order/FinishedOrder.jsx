@@ -6,29 +6,45 @@ import { splitPascalCase } from "./OrderForm";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams, useSubmit } from "react-router-dom";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import { getOrderByAdmin } from "../../../../../backend/api/orders";
 
 export default function FinishedOrder() {
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
     const [searchParams, setSearchParams] = useSearchParams();
     const [order, setOrder] = useState({});
     const [cart, setCart] = useState([]);
     const submit = useSubmit();
     const orderId = searchParams.get("orderId");
 
-    console.log(order);
-
     useEffect(() => {
         async function handleOrder() {
             let realId = Number(orderId);
-            const response = await getOrderById(realId);
+            if (!isAdmin && !isEmployee) {
+                const response = await getOrderById(realId);
+                if (!response.ok) {
+                    submit(null, { action: "/", method: "GET" });
+                    return;
+                }
 
-            if (!response.ok) {
-                submit(null, { action: "/", method: "GET" });
-                return;
+                const orderToSet = await response.json();
+
+                setOrder(orderToSet);
+            } else {
+                const response = await getOrderByAdmin(realId);
+                if (!response.ok) {
+                    submit(null, { action: "/", method: "GET" });
+                    return;
+                }
+
+                const orderToSet = await response.json();
+
+                setOrder(orderToSet);
             }
 
-            const orderToSet = await response.json();
 
-            setOrder(orderToSet);
         }
 
         handleOrder();

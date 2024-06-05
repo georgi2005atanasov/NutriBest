@@ -31,7 +31,7 @@ export default function OrderRow({ order }) {
             {order.isAnonymous ? "Yes" : "No"}
         </td>
         <td className="p-3">
-            <Link className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
+            <Link to={`/order/finished?orderId=${order.orderId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
         </td>
     </tr>
 }

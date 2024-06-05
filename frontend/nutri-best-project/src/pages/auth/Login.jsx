@@ -135,10 +135,10 @@ export async function action({ request, params }) {
         setAuthToken(token);
 
         if (!userData.remember) {
-            setTokenDuration(1);
+            setTokenDuration(24); // important
         }
         else {
-            setTokenDuration(24)
+            setTokenDuration(240); // important
         }
 
         return redirect("/");

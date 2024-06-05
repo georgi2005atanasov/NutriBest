@@ -49,3 +49,16 @@ export async function resetPassword(newPassword, confirmPassword, token, email) 
     
     return await response.json();
 }
+
+export async function allRoles() {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/Identity/Roles`, {
+        method: "GET", 
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return await response.json();
+}

@@ -18,7 +18,7 @@ const CartModal = forwardRef(function CartModal({ }, ref) { //gonna accept sth i
             if (localStorage.getItem("cartMessage")) {
                 localStorage.removeItem("cartMessage")
             }
-        }, 100);
+        }, 2000);
 
         return () => {
             clearTimeout(timeout);

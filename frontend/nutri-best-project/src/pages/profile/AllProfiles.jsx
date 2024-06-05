@@ -1,24 +1,29 @@
 import styles from "../css/Table.module.css";
+import ProfileRow from "./ProfileRow";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import Search from "../../components/UI/Searchbar/Search";
-import { motion } from "framer-motion";
+import UsersPagination from "../../components/UI/Pagination/UsersPagination";
+import GrantModal from "../../components/Modals/Profile/GrantModal";
 import { allProfiles } from "../../../../../backend/api/profile";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import UsersPagination from "../../components/UI/Pagination/UsersPagination";
-import ProfileRow from "./ProfileRow";
 
 export default function AllProfiles() {
+    const token = getAuthToken();
+    const { isAdmin } = useAuth(token);
+
     const dialog = useRef();
     const searchText = useRef();
+    const [profileToGrant, setProfileToGrant] = useState();
     const { data, usersPage } = useLoaderData();
-    const [orderToDelete, setOrderToDelete] = useState();
     let [searchParams, setSearchParams] = useSearchParams();
     const submit = useSubmit();
 
-    console.log(data);
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
 
@@ -38,58 +43,80 @@ export default function AllProfiles() {
         searchText.current.value = event.target.value;
     }
 
+    function handleGrant(profileId, currentRoles) {
+        if (currentRoles == "Administrator") { // administrator is superb
+            return;
+        }
+
+        setProfileToGrant({
+            profileId,
+            currentRoles
+        })
+
+        dialog.current.open();
+    }
+
     async function handleSearch() {
         sessionStorage.setItem("search", searchText.current.value);
         return submit(null, { action: "/profiles", method: "GET" });
     }
 
-    return <motion.div
-        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-5 p-sm-4 p-1`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.9 }}
-    >
-        <div className="mt-5 d-flex justify-content-start">
-            <h2 className="mx-0 d-flex justify-content-center align-items-center">Profiles</h2>
-            <Search
-                ref={searchText}
-                handleChange={handleChange}
-                handleSearch={handleSearch}
-                isVerified={true}
-                styles={searchBarStyles}
-            />
-        </div>
-        <div className="row mt-md-4 mt-0">
-            {isLoading && <Loader />}
-            {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
-            <table className="">
-                <thead >
-                    <tr>
-                        <th>Id</th>
-                        <th>Made On</th>
-                        <th>Email</th>
-                        <th>Full Name</th>
-                        <th>City</th>
-                        <th>Phone Number</th>
-                        <th>Total Orders</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody className="">
-                    {data && data.profiles && data.profiles.map(x => <ProfileRow key={x.orderId} profile={x} />)}
-                </tbody>
-            </table>
-        </div>
+    return <>
+        <GrantModal ref={dialog} profile={profileToGrant} />
+        <motion.div
+            className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-5 p-sm-4 p-1`}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.9 }}
+        >
+            <div className="mt-5 d-flex justify-content-start">
+                <h2 className="mx-0 d-flex justify-content-center align-items-center">Profiles</h2>
+                <Search
+                    ref={searchText}
+                    handleChange={handleChange}
+                    handleSearch={handleSearch}
+                    isVerified={true}
+                    styles={searchBarStyles}
+                />
+            </div>
+            <div className="row mt-md-4 mt-0">
+                {isLoading && <Loader />}
+                {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
+                <table className="">
+                    <thead >
+                        <tr>
+                            <th>Id</th>
+                            <th>Made On</th>
+                            <th>Email</th>
+                            <th>Full Name</th>
+                            <th>Phone Number</th>
+                            <th>Total Orders</th>
+                            <th>Total Spent</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody className="">
+                        {data && data.profiles && data.profiles.map(x =>
+                            <ProfileRow
+                                key={x.profileId}
+                                profile={x}
+                                isAdmin={isAdmin}
+                                handleGrant={handleGrant} />)}
+                    </tbody>
+                </table>
+            </div>
 
-        <h3 className="m-3 text-end">Total Users: {data.totalUsers}</h3>
+            <h3 className="m-3 text-end">Total Users: {data.totalUsers}</h3>
 
-        <div className="mt-3">
-            <UsersPagination
-                page={usersPage}
-                usersCount={data.totalUsers} />
-        </div>
-    </motion.div>
+            <div className="mt-3">
+                <UsersPagination
+                    page={usersPage}
+                    usersCount={data.totalUsers} />
+            </div>
+        </motion.div>
+    </>
 }
 
 export async function loader({ request, params }) {

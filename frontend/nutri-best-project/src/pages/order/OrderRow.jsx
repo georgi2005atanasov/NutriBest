@@ -65,7 +65,7 @@ export default memo(function OrderRow({ order, handleDelete }) {
             {order.isAnonymous ? "Yes" : "No"}
         </td>
         <td className="d-flex justify-content-evenly align-items-center p-3">
-            <Link to={`/order/finished?orderId=${order.orderId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
+            <Link to={`/order/finished?orderId=${order.orderId}`} className={`${styles["btn"]} ${styles["details"]} text-center me-1`}>Details</Link>
             <motion.i
                 className={`fa fa-trash-o d-flex justify-content-end ${styles["delete-icon"]}`} aria-hidden="true"
                 onClick={() => handleDelete(order.orderId)}

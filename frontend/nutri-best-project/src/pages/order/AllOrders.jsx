@@ -1,14 +1,17 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Search from "../../components/UI/Searchbar/Search";
+import Loader from "../../components/UI/Shared/Loader";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import OrderRow from "./OrderRow";
 import { allOrders } from "../../../../../backend/api/orders";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, useNavigation } from "react-router-dom";
 
 export default function AllOrders() {
     const { data, ordersPage } = useLoaderData();
+    const navigation = useNavigation();
+    const isLoading = navigation.state == "loading";
 
     return <motion.div
         className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-5 p-sm-4 p-1`}
@@ -25,6 +28,7 @@ export default function AllOrders() {
             />
         </div>
         <div className="row mt-md-4 mt-0">
+            {isLoading && <Loader />}
             <table className="">
                 <thead >
                     <tr>

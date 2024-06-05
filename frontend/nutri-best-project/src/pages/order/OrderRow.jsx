@@ -1,13 +1,46 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
-import { Link } from "react-router-dom";
 import { getDate } from "../../utils/utils";
+import { changeOrderStatuses } from "../../../../../backend/api/orders";
+import { Link, useSubmit } from "react-router-dom";
+import { memo } from "react";
 
-export default function OrderRow({ order }) {
+export default memo(function OrderRow({ order }) {
+    const submit = useSubmit();
+
+    function changeStatus(identifier) {
+        async function handleStatuses(identifier) {
+            if (identifier == "isShipped") {
+                await changeOrderStatuses(order.orderId,
+                    order.isFinished,
+                    order.isPaid,
+                    !order.isShipped
+                );
+            }
+            else if (identifier == "isFinished") {
+                await changeOrderStatuses(order.orderId,
+                    !order.isFinished,
+                    order.isPaid,
+                    order.isShipped
+                );
+            }
+            else if (identifier == "isPaid") {
+                await changeOrderStatuses(order.orderId,
+                    order.isFinished,
+                    !order.isPaid,
+                    order.isShipped
+                );
+            }
+        }
+
+        handleStatuses(identifier);
+        submit(null, { action: "", method: "GET" });
+    }
+
     return <tr>
         <td>{order.orderId}</td>
         <td className={order.isFinished ? "text-success" : "text-danger"}>
-            <Link className={order.isFinished ? "text-success" : "text-danger"}>
+            <Link onClick={() => changeStatus("isFinished")} className={order.isFinished ? "text-success" : "text-danger"}>
                 {order.isFinished ? "Yes" : "No"}
             </Link>
         </td>
@@ -16,12 +49,12 @@ export default function OrderRow({ order }) {
         </td>
         <td>{getDate(order.madeOn)}</td>
         <td>
-            <Link className={order.isShipped ? "text-success" : "text-danger"}>
+            <Link onClick={() => changeStatus("isShipped")} className={order.isShipped ? "text-success" : "text-danger"}>
                 {order.isShipped ? "Yes" : "No"}
             </Link>
         </td>
         <td>
-            <Link className={order.isPaid ? "text-success" : "text-danger"}>
+            <Link onClick={() => changeStatus("isPaid")} className={order.isPaid ? "text-success" : "text-danger"}>
                 {order.isPaid ? "Yes" : "No"}
             </Link>
         </td>
@@ -34,4 +67,4 @@ export default function OrderRow({ order }) {
             <Link to={`/order/finished?orderId=${order.orderId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
         </td>
     </tr>
-}
+})

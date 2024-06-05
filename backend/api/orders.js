@@ -73,7 +73,6 @@ export async function allOrders(page) {
     return null;
 }
 
-
 export async function getOrderByAdmin(id) {
     const token = getAuthToken();
 
@@ -81,6 +80,25 @@ export async function getOrderByAdmin(id) {
         method: 'GET',
         headers: {
             "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return response;
+}
+
+export async function changeOrderStatuses(id, isFinished, isPaid, isShipped) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/Orders/change-status/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            isPaid,
+            isFinished,
+            isShipped
+        }),
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
         }
     })
 

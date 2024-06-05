@@ -2,10 +2,11 @@
 import styles from "../css/Table.module.css";
 import { getDate } from "../../utils/utils";
 import { changeOrderStatuses } from "../../../../../backend/api/orders";
+import { motion } from "framer-motion";
 import { Link, useSubmit } from "react-router-dom";
 import { memo } from "react";
 
-export default memo(function OrderRow({ order }) {
+export default memo(function OrderRow({ order, handleDelete }) {
     const submit = useSubmit();
 
     function changeStatus(identifier) {
@@ -59,12 +60,17 @@ export default memo(function OrderRow({ order }) {
             </Link>
         </td>
         <td>{order.customerName}</td>
-        <td>{order.totalPrice}</td>
+        <td>{order.totalPrice.toFixed(2)}</td>
         <td className={order.isAnonymous ? "text-success" : "text-danger"}>
             {order.isAnonymous ? "Yes" : "No"}
         </td>
-        <td className="p-3">
+        <td className="d-flex justify-content-evenly align-items-center p-3">
             <Link to={`/order/finished?orderId=${order.orderId}`} className={`${styles["btn"]} ${styles["details"]} me-1`}>Details</Link>
+            <motion.i
+                className={`fa fa-trash-o d-flex justify-content-end ${styles["delete-icon"]}`} aria-hidden="true"
+                onClick={() => handleDelete(order.orderId)}
+            >
+            </motion.i>
         </td>
     </tr>
 })

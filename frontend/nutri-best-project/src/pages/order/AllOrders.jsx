@@ -2,24 +2,54 @@ import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Search from "../../components/UI/Searchbar/Search";
 import Loader from "../../components/UI/Shared/Loader";
+import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
+import DeleteOrderModal from "../../components/Modals/Delete/DeleteOrderModal";
 import OrderRow from "./OrderRow";
 import { allOrders } from "../../../../../backend/api/orders";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useNavigation } from "react-router-dom";
+import { redirect, useLoaderData, useNavigation, useSearchParams } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import OrdersSummary from "./OrdersSummary";
 
 export default function AllOrders() {
     const { data, ordersPage } = useLoaderData();
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
+    const dialog = useRef();
+    const [orderToDelete, setOrderToDelete] = useState();
+    let [searchParams, setSearchParams] = useSearchParams();
+
+    let message = searchParams.get("message");
+    let messageType = searchParams.get("type");
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setSearchParams(prev => {
+                prev.delete("type");
+                prev.delete("message");
+                return prev;
+            })
+        }, 2500);
+
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [setSearchParams]);
+
+    function handleDelete(orderId) {
+        dialog.current.open();
+        setOrderToDelete(orderId);
+    }
 
     return <motion.div
-        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-5 p-sm-4 p-1`}
+        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-5 p-sm-4 p-1`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.9 }}
     >
+        <DeleteOrderModal ref={dialog} orderId={orderToDelete} />
         <div className="mt-5 d-flex justify-content-start">
             <h2 className="mx-0 d-flex justify-content-center align-items-center">Orders</h2>
             <Search
@@ -29,6 +59,7 @@ export default function AllOrders() {
         </div>
         <div className="row mt-md-4 mt-0">
             {isLoading && <Loader />}
+            {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="">
                 <thead >
                     <tr>
@@ -45,30 +76,12 @@ export default function AllOrders() {
                     </tr>
                 </thead>
                 <tbody className="">
-                    {data && data.orders && data.orders.map(x => <OrderRow key={x.orderId} order={x} />)}
+                    {data && data.orders && data.orders.map(x => <OrderRow key={x.orderId} order={x} handleDelete={handleDelete} />)}
                 </tbody>
             </table>
         </div>
 
-        <div className="d-flex justify-content-end">
-            <div className="w-25 bg-light p-2 d-flex flex-column justify-content-start m-3 py-2">
-                <h6>
-                    Total Orders: <span className="font-weight-light">{data && data.totalOrders}</span>
-                </h6>
-                <h6>
-                    Total Products: {data && data.totalProducts}
-                </h6>
-                <h6>
-                    Total Price Without Discounts: {data && data.totalPriceWithoutDiscount.toFixed(2)} BGN
-                </h6>
-                <h6>
-                    Total Discount: {data && data.totalDiscounts.toFixed(2)} BGN
-                </h6>
-                <h6>
-                    Total Profit: {data && data.totalPrice.toFixed(2)} BGN
-                </h6>
-            </div>
-        </div>
+        <OrdersSummary data={data} />
 
         <div className="mt-3">
             <OrdersPagination
@@ -82,7 +95,6 @@ export async function loader({ request, params }) {
     const ordersPage = Number(sessionStorage.getItem("orders-page"));
     const response = await allOrders(ordersPage);
 
-    console.log(ordersPage);
     if (!response) {
         return redirect("/?message=Page Not Found!&type=danger");
     }

@@ -104,3 +104,16 @@ export async function changeOrderStatuses(id, isFinished, isPaid, isShipped) {
 
     return response;
 }
+
+export async function deleteOrder(id) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/Orders/Admin/${id}`, {
+        method: 'DELETE',
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return response;
+}

@@ -74,3 +74,12 @@ img {
 tbody tr:hover {
     background-color: #f1f1f1; /* Light grey background on hover */
 }
+
+.delete-icon {
+    z-index: 1;
+    cursor: pointer;
+}
+
+.delete-icon:hover {
+    color: red;
+}

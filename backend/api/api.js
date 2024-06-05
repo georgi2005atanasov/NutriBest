@@ -103,7 +103,8 @@ import {
     getOrderById,
     confirmOrder,
     allOrders,
-    changeOrderStatuses
+    changeOrderStatuses,
+    deleteOrder
 }
     from "./orders";
 import {
@@ -180,6 +181,7 @@ export { createGuestOrder };
 export { createUserOrder };
 export { getOrderById };
 export { changeOrderStatuses };
+export { deleteOrder };
 
 export { sendConfirmOrderMessage };
 export { confirmOrder };

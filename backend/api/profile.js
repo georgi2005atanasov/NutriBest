@@ -78,3 +78,25 @@ export async function setUserAddress(data) {
 
     return null;
 }
+
+export async function allProfiles(page, search) {
+    const token = getAuthToken();
+
+    try {
+        if (token != "EXPIRED" && token != null) {
+
+            const response = await fetch(`https://localhost:7056/Profiles?page=${page}&search=${search}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            return await response.json();
+        }
+
+        return null;
+    } catch (error) {
+        return null;
+    }
+}

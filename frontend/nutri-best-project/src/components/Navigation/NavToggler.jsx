@@ -27,10 +27,10 @@ export default function NavToggler() {
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/products/all">
                                 {!isAdmin ? "Products" : "Report"}
                             </a>
-                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/info">
+                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? "/profiles" : "/info"} >
                                 {!isAdmin || isEmployee ? "About us" : "Clients"}
                             </a>
-                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={`${isAdmin || isEmployee ? "/promotions" : "/contact"}`}>
+                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? "/promotions" : "/contact"}>
                                 {isAdmin || isEmployee ? "Promotions" : "Contact us"}
                             </a>
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/categories">
@@ -47,5 +47,5 @@ export default function NavToggler() {
                 </div>
             </div>
         </div>
-    </div>
+    </div >
 }

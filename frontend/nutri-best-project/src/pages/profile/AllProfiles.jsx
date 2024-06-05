@@ -1,25 +1,24 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
-import Search from "../../components/UI/Searchbar/Search";
 import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
-import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
-import DeleteOrderModal from "../../components/Modals/Delete/DeleteOrderModal";
-import OrderRow from "./OrderRow";
-import { allOrders } from "../../../../../backend/api/orders";
+import Search from "../../components/UI/Searchbar/Search";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
-import OrdersSummary from "./OrdersSummary";
+import { allProfiles } from "../../../../../backend/api/profile";
+import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import UsersPagination from "../../components/UI/Pagination/UsersPagination";
+import ProfileRow from "./ProfileRow";
 
-export default function AllOrders() {
+export default function AllProfiles() {
     const dialog = useRef();
     const searchText = useRef();
-    const { data, ordersPage } = useLoaderData();
+    const { data, usersPage } = useLoaderData();
     const [orderToDelete, setOrderToDelete] = useState();
     let [searchParams, setSearchParams] = useSearchParams();
     const submit = useSubmit();
 
+    console.log(data);
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
 
@@ -29,25 +28,6 @@ export default function AllOrders() {
     useEffect(() => {
         sessionStorage.setItem("search", ""); // cleans previous searches
     }, []);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setSearchParams(prev => {
-                prev.delete("type");
-                prev.delete("message");
-                return prev;
-            })
-        }, 2500);
-
-        return () => {
-            clearTimeout(timeout);
-        }
-    }, [setSearchParams]);
-
-    function handleDelete(orderId) {
-        dialog.current.open();
-        setOrderToDelete(orderId);
-    }
 
     function handleChange(event) {
         if (event.key === "Enter") {
@@ -60,7 +40,7 @@ export default function AllOrders() {
 
     async function handleSearch() {
         sessionStorage.setItem("search", searchText.current.value);
-        return submit(null, { action: "/orders", method: "GET" });
+        return submit(null, { action: "/profiles", method: "GET" });
     }
 
     return <motion.div
@@ -70,9 +50,8 @@ export default function AllOrders() {
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.9 }}
     >
-        <DeleteOrderModal ref={dialog} orderId={orderToDelete} />
         <div className="mt-5 d-flex justify-content-start">
-            <h2 className="mx-0 d-flex justify-content-center align-items-center">Orders</h2>
+            <h2 className="mx-0 d-flex justify-content-center align-items-center">Profiles</h2>
             <Search
                 ref={searchText}
                 handleChange={handleChange}
@@ -87,52 +66,43 @@ export default function AllOrders() {
             <table className="">
                 <thead >
                     <tr>
-                        <th>Order</th>
-                        <th>Is Finished</th>
-                        <th>Is Confirmed</th>
+                        <th>Id</th>
                         <th>Made On</th>
-                        <th>Is Shipped</th>
-                        <th>Is Paid</th>
-                        <th>Customer Name</th>
-                        <th>Total Price</th>
-                        <th>Is Anonymous</th>
-                        <th>Details</th>
+                        <th>Email</th>
+                        <th>Full Name</th>
+                        <th>City</th>
+                        <th>Phone Number</th>
+                        <th>Total Orders</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody className="">
-                    {data && data.orders && data.orders.map(x => <OrderRow key={x.orderId} order={x} handleDelete={handleDelete} />)}
+                    {data && data.profiles && data.profiles.map(x => <ProfileRow key={x.orderId} profile={x} />)}
                 </tbody>
             </table>
         </div>
 
-        <OrdersSummary data={data} />
+        <h3 className="m-3 text-end">Total Users: {data.totalUsers}</h3>
 
         <div className="mt-3">
-            <OrdersPagination
-                page={ordersPage}
-                ordersCount={data.totalOrders} />
+            <UsersPagination
+                page={usersPage}
+                usersCount={data.totalUsers} />
         </div>
     </motion.div>
 }
 
 export async function loader({ request, params }) {
-    const ordersPage = Number(sessionStorage.getItem("orders-page"));
+    const usersPage = Number(sessionStorage.getItem("users-page")); // get from session storage
     const search = sessionStorage.getItem("search");
-    const response = await allOrders(ordersPage, search);
+    const data = await allProfiles(usersPage, search);
 
-    if (!response) {
+    if (!data) {
         return redirect("/?message=Page Not Found!&type=danger");
     }
 
-    if (!response.ok) {
-        return {
-            data: [],
-            ordersPage
-        }
-    }
-
     return {
-        data: await response.json(),
-        ordersPage
+        data,
+        usersPage
     };
 }

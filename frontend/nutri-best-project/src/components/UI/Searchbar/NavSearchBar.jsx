@@ -27,7 +27,7 @@ export default function NavSearchBar({ categories }) {
     async function handleSearch() {
         sessionStorage.setItem("search", text.current.value);
         text.current.value = "";
-        return submit(null, { action: "/products/all", method: "get" });
+        return submit(null, { action: "/products/all", method: "GET" });
     }
 
     return <div className="col-md-4 d-flex flex-column p-1">

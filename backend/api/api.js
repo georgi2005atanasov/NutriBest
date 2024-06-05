@@ -28,7 +28,8 @@ import {
     editUser,
     deleteUser,
     getUserAddress,
-    setUserAddress
+    setUserAddress,
+    allProfiles
 }
     from "./profile";
 
@@ -137,6 +138,7 @@ export { editUser };
 export { deleteUser };
 export { getUserAddress };
 export { setUserAddress };
+export { allProfiles };
 
 export { allPromotions };
 export { changeProductPromotion };

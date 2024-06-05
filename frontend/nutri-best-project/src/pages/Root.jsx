@@ -7,6 +7,7 @@ import { getAuthToken } from "../utils/auth";
 import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
 import CartContextProvider from "../store/CartContext";
+import useAuth from "../hooks/useAuth";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PRICE = "";
@@ -20,6 +21,7 @@ export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 export default function RootLayout() {
     const TOKEN_DURATION = localStorage.getItem("duration");
     const token = useLoaderData();
+    const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
     const navigation = useNavigation();
 
@@ -47,8 +49,13 @@ export default function RootLayout() {
         if (!sessionStorage.getItem("flavours")) {
             sessionStorage.setItem("flavours", DEFAULT_FLAVOURS);
         }
-        if (!sessionStorage.getItem("orders-page")) {
-            sessionStorage.setItem("orders-page", DEFAULT_PAGE);
+        if (isAdmin || isEmployee) {
+            if (!sessionStorage.getItem("orders-page")) {
+                sessionStorage.setItem("orders-page", DEFAULT_PAGE);
+            }
+            if (!sessionStorage.getItem("users-page")) {
+                sessionStorage.setItem("users-page", DEFAULT_PAGE);
+            }
         }
     });
 

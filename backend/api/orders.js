@@ -56,11 +56,11 @@ export async function confirmOrder(id) {
     return response;
 }
 
-export async function allOrders(page) {
+export async function allOrders(page, search) {
     const token = getAuthToken();
 
     if (token) {
-        const response = await fetch(`https://localhost:7056/Orders?page=${page}`, {
+        const response = await fetch(`https://localhost:7056/Orders?page=${page}&search=${search}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`

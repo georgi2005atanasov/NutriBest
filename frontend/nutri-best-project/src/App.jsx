@@ -38,9 +38,10 @@ import OrderForm, { loader as loadOrder } from './pages/order/OrderForm';
 import AddressForm, { loader as loadAddress } from './pages/profile/address/AddressForm.jsx';
 import FinishedOrder from './pages/order/FinishedOrder.jsx';
 import ConfirmOrder from './pages/order/ConfirmOrder.jsx';
-import ForgotPassword, {action as sendForgotPassword} from './pages/auth/ForgotPassword.jsx';
-import ResetPassword, {action as resetPassword} from './pages/auth/ResetPassword.jsx';
-import AllOrders, {loader as loadOrders} from './pages/order/AllOrders.jsx';
+import ForgotPassword, { action as sendForgotPassword } from './pages/auth/ForgotPassword.jsx';
+import ResetPassword, { action as resetPassword } from './pages/auth/ResetPassword.jsx';
+import AllOrders, { loader as loadOrders } from './pages/order/AllOrders.jsx';
+import AllProfiles, { loader as allProfiles } from './pages/profile/AllProfiles.jsx';
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile/address', element: <AddressForm />, loader: loadAddress
+      },
+      {
+        path: 'profiles', element: <AllProfiles />, loader: allProfiles
       },
       {
         path: 'promotions', element: <PromotionsLayout />, children: [

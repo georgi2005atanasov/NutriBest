@@ -28,6 +28,10 @@ export default function AllProducts() {
     const { productsRows, page } = useLoaderData();
 
     useEffect(() => {
+        sessionStorage.setItem("search", ""); // cleans previous searches
+    }, []); // idk if this is correct, it is new, i put it in orders and users tables
+
+    useEffect(() => {
         setProductSpecs([]);
     }, [setProductSpecs]); // resetting this because it sets where it
     // must not

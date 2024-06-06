@@ -12,12 +12,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AddToCartRedirect from "./AddToCartRedirect";
-import Loader from "../../components/UI/Shared/Loader";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');
     const token = getAuthToken();
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
     const { promotions } = useLoaderData();
     const navigation = useNavigation();
 
@@ -49,7 +48,7 @@ export default function ProductItem({ product }) {
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.9 }}
             >
-                {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
+                {(isAdmin || isEmployee) && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
 
                 <div className={styles["promotion-box"]}>
                     {product && Math.floor(product.discountPercentage)} <strong>%</strong>
@@ -73,7 +72,7 @@ export default function ProductItem({ product }) {
                     </h5>
                 </Link>
 
-                {isAdmin ?
+                {(isAdmin || isEmployee) ?
                     <div className="container pt-1">
                         <div className="row d-flex justify-content-center align-items-center">
                             <EditProductButton productId={product.productId} />
@@ -98,7 +97,7 @@ export default function ProductItem({ product }) {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
         >
-            {isAdmin && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
+            {(isAdmin || isEmployee) && <MultiSelectPromotion promotionId={product.promotionId} productId={product.productId} />}
 
             <Link className={`${styles["product-item-link"]}`} to={!isLoading && `/products/details/${product.productId}/${product.name}`}>
                 {src ? <img
@@ -115,7 +114,7 @@ export default function ProductItem({ product }) {
                 </h5>
             </Link>
 
-            {isAdmin ?
+            {(isAdmin || isEmployee) ?
                 <div className="container pt-2">
                     <div className="row d-flex justify-content-center align-items-center">
                         <EditProductButton productId={product.productId} />

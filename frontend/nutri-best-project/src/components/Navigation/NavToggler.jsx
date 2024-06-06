@@ -21,17 +21,17 @@ export default function NavToggler() {
 
                         </label>
                         <nav>
-                            <a className={`${isAdmin ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? `/orders` : `/`}>
-                                {!isAdmin ? "Home" : "Orders"}
+                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? `/orders` : `/`}>
+                                {!isAdmin && !isEmployee ? "Home" : "Orders"}
                             </a>
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/products/all">
-                                {!isAdmin ? "Products" : "Report"}
+                                {!isAdmin && !isEmployee ? "Products" : "Report"}
                             </a>
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? "/profiles" : "/info"} >
-                                {!isAdmin || isEmployee ? "About us" : "Clients"}
+                                {!isAdmin && !isEmployee ? "About us" : "Clients"}
                             </a>
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? "/promotions" : "/contact"}>
-                                {isAdmin || isEmployee ? "Promotions" : "Contact us"}
+                                {!isAdmin && !isEmployee ? "Contact us" : "Promotions"}
                             </a>
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/categories">
                                 {"Categories"}

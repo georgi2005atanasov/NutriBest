@@ -15,9 +15,9 @@ export default function EditProduct() {
     const submit = useSubmit();
 
     const token = useRouteLoaderData("rootLoader");
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
-    if (!isAdmin) {
+    if (!isAdmin && !isEmployee) {
         return submit("message=Page Not Found!&type=danger",
             { action: "/", method: "get" })
     }

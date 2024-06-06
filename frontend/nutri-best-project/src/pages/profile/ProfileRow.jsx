@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function ProfileRow({ profile, isAdmin, handleGrant }) {
     return <motion.tr className="">
-        <td>{profile.profileId}</td>
+        <td>{profile.userName}</td>
         <td>{getDate(profile.madeOn)}</td>
         <td>{profile.email}</td>
         <td>{profile.name || <strong>-</strong>}</td>

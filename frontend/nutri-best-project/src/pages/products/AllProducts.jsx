@@ -18,7 +18,7 @@ export default function AllProducts() {
     const { setProductSpecs } = useContext(ProductSpecsContext);
     const [productsView, setProductsView] = useState(PRODUCTS_VIEWS.all);
     const token = useRouteLoaderData("rootLoader");
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
 
     let [searchParams, setSearchParams] = useSearchParams();
@@ -94,7 +94,7 @@ export default function AllProducts() {
 
                                     {message && <Message message={message} messageType={messageType} />}
 
-                                    {isAdmin && productsView === "all" &&
+                                    {(isAdmin || isEmployee) && productsView === "all" &&
                                         <div className="mb-3 d-flex justify-content-end">
                                             <ChangeLayoutButton
                                                 text={"View as Table"}
@@ -102,7 +102,7 @@ export default function AllProducts() {
                                             <div className="mx-1"></div>
                                         </div>}
 
-                                    {isAdmin && productsView === "table" &&
+                                    {(isAdmin || isEmployee) && productsView === "table" &&
                                         <div className="mb-3 d-flex justify-content-end">
                                             <ChangeLayoutButton
                                                 text={"View as User"}

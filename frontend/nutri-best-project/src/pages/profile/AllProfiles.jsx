@@ -92,7 +92,7 @@ export default function AllProfiles() {
                 <table className="">
                     <thead >
                         <tr>
-                            <th>Id</th>
+                            <th>Username</th>
                             <th>Made On</th>
                             <th>Email</th>
                             <th>Full Name</th>

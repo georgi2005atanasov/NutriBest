@@ -89,7 +89,7 @@ export default function ProfileDetails() {
                     </div>
                 </div>
             </motion.div>
-            {isAdmin &&
+            {(isAdmin && profile.isDeleted) &&
                 <button onClick={handleRestore} className={styles["restore-button"]}>
                     Restore Profile
                 </button>}

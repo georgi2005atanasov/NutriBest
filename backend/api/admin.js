@@ -27,3 +27,16 @@ export async function disownUser(id, role) {
 
     return response;
 }
+
+export async function restoreProfile(id) {
+    const token = getAuthToken();
+
+    const response = await fetch(`https://localhost:7056/Admin/Restore/${id}`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}

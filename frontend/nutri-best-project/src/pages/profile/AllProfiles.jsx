@@ -36,6 +36,20 @@ export default function AllProfiles() {
     let messageType = searchParams.get("type");
 
     useEffect(() => {
+        const timeout = setTimeout(() => {
+            setSearchParams(prev => {
+                prev.delete("type");
+                prev.delete("message");
+                return prev;
+            })
+        }, 2500);
+
+        return () => {
+            clearTimeout(timeout);
+        }
+    }, [setSearchParams]);
+
+    useEffect(() => {
         sessionStorage.setItem("search", ""); // cleans previous searches
     }, []);
 

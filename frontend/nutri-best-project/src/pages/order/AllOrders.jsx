@@ -17,18 +17,13 @@ export default function AllOrders() {
     const searchText = useRef();
     const { data, ordersPage } = useLoaderData();
     const [orderToDelete, setOrderToDelete] = useState();
-    let [searchParams, setSearchParams] = useSearchParams();
     const submit = useSubmit();
-
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
+    let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
-
-    useEffect(() => {
-        sessionStorage.setItem("search", ""); // cleans previous searches
-    }, []);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -43,6 +38,10 @@ export default function AllOrders() {
             clearTimeout(timeout);
         }
     }, [setSearchParams]);
+
+    useEffect(() => {
+        sessionStorage.setItem("search", ""); // cleans previous searches
+    }, []);
 
     function handleDelete(orderId) {
         dialog.current.open();

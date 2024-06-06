@@ -100,3 +100,25 @@ export async function allProfiles(page, search) {
         return null;
     }
 }
+
+export async function getProfileDetailsById(id) {
+    const token = getAuthToken();
+
+    try {
+        if (token != "EXPIRED" && token != null) {
+
+            const response = await fetch(`https://localhost:7056/Profile/${id}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            return await response.json();
+        }
+
+        return null;
+    } catch (error) {
+        return null;
+    }
+}

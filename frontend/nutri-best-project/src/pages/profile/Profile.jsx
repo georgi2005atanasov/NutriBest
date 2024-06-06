@@ -15,7 +15,7 @@ import ProfileSideBar from "./ProfileSideBar.jsx";
 export default function Profile() {
     const { profile } = useLoaderData();
     const token = getAuthToken();
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
     return <>
         <div className="p-0 d-flex align-items-center justify-content-between">
@@ -38,7 +38,7 @@ export default function Profile() {
                         <ProfileForm profile={profile} />
                     </div>
                 </div>
-                {!isAdmin && <DeleteProfileButton />}
+                {!isAdmin && !isEmployee && <DeleteProfileButton />}
             </motion.div>
         </div>
     </>

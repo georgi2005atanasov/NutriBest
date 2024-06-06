@@ -7,9 +7,16 @@ export default function useAuth(token) {
 
     try {
         const tokenData = token ? jwtDecode(token) : null;
-        isAdmin = tokenData && tokenData.role === "Administrator";
-        isAuthenticated = !!token && token !== "EXPIRED" && token !== 0;
-        isEmployee = tokenData && tokenData.role == "Employee";
+
+        if (Array.isArray(tokenData.role)) {
+            isAdmin = tokenData && tokenData.role.includes("Administrator");
+            isAuthenticated = !!token && token !== "EXPIRED" && token !== 0;
+            isEmployee = tokenData && tokenData.role.includes("Employee");
+        } else {
+            isAdmin = tokenData && tokenData.role === "Administrator";
+            isAuthenticated = !!token && token !== "EXPIRED" && token !== 0;
+            isEmployee = tokenData && tokenData.role == "Employee";
+        }
     } catch (error) {
         console.error("Token decoding failed:", error);
     }

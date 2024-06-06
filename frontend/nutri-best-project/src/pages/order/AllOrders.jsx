@@ -79,6 +79,7 @@ export default function AllOrders() {
                 handleSearch={handleSearch}
                 isVerified={true}
                 styles={searchBarStyles}
+                placeholder="Order, Phone Number, Customer Name..."
             />
         </div>
         <div className="row mt-md-4 mt-0">

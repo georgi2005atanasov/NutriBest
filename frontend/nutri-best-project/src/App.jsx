@@ -42,6 +42,7 @@ import ForgotPassword, { action as sendForgotPassword } from './pages/auth/Forgo
 import ResetPassword, { action as resetPassword } from './pages/auth/ResetPassword.jsx';
 import AllOrders, { loader as loadOrders } from './pages/order/AllOrders.jsx';
 import AllProfiles, { loader as allProfiles } from './pages/profile/AllProfiles.jsx';
+import ProfileDetails, { loader as profileDetailsLoader } from './pages/profile/ProfileDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile', element: <Profile />, loader: profileLoader, action: editProfile,
+      },
+      {
+        path: 'profile/:id', element: <ProfileDetails />, loader: profileDetailsLoader,
       },
       {
         path: 'profile/address', element: <AddressForm />, loader: loadAddress

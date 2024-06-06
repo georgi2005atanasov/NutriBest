@@ -1,0 +1,107 @@
+.user-details-container {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    margin-top: 29px;
+    max-width: 600px;
+    width: 70%;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .user-details-container {
+        width: 95%;
+    }
+}
+
+.user-detail-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-detail-header h2 {
+    margin: 0;
+    color: #555;
+}
+
+.user-detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-detail-row label {
+    font-weight: bold;
+    color: #666;
+}
+
+.user-detail-row span {
+    color: #333;
+}
+
+.restore-button {
+    background-color: #007bff; /* Vibrant blue color */
+    border: none;
+    border-radius: 8px;
+    margin-top: 9px;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #ffffff; /* White text */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    min-width: 171px;
+}
+
+.restore-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.restore-button:active {
+    background-color: #004494; /* Even darker blue on active */
+    transform: scale(0.98); /* Slightly shrink on click */
+}
+
+.restore-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Blue outline */
+}
+
+.send-promo-button {
+    background-color: #ff8c00; /* Vibrant orange color */
+    border: none;
+    border-radius: 8px;
+    margin-top: 9px;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #ffffff; /* White text */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    min-width: 171px;
+}
+
+.send-promo-button:hover {
+    background-color: #e67e22; /* Darker orange on hover */
+}
+
+.send-promo-button:active {
+    background-color: #d35400; /* Even darker orange on active */
+    transform: scale(0.98); /* Slightly shrink on click */
+}
+
+.send-promo-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.5); /* Orange outline */
+}

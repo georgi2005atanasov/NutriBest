@@ -84,6 +84,7 @@ export default function AllProfiles() {
                     handleSearch={handleSearch}
                     isVerified={true}
                     styles={searchBarStyles}
+                    placeholder="Email, City, Name, Phone Number, Role..."
                 />
             </div>
             <div className="row mt-md-4 mt-0">
@@ -101,6 +102,7 @@ export default function AllProfiles() {
                             <th>Total Spent</th>
                             <th>Role</th>
                             <th>Actions</th>
+                            <th>Is Deleted</th>
                         </tr>
                     </thead>
                     <tbody className="">

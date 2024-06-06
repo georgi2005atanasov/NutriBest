@@ -2,7 +2,7 @@
 import { forwardRef } from "react"
 
 //this component has to be wrapped with div.container
-export default forwardRef(function Search({ styles, isVerified, handleChange, handleSearch }, ref) {
+export default forwardRef(function Search({ styles, isVerified, handleChange, handleSearch, placeholder }, ref) {
     return <div className="d-flex">
         <div className="row d-flex justify-content-center align-items-center">
             <div className="col-md-12 d-flex justify-content-center align-items-center">
@@ -15,7 +15,7 @@ export default forwardRef(function Search({ styles, isVerified, handleChange, ha
                             type="text"
                             name="search"
                             onKeyDown={(event) => handleChange(event)}
-                            placeholder="Search" />
+                            placeholder={placeholder || "Search"} />
                         <label onClick={handleSearch} htmlFor="search" className={styles["search-icon"]}>
                             <i className="fa fa-search" aria-hidden="true"></i>
                         </label>

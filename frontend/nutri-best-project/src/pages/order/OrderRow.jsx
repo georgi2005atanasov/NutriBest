@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
-import { getDate } from "../../utils/utils";
 import { changeOrderStatuses } from "../../../../../backend/api/orders";
 import { motion } from "framer-motion";
 import { Link, useSubmit } from "react-router-dom";
@@ -48,7 +47,7 @@ export default memo(function OrderRow({ order, handleDelete }) {
         <td className={order.isConfirmed ? "text-success" : "text-danger"}>
             {order.isConfirmed ? "Yes" : "No"}
         </td>
-        <td>{getDate(order.madeOn)}</td>
+        <td>{new Date(order.madeOn).toLocaleDateString()}</td>
         <td>
             <Link onClick={() => changeStatus("isShipped")} className={order.isShipped ? "text-success" : "text-danger"}>
                 {order.isShipped ? "Yes" : "No"}

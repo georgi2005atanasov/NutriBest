@@ -1,5 +1,30 @@
-.close-icon {
+.close-btn {
+    font-size: 17px !important;
+    font-weight: 600;
+    transition: 0.5s;
+}
+
+.close-btn:hover {
+    background-color: darkgray;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none !important;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.modal-buttons button {
+    white-space: nowrap;
+    padding: 15px 25px;
+    margin: 2px;
+    color: white;
+    background-color: #333;
     cursor: pointer;
-    font-size: 20px;
-    cursor: pointer;
+    transition: background-color 0.3s ease;
+    outline: none !important;
 }

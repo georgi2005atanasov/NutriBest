@@ -1,21 +1,30 @@
-import styles from "./css/GrantModal.module.css";
-import Modal from "../Modal";
-import { motion } from "framer-motion";
-import { forwardRef, useEffect, useState } from "react";
-import { allRoles } from "../../../../../../backend/api/auth";
+/* eslint-disable react/prop-types */
+import styles from './css/GrantModal.module.css'; // Assume you have a CSS module for styling
+import Modal from '../Modal';
+import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import { allRoles } from '../../../../../../backend/api/auth';
+import { motion } from 'framer-motion';
+import { useState, useEffect, forwardRef } from 'react';
+import { grantUser, disownUser } from '../../../../../../backend/api/admin';
 
-// eslint-disable-next-line react/prop-types
 const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
-    const [roles, setRoles] = useState();
+    let [currentRoles, setCurrentRoles] = useState(profile.currentRoles);
+    const [message, setMessage] = useState({
+        text: "",
+        type: ""
+    });
+    const [roles, setRoles] = useState([]);
 
-    console.log(profile);
+    console.log(currentRoles);
 
     function handleClose(event) {
         event.stopPropagation();
-        ref.current.close();
+        if (currentRoles && currentRoles.length > 0) {
+            ref.current.close();
+        } else {
+            alert("Please select at least one role.");
+        }
     }
-
-    console.log(roles);
 
     useEffect(() => {
         async function handleRoles() {
@@ -29,15 +38,117 @@ const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
         handleRoles();
     }, []);
 
-    return <Modal ref={ref}>
-        <div className={`d-flex justify-content-end align-items-center mb-0`}>
-            <motion.i
-                className={`mx-2 mt-2 fa fa-times d-flex justify-content-end ${styles["close-icon"]}`} aria-hidden="true"
-                onClick={handleClose}
+    useEffect(() => {
+        if (profile.currentRoles.length > 0) {
+            setCurrentRoles(profile.currentRoles);
+        }
+    }, [profile]);
+
+    async function handleRoleChange(event) {
+        const role = event.target.name;
+        if (event.target.checked) {
+            const response = await grantUser(profile.profileId, role);
+
+            if (!response.ok) {
+                const data = await response.json();
+
+                if (data.message) {
+                    setMessage({
+                        text: data.message,
+                        type: "danger"
+                    });
+                    return;
+                }
+
+                setMessage({
+                    text: "Something went wrong!",
+                    type: "danger"
+                });
+
+                return;
+            }
+
+            const data = await response.json();
+            
+            setMessage({
+                text: data.message,
+                type: "success"
+            });
+
+            setCurrentRoles(prev => [...prev, role]);
+        }
+        else {
+            const response = await disownUser(profile.profileId, role);
+
+            if (!response.ok) {
+                const data = await response.json();
+
+                if (data.message) {
+                    setMessage({
+                        text: data.message,
+                        type: "danger"
+                    });
+                    return;
+                }
+
+                setMessage({
+                    text: "Something went wrong!",
+                    type: "danger"
+                });
+                return;
+            }
+
+            const data = await response.json();
+
+            setMessage({
+                text: data.message,
+                type: "success"
+            });
+
+            setCurrentRoles(prev => [...prev.filter(x => x !== role)]);
+        }
+    }
+
+    return (
+        <Modal ref={ref}>
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
             >
-            </motion.i>
-        </div>
-    </Modal>;
+                <div className="d-flex justify-content-center mb-3">
+                    <button
+                        onClick={handleClose}
+                        className={`${styles["close-btn"]} border-0 p-3 w-100`}
+                    >
+                        Close
+                    </button>
+                </div>
+                <h4>Grant {profile && profile.name} as</h4>
+                {message && <span className={`text-${message.type}`}>{message.text}</span>}
+                <FormGroup>
+                    {roles.map(role => (
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={currentRoles && currentRoles.includes(role)}
+                                    onChange={handleRoleChange}
+                                    name={role}
+                                    sx={{
+                                        color: '#333',
+                                        '&.Mui-checked': {
+                                            color: '#333',
+                                        },
+                                    }}
+                                />
+                            }
+                            label={role}
+                            key={role}
+                        />
+                    ))}
+                </FormGroup>
+            </motion.div>
+        </Modal>
+    );
 });
 
 export default GrantModal;

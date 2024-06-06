@@ -16,7 +16,7 @@ export default function ProfileRow({ profile, isAdmin, handleGrant }) {
         <td>{profile.roles || <strong>-</strong>}</td>
         {isAdmin ?
             <td className="p-md-3 p-1">
-                <Link onClick={() => handleGrant(profile.profileId, profile.roles)} className={`${styles["btn"]} ${styles["delete"]} text-nowrap text-center me-1`}>Grant as</Link>
+                <Link onClick={() => handleGrant(profile.name, profile.profileId, profile.roles)} className={`${styles["btn"]} ${styles["delete"]} text-nowrap text-center me-1`}>Grant as</Link>
                 <Link className={`${styles["btn"]} ${styles["details"]} text-center me-1`}>More...</Link>
             </td> :
             <td>None</td>}

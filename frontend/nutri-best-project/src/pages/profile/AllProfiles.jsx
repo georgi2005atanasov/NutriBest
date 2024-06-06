@@ -19,7 +19,12 @@ export default function AllProfiles() {
 
     const dialog = useRef();
     const searchText = useRef();
-    const [profileToGrant, setProfileToGrant] = useState();
+    const [profileToGrant, setProfileToGrant] = useState({
+        name: "",
+        profileId: "",
+        currentRoles: []
+    });
+
     const { data, usersPage } = useLoaderData();
     let [searchParams, setSearchParams] = useSearchParams();
     const submit = useSubmit();
@@ -43,14 +48,15 @@ export default function AllProfiles() {
         searchText.current.value = event.target.value;
     }
 
-    function handleGrant(profileId, currentRoles) {
+    function handleGrant(name, profileId, currentRoles) {
         if (currentRoles == "Administrator") { // administrator is superb
             return;
         }
 
         setProfileToGrant({
+            name,
             profileId,
-            currentRoles
+            currentRoles: currentRoles.split(", ")
         })
 
         dialog.current.open();

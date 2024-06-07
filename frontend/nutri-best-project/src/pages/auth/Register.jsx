@@ -124,6 +124,10 @@ export async function action({ request, params }) {
 
         const response = await register(userData);
 
+        if (response.message) {
+            return json({ errors: { "message": [response.message] } });
+        }
+
         if (response && response.errors) {
             return response;
         }
@@ -137,7 +141,13 @@ export async function action({ request, params }) {
             return json({ errors: { "message": ["Cannot create already existing users!"] } });
         }
 
-        return redirect("/login");
+        window.scrollTo({
+            top: 200,
+            left: 0,
+            behavior: 'smooth'
+        });
+
+        return redirect("/login?message=Successfully Created Profile!&type=success");
     } catch (error) {
         return redirect("/error");
     }

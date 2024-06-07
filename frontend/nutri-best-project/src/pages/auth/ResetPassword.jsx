@@ -3,7 +3,7 @@ import Header from "../../components/UI/Shared/Header";
 import FormButton from "../../components/UI/Form/FormButton";
 import styles from "./Login.module.css";
 import { motion } from "framer-motion";
-import { Form, redirect, useActionData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
+import { Form, useNavigate, useActionData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
 import { getFormData } from "../../utils/utils";
 import Loader from "../../components/UI/Shared/Loader";
 import { resetPassword } from "../../../../../backend/api/auth";
@@ -11,12 +11,19 @@ import { useEffect } from "react";
 
 export default function ResetPassword() {
     const data = useActionData();
-    const [searchParams, setSearchParams] = useSearchParams();
     const submit = useSubmit();
+    const [searchParams, setSearchParams] = useSearchParams();
     const token = searchParams.get("token");
     const email = searchParams.get("email");
 
     const navigation = useNavigation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token || !email) {
+            navigate('/?message=Page Not Found!&type=danger');
+        }
+    }, [token, email, navigate]);
 
     useEffect(() => {
         if (data && data.message && data.message == "Password reset successful.") {

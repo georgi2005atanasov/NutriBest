@@ -1,4 +1,3 @@
-import { checkAuthErrors } from '../utils/util';
 import { getAuthToken } from '../../frontend/nutri-best-project/src/utils/auth';
 
 export async function register(userData) {

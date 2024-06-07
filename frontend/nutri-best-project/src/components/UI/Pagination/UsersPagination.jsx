@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // might fetch these numbers, because they are coupled with the api
-const USERS_PER_PAGE = 2;
+const USERS_PER_PAGE = 50;
 
 export default function UsersPagination({ page, usersCount }) {
     const usersPerPage = USERS_PER_PAGE;

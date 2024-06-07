@@ -43,7 +43,6 @@ import ResetPassword, { action as resetPassword } from './pages/auth/ResetPasswo
 import AllOrders, { loader as loadOrders } from './pages/order/AllOrders.jsx';
 import AllProfiles, { loader as allProfiles } from './pages/profile/AllProfiles.jsx';
 import ProfileDetails, { loader as profileDetailsLoader } from './pages/profile/ProfileDetails.jsx';
-import ConfirmEmail from './pages/auth/ConfirmEmail.jsx';
 
 const router = createBrowserRouter([
   {
@@ -54,7 +53,6 @@ const router = createBrowserRouter([
       { path: 'login', element: <LoginPage />, action: loginAction },
       { path: 'forgot-password', element: <ForgotPassword />, action: sendForgotPassword },
       { path: 'Identity/ResetPassword', element: <ResetPassword />, action: resetPassword },
-      { path: 'Identity/ConfirmEmail', element: <ConfirmEmail /> },
       { path: 'register', element: <RegisterPage />, action: registerAction },
       { path: 'logout', action: logoutAction },
       { path: 'home', element: <HomePage /> },

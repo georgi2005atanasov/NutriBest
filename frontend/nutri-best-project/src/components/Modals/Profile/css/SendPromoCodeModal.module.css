@@ -1,0 +1,38 @@
+dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    animation: slide-up 0.3s ease-out forwards;
+}
+
+.modal {
+    z-index: 1;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.close-modal-icon {
+    position: absolute;
+    top: -45px;
+    right: -45px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-modal-icon:hover {
+    color: red;
+}

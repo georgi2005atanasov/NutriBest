@@ -27,7 +27,7 @@ export default function ProfileDetails() {
 
     return (<>
         <RestoreProfileModal ref={restoreProfileDialog} profileId={profile.profileId} />
-        <SendPromoCodeModal ref={emailSenderDialog} />
+        <SendPromoCodeModal ref={emailSenderDialog} email={profile.email} />
         <div className="container-fluid d-flex flex-column align-items-center justify-content-center">
             <motion.div
                 className={styles["user-details-container"]}

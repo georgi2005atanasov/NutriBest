@@ -111,7 +111,8 @@ import {
     from "./orders";
 import {
     sendConfirmOrderMessage,
-    sendForgottenPasswordMessage
+    sendForgottenPasswordMessage,
+    sendPromoCode
 }
     from "./email";
 
@@ -190,4 +191,5 @@ export { deleteOrder };
 export { sendConfirmOrderMessage };
 export { confirmOrder };
 export { sendForgottenPasswordMessage };
+export { sendPromoCode };
 export { allOrders };

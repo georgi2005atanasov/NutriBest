@@ -1,6 +1,6 @@
 import styles from "./css/FinishedOrder.module.css";
 import ListOrder from "./ListOrder";
-import { getOrderById, getImageByProductId } from "../../../../../backend/api/api";
+import { getOrderById, getImageByProductId, allCitiesWithCountries } from "../../../../../backend/api/api";
 import { getDate } from "../../utils/utils";
 import { splitPascalCase } from "./OrderForm";
 import { motion } from "framer-motion";
@@ -15,9 +15,12 @@ export default function FinishedOrder() {
     const { isAdmin, isEmployee } = useAuth(token);
     const [searchParams, setSearchParams] = useSearchParams();
     const [order, setOrder] = useState({});
+    const [citiesCountries, setCitiesCountries] = useState([]);
     const [cart, setCart] = useState([]);
     const submit = useSubmit();
     const orderId = searchParams.get("orderId");
+
+    console.log(order);
 
     useEffect(() => {
         async function handleOrder() {
@@ -43,12 +46,16 @@ export default function FinishedOrder() {
 
                 setOrder(orderToSet);
             }
+        }
 
-
+        async function handleCountries() {
+            const result = await allCitiesWithCountries();
+            setCitiesCountries(result);
         }
 
         handleOrder();
-    }, [orderId, submit]);
+        handleCountries();
+    }, [orderId, submit, isEmployee, isAdmin]); // added isEmployee/isAdmin
 
     useEffect(() => {
         async function storeImages() {
@@ -77,6 +84,8 @@ export default function FinishedOrder() {
                     <div className={`${styles["confirmation-container"]}`}>
                         <h2>Thank you for your order!</h2>
                         <div className={styles["order-details"]}>
+                            <p><strong>Country:</strong> {order.country}, {order.city}</p>
+                            <p><strong>Address:</strong> {order.street} {order.streetNumber}</p>
                             <p><strong>Order Number:</strong> #{orderId}</p>
                             <p>
                                 <strong>Confirmed:</strong>&nbsp;
@@ -151,7 +160,7 @@ export default function FinishedOrder() {
 
             <div className="row">
                 <div className={`col-md-12 mt-4 justify-content-center d-flex flex-column`}>
-                    <ListOrder passedCart={cart} />
+                    <ListOrder passedCart={cart} shippingPrice={order.shippingPrice} />
                 </div>
             </div>
         </motion.div>

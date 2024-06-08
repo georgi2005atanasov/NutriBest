@@ -2,23 +2,38 @@
 import styles from "./css/CartSummary.module.css";
 import { motion } from "framer-motion";
 
-const CartSummary = ({ cart, handleCodeRemove }) => (
-    <div className={`${styles["cart-summary"]} mb-md-2 mb-0 mt-md-0 mt-3 mb-0`}>
-        <motion.h2
+export default function CartSummary({ cart, handleCodeRemove, shippingPrice }) {
+    return <div className={`${styles["cart-summary"]} mb-md-2 mb-0 mt-md-0 mt-3 mb-0`}>
+        <motion.h6
             className={styles["total-price"]}
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            Total: {cart && cart.totalPrice && cart.totalPrice.toFixed(2)} BGN
-        </motion.h2>
-        <motion.h2
+            Total Products: {cart && cart.totalProducts && cart.totalProducts.toFixed(2)} BGN
+        </motion.h6>
+        <motion.h6
+            className={styles["total-price"]}
+        >
+            Shipping: {shippingPrice ?
+                <span>&nbsp;{shippingPrice.toFixed(2)} BGN</span> :
+                <span className="text-danger">&nbsp;Choose Country at Checkout!</span>}
+        </motion.h6>
+        <motion.h6
             className={styles["total-saved"]}
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
             Saved: {cart && cart.totalSaved && cart.totalSaved.toFixed(2)} BGN
+        </motion.h6>
+        <motion.h2
+            className={styles["total-price"]}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            Total Price: {cart && cart.totalProducts && shippingPrice && (shippingPrice + cart.totalProducts).toFixed(2)} BGN
         </motion.h2>
         {cart && cart.code &&
             <div className="d-flex justify-content-center align-items-start">
@@ -30,6 +45,4 @@ const CartSummary = ({ cart, handleCodeRemove }) => (
                 </span>
             </div>}
     </div>
-);
-
-export default CartSummary;
+}

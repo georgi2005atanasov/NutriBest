@@ -59,7 +59,7 @@ return <Modal ref={ref}>
         <span className={styles["success-message"]}>{localStorage.getItem("cartMessage") && localStorage.getItem("cartMessage")}</span>
         <hr className="m-1" />
         <div className="ms-2 d-flex align-items-end">
-            <strong>Total: {cart && cart.totalPrice.toFixed(2)} BGN</strong>
+            <strong>Total: {cart && cart.totalProducts.toFixed(2)} BGN</strong>
             <motion.i
                 className={`mx-2 mt-2 fa fa-trash-o d-flex align-items-start justify-content-start ${styles["clean-cart-icon"]}`} aria-hidden="true"
                 onClick={onClean}

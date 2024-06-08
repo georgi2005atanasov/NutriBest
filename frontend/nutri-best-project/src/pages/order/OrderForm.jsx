@@ -339,7 +339,12 @@ export default function OrderForm() {
                 <div className={`col-md-7 d-flex flex-column`}>
                     <div className="d-flex flex-column">
                         <Suspense fallback={<Loader />}>
-                            <ListOrder />
+                            <ListOrder
+                                shippingPrice={allCitiesCountries &&
+                                    allCitiesCountries
+                                        .filter(x => x.country == order.country)
+                                        .map(x => x.shippingPrice)[0]}
+                            />
                         </Suspense>
                         <button onClick={!isSubmitting ? handleSubmit : () => { }} className={styles["button-confirm-order"]}>Confirm Order</button>
                     </div>

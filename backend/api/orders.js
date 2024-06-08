@@ -73,6 +73,23 @@ export async function allOrders(page, search) {
     return null;
 }
 
+export async function getUserOrders(page, search) {
+    const token = getAuthToken();
+
+    if (token) {
+        const response = await fetch(`https://localhost:7056/Orders/Mine?page=${page}&search=${search}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+    
+        return response;
+    }
+
+    return null;
+}
+
 export async function getOrderByAdmin(id) {
     const token = getAuthToken();
 

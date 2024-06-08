@@ -43,6 +43,7 @@ import ResetPassword, { action as resetPassword } from './pages/auth/ResetPasswo
 import AllOrders, { loader as loadOrders } from './pages/order/AllOrders.jsx';
 import AllProfiles, { loader as allProfiles } from './pages/profile/AllProfiles.jsx';
 import ProfileDetails, { loader as profileDetailsLoader } from './pages/profile/ProfileDetails.jsx';
+import MyOrders, { loader as loadUserOrders } from './pages/order/MyOrders.jsx';
 
 const router = createBrowserRouter([
   {
@@ -161,6 +162,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'orders', element: <AllOrders />, loader: loadOrders
+      },
+      {
+        path: 'my-orders', element: <MyOrders />, loader: loadUserOrders
       }
     ],
     id: "rootLoader",

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Link, useSubmit } from "react-router-dom";
 import { memo } from "react";
 
-export default memo(function OrderRow({ order, handleDelete }) {
+export default memo(function MyOrderRow({ order, handleDelete }) {
     const submit = useSubmit();
 
     function changeStatus(identifier) {
@@ -38,38 +38,23 @@ export default memo(function OrderRow({ order, handleDelete }) {
     }
 
     return <tr>
-        <td>{order.orderId}</td>
+        <td>#000000{order.orderId}</td>
         <td className={order.isFinished ? "text-success" : "text-danger"}>
-            <Link onClick={() => changeStatus("isFinished")} className={order.isFinished ? "text-success" : "text-danger"}>
-                {order.isFinished ? "Yes" : "No"}
-            </Link>
+            {order.isFinished ? "Yes" : "No"}
         </td>
         <td className={order.isConfirmed ? "text-success" : "text-danger"}>
             {order.isConfirmed ? "Yes" : "No"}
         </td>
         <td>{new Date(order.madeOn).toLocaleDateString()}</td>
         <td>
-            <Link onClick={() => changeStatus("isShipped")} className={order.isShipped ? "text-success" : "text-danger"}>
-                {order.isShipped ? "Yes" : "No"}
-            </Link>
+            {order.isShipped ? "Yes" : "No"}
         </td>
         <td>
-            <Link onClick={() => changeStatus("isPaid")} className={order.isPaid ? "text-success" : "text-danger"}>
-                {order.isPaid ? "Yes" : "No"}
-            </Link>
+            {order.isPaid ? "Yes" : "No"}
         </td>
-        <td>{order.customerName}</td>
         <td>{order.totalPrice.toFixed(2)} BGN</td>
-        <td className={order.isAnonymous ? "text-success" : "text-danger"}>
-            {order.isAnonymous ? "Yes" : "No"}
-        </td>
-        <td className="d-flex justify-content-evenly align-items-center p-3">
+        <td className="d-flex align-items-center p-3">
             <Link to={`/order/finished?orderId=${order.orderId}`} className={`${styles["btn"]} ${styles["details"]} text-center me-1`}>Details</Link>
-            <motion.i
-                className={`fa fa-trash-o d-flex justify-content-end ${styles["delete-icon"]}`} aria-hidden="true"
-                onClick={() => handleDelete(order.orderId)}
-            >
-            </motion.i>
         </td>
     </tr>
 })

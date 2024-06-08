@@ -6,7 +6,7 @@ import { useLoaderData } from "react-router-dom";
 /* eslint-disable react/prop-types */
 export default function NavToggler() {
     const token = useLoaderData("rootLoader");
-    const { isAdmin, isEmployee } = useAuth(token); // employee also
+    const { isAdmin, isEmployee, isUser } = useAuth(token); // employee also
 
     return <div className="col-md-6 p-0">
         <div className="container p-1">
@@ -39,9 +39,16 @@ export default function NavToggler() {
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/brands">
                                 {"Brands"}
                             </a>
-                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={isAdmin || isEmployee ? "/more" : "/products/all?page=1"}>
-                                {"More..."}
-                            </a>
+                            {isAdmin || isEmployee ?
+                                <a className={`${colors["admin-color"]}`} href="/more">
+                                    {"More..."}
+                                </a> :
+                                !isAdmin && !isEmployee && isUser ? <a className={`${colors["user-color"]}`} href="/my-orders">
+                                    {"My orders"}
+                                </a> :
+                                    <a className={`${colors["user-color"]}`} href="/products/all?page=1">
+                                        {"More..."}
+                                    </a>}
                         </nav>
                     </div>
                 </div>

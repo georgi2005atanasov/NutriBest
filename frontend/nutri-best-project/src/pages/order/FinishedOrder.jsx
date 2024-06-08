@@ -1,7 +1,6 @@
 import styles from "./css/FinishedOrder.module.css";
 import ListOrder from "./ListOrder";
-import { getOrderById, getImageByProductId, allCitiesWithCountries } from "../../../../../backend/api/api";
-import { getDate } from "../../utils/utils";
+import { getOrderById, getImageByProductId } from "../../../../../backend/api/api";
 import { splitPascalCase } from "./OrderForm";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -15,7 +14,6 @@ export default function FinishedOrder() {
     const { isAdmin, isEmployee } = useAuth(token);
     const [searchParams, setSearchParams] = useSearchParams();
     const [order, setOrder] = useState({});
-    const [citiesCountries, setCitiesCountries] = useState([]);
     const [cart, setCart] = useState([]);
     const submit = useSubmit();
     const orderId = searchParams.get("orderId");
@@ -48,13 +46,7 @@ export default function FinishedOrder() {
             }
         }
 
-        async function handleCountries() {
-            const result = await allCitiesWithCountries();
-            setCitiesCountries(result);
-        }
-
         handleOrder();
-        handleCountries();
     }, [orderId, submit, isEmployee, isAdmin]); // added isEmployee/isAdmin
 
     useEffect(() => {
@@ -100,7 +92,7 @@ export default function FinishedOrder() {
                                     <span className="text-danger">No</span>}
                             </p>
                             <p><strong>Payment Method:</strong> {splitPascalCase(order.paymentMethod ? [order.paymentMethod] : [])}</p>
-                            <p><strong>Order Date:</strong> {getDate(order.madeOn)}</p>
+                            <p><strong>Order Date:</strong> {new Date(order.madeOn).toLocaleDateString()}</p>
                             <p>
                                 <strong>Is Paid:</strong>&nbsp;
                                 <span className={order.isShipped ? "text-success" : "text-danger"}>

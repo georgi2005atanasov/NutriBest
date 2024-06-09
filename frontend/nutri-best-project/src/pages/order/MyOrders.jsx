@@ -5,10 +5,10 @@ import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import { getUserOrders } from "../../../../../backend/api/orders";
+import MyOrderRow from "./MyOrderRow";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSubmit, useNavigation, useSearchParams } from "react-router-dom";
-import { useRef } from "react";
-import MyOrderRow from "./MyOrderRow";
+import { useRef, useEffect } from "react";
 
 export default function MyOrders() {
     const searchText = useRef();
@@ -18,9 +18,12 @@ export default function MyOrders() {
     const isLoading = navigation.state == "loading";
     let [searchParams, setSearchParams] = useSearchParams();
 
-    console.log(data);
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
+
+    useEffect(() => {
+        sessionStorage.setItem("search", ""); // cleans previous searches
+    }, []);
 
     function handleChange(event) {
         if (event.key === "Enter") {
@@ -33,7 +36,7 @@ export default function MyOrders() {
 
     async function handleSearch() {
         sessionStorage.setItem("search", searchText.current.value);
-        return submit(null, { action: "/orders", method: "GET" });
+        return submit(null, { action: "/my-orders", method: "GET" });
     }
 
     return <motion.div
@@ -75,6 +78,8 @@ export default function MyOrders() {
                 </tbody>
             </table>
         </div>
+
+        <h3 className="text-center mt-3">Total Orders: {data.totalOrders}</h3>
 
         <div className="mt-3">
             <OrdersPagination

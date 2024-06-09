@@ -23,8 +23,6 @@ export default function OrderForm() {
     const [errors, setErrors] = useState([]);
     const { cart, setCart } = useContext(CartContext);
 
-    console.log(errors);
-
     const { address, userDetails, allCitiesCountries, paymentMethods } = useLoaderData();
 
     const navigation = useNavigation();
@@ -53,6 +51,9 @@ export default function OrderForm() {
         paymentMethod: paymentMethods && paymentMethods[0],
         comment: ""
     });
+
+    const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
+    const defaultCity = cities && cities.find(city => city.cityName === order.city) || null;
 
     const getCartProducts = useCallback(async function getCartProducts() {
         const cartData = await getCart();
@@ -189,9 +190,6 @@ export default function OrderForm() {
             );
         }
     }
-
-    const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
-    const defaultCity = cities && cities.find(city => city.cityName === order.city) || null;
 
     return (
         <div className="container d-flex flex-column justify-content-center align-items-center mt-4">

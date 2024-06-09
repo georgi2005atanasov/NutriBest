@@ -1,0 +1,87 @@
+.discount input {
+    border-radius: 5px;
+    border: 1px solid #efefea;
+}
+
+.discount {
+    border: 0;
+    outline: none;
+}
+
+.discount {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.discount input {
+    transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.discount input:focus {
+    outline: none;
+    box-shadow: 0 0 8px #a5591c;
+}
+
+.discount input, .discount textarea {
+    transition: border-color 0.4s, box-shadow 0.4s;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #efefea;
+    outline: none;
+}
+
+.discount input::placeholder {
+    color: #807a63;
+}
+
+.discount button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #ed6008;
+    color: #221f1c;
+    font-weight: 600;
+    width: 100%;
+    transition: ease-in 0.3s;
+}
+
+.discount button:hover {
+    background-color: #b07731;
+}
+
+.discount label {
+    color: #161614;
+    font-weight: 600;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.discount input:focus, .discount textarea:focus {
+    border: none;
+    box-shadow: 0 0 8px #a5591c;
+}
+
+.discount button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #ed6008;
+    color: #221f1c;
+    font-weight: 600;
+    width: 100%;
+    transition: ease-in 0.3s;
+}
+
+.discount button:hover {
+    background-color: #b07731;
+}

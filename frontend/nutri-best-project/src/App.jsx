@@ -44,6 +44,8 @@ import AllOrders, { loader as loadOrders } from './pages/order/AllOrders.jsx';
 import AllProfiles, { loader as allProfiles } from './pages/profile/AllProfiles.jsx';
 import ProfileDetails, { loader as profileDetailsLoader } from './pages/profile/ProfileDetails.jsx';
 import MyOrders, { loader as loadUserOrders } from './pages/order/MyOrders.jsx';
+import ShippingDiscountsLayout from './pages/shipping-discounts/ShippingDiscountsLayout.jsx';
+import AddShippingDiscount, { loader as loadCountries } from './pages/shipping-discounts/AddShippingDiscount.jsx';
 
 const router = createBrowserRouter([
   {
@@ -165,6 +167,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'my-orders', element: <MyOrders />, loader: loadUserOrders
+      },
+      {
+        path: 'shipping-discounts', element: <ShippingDiscountsLayout />, children: [
+          {
+            path: 'add', element: <AddShippingDiscount />, loader: loadCountries
+          }
+        ]
       }
     ],
     id: "rootLoader",

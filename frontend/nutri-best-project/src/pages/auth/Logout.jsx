@@ -6,6 +6,8 @@ export function action({ request, params }) {
     localStorage.removeItem("expiration");
     localStorage.removeItem("duration")
 
+    sessionStorage.setItem("orders-page", 1);
+
     cleanFilters();
 
     let message = "You successfully logged out.&type=success";

@@ -21,7 +21,7 @@ export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 export default function RootLayout() {
     const TOKEN_DURATION = localStorage.getItem("duration");
     const token = useLoaderData();
-    const { isAdmin, isEmployee } = useAuth(token);
+    const { isAdmin, isEmployee, isUser } = useAuth(token);
     const submit = useSubmit();
     const navigation = useNavigation();
 
@@ -49,10 +49,12 @@ export default function RootLayout() {
         if (!sessionStorage.getItem("flavours")) {
             sessionStorage.setItem("flavours", DEFAULT_FLAVOURS);
         }
-        if (isAdmin || isEmployee) {
+        if (isAdmin || isUser || isEmployee) {
             if (!sessionStorage.getItem("orders-page")) {
                 sessionStorage.setItem("orders-page", DEFAULT_PAGE);
             }
+        }
+        if (isAdmin || isEmployee) {
             if (!sessionStorage.getItem("users-page")) {
                 sessionStorage.setItem("users-page", DEFAULT_PAGE);
             }

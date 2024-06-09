@@ -116,7 +116,11 @@ import {
     sendPromoCode
 }
     from "./email";
-
+import {
+    createShippingDiscount,
+    allShippingDiscounts
+}
+    from "./shippingDiscount";
 
 export { addProduct };
 export { getProductById };
@@ -195,3 +199,6 @@ export { confirmOrder };
 export { sendForgottenPasswordMessage };
 export { sendPromoCode };
 export { allOrders };
+
+export { createShippingDiscount };
+export { allShippingDiscounts };

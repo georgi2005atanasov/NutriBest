@@ -11,7 +11,7 @@ export default function DateTimeField({ setEndDate }) {
 
   const handleDateChange = (newValue) => {
     setSelectedDate(newValue);
-    setEndDate(newValue.toDate())
+    setEndDate(newValue)
   };
 
   return (

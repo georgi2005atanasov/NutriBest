@@ -5,24 +5,25 @@ import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteI
 import FormButton from "../../components/UI/Form/FormButton";
 import { allCitiesWithCountries } from "../../../../../backend/api/cities";
 import { motion } from "framer-motion";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSubmit } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DateTimeField from "./DateTimeField";
 import dayjs from 'dayjs';
+import { createShippingDiscount } from "../../../../../backend/api/shippingDiscount";
 
 export default function AddShippingDiscount() {
     const { allCitiesCountries } = useLoaderData();
     const [shippingDiscount, setShippingDiscount] = useState({
         description: "",
         discountPercentage: "",
-        country: "",
-        endDate: dayjs()
+        countryName: "",
+        endDate: dayjs(),
+        minimumPrice: ""
     });
-
-    console.log(shippingDiscount);
-
     const [countries, setCountries] = useState();
+    const [errors, setErrors] = useState();
     const defaultCountry = countries && countries.find(c => c.country === c.country) || null;
+    const submit = useSubmit();
 
     useEffect(() => {
         const uniqueCountries = allCitiesCountries && allCitiesCountries.map((x, index) => ({ country: x.country, id: `country-${index}` }));
@@ -38,15 +39,23 @@ export default function AddShippingDiscount() {
 
     const handleCountryChange = (event, newValue) => {
         const country = newValue ? newValue.country : '';
-        handleChange("country", country);
+        handleChange("countryName", country);
     };
 
     const handleDateChange = (newValue) => {
-        handleChange("endDate", newValue);
+        handleChange("endDate", newValue.toDate());
     }
 
     async function handleSubmit() {
-        console.log(111);
+        const result = await createShippingDiscount(shippingDiscount);
+        console.log(result);
+        if (result.id) {
+            return submit("message=Successfully Added Shipping Discount!&type=success", {
+                action: "/shipping-discounts/all",
+                method: "GET"
+            });
+        }
+        setErrors(result);
     }
 
     return <motion.div
@@ -67,6 +76,18 @@ export default function AddShippingDiscount() {
                             styles="w-50"
                             value={shippingDiscount.discountPercentage}
                             onChange={(event) => handleChange("discountPercentage", event.target.value)}
+                            error={errors && errors.key && errors.key == "DiscountPercentage"}
+                        />
+                    </div>
+
+                    <div className="d-flex justify-content-center">
+                        <TextInput
+                            id="Minimum Cart Price"
+                            label="Minimum Cart Price (optional)"
+                            styles="w-50"
+                            value={shippingDiscount.minimumPrice}
+                            onChange={(event) => handleChange("minimumPrice", event.target.value)}
+                            error={errors && errors.key && errors.key == "MinimumPrice"}
                         />
                     </div>
 
@@ -85,6 +106,7 @@ export default function AddShippingDiscount() {
                                 </li>
                             )}
                             onChange={handleCountryChange}
+                            error={errors && errors.message}
                         />
                     </div>
 
@@ -98,6 +120,7 @@ export default function AddShippingDiscount() {
                             variant="outlined"
                             styles="w-50"
                             multiline
+                            error={errors && errors.errors && errors.errors.Description}
                         />
                     </div>
 

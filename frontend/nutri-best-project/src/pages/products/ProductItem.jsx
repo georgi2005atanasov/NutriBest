@@ -22,6 +22,8 @@ export default function ProductItem({ product }) {
 
     const isLoading = navigation.state === "loading";
 
+    console.log(product);
+
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
@@ -78,12 +80,13 @@ export default function ProductItem({ product }) {
                             <EditProductButton productId={product.productId} />
                             <DeleteProductButton productId={product.productId} />
                         </div>
-                    </div> :
+                    </div> : product.quantity > 0 ?
                     <AddToCartRedirect
                         isLoading={isLoading}
                         promotions={promotions}
                         product={product}
-                    />}
+                    /> :
+                    <h5 className="text-center text-danger">Out of Stock</h5>}
             </motion.section>
         </AnimatePresence>
     }
@@ -120,12 +123,13 @@ export default function ProductItem({ product }) {
                         <EditProductButton productId={product.productId} />
                         <DeleteProductButton productId={product.productId} />
                     </div>
-                </div> :
+                </div> : product.quantity > 0 ?
                 <AddToCartRedirect
                     isLoading={isLoading}
                     promotions={promotions}
                     product={product}
-                />}
+                /> :
+                <h5 className="text-center text-danger">Out of Stock</h5>}
         </motion.section>
     </AnimatePresence>
 }

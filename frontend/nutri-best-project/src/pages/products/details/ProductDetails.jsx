@@ -129,8 +129,11 @@ export default function ProductDetails() {
                             </span>
                         </div>
 
-                        <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
-                        <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+                        {product.quantity > 0 ? <>
+                            <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
+                            <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+                        </> :
+                            <h3 className="text-center text-danger">Out of Stock!</h3>}
 
                         {error && <div className="d-flex justify-content-center mt-2">
                             <span className="text-danger">{error}</span>
@@ -202,8 +205,11 @@ export default function ProductDetails() {
                         </span>
                     </h2>
 
-                    <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
-                    <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+                    {product.quantity > 0 ? <>
+                        <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />
+                        <SelectPackage packages={productPackages} spec={productSpecs} setSpec={setProductSpecs} />
+                    </> :
+                        <h3 className="text-center text-danger">Out of Stock!</h3>}
 
                     {error && <div className="d-flex justify-content-center mt-2">
                         <span className="text-danger">{error}</span>

@@ -105,7 +105,7 @@ export default function AllProducts() {
                                     {(isAdmin || isEmployee) && productsView === "table" &&
                                         <div className="mb-3 d-flex justify-content-end">
                                             <ChangeLayoutButton
-                                                text={"View as User"}
+                                                text="View as User"
                                                 onClick={toUserView} />
                                             <div className="mx-1"></div>
                                         </div>}

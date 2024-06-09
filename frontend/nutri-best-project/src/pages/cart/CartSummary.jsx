@@ -15,7 +15,7 @@ export default function CartSummary({ cart, handleCodeRemove, shippingPrice }) {
         <motion.h6
             className={styles["total-price"]}
         >
-            Shipping: {shippingPrice ?
+            Shipping: {(shippingPrice || shippingPrice == 0) ?
                 <span>&nbsp;{shippingPrice.toFixed(2)} BGN</span> :
                 <span className="text-danger">&nbsp;Choose Country at Checkout!</span>}
         </motion.h6>
@@ -33,7 +33,7 @@ export default function CartSummary({ cart, handleCodeRemove, shippingPrice }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            Total Price: {cart && cart.totalProducts && shippingPrice && (shippingPrice + cart.totalProducts).toFixed(2)} BGN
+            Total Price: {cart && cart.totalProducts && (shippingPrice || shippingPrice == 0) && (shippingPrice + cart.totalProducts).toFixed(2)} BGN
         </motion.h2>
         {cart && cart.code &&
             <div className="d-flex justify-content-center align-items-start">

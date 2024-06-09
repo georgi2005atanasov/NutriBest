@@ -342,6 +342,14 @@ export default function OrderForm() {
                                     allCitiesCountries
                                         .filter(x => x.country == order.country)
                                         .map(x => x.shippingPrice)[0]}
+                                shippingPriceWithDiscount={allCitiesCountries &&
+                                    allCitiesCountries
+                                        .filter(x => x.country == order.country)
+                                        .map(x => x.shippingPriceWithDiscount)[0]}
+                                minimumPrice={allCitiesCountries &&
+                                    allCitiesCountries
+                                        .filter(x => x.country == order.country)
+                                        .map(x => x.minimumPriceForDiscount)[0]}
                             />
                         </Suspense>
                         <button onClick={!isSubmitting ? handleSubmit : () => { }} className={styles["button-confirm-order"]}>Confirm Order</button>

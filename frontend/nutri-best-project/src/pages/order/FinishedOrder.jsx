@@ -152,7 +152,10 @@ export default function FinishedOrder() {
 
             <div className="row">
                 <div className={`col-md-12 mt-4 justify-content-center d-flex flex-column`}>
-                    <ListOrder passedCart={cart} shippingPrice={order.shippingPrice} />
+                    <ListOrder
+                        passedCart={cart}
+                        shippingPrice={order.shippingPrice}
+                        shippingPriceWithDiscount={order.shippingPrice} />
                 </div>
             </div>
         </motion.div>

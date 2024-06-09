@@ -118,7 +118,8 @@ import {
     from "./email";
 import {
     createShippingDiscount,
-    allShippingDiscounts
+    allShippingDiscounts,
+    deleteShippingDiscount
 }
     from "./shippingDiscount";
 
@@ -202,3 +203,4 @@ export { allOrders };
 
 export { createShippingDiscount };
 export { allShippingDiscounts };
+export { deleteShippingDiscount };

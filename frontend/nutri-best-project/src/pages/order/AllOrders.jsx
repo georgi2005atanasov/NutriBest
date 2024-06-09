@@ -20,7 +20,7 @@ export default function AllOrders() {
     const submit = useSubmit();
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
-    let [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");

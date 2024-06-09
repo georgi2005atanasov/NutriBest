@@ -15,7 +15,8 @@ export default forwardRef(function DeletePromoCodeModal({ description }, ref) {
             const response = await deletePromoCodes(data);
 
             if (!response.ok) {
-                return;
+                return submit(`message=Something Went Wrong!&type=danger`,
+                    { action: "", method: "GET" });
             }
 
             window.scrollTo({
@@ -27,7 +28,7 @@ export default forwardRef(function DeletePromoCodeModal({ description }, ref) {
             ref.current.close();
 
             return submit("message=Successfully Deleted the Promo Codes!&type=success",
-                { action: "", method: "get" });
+                { action: "", method: "GET" });
         } catch (error) {
             return redirect("/error");
         }

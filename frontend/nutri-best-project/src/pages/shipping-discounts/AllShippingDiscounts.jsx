@@ -1,14 +1,18 @@
 import styles from "../css/Table.module.css";
 import shippingStyles from "./css/AllShippingDiscounts.module.css";
 import Message from "../../components/UI/Shared/Message";
+import DeleteShippingDiscountModal from "../../components/Modals/Delete/DeleteShippingDiscountModal";
 import { allShippingDiscounts } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, redirect, useLoaderData, useSearchParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import NavigationLink from "../../components/Navigation/NavigationLink";
 
 export default function AllShippingDiscounts() {
+    const dialog = useRef();
     const { data } = useLoaderData();
-    let [searchParams, setSearchParams] = useSearchParams();
+    const [country, setCountry] = useState();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
@@ -27,8 +31,9 @@ export default function AllShippingDiscounts() {
         }
     }, [setSearchParams]);
 
-    function handleDelete() {
-
+    function handleDelete(countryName) {
+        setCountry(countryName);
+        dialog.current.open();
     }
 
     return <motion.div
@@ -38,9 +43,15 @@ export default function AllShippingDiscounts() {
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.9 }}
     >
-        {/* <DeleteOrderModal ref={dialog} orderId={orderToDelete} /> */}
-        <div className="mt-3 d-flex justify-content-start">
-            <h2 className="mx-0 d-flex justify-content-center align-items-center">Shipping Discounts</h2>
+        <DeleteShippingDiscountModal ref={dialog} countryName={country} />
+        <div className="mt-3 d-flex justify-content-between align-items-center">
+            <h2 className="mx-0 mb-0 d-flex justify-content-center align-items-center">Shipping Discounts</h2>
+            <NavigationLink 
+            route="/shipping-discounts/add"
+            text="Add Shopping Discount"
+            isAdmin={true}
+            className="p-2"
+            />
         </div>
         <div className="row mt-md-4 mt-0">
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
@@ -73,13 +84,15 @@ export default function AllShippingDiscounts() {
                             <td>
                                 <button
                                     className={shippingStyles["delete-btn"]}
-                                    onClick={() => handleDelete(index)}>
+                                    onClick={() => handleDelete(discount.countryName)}>
                                     Delete
                                 </button>
                             </td>
                         </motion.tr>)}
                 </tbody>
             </table>
+            {data && data.shippingDiscounts && data.shippingDiscounts.length == 0 &&
+                <h2 className="text-center mt-3">Currently There are no Shipping Discounts!</h2>}
         </div>
     </motion.div>
 }

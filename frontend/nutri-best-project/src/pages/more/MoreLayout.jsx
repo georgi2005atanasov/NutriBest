@@ -40,8 +40,8 @@ export default function MoreLayout() {
                 </div>
                 <div className="col-md-3 d-flex justify-content-center mb-5">
                     <NavigationLink
-                        route={`/shipping-discounts`}
-                        text={"Promo Codes"}
+                        route={`/shipping-discounts/all`}
+                        text={"Shipping Discounts"}
                         isAdmin={isAdmin || isEmployee}
                         className={`${styles["item"]} text-center p-5`} />
                 </div>

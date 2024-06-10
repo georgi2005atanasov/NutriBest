@@ -105,6 +105,12 @@ export default function FinishedOrder() {
                                     {order.isShipped ? "Yes" : "No"}
                                 </span>
                             </p>
+                            {order.comment && <p>
+                                <strong>Additional Comment:</strong>&nbsp;
+                                <span>
+                                    {order.comment}
+                                </span>
+                            </p>}
                             {order.paymentMethod === "BankTransfer" && <div className="py-2 bg-light">
                                 <h4>IBAN: {order.iban}</h4>
                                 <h6>Reason: #{orderId}</h6>

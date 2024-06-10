@@ -121,7 +121,7 @@ export async function loader({ request, params }) {
     const response = await allOrders(ordersPage, search);
 
     if (!response) {
-        return redirect("/?message=Page Not Found!&type=danger");
+        return redirect("/login");
     }
 
     if (!response.ok) {

@@ -25,7 +25,7 @@ export default function CartSummary({ cart, handleCodeRemove, shippingDiscount, 
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            Saved: {cart && (cart.totalSaved || cart.totalSaved == 0) && (cart.totalSaved + shippingDiscount).toFixed(2)} BGN
+            Saved: {cart && (cart.totalSaved || cart.totalSaved == 0) && (cart.totalSaved + (shippingDiscount || 0)).toFixed(2)} BGN
         </motion.h6>
         <motion.h2
             className={styles["total-price"]}

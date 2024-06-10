@@ -6,7 +6,7 @@ import Loader from "../../components/UI/Shared/Loader";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
 import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteInput";
 import { CartContext } from "../../store/CartContext";
-import { getCart, getImageByProductId, getProfileDetails, getUserAddress, allCitiesWithCountries, allPaymentMethods, createGuestOrder, createUserOrder, sendConfirmOrderMessage } from "../../../../../backend/api/api";
+import { getCart, getImageByProductId, getProfileDetails, getUserAddress, allCitiesWithCountries, allPaymentMethods, createGuestOrder, createUserOrder, sendConfirmOrderMessage, sendOrderToAdmin } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useNavigation, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useEffect, Suspense, useContext, useCallback } from "react";
@@ -164,6 +164,8 @@ export default function OrderForm() {
                 behavior: 'smooth'
             });
 
+            const totalPrice = cart.totalProducts;
+
             await getCartProducts();
 
             submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
@@ -171,6 +173,15 @@ export default function OrderForm() {
                 order.name,
                 result.id,
                 `http://localhost:5173/order/confirm?orderId=${result.id}`
+            );
+
+            await sendOrderToAdmin(order.email,
+                order.name,
+                order.email,
+                order.phoneNumber,
+                result.id,
+                `http://localhost:5173/order/finished?orderId=${result.id}`,
+                totalPrice
             );
         } else {
             const result = await createUserOrder(data);
@@ -193,6 +204,8 @@ export default function OrderForm() {
                 behavior: 'smooth'
             });
 
+            const totalPrice = cart.totalProducts;
+
             await getCartProducts();
 
             submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
@@ -200,6 +213,15 @@ export default function OrderForm() {
                 order.name,
                 result.id,
                 `http://localhost:5173/order/confirm?orderId=${result.id}`
+            );
+
+            await sendOrderToAdmin(order.email,
+                order.name,
+                order.email,
+                order.phoneNumber,
+                result.id,
+                `http://localhost:5173/order/finished?orderId=${result.id}`,
+                totalPrice
             );
         }
     }

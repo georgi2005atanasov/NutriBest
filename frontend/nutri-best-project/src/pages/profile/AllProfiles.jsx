@@ -147,7 +147,7 @@ export async function loader({ request, params }) {
     const data = await allProfiles(usersPage, search);
 
     if (!data) {
-        return redirect("/?message=Page Not Found!&type=danger");
+        return redirect("/login");
     }
 
     return {

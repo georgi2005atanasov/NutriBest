@@ -8,7 +8,6 @@
     margin: auto;
     margin-top: 10px;
     max-height: 490px !important;
-    /* margin-bottom: 300px; */
 }
 
 .order-message-wrapper {
@@ -17,7 +16,7 @@
     padding: 20px;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    background-color: #f1f1f1; /* Light grey for message box */
+    background-color: #f1f1f1;
 }
 
 @media (max-width: 768px) {

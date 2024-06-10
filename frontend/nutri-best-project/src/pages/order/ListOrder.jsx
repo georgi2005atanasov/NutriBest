@@ -9,14 +9,13 @@ import ListItem from "./ListItem";
 export default function ListOrder({ passedCart, shippingPrice, shippingPriceWithDiscount, minimumPrice }) {
     const { cart } = useContext(CartContext);
 
-    console.log(shippingPriceWithDiscount);
-    console.log(minimumPrice);
-
     if (passedCart) {
+        const hasShippingDiscount = (passedCart && minimumPrice <= passedCart.totalProducts) || (passedCart && !minimumPrice);
         return <>
             <CartSummary
                 cart={passedCart}
-                shippingPrice={(passedCart && minimumPrice <= passedCart.totalProducts) || !minimumPrice ?
+                shippingDiscount={hasShippingDiscount && shippingPrice - shippingPriceWithDiscount}
+                shippingPrice={hasShippingDiscount ?
                     shippingPriceWithDiscount :
                     shippingPrice} />
             <div className={`${listStyles["list-order"]} card pt-3 mt-md-0 mt-3`}>
@@ -24,16 +23,17 @@ export default function ListOrder({ passedCart, shippingPrice, shippingPriceWith
                     <ListItem
                         key={`${item.productId}-${item.flavour}-${item.grams}`}
                         styles={cartStyles}
-                        cartItem={item} />
-                )}
+                        cartItem={item} />)}
             </div>
         </>
     }
 
+    const hasShippingDiscount = (cart && minimumPrice <= cart.totalProducts) || (cart && !minimumPrice);
     return <>
         <CartSummary
             cart={cart}
-            shippingPrice={(cart && minimumPrice <= cart.totalProducts) || !minimumPrice ?
+            shippingDiscount={hasShippingDiscount && shippingPrice - shippingPriceWithDiscount}
+            shippingPrice={hasShippingDiscount ?
                 shippingPriceWithDiscount :
                 shippingPrice} />
 

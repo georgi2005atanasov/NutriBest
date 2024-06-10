@@ -134,3 +134,11 @@ export async function deleteOrder(id) {
 
     return response;
 }
+
+export async function getOrderRelatedProducts() {
+    const response = await fetch(`https://localhost:7056/Orders/RelatedProducts`, {
+        method: 'GET'
+    })
+
+    return response;
+}

@@ -2,7 +2,7 @@
 import styles from "./css/CartSummary.module.css";
 import { motion } from "framer-motion";
 
-export default function CartSummary({ cart, handleCodeRemove, shippingPrice }) {
+export default function CartSummary({ cart, handleCodeRemove, shippingDiscount, shippingPrice }) {
     return <div className={`${styles["cart-summary"]} mb-md-2 mb-0 mt-md-0 mt-3 mb-0`}>
         <motion.h6
             className={styles["total-price"]}
@@ -25,7 +25,7 @@ export default function CartSummary({ cart, handleCodeRemove, shippingPrice }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            Saved: {cart && cart.totalSaved && cart.totalSaved.toFixed(2)} BGN
+            Saved: {cart && (cart.totalSaved || cart.totalSaved == 0) && (cart.totalSaved + shippingDiscount).toFixed(2)} BGN
         </motion.h6>
         <motion.h2
             className={styles["total-price"]}

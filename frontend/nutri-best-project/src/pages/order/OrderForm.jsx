@@ -12,6 +12,7 @@ import { useNavigation, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useEffect, Suspense, useContext, useCallback } from "react";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
+import OrderRelatedProducts from "./OrderRelatedProducts";
 
 
 export default function OrderForm() {
@@ -54,6 +55,18 @@ export default function OrderForm() {
 
     const defaultCountry = countries && countries.find(country => country.country === order.country) || null;
     const defaultCity = cities && cities.find(city => city.cityName === order.city) || null;
+    const shippingPrice = allCitiesCountries &&
+        allCitiesCountries
+            .filter(x => x.country == order.country)
+            .map(x => x.shippingPrice)[0];
+    const shippingPriceWithDiscount = allCitiesCountries &&
+        allCitiesCountries
+            .filter(x => x.country == order.country)
+            .map(x => x.shippingPriceWithDiscount)[0];
+    const minimumPriceForDiscount = allCitiesCountries &&
+        allCitiesCountries
+            .filter(x => x.country == order.country)
+            .map(x => x.minimumPriceForDiscount)[0];
 
     const getCartProducts = useCallback(async function getCartProducts() {
         const cartData = await getCart();
@@ -338,24 +351,21 @@ export default function OrderForm() {
                     <div className="d-flex flex-column">
                         <Suspense fallback={<Loader />}>
                             <ListOrder
-                                shippingPrice={allCitiesCountries &&
-                                    allCitiesCountries
-                                        .filter(x => x.country == order.country)
-                                        .map(x => x.shippingPrice)[0]}
-                                shippingPriceWithDiscount={allCitiesCountries &&
-                                    allCitiesCountries
-                                        .filter(x => x.country == order.country)
-                                        .map(x => x.shippingPriceWithDiscount)[0]}
-                                minimumPrice={allCitiesCountries &&
-                                    allCitiesCountries
-                                        .filter(x => x.country == order.country)
-                                        .map(x => x.minimumPriceForDiscount)[0]}
+                                shippingPrice={shippingPrice}
+                                shippingPriceWithDiscount={shippingPriceWithDiscount}
+                                minimumPrice={minimumPriceForDiscount}
                             />
                         </Suspense>
                         <button onClick={!isSubmitting ? handleSubmit : () => { }} className={styles["button-confirm-order"]}>Confirm Order</button>
+                        <div className="position-relative">
+                            <OrderRelatedProducts
+                                totalProducts={cart && cart.totalProducts}
+                                shippingPrice={shippingPrice}
+                                shippingPriceWithDiscount={shippingPriceWithDiscount}
+                                minimumPrice={minimumPriceForDiscount} />
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );

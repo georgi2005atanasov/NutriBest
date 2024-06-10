@@ -1,7 +1,9 @@
+/* eslint-disable no-constant-condition */
 import styles from "./css/FinishedOrder.module.css";
 import { useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { confirmOrder } from "../../../../../backend/api/orders";
+import { sendConfirmedOrderToAdmin } from "../../../../../backend/api/email";
 
 export default function ConfirmOrder() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +12,24 @@ export default function ConfirmOrder() {
 
     useEffect(() => {
         async function handleConfirmation() {
-            await confirmOrder(orderId);
+            const response = await confirmOrder(orderId);
+            const { hasUpdated } = await response.json();
+
+            if (hasUpdated) {
+                const emailRes = await sendConfirmedOrderToAdmin(orderId, `/order/finished?orderId=${orderId}`);
+                if (!emailRes.ok) {
+                    let maxRetries = 5;
+                    while (maxRetries > 0) {
+                        const response = await sendConfirmedOrderToAdmin(orderId, `/order/finished?orderId=${orderId}`);
+
+                        if (response.ok) {
+                            break;
+                        }
+
+                        maxRetries -= 1;
+                    }
+                }
+            }
         }
 
         handleConfirmation();

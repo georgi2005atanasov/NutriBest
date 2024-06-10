@@ -115,7 +115,8 @@ import {
     sendConfirmOrderMessage,
     sendForgottenPasswordMessage,
     sendPromoCode,
-    sendOrderToAdmin
+    sendOrderToAdmin,
+    sendConfirmedOrderToAdmin
 }
     from "./email";
 import {
@@ -204,6 +205,7 @@ export { sendForgottenPasswordMessage };
 export { sendPromoCode };
 export { allOrders };
 export { sendOrderToAdmin };
+export { sendConfirmedOrderToAdmin };
 
 export { createShippingDiscount };
 export { allShippingDiscounts };

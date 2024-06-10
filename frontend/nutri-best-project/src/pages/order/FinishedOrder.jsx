@@ -18,8 +18,6 @@ export default function FinishedOrder() {
     const submit = useSubmit();
     const orderId = searchParams.get("orderId");
 
-    console.log(order);
-
     useEffect(() => {
         async function handleOrder() {
             let realId = Number(orderId);

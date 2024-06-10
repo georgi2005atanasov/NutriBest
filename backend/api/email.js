@@ -65,7 +65,6 @@ export async function sendOrderToAdmin(email,
     const response = await fetch(`https://localhost:7056/Email/SendOrderToAdmin`, {
         method: "POST",
         body: JSON.stringify({
-            to: email,
             subject: `New Order #000000${orderId}`,
             customerName,
             customerEmail,
@@ -73,6 +72,22 @@ export async function sendOrderToAdmin(email,
             orderId,
             orderDetailsUrl,
             totalPrice: `${totalPrice.toFixed(2)}`
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return response;
+}
+
+export async function sendConfirmedOrderToAdmin(orderId, orderDetailsUrl) {
+    const response = await fetch(`https://localhost:7056/Email/SendConfirmedOrderToAdmin`, {
+        method: "POST",
+        body: JSON.stringify({
+            subject: `Order #000000${orderId} Confirmed!`,
+            orderId,
+            orderDetailsUrl 
         }),
         headers: {
             "Content-Type": "application/json"

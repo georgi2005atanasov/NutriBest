@@ -22,8 +22,6 @@ export default function ProductItem({ product }) {
 
     const isLoading = navigation.state === "loading";
 
-    console.log(product);
-
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);

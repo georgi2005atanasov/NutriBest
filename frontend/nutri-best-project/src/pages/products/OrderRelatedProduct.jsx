@@ -9,8 +9,6 @@ import AddToCartRelatedProduct from "./AddToCartRelatedProduct";
 export default function OrderRelatedProduct({ product, promotions }) {
     const [src, setSrc] = useState('');
 
-    console.log(promotions);
-
     useEffect(() => {
         async function getImage(productId) {
             const image = await getImageByProductId(productId);

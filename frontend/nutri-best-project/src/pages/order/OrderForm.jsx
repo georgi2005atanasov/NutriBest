@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import styles from "./css/ListOrder.module.css";
 import { FormControlLabel, Checkbox } from "@mui/material";
 import ListOrder from "./ListOrder";
@@ -169,20 +170,39 @@ export default function OrderForm() {
             await getCartProducts();
 
             submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
-            await sendConfirmOrderMessage(order.email,
-                order.name,
-                result.id,
-                `http://localhost:5173/order/confirm?orderId=${result.id}`
-            );
 
-            await sendOrderToAdmin(order.email,
-                order.name,
-                order.email,
-                order.phoneNumber,
-                result.id,
-                `http://localhost:5173/order/finished?orderId=${result.id}`,
-                totalPrice
-            );
+            let maxRetries = 10;
+
+            while (maxRetries > 0) {
+                const response = await sendConfirmOrderMessage(order.email,
+                    order.name,
+                    result.id,
+                    `http://localhost:5173/order/confirm?orderId=${result.id}`
+                );
+
+                if (response.ok) {
+                    break;
+                }
+
+                maxRetries -= 1;
+            }
+
+            while (maxRetries > 0) {
+                const response = await sendOrderToAdmin(order.email,
+                    order.name,
+                    order.email,
+                    order.phoneNumber,
+                    result.id,
+                    `http://localhost:5173/order/finished?orderId=${result.id}`,
+                    totalPrice
+                );
+
+                if (response.ok) {
+                    break;
+                }
+
+                maxRetries -= 1;
+            }
         } else {
             const result = await createUserOrder(data);
 
@@ -209,20 +229,38 @@ export default function OrderForm() {
             await getCartProducts();
 
             submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
-            await sendConfirmOrderMessage(order.email,
-                order.name,
-                result.id,
-                `http://localhost:5173/order/confirm?orderId=${result.id}`
-            );
 
-            await sendOrderToAdmin(order.email,
-                order.name,
-                order.email,
-                order.phoneNumber,
-                result.id,
-                `http://localhost:5173/order/finished?orderId=${result.id}`,
-                totalPrice
-            );
+            let maxRetries = 10;
+            while (maxRetries > 0) {
+                const response = await sendConfirmOrderMessage(order.email,
+                    order.name,
+                    result.id,
+                    `http://localhost:5173/order/confirm?orderId=${result.id}`
+                );
+
+                if (response.ok) {
+                    break;
+                }
+
+                maxRetries -= 1;
+            }
+
+            while (maxRetries > 0) {
+                const response = await sendOrderToAdmin(order.email,
+                    order.name,
+                    order.email,
+                    order.phoneNumber,
+                    result.id,
+                    `http://localhost:5173/order/finished?orderId=${result.id}`,
+                    totalPrice
+                );
+
+                if (response.ok) {
+                    break;
+                }
+
+                maxRetries -= 1;
+            }
         }
     }
 

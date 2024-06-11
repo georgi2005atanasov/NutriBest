@@ -1,0 +1,31 @@
+.notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 1000; /* High z-index to keep notifications above other content */
+    width: auto; /* Adjust width as needed */
+    max-width: 300px; /* Ensures notifications are not too wide */
+}
+
+.notification {
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    color: white;
+    padding: 12px 18px;
+    margin-top: 10px; /* Space between notifications */
+    border-radius: 6px; /* Rounded corners for better aesthetics */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for 3D effect */
+    width: 100%; /* Full width of the container */
+    box-sizing: border-box; /* Includes padding and border in the width */
+    display: flex; /* Flexbox to manage the layout */
+    justify-content: space-between; /* Spacing out elements inside notification */
+    align-items: center; /* Vertically centers the content */
+}
+
+.notification:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    transform: translateX(10px);
+}

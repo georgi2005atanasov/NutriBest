@@ -103,7 +103,7 @@ export async function getOrderByAdmin(id) {
     return response;
 }
 
-export async function changeOrderStatuses(id, isFinished, isPaid, isShipped) {
+export async function changeOrderStatuses(id, isFinished, isPaid, isShipped, isConfirmed) {
     const token = getAuthToken();
 
     const response = await fetch(`https://localhost:7056/Orders/change-status/${id}`, {
@@ -111,7 +111,8 @@ export async function changeOrderStatuses(id, isFinished, isPaid, isShipped) {
         body: JSON.stringify({
             isPaid,
             isFinished,
-            isShipped
+            isShipped,
+            isConfirmed
         }),
         headers: {
             "Authorization": `Bearer ${token}`,

@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
-import { getDate } from "../../utils/utils";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 

@@ -14,21 +14,32 @@ export default memo(function OrderRow({ order, handleDelete }) {
                 await changeOrderStatuses(order.orderId,
                     order.isFinished,
                     order.isPaid,
-                    !order.isShipped
+                    !order.isShipped,
+                    order.isConfirmed
                 );
             }
             else if (identifier == "isFinished") {
                 await changeOrderStatuses(order.orderId,
                     !order.isFinished,
                     order.isPaid,
-                    order.isShipped
+                    order.isShipped,
+                    order.isConfirmed
                 );
             }
             else if (identifier == "isPaid") {
                 await changeOrderStatuses(order.orderId,
                     order.isFinished,
                     !order.isPaid,
-                    order.isShipped
+                    order.isShipped,
+                    order.isConfirmed
+                );
+            }
+            else if (identifier == "isConfirmed") {
+                await changeOrderStatuses(order.orderId,
+                    order.isFinished,
+                    order.isPaid,
+                    order.isShipped,
+                    !order.isConfirmed
                 );
             }
         }
@@ -45,7 +56,9 @@ export default memo(function OrderRow({ order, handleDelete }) {
             </Link>
         </td>
         <td className={order.isConfirmed ? "text-success" : "text-danger"}>
-            {order.isConfirmed ? "Yes" : "No"}
+            <Link onClick={() => changeStatus("isConfirmed")} className={order.isConfirmed ? "text-success" : "text-danger"}>
+                {order.isConfirmed ? "Yes" : "No"}
+            </Link>
         </td>
         <td>{new Date(order.madeOn).toLocaleDateString()}</td>
         <td>

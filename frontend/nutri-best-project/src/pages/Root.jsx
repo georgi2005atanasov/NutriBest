@@ -3,6 +3,7 @@ import Footer from "../components/UI/Shared/Footer";
 import Loader from "../components/UI/Shared/Loader";
 import CategoryBrandContextProvider from "../store/CategoryBrandContext";
 import ProductSpecsContextProvider from "../store/ProductSpecsContext";
+import Notification from "../components/Notifications/Notification";
 import { getAuthToken } from "../utils/auth";
 import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
@@ -82,6 +83,7 @@ export default function RootLayout() {
             <ProductSpecsContextProvider>
                 <CartContextProvider>
                     <MainNavigation />
+                    {isAdmin && <Notification />}
                     <Outlet context={token} />
                 </CartContextProvider>
             </ProductSpecsContextProvider>

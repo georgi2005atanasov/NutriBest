@@ -16,11 +16,11 @@ export default function ConfirmOrder() {
             const { hasUpdated } = await response.json();
 
             if (hasUpdated) {
-                const emailRes = await sendConfirmedOrderToAdmin(orderId, `/order/finished?orderId=${orderId}`);
+                const emailRes = await sendConfirmedOrderToAdmin(orderId, `http://localhost:5173/order/finished?orderId=${orderId}`);
                 if (!emailRes.ok) {
                     let maxRetries = 5;
                     while (maxRetries > 0) {
-                        const response = await sendConfirmedOrderToAdmin(orderId, `/order/finished?orderId=${orderId}`);
+                        const response = await sendConfirmedOrderToAdmin(orderId, `http://localhost:5173/order/finished?orderId=${orderId}`);
 
                         if (response.ok) {
                             break;

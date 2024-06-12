@@ -7,7 +7,7 @@ import DeleteProductButton from "../../../components/UI/Buttons/Products/DeleteP
 export default function DetailsButtons({ productId, isVerified, promotion }) {
     return <>
         {!isVerified ?
-            <div className="d-flex justify-content-evenly flex-lg-row flex-column">
+            <div className="d-flex justify-content-md-evenly flex-lg-row flex-column">
                 <AddToCartButton
                     productId={productId}
                     isValidPromotion={promotion != null}

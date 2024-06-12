@@ -11,7 +11,7 @@
 }
 
 .notification {
-    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    background-color: rgba(184, 240, 203, 0.75); /* Semi-transparent black background */
     color: white;
     padding: 12px 18px;
     margin-top: 10px; /* Space between notifications */

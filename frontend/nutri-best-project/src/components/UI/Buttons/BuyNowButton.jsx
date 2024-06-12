@@ -51,7 +51,7 @@ export default function BuyNowButton({ productId, wrapperStyles = "", linkStyles
         return submit(null, { action: "/order", method: "GET" });
     }
 
-    return <div className={`text-center ${wrapperStyles} d-flex flex-column`}>
+    return <div className={`${wrapperStyles} d-flex flex-column justify-content-center align-items-center`}>
         <button onClick={handleCartAdd}
             className={`${linkStyles} ${styles["promotion-btn"]} ${styles["add-to-cart-btn"]}`}>
             &nbsp;Buy Now&nbsp;

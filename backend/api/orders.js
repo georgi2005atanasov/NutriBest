@@ -106,7 +106,7 @@ export async function getOrderByAdmin(id) {
 export async function changeOrderStatuses(id, isFinished, isPaid, isShipped, isConfirmed) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Orders/change-status/${id}`, {
+    const response = await fetch(`https://localhost:7056/Orders/ChangeStatus/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
             isPaid,

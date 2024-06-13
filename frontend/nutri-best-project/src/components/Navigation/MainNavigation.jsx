@@ -10,6 +10,7 @@ import { memo, useContext, useEffect, useState } from "react";
 import { connection } from "../../../../../backend/services/signalRService";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const MainNavigation = memo(function MainNavigation() {
     const token = getAuthToken();
@@ -53,12 +54,12 @@ const MainNavigation = memo(function MainNavigation() {
         {(isAdmin || isEmployee) &&
             <h5 className="text-center mt-3">
                 &#x1F7E2;
-                <a href="" className="text-success">
+                <Link to="/live" className="text-success">
                     Live:&nbsp;{liveUsersCount &&
                         JSON.stringify(liveUsersCount
                             .map(x => x.count)
                             .reduce((acc, x) => acc += x, 0))}
-                </a>
+                </Link>
             </h5>}
         <motion.div
             id="main-navigation"

@@ -71,7 +71,7 @@ export async function setProductInCart(productId, count, flavour, grams) {
 }
 
 export async function applyPromoCode(code) {
-    const response = await fetch(`https://localhost:7056/Cart/apply-promo-code`, {
+    const response = await fetch(`https://localhost:7056/Cart/ApplyPromoCode`, {
         method: "POST",
         body: JSON.stringify({
             code
@@ -86,7 +86,7 @@ export async function applyPromoCode(code) {
 }
 
 export async function removePromoCode(code) {
-    const response = await fetch(`https://localhost:7056/Cart/remove-promo-code`, {
+    const response = await fetch(`https://localhost:7056/Cart/RemovePromoCode`, {
         method: "DELETE",
         body: JSON.stringify({
             code

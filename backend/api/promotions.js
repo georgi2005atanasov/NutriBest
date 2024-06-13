@@ -13,7 +13,7 @@ export async function changeProductPromotion(promotionId, productId) {
     const token = getAuthToken();
 
     if (!promotionId) {
-        const response = await fetch(`https://localhost:7056/Promotions/remove-product-promotion/${productId}`,
+        const response = await fetch(`https://localhost:7056/Promotions/RemoveProductPromotion/${productId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -23,7 +23,7 @@ export async function changeProductPromotion(promotionId, productId) {
 
         return await response.json();
     } else {
-        const response = await fetch(`https://localhost:7056/Promotions/add-product-promotion/${promotionId}/${productId}`,
+        const response = await fetch(`https://localhost:7056/Promotions/AddProductPromotion/${promotionId}/${productId}`,
             {
                 method: "POST",
                 headers: {
@@ -115,7 +115,7 @@ export async function deletePromotion(promotionId) {
 export async function getProductsOfPromotion(promotionId) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Promotions/${promotionId}/products`,
+    const response = await fetch(`https://localhost:7056/Promotions/${promotionId}/Products`,
         {
             method: "GET",
             headers: {

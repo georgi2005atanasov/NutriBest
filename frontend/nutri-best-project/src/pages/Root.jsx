@@ -6,9 +6,10 @@ import ProductSpecsContextProvider from "../store/ProductSpecsContext";
 import Notification from "../components/Notifications/Notification";
 import { getAuthToken } from "../utils/auth";
 import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
-import { useEffect } from "react";
 import CartContextProvider from "../store/CartContext";
+import { connection } from "../../../../backend/services/signalRService";
 import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PRICE = "";
@@ -76,6 +77,14 @@ export default function RootLayout() {
         }, TOKEN_DURATION);
     }, [token, submit, TOKEN_DURATION]);
 
+    useEffect(() => {
+        async function updateRoutes() {
+            await connection.invoke('JoinPage', window.location.pathname);
+        }
+
+        updateRoutes()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [window.location.pathname]);
 
     return <>
         {isLoading && <Loader />}

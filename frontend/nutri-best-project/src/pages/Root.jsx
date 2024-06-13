@@ -10,6 +10,7 @@ import CartContextProvider from "../store/CartContext";
 import { connection } from "../../../../backend/services/signalRService";
 import useAuth from "../hooks/useAuth";
 import { useEffect } from "react";
+import LowStockNotification from "../components/Notifications/LowStockNotification";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PRICE = "";
@@ -92,7 +93,10 @@ export default function RootLayout() {
             <ProductSpecsContextProvider>
                 <CartContextProvider>
                     <MainNavigation />
-                    {isAdmin && <Notification />}
+                    {isAdmin && <>
+                        <Notification />
+                        <LowStockNotification />
+                    </>}
                     <Outlet context={token} />
                 </CartContextProvider>
             </ProductSpecsContextProvider>

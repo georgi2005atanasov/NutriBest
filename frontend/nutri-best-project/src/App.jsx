@@ -48,6 +48,7 @@ import ShippingDiscountsLayout from './pages/shipping-discounts/ShippingDiscount
 import AddShippingDiscount, { loader as loadCountries } from './pages/shipping-discounts/AddShippingDiscount.jsx';
 import AllShippingDiscounts, { loader as loadShippingDiscounts } from './pages/shipping-discounts/AllShippingDiscounts.jsx';
 import LiveLayout from './pages/live/LiveLayout.jsx';
+import LiveDashboard from './pages/live/LiveDashboard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -181,7 +182,11 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: 'live', element: <LiveLayout />
+        path: 'live', element: <LiveLayout />, children: [
+          {
+            path: 'dashboard', element: <LiveDashboard />
+          }
+        ]
       }
     ],
     id: "rootLoader",

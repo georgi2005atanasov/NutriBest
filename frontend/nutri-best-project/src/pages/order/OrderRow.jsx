@@ -56,9 +56,10 @@ export default memo(function OrderRow({ order, handleDelete }) {
             </Link>
         </td>
         <td className={order.isConfirmed ? "text-success" : "text-danger"}>
-            <Link onClick={() => changeStatus("isConfirmed")} className={order.isConfirmed ? "text-success" : "text-danger"}>
+            {!order.isConfirmed ? <Link onClick={() => changeStatus("isConfirmed")} className={order.isConfirmed ? "text-success" : "text-danger"}>
                 {order.isConfirmed ? "Yes" : "No"}
-            </Link>
+            </Link> :
+                "Yes"}
         </td>
         <td>{new Date(order.madeOn).toLocaleDateString()}</td>
         <td>

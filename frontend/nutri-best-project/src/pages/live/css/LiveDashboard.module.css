@@ -1,0 +1,34 @@
+.live-users-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    /* Dark grey for contrast */
+    background-color: #f8f8f8;
+    /* Light grey background */
+    border: 2px solid #ccc;
+    /* Slightly darker grey border for definition */
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-clip: padding-box;
+}
+
+.live-users-button:hover {
+    background-color: #e0e0e0;
+    /* A darker shade of grey for hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.live-users-button:active {
+    background-color: #d4d4d4;
+    /* Even darker for the active state */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}

@@ -15,8 +15,6 @@ const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
     });
     const [roles, setRoles] = useState([]);
 
-    console.log(currentRoles);
-
     function handleClose(event) {
         event.stopPropagation();
         if (currentRoles && currentRoles.length > 0) {

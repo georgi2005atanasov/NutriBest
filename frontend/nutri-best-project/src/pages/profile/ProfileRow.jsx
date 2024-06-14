@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export default function ProfileRow({ profile, isAdmin, handleGrant }) {
-    console.log(profile);
     return <motion.tr className="">
         <td>{profile.userName}</td>
         <td>{new Date(profile.madeOn).toLocaleDateString()}</td>

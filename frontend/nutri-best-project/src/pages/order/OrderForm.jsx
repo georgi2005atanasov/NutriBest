@@ -171,38 +171,24 @@ export default function OrderForm() {
 
             submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
 
-            let maxRetries = 10;
-
-            while (maxRetries > 0) {
-                const response = await sendConfirmOrderMessage(order.email,
-                    order.name,
-                    result.id,
-                    `http://localhost:5173/order/confirm?orderId=${result.id}`
-                );
-
-                if (response.ok) {
-                    break;
-                }
-
-                maxRetries -= 1;
-            }
-
-            while (maxRetries > 0) {
-                const response = await sendOrderToAdmin(order.email,
-                    order.name,
-                    order.email,
-                    order.phoneNumber,
-                    result.id,
-                    `http://localhost:5173/order/finished?orderId=${result.id}`,
-                    totalPrice
-                );
-
-                if (response.ok) {
-                    break;
-                }
-
-                maxRetries -= 1;
-            }
+            const confirmOrderResponse = sendConfirmOrderMessage(
+                order.email,
+                order.name,
+                result.id,
+                `http://localhost:5173/order/confirm?orderId=${result.id}`
+            );
+            
+            const sendToAdminResponse = sendOrderToAdmin(
+                order.email,
+                order.name,
+                order.email,
+                order.phoneNumber,
+                result.id,
+                `http://localhost:5173/order/finished?orderId=${result.id}`,
+                totalPrice
+            );
+            
+            Promise.all([confirmOrderResponse, sendToAdminResponse])
         } else {
             const result = await createUserOrder(data);
 
@@ -230,37 +216,24 @@ export default function OrderForm() {
 
             submit(`orderId=000000${result.id}`, { action: `/order/finished`, method: "GET" });
 
-            let maxRetries = 10;
-            while (maxRetries > 0) {
-                const response = await sendConfirmOrderMessage(order.email,
-                    order.name,
-                    result.id,
-                    `http://localhost:5173/order/confirm?orderId=${result.id}`
-                );
-
-                if (response.ok) {
-                    break;
-                }
-
-                maxRetries -= 1;
-            }
-
-            while (maxRetries > 0) {
-                const response = await sendOrderToAdmin(order.email,
-                    order.name,
-                    order.email,
-                    order.phoneNumber,
-                    result.id,
-                    `http://localhost:5173/order/finished?orderId=${result.id}`,
-                    totalPrice
-                );
-
-                if (response.ok) {
-                    break;
-                }
-
-                maxRetries -= 1;
-            }
+            const confirmOrderResponse = sendConfirmOrderMessage(
+                order.email,
+                order.name,
+                result.id,
+                `http://localhost:5173/order/confirm?orderId=${result.id}`
+            );
+            
+            const sendToAdminResponse = sendOrderToAdmin(
+                order.email,
+                order.name,
+                order.email,
+                order.phoneNumber,
+                result.id,
+                `http://localhost:5173/order/finished?orderId=${result.id}`,
+                totalPrice
+            );
+            
+            Promise.all([confirmOrderResponse, sendToAdminResponse])
         }
     }
 

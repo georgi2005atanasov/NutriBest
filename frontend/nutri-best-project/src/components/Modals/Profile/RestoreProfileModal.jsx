@@ -13,8 +13,6 @@ const RestoreProfileModal = forwardRef(function RestoreProfileModal({ profileId 
         ref.current.close();
     }
 
-    console.log(profileId);
-
     async function handleRestore() {
         const response = await restoreProfile(profileId);
         const data = await response.json();

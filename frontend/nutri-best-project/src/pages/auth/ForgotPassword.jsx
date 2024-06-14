@@ -59,6 +59,21 @@ export async function action({ request, params }) {
     try {
         const data = await getFormData(request);
         const response = await sendForgottenPasswordMessage(data.email);
+
+        let retries = 5;
+
+        if (!response.ok) {
+            while (retries > 0) {
+                const newResponse = await sendForgottenPasswordMessage(data.email);
+
+                if (newResponse.ok) {
+                    break;
+                }
+
+                retries -= 1;
+            }
+        }
+
         const result = await response.json();
 
         return result;

@@ -61,6 +61,10 @@ export default function RootLayout() {
             if (!sessionStorage.getItem("users-page")) {
                 sessionStorage.setItem("users-page", DEFAULT_PAGE);
             }
+
+            if (!sessionStorage.getItem("notifications-page")) {
+                sessionStorage.setItem("notifications-page", DEFAULT_PAGE);
+            }
         }
     });
 

@@ -3,13 +3,13 @@ import { registerLowStockHandler, unregisterLowStockHandler } from '../../../../
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const PRIORITIES = {
+export const PRIORITIES = {
     "Low": "warning",
     "Medium": "danger",
     "High": "danger",
 }
 
-const PRIORITIES_BACKGROUND = {
+export const PRIORITIES_BACKGROUND = {
     "Low": "low-priority",
     "Medium": "medium-priority",
     "High": "high-priority",

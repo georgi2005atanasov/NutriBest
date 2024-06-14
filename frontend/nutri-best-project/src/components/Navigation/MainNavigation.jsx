@@ -10,24 +10,18 @@ import { memo, useContext, useEffect, useState } from "react";
 import { connection } from "../../../../../backend/services/signalRService";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
 import LiveUsersCount from "./LiveUsersCount";
 
 const MainNavigation = memo(function MainNavigation() {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const { categories } = useContext(CategoryBrandContext);
-    const [liveUsers, setLiveUsers] = useState(JSON.parse(localStorage.getItem("usersCount")));
+    const [liveUsers, setLiveUsers] = useState();
 
     useEffect(() => {
         const updateNotification = (routesWithCount) => {
             if (routesWithCount) {
                 setLiveUsers(routesWithCount);
-                localStorage.setItem("usersCount",
-                    JSON.stringify(routesWithCount));
-            }
-            else {
-                setLiveUsers(localStorage.getItem("usersCount"));
             }
         };
 

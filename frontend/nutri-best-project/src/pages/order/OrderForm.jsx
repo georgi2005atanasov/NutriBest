@@ -147,15 +147,15 @@ export default function OrderForm() {
         if (!isAuthenticated) {
             const result = await createGuestOrder(data);
 
-            if (result.status && result.status == "400") {
-                return;
-            }
             if (result.errors) {
                 setErrors(result.errors);
                 return;
             }
             if (result.message) {
                 setErrors({ message: result.message });
+                return;
+            }
+            if (result.status && result.status == "400") {
                 return;
             }
 
@@ -206,15 +206,15 @@ export default function OrderForm() {
         } else {
             const result = await createUserOrder(data);
 
-            if (result.status && result.status == "400") {
-                return;
-            }
             if (result.errors) {
                 setErrors(result.errors);
                 return;
             }
             if (result.message) {
                 setErrors({ message: result.message });
+                return;
+            }
+            if (result.status && result.status == "400") {
                 return;
             }
 

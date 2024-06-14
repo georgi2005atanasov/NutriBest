@@ -53,3 +53,14 @@
 .list-order-wrapper {
     min-height: 318px;
 }
+
+.error-confirm {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #f3b5b5
+}

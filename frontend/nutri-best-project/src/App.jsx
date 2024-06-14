@@ -49,6 +49,9 @@ import AddShippingDiscount, { loader as loadCountries } from './pages/shipping-d
 import AllShippingDiscounts, { loader as loadShippingDiscounts } from './pages/shipping-discounts/AllShippingDiscounts.jsx';
 import LiveLayout from './pages/live/LiveLayout.jsx';
 import LiveDashboard from './pages/live/LiveDashboard.jsx';
+import NotificationLayout from './pages/notifications/NotificationsLayout.jsx';
+import NotificationsLayout from './pages/notifications/NotificationsLayout.jsx';
+import AllNotifications, { loader as loadNotifications } from './pages/notifications/AllNotifications.jsx';
 
 const router = createBrowserRouter([
   {
@@ -185,6 +188,13 @@ const router = createBrowserRouter([
         path: 'live', element: <LiveLayout />, children: [
           {
             path: 'dashboard', element: <LiveDashboard />
+          }
+        ]
+      },
+      {
+        path: 'notifications', element: <NotificationsLayout />, children: [
+          {
+            index: true, element: <AllNotifications />, loader: loadNotifications
           }
         ]
       }

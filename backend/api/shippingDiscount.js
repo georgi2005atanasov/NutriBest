@@ -1,9 +1,10 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
+import { HOST } from "../utils/util";
 
 export async function createShippingDiscount(shippingDiscount) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/ShippingDiscount`, {
+    const response = await fetch(`${HOST}/ShippingDiscount`, {
         method: "POST",
         body: JSON.stringify(shippingDiscount),
         headers: {
@@ -18,7 +19,7 @@ export async function createShippingDiscount(shippingDiscount) {
 export async function deleteShippingDiscount(countryName) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/ShippingDiscount`, {
+    const response = await fetch(`${HOST}/ShippingDiscount`, {
         method: "DELETE",
         body: JSON.stringify({ 
             countryName 
@@ -35,7 +36,7 @@ export async function deleteShippingDiscount(countryName) {
 export async function allShippingDiscounts() {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/ShippingDiscount/All`, {
+    const response = await fetch(`${HOST}/ShippingDiscount/All`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`

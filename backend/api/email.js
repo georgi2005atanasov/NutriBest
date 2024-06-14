@@ -1,10 +1,11 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
+import { HOST } from "../utils/util";
 
 export async function sendConfirmOrderMessage(email,
     customerName,
     orderId,
     confirmationUrl) {
-    const response = await fetch(`https://localhost:7056/Email/SendConfirmOrderEmail`, {
+    const response = await fetch(`${HOST}/Email/SendConfirmOrderEmail`, {
         method: "POST",
         body: JSON.stringify({
             to: email,
@@ -22,7 +23,7 @@ export async function sendConfirmOrderMessage(email,
 }
 
 export async function sendForgottenPasswordMessage(email) {
-    const response = await fetch(`https://localhost:7056/Email/ForgottenPassword`, {
+    const response = await fetch(`${HOST}/Email/ForgottenPassword`, {
         method: "POST",
         body: JSON.stringify({
             to: email,
@@ -39,7 +40,7 @@ export async function sendForgottenPasswordMessage(email) {
 export async function sendPromoCode(email, description) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Email/SendPromoCode`, {
+    const response = await fetch(`${HOST}/Email/SendPromoCode`, {
         method: "POST",
         body: JSON.stringify({
             to: email,
@@ -62,7 +63,7 @@ export async function sendOrderToAdmin(email,
     orderId,
     orderDetailsUrl,
     totalPrice) {
-    const response = await fetch(`https://localhost:7056/Email/SendOrderToAdmin`, {
+    const response = await fetch(`${HOST}/Email/SendOrderToAdmin`, {
         method: "POST",
         body: JSON.stringify({
             subject: `New Order #000000${orderId}`,
@@ -82,7 +83,7 @@ export async function sendOrderToAdmin(email,
 }
 
 export async function sendConfirmedOrderToAdmin(orderId, orderDetailsUrl) {
-    const response = await fetch(`https://localhost:7056/Email/SendConfirmedOrderToAdmin`, {
+    const response = await fetch(`${HOST}/Email/SendConfirmedOrderToAdmin`, {
         method: "POST",
         body: JSON.stringify({
             subject: `Order #000000${orderId} Confirmed!`,

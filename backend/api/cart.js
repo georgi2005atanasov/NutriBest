@@ -1,5 +1,7 @@
+import { HOST } from "../utils/util";
+
 export async function addToCart(productId, count, flavour, grams) {
-    const response = await fetch(`https://localhost:7056/Cart/Add`, {
+    const response = await fetch(`${HOST}/Cart/Add`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -17,7 +19,7 @@ export async function addToCart(productId, count, flavour, grams) {
 }
 
 export async function getCart() {
-    const response = await fetch(`https://localhost:7056/Cart/Get`, {
+    const response = await fetch(`${HOST}/Cart/Get`, {
         method: "GET",
         credentials: "include"
     });
@@ -26,7 +28,7 @@ export async function getCart() {
 }
 
 export async function cleanCart() {
-    const response = await fetch(`https://localhost:7056/Cart/Clean`, {
+    const response = await fetch(`${HOST}/Cart/Clean`, {
         method: "DELETE",
         credentials: "include"
     });
@@ -35,7 +37,7 @@ export async function cleanCart() {
 }
 
 export async function removeFromCart(productId, count, flavour, grams) {
-    const response = await fetch(`https://localhost:7056/Cart/Remove`, {
+    const response = await fetch(`${HOST}/Cart/Remove`, {
         method: "DELETE",
         body: JSON.stringify({
             productId,
@@ -53,7 +55,7 @@ export async function removeFromCart(productId, count, flavour, grams) {
 }
 
 export async function setProductInCart(productId, count, flavour, grams) {
-    const response = await fetch(`https://localhost:7056/Cart/Set`, {
+    const response = await fetch(`${HOST}/Cart/Set`, {
         method: "POST",
         body: JSON.stringify({
             productId,
@@ -71,7 +73,7 @@ export async function setProductInCart(productId, count, flavour, grams) {
 }
 
 export async function applyPromoCode(code) {
-    const response = await fetch(`https://localhost:7056/Cart/ApplyPromoCode`, {
+    const response = await fetch(`${HOST}/Cart/ApplyPromoCode`, {
         method: "POST",
         body: JSON.stringify({
             code
@@ -86,7 +88,7 @@ export async function applyPromoCode(code) {
 }
 
 export async function removePromoCode(code) {
-    const response = await fetch(`https://localhost:7056/Cart/RemovePromoCode`, {
+    const response = await fetch(`${HOST}/Cart/RemovePromoCode`, {
         method: "DELETE",
         body: JSON.stringify({
             code

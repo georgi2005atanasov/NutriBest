@@ -1,11 +1,12 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
+import { HOST } from "../utils/util";
 
 export async function getProfileDetails() {
     const token = getAuthToken();
 
     if (token != "EXPIRED" && token != null) {
 
-        const response = await fetch(`https://localhost:7056/Profile/Mine`, {
+        const response = await fetch(`${HOST}/Profile/Mine`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -19,7 +20,7 @@ export async function getProfileDetails() {
 export async function editUser(data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Profile`, {
+    const response = await fetch(`${HOST}/Profile`, {
         method: "PUT",
         body: data,
         headers: {
@@ -33,7 +34,7 @@ export async function editUser(data) {
 export async function deleteUser() {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Profile`, {
+    const response = await fetch(`${HOST}/Profile`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -48,7 +49,7 @@ export async function getUserAddress() {
 
     if (token != "EXPIRED" && token != null) {
 
-        const response = await fetch(`https://localhost:7056/Profile/Address`, {
+        const response = await fetch(`${HOST}/Profile/Address`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -64,7 +65,7 @@ export async function setUserAddress(data) {
 
     if (token != "EXPIRED" && token != null) {
 
-        const response = await fetch(`https://localhost:7056/Profile/Address`, {
+        const response = await fetch(`${HOST}/Profile/Address`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -85,7 +86,7 @@ export async function allProfiles(page, search) {
     try {
         if (token != "EXPIRED" && token != null) {
 
-            const response = await fetch(`https://localhost:7056/Profiles?page=${page}&search=${search}`, {
+            const response = await fetch(`${HOST}/Profiles?page=${page}&search=${search}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`
@@ -107,7 +108,7 @@ export async function getProfileDetailsById(id) {
     try {
         if (token != "EXPIRED" && token != null) {
 
-            const response = await fetch(`https://localhost:7056/Profile/${id}`, {
+            const response = await fetch(`${HOST}/Profile/${id}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`

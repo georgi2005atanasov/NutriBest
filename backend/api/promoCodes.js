@@ -1,7 +1,8 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
+import { HOST } from "../utils/util";
 
 export async function allPromoCodes() {
-    const response = await fetch(`https://localhost:7056/PromoCode`, {
+    const response = await fetch(`${HOST}/PromoCode`, {
         method: "GET"
     });
 
@@ -11,7 +12,7 @@ export async function allPromoCodes() {
 export async function deletePromoCodes(data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/PromoCode`, {
+    const response = await fetch(`${HOST}/PromoCode`, {
         method: "DELETE",
         body: data,
         headers: {
@@ -25,7 +26,7 @@ export async function deletePromoCodes(data) {
 export async function createPromoCodes(data) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/PromoCode`, {
+    const response = await fetch(`${HOST}/PromoCode`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

@@ -1,7 +1,8 @@
 import { getAuthToken } from '../../frontend/nutri-best-project/src/utils/auth';
+import { HOST } from '../utils/util';
 
 export async function register(userData) {
-    const response = await fetch('https://localhost:7056/Identity/Register', {
+    const response = await fetch(`${HOST}/Identity/Register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -17,7 +18,7 @@ export async function register(userData) {
 }
 
 export async function login(userData) {
-    const response = await fetch('https://localhost:7056/Identity/Login', {
+    const response = await fetch(`${HOST}/Identity/Login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -33,7 +34,7 @@ export async function login(userData) {
 }
 
 export async function resetPassword(newPassword, confirmPassword, token, email) {
-    const response = await fetch(`https://localhost:7056/Identity/ResetPassword`, {
+    const response = await fetch(`${HOST}/Identity/ResetPassword`, {
         method: 'PUT',
         body: JSON.stringify({
             newPassword, 
@@ -52,7 +53,7 @@ export async function resetPassword(newPassword, confirmPassword, token, email) 
 export async function allRoles() {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Identity/Roles`, {
+    const response = await fetch(`${HOST}/Identity/Roles`, {
         method: "GET", 
         headers: {
             "Authorization": `Bearer ${token}`

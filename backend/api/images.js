@@ -1,5 +1,7 @@
+import { HOST } from "../utils/util";
+
 export async function getFormFile(base64Image, imageData, fileName) {
-    const response = await fetch(`https://localhost:7056/Images`, {
+    const response = await fetch(`${HOST}/Images`, {
         method: "GET",
         body: JSON.stringify({
             base64Image,

@@ -1,7 +1,8 @@
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
+import { HOST } from "../utils/util";
 
 export async function createGuestOrder(data) {
-    const response = await fetch('https://localhost:7056/GuestsOrders', {
+    const response = await fetch(`${HOST}/GuestsOrders`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -16,7 +17,7 @@ export async function createGuestOrder(data) {
 export async function createUserOrder(data) {
     const token = getAuthToken();
 
-    const response = await fetch('https://localhost:7056/UsersOrders', {
+    const response = await fetch(`${HOST}/UsersOrders`, {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -32,7 +33,7 @@ export async function createUserOrder(data) {
 export async function getOrderById(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Orders/${id}`, {
+    const response = await fetch(`${HOST}/Orders/${id}`, {
         method: 'GET',
         headers: {
             "Authorization": `Bearer ${token}`
@@ -46,7 +47,7 @@ export async function getOrderById(id) {
 export async function confirmOrder(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Orders/Confirm?orderId=${id}`, {
+    const response = await fetch(`${HOST}/Orders/Confirm?orderId=${id}`, {
         method: 'POST',
         headers: {
             "Authorization": `Bearer ${token}`
@@ -60,7 +61,7 @@ export async function allOrders(page, search) {
     const token = getAuthToken();
 
     if (token) {
-        const response = await fetch(`https://localhost:7056/Orders?page=${page}&search=${search}`, {
+        const response = await fetch(`${HOST}/Orders?page=${page}&search=${search}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -93,7 +94,7 @@ export async function getUserOrders(page, search) {
 export async function getOrderByAdmin(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Orders/Admin/${id}`, {
+    const response = await fetch(`${HOST}/Orders/Admin/${id}`, {
         method: 'GET',
         headers: {
             "Authorization": `Bearer ${token}`
@@ -106,7 +107,7 @@ export async function getOrderByAdmin(id) {
 export async function changeOrderStatuses(id, isFinished, isPaid, isShipped, isConfirmed) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Orders/ChangeStatus/${id}`, {
+    const response = await fetch(`${HOST}/Orders/ChangeStatus/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
             isPaid,
@@ -126,7 +127,7 @@ export async function changeOrderStatuses(id, isFinished, isPaid, isShipped, isC
 export async function deleteOrder(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`https://localhost:7056/Orders/Admin/${id}`, {
+    const response = await fetch(`${HOST}/Orders/Admin/${id}`, {
         method: 'DELETE',
         headers: {
             "Authorization": `Bearer ${token}`
@@ -137,7 +138,7 @@ export async function deleteOrder(id) {
 }
 
 export async function getOrderRelatedProducts() {
-    const response = await fetch(`https://localhost:7056/Orders/RelatedProducts`, {
+    const response = await fetch(`${HOST}/Orders/RelatedProducts`, {
         method: 'GET'
     })
 

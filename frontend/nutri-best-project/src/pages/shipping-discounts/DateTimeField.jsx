@@ -17,7 +17,7 @@ export default function DateTimeField({ setEndDate }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
-        label="Select Date & Time"
+        label="End Date & Time"
         value={selectedDate}
         onChange={handleDateChange}
         renderInput={(params) => <TextField {...params} />}

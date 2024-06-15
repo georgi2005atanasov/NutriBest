@@ -4,7 +4,7 @@ import Message from "../../components/UI/Shared/Message";
 import DeleteShippingDiscountModal from "../../components/Modals/Delete/DeleteShippingDiscountModal";
 import { allShippingDiscounts } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { Link, redirect, useLoaderData, useSearchParams } from "react-router-dom";
+import { redirect, useLoaderData, useSearchParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import NavigationLink from "../../components/Navigation/NavigationLink";
 

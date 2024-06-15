@@ -1,6 +1,7 @@
 import instaLogo from "../../../assets/instagram-icon.png";
 import facebookLogo from "../../../assets/facebook-icon.png";
 import styles from "./css/Footer.module.css"
+import Newsletter from "./Newsletter";
 import { Link } from "react-router-dom";
 import { memo } from "react";
 
@@ -8,13 +9,13 @@ const Footer = memo(function Footer() {
     return (
         <footer className={styles["footer"]}>
             <div className={styles["footer-content"]}>
-                <nav className={styles["footer-nav"]}>
+                {/* <nav className={styles["footer-nav"]}>
                     <Link to="/home">Home</Link>
                     <Link to="/shop">Shop All</Link>
                     <Link to="/protein">Protein</Link>
                     <Link to="/pre-workout">Pre-Workout</Link>
                     <Link to="/vitamins">Vitamins</Link>
-                </nav>
+                </nav> */}
                 <div className={styles["footer-social"]}>
                     <Link to="https://www.instagram.com/atanasowww7/" target="_blank">
                         <img src={instaLogo} alt="Instagram logo" />
@@ -23,6 +24,7 @@ const Footer = memo(function Footer() {
                         <img src={facebookLogo} alt="Facebook logo" />
                     </Link>
                 </div>
+                <Newsletter />
                 <div className={styles["footer-bottom"]}>
                     <p>© {new Date().getFullYear()} NutriBest, Inc. All Rights Reserved.</p>
                 </div>

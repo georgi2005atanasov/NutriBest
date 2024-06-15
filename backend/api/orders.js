@@ -137,8 +137,8 @@ export async function deleteOrder(id) {
     return response;
 }
 
-export async function getOrderRelatedProducts() {
-    const response = await fetch(`${HOST}/Orders/RelatedProducts`, {
+export async function getOrderRelatedProducts(price) {
+    const response = await fetch(`${HOST}/Orders/RelatedProducts?price=${price}`, {
         method: 'GET'
     })
 

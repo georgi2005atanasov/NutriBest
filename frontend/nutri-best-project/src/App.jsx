@@ -52,6 +52,8 @@ import LiveDashboard from './pages/live/LiveDashboard.jsx';
 import NotificationLayout from './pages/notifications/NotificationsLayout.jsx';
 import NotificationsLayout from './pages/notifications/NotificationsLayout.jsx';
 import AllNotifications, { loader as loadNotifications } from './pages/notifications/AllNotifications.jsx';
+import Newsletter, { action as addToNewsletter } from './components/UI/Shared/Newsletter.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -197,6 +199,9 @@ const router = createBrowserRouter([
             index: true, element: <AllNotifications />, loader: loadNotifications
           }
         ]
+      },
+      {
+        path: 'addToNewsletter', element: <Newsletter />, action: addToNewsletter
       }
     ],
     id: "rootLoader",

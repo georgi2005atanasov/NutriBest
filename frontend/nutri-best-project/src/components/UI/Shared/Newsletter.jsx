@@ -1,5 +1,6 @@
 import styles from './css/Newsletter.module.css';
 import { addToNewsletter } from '../../../../../../backend/api/api';
+import { motion } from 'framer-motion';
 import { redirect, useFetcher } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -23,7 +24,7 @@ function Newsletter() {
                 }
                 else if (!isNaN(result)) {
                     setMessage({
-                        text: "You have been successfully signed up for the newsletter!",
+                        text: "You have been successfully signed up for our newsletter!",
                         type: "success"
                     });
                 }
@@ -51,7 +52,17 @@ function Newsletter() {
                     className={styles["newsletter-input"]}
                     required
                 />
-                {message && <span className={`text-${message.type} mb-2`}>{message.text}</span>}
+                {message && (
+                    <motion.span
+                        className={`text-${message.type} mb-2`}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {message.text}
+                    </motion.span>
+                )}
                 <button type="submit" className={styles["newsletter-btn"]}>Sign Up</button>
             </fetcher.Form>
         </div>

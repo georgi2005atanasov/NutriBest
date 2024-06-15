@@ -24,7 +24,9 @@ const Footer = memo(function Footer() {
                         <img src={facebookLogo} alt="Facebook logo" />
                     </Link>
                 </div>
-                <Newsletter />
+                <div className="d-flex mt-2">
+                    <Newsletter />
+                </div>
                 <div className={styles["footer-bottom"]}>
                     <p>© {new Date().getFullYear()} NutriBest, Inc. All Rights Reserved.</p>
                 </div>

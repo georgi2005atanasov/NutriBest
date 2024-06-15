@@ -49,11 +49,11 @@ import AddShippingDiscount, { loader as loadCountries } from './pages/shipping-d
 import AllShippingDiscounts, { loader as loadShippingDiscounts } from './pages/shipping-discounts/AllShippingDiscounts.jsx';
 import LiveLayout from './pages/live/LiveLayout.jsx';
 import LiveDashboard from './pages/live/LiveDashboard.jsx';
-import NotificationLayout from './pages/notifications/NotificationsLayout.jsx';
 import NotificationsLayout from './pages/notifications/NotificationsLayout.jsx';
 import AllNotifications, { loader as loadNotifications } from './pages/notifications/AllNotifications.jsx';
 import Newsletter, { action as addToNewsletter } from './components/UI/Shared/Newsletter.jsx';
-
+import NewsletterLayout from './pages/newsletter/NewsletterLayout.jsx';
+import NewsletterList, { loader as loadSubscribedUsers } from './pages/newsletter/NewsletterList.jsx';
 
 const router = createBrowserRouter([
   {
@@ -202,6 +202,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'addToNewsletter', element: <Newsletter />, action: addToNewsletter
+      },
+      {
+        path: 'newsletter', element: <NewsletterLayout />, children: [
+          {
+            path: 'list', element: <NewsletterList />, loader: loadSubscribedUsers
+          }
+        ]
       }
     ],
     id: "rootLoader",

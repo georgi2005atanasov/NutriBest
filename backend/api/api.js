@@ -125,7 +125,11 @@ import {
     deleteShippingDiscount
 }
     from "./shippingDiscount";
-import { addToNewsletter } from "./newsletter";
+import {
+    addToNewsletter,
+    subscribedToNewsletter
+}
+    from "./newsletter";
 
 export { addProduct };
 export { getProductById };
@@ -213,3 +217,4 @@ export { allShippingDiscounts };
 export { deleteShippingDiscount };
 
 export { addToNewsletter };
+export { subscribedToNewsletter };

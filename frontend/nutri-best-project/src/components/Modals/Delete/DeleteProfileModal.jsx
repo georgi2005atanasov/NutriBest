@@ -1,29 +1,46 @@
 import Modal from "../Modal";
 import styles from "../css/DeleteProductModal.module.css";
 import { deleteUser } from "../../../../../../backend/api/api";
+import { deleteUserByAdmin } from "../../../../../../backend/api/admin";
 import { redirect, useSubmit } from "react-router-dom";
 import { forwardRef } from "react";
 
 // eslint-disable-next-line react/prop-types
-export default forwardRef(function DeleteProductModal({ productId }, ref) {
+export default forwardRef(function DeleteProfileModal({ profileId }, ref) {
     const submit = useSubmit();
 
     async function handleDelete() {
         try {
-            await deleteUser(productId);
+            if (!profileId) {
+                await deleteUser();
 
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            });
+                window.scrollTo({
+                    top: 400,
+                    left: 0,
+                    behavior: 'smooth'
+                });
 
-            ref.current.close();
+                ref.current.close();
 
-            localStorage.setItem("successMessage", "Successfully deleted your profile!&type=success");
+                localStorage.setItem("successMessage", "Successfully deleted your profile!&type=success");
 
-            return submit("message=Successfully deleted your profile!&type=success",
-                { action: "/logout", method: "post" });
+                return submit("message=Successfully deleted your profile!&type=success",
+                    { action: "/logout", method: "post" });
+            }
+            else {
+                await deleteUserByAdmin(profileId);
+
+                window.scrollTo({
+                    top: 400,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+
+                ref.current.close();
+
+                return submit(`message=Successfully deleted profile with ID '${profileId}'!&type=success`,
+                    { action: "/profiles", method: "GET" });
+            }
         } catch (error) {
             return redirect("/error");
         }

@@ -41,3 +41,16 @@ export async function restoreProfile(id) {
 
     return response;
 }
+
+export async function deleteUserByAdmin(id) {
+    const token = getAuthToken();
+
+    const response = await fetch(`${HOST}/Admin/DeleteProfile/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}

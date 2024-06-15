@@ -84,13 +84,13 @@ export default function AllProfiles() {
     return <>
         <GrantModal ref={dialog} profile={profileToGrant} />
         <motion.div
-            className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-5 p-sm-4 p-1`}
+            className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-2 p-sm-4 p-1`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.9 }}
         >
-            <div className="mt-5 d-flex justify-content-start">
+            <div className="mt-3 d-flex justify-content-start">
                 <h2 className="mx-0 d-flex justify-content-center align-items-center">Profiles</h2>
                 <Search
                     ref={searchText}

@@ -38,7 +38,7 @@ export default function Profile() {
                         <ProfileForm profile={profile} />
                     </div>
                 </div>
-                {!isAdmin && !isEmployee && <DeleteProfileButton />}
+                <DeleteProfileButton />
             </motion.div>
         </div>
     </>

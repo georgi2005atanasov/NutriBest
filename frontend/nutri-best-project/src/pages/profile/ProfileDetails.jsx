@@ -1,12 +1,13 @@
 import styles from "./css/ProfileDetails.module.css";
-import { getProfileDetailsById } from "../../../../../backend/api/profile";
 import useAuth from "../../hooks/useAuth";
+import DeleteProfileButton from "../../components/UI/Buttons/Profile/DeleteProfileButton";
+import RestoreProfileModal from "../../components/Modals/Profile/RestoreProfileModal";
+import SendPromoCodeModal from "../../components/Modals/Profile/SendPromoCodeModal";
+import { getProfileDetailsById } from "../../../../../backend/api/profile";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../utils/auth";
 import { useRef } from "react";
-import RestoreProfileModal from "../../components/Modals/Profile/RestoreProfileModal";
-import SendPromoCodeModal from "../../components/Modals/Profile/SendPromoCodeModal";
 
 export default function ProfileDetails() {
     const restoreProfileDialog = useRef();
@@ -97,6 +98,9 @@ export default function ProfileDetails() {
                 <button onClick={handleSendEmail} className={styles["send-promo-button"]}>
                     Send Promo Code
                 </button>}
+            <DeleteProfileButton
+                profileId={profile.profileId}
+            />
         </div>
     </>
     );

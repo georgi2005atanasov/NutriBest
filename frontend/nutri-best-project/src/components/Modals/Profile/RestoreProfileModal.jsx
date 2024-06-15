@@ -17,6 +17,12 @@ const RestoreProfileModal = forwardRef(function RestoreProfileModal({ profileId 
         const response = await restoreProfile(profileId);
         const data = await response.json();
 
+        window.scrollTo({
+            top: 400,
+            left: 0,
+            behavior: 'smooth'
+        });
+
         ref.current.close();
         if (!response.ok) {
             if (data.message) {

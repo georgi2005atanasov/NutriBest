@@ -6,8 +6,6 @@ import NotificationRow from "./NotificationRow";
 export default function AllNotifications() {
     const { notifications, totalNotifications } = useLoaderData();
 
-    console.log(notifications);
-
     return <>
         <h1 className="text-center mt-4">Notifications</h1>
         {notifications && notifications.length > 0 ? notifications.map(x =>

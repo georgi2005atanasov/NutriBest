@@ -8,7 +8,6 @@ export const ProductSpecsContext = createContext({
     setPackages: () => { },
     flavours: [],
     setFlavours: () => { },
-
 });
 
 // eslint-disable-next-line react/prop-types

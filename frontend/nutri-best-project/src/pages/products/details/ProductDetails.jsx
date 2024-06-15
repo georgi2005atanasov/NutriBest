@@ -27,6 +27,7 @@ export default function ProductDetails() {
     const [src, setSrc] = useState("");
     const token = getAuthToken();
     const [currentPrice, setCurrentPrice] = useState(null);
+    const [currentQuantity, setCurrentQuantity] = useState(null);
     const [error, setError] = useState("");
     const { isAdmin, isEmployee } = useAuth(token);
     const { productSpecs, setProductSpecs } = useContext(ProductSpecsContext);
@@ -50,17 +51,19 @@ export default function ProductDetails() {
 
     useEffect(() => {
         async function getCurrentPrice() {
-            const currentPrice = await getCurrentProductPrice(product.productId, productSpecs.flavour,
+            const data = await getCurrentProductPrice(product.productId, productSpecs.flavour,
                 productSpecs.grams);
 
-            if (isNaN(currentPrice)) {
+            if (isNaN(data.price)) {
                 setError(`${productSpecs.flavour} of ${productSpecs.grams}g is not available!`);
                 setCurrentPrice(null);
+                setCurrentQuantity(null);
                 return;
             }
 
             setError("");
-            setCurrentPrice(currentPrice);
+            setCurrentPrice(data.price);
+            setCurrentQuantity(data.quantity);
         }
 
         if (productSpecs.flavour && productSpecs.grams) {
@@ -128,6 +131,18 @@ export default function ProductDetails() {
                                     ((currentPrice) - getPrice(currentPrice, product.discountPercentage)).toFixed(2)} BGN
                             </span>
                         </div>
+
+                        {currentQuantity && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.5 }}
+                                className="text-center m-3 text-danger"
+                            >
+                                {currentQuantity} left
+                            </motion.div>
+                        )}
 
                         {product.quantity > 0 ? <>
                             <SelectFlavour flavours={productFlavours} spec={productSpecs} setSpec={setProductSpecs} />

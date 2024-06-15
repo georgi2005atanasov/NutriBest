@@ -211,7 +211,7 @@ export async function getRelated(categories, productId) {
 
 export async function getCurrentProductPrice(productId, flavour, grams) {
     try {
-        const response = await fetch(`${HOST}/Products/CurrentPrice`, {
+        const response = await fetch(`${HOST}/Products/CurrentPriceWithQuantity`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

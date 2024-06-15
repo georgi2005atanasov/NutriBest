@@ -59,6 +59,12 @@ export default function ProductItem({ product }) {
                 ${styles["promotion-border"]}`}
                         src={src} alt="Dynamic" /> :
                         <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
+
+                    {(isAdmin || isEmployee) &&
+                        <div className={`${styles["quantity-overlay"]}`}>
+                            Left: {product.quantity}
+                        </div>}
+
                     <h5 className={`${styles["promotion-name"]} product-name text-center mt-2 mb-2`}>
                         {product.name}
                     </h5>
@@ -71,7 +77,6 @@ export default function ProductItem({ product }) {
                         </span>
                     </h5>
                 </Link>
-
                 {(isAdmin || isEmployee) ?
                     <div className="container pt-1">
                         <div className="row d-flex justify-content-center align-items-center">
@@ -79,12 +84,12 @@ export default function ProductItem({ product }) {
                             <DeleteProductButton productId={product.productId} />
                         </div>
                     </div> : product.quantity > 0 ?
-                    <AddToCartRedirect
-                        isLoading={isLoading}
-                        promotions={promotions}
-                        product={product}
-                    /> :
-                    <h5 className="text-center text-danger">Out of Stock</h5>}
+                        <AddToCartRedirect
+                            isLoading={isLoading}
+                            promotions={promotions}
+                            product={product}
+                        /> :
+                        <h5 className="text-center text-danger">Out of Stock</h5>}
             </motion.section>
         </AnimatePresence>
     }
@@ -105,6 +110,12 @@ export default function ProductItem({ product }) {
                     className={`${styles["product-image"]}`}
                     src={src} alt="Dynamic" /> :
                     <img className={styles["fallback-image"]} src={alt} alt="Dynamic" />}
+
+                {(isAdmin || isEmployee) &&
+                    <div className={`${styles["quantity-overlay"]}`}>
+                        Left: {product.quantity}
+                    </div>}
+
                 <h5 className={`text-center mt-2 mb-2`}>
                     {product.name}
                 </h5>
@@ -114,7 +125,6 @@ export default function ProductItem({ product }) {
                     </span>
                 </h5>
             </Link>
-
             {(isAdmin || isEmployee) ?
                 <div className="container pt-2">
                     <div className="row d-flex justify-content-center align-items-center">
@@ -122,12 +132,12 @@ export default function ProductItem({ product }) {
                         <DeleteProductButton productId={product.productId} />
                     </div>
                 </div> : product.quantity > 0 ?
-                <AddToCartRedirect
-                    isLoading={isLoading}
-                    promotions={promotions}
-                    product={product}
-                /> :
-                <h5 className="text-center text-danger">Out of Stock</h5>}
+                    <AddToCartRedirect
+                        isLoading={isLoading}
+                        promotions={promotions}
+                        product={product}
+                    /> :
+                    <h5 className="text-center text-danger">Out of Stock</h5>}
         </motion.section>
     </AnimatePresence>
 }

@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import LowStockNotification from "../components/Notifications/LowStockNotification";
 
 export const DEFAULT_PAGE = 1;
+export const DEFAULT_NEWSLETTER_GROUP_TYPE = "all";
 export const DEFAULT_PRICE = "";
 export const DEFAULT_CATEGORY = "";
 export const DEFAULT_BRAND = "";
@@ -62,12 +63,8 @@ export default function RootLayout() {
                 sessionStorage.setItem("users-page", DEFAULT_PAGE);
             }
 
-            if (!sessionStorage.getItem("notifications-page")) {
-                sessionStorage.setItem("notifications-page", DEFAULT_PAGE);
-            }
-
-            if (!sessionStorage.getItem("newsletter-page")) {
-                sessionStorage.setItem("newsletter-page", DEFAULT_PAGE);
+            if (!sessionStorage.getItem("newsletter-group-type")) {
+                sessionStorage.setItem("newsletter-group-type", DEFAULT_NEWSLETTER_GROUP_TYPE);
             }
         }
     });

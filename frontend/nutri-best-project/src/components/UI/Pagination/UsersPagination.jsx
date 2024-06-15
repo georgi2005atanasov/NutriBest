@@ -60,7 +60,7 @@ export default function UsersPagination({ page, usersCount }) {
 
     function handlePageChange(newPage) {
         if (1 <= newPage && newPage <= pagesCount) {
-            sessionStorage.setItem("page", newPage);
+            sessionStorage.setItem("users-page", newPage);
         }
     }
 

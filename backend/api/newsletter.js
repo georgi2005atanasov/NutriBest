@@ -32,7 +32,7 @@ export async function removeFromNewsletterByAdmin(email) {
 export async function subscribedToNewsletter(page, search = "", groupType) {
     const token = getAuthToken();
 
-    const response = await fetch(`${HOST}/Newsletter?page=${page}&search=${search}&type=${groupType}`, {
+    const response = await fetch(`${HOST}/Newsletter?page=${page}&search=${search}&groupType=${groupType}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`

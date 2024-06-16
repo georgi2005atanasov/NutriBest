@@ -1,0 +1,14 @@
+.send-message-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #536fdc;
+    color: #ffffff;
+    font-weight: 600;
+    width: 100%;
+    transition: ease-in 0.3s;
+}

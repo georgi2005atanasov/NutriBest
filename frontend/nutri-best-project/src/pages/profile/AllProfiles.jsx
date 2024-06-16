@@ -67,7 +67,7 @@ export default function AllProfiles() {
     }, [handleSearch]);
 
     const handleGrant = useCallback(function handleGrant(name, profileId, currentRoles) {
-        if (currentRoles == "Administrator") { // administrator is superb
+        if (currentRoles == "Administrator") {
             return;
         }
 

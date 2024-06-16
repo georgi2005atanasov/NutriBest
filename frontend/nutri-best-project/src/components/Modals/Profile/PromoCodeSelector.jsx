@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useNavigation, useSubmit } from "react-router-dom";
+import { useSubmit } from "react-router-dom";
 import { sendPromoCode } from "../../../../../../backend/api/api";
 import styles from "./css/PromoCodeSelector.module.css";
 import { useState } from "react";
@@ -19,6 +19,12 @@ const PromoCodeSelector = ({ promoCodes, email }) => {
         }
 
         setIsLoading(true);
+
+        submit(null, {
+            action: "/profiles",
+            method: "GET"
+        });
+
         const response = await sendPromoCode(email, promoCodes[selectedPromo].description);
 
         const data = await response.json();

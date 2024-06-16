@@ -3,19 +3,22 @@ import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.
 import Search from "../../components/UI/Searchbar/Search";
 import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
+import SubscriberRow from "./SubscriberRow";
+import MessageSenders from "./MessageSenders";
+import DeleteSubscriberModal from "../../components/Modals/Delete/DeleteSubscriberModal";
+import NewsletterFilters from "./NewsletterFilters";
 import UsersPagination from "../../components/UI/Pagination/UsersPagination";
 import { subscribedToNewsletter } from "../../../../../backend/api/newsletter";
 import { motion } from "framer-motion";
 import { useLoaderData, useSubmit, useSearchParams, redirect, useNavigation } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback } from "react";
-import SubscriberRow from "./SubscriberRow";
-import DeleteSubscriberModal from "../../components/Modals/Delete/DeleteSubscriberModal";
 
 export default function NewsletterList() {
     const searchText = useRef();
     const dialog = useRef();
+    const selectedFilter = useRef();
     const [subscriberToDelete, setSubscriberToDelete] = useState();
-    const { data, page } = useLoaderData();
+    const { data, page, groupType } = useLoaderData();
     const submit = useSubmit();
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
@@ -53,6 +56,12 @@ export default function NewsletterList() {
         return submit(null, { action: "/newsletter/list", method: "GET" });
     }, [submit]);
 
+    const handleFilter = useCallback(async function handleSearch(groupType) {
+        selectedFilter.current = groupType;
+        sessionStorage.setItem("newsletter-group-type", selectedFilter.current);
+        return submit(null, { action: "/newsletter/list", method: "GET" });
+    }, [submit]);
+
     const handleChange = useCallback(function handleChange(event) {
         if (event.key === "Enter") {
             handleSearch();
@@ -81,7 +90,15 @@ export default function NewsletterList() {
                 placeholder="Order, Phone Number, Customer Name..."
             />
         </div>
-        <div className="row mt-md-4 mt-0">
+
+        <NewsletterFilters
+            ref={selectedFilter}
+            onSelectFilter={handleFilter}
+        />
+
+        <MessageSenders groupType={groupType} />
+
+        <div className="row mt-md-2 mt-0">
             {isLoading && <Loader />}
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="mb-3">
@@ -122,7 +139,8 @@ export async function loader({ request, params }) {
         const data = await response.json();
         return {
             page,
-            data
+            data,
+            groupType
         };
     } catch (error) {
         return redirect("/?message=Page Not Found!&type=danger");

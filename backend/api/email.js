@@ -112,3 +112,33 @@ export async function sendJoinedToNewsletter(email) {
 
     return response;
 }
+
+export async function sendMessageToSubscribers(subject, body, groupType) {
+    const response = await fetch(`${HOST}/Email/SendMessageToSubscribers?groupType=${groupType}`, {
+        method: "POST",
+        body: JSON.stringify({
+            subject,
+            body
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return response;
+}
+
+export async function sendPromoCodeToSubscribers(subject, groupType, promoCodeDescription) {
+    const response = await fetch(`${HOST}/Email/SendPromoCodesToSubscribers?groupType=${groupType}`, {
+        method: "POST",
+        body: JSON.stringify({
+            subject,
+            promoCodeDescription
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return response;
+}

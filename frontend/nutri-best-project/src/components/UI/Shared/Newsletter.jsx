@@ -13,32 +13,37 @@ function Newsletter() {
     useEffect(() => {
         async function checkErrors() {
             if (fetcher.data && fetcher.data.result) {
-                const result = await fetcher
-                    .data
-                    .result
-                    .json();
-                if (result.message) {
-                    setMessage({
-                        text: result.message,
-                        type: "danger"
-                    });
-                }
-                else if (!isNaN(result)) {
-                    setMessage({
-                        text: "You have been successfully signed up for our newsletter!",
-                        type: "success"
-                    });
+                try {
+                    const result = await fetcher
+                        .data
+                        .result
+                        .json();
+                    if (result.message) {
+                        setMessage({
+                            text: result.message,
+                            type: "danger"
+                        });
+                    }
+                    else if (!isNaN(result)) {
+                        setMessage({
+                            text: "You have been successfully signed up for our newsletter!",
+                            type: "success"
+                        });
+                        await sendJoinedToNewsletter(email);
+                    }
+                    setEmail("");
+                } catch (error) {
+                    return redirect("/?message=Could not Subscribe!&type=danger");
                 }
             }
         }
 
         checkErrors();
-    }, [fetcher.data]);
+    }, [fetcher.data, email]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         fetcher.submit({ email }, { method: 'post', action: '/addToNewsletter' });
-        await sendJoinedToNewsletter(email);
         setMessage("");
     };
 

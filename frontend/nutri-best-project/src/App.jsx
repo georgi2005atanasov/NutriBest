@@ -54,6 +54,7 @@ import AllNotifications, { loader as loadNotifications } from './pages/notificat
 import Newsletter, { action as addToNewsletter } from './components/UI/Shared/Newsletter.jsx';
 import NewsletterLayout from './pages/newsletter/NewsletterLayout.jsx';
 import NewsletterList, { loader as loadSubscribedUsers } from './pages/newsletter/NewsletterList.jsx';
+import SendMessageForm, { action as sendMessageToSubscribers } from './pages/newsletter/SendMessageForm.jsx';
 
 const router = createBrowserRouter([
   {
@@ -209,6 +210,9 @@ const router = createBrowserRouter([
             path: 'list', element: <NewsletterList />, loader: loadSubscribedUsers
           }
         ]
+      },
+      {
+        path: 'message', element: <SendMessageForm />, action: sendMessageToSubscribers
       }
     ],
     id: "rootLoader",

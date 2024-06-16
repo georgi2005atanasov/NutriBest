@@ -11,6 +11,24 @@ export async function addToNewsletter(data) {
     return response;
 }
 
+export async function removeFromNewsletterByAdmin(email) {
+    const token = getAuthToken();
+
+    const data = new FormData();
+    data.append("email", email);
+
+    const response = await fetch(`${HOST}/Newsletter/Admin/RemoveFromNewsletter`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: data
+    });
+
+    return await response.json();
+}
+
+
 export async function subscribedToNewsletter(page, search = "", groupType) {
     const token = getAuthToken();
 

@@ -11,7 +11,7 @@ import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function AllProfiles() {
     const token = getAuthToken();
@@ -53,16 +53,20 @@ export default function AllProfiles() {
         sessionStorage.setItem("search", ""); // cleans previous searches
     }, []);
 
-    function handleChange(event) {
+    const handleSearch = useCallback(async function handleSearch() {
+        sessionStorage.setItem("search", searchText.current.value);
+        return submit(null, { action: "/profiles", method: "GET" });
+    }, [submit]);
+
+    const handleChange = useCallback(function handleChange(event) {
         if (event.key === "Enter") {
             handleSearch();
             return;
         }
-
         searchText.current.value = event.target.value;
-    }
+    }, [handleSearch]);
 
-    function handleGrant(name, profileId, currentRoles) {
+    const handleGrant = useCallback(function handleGrant(name, profileId, currentRoles) {
         if (currentRoles == "Administrator") { // administrator is superb
             return;
         }
@@ -74,12 +78,7 @@ export default function AllProfiles() {
         })
 
         dialog.current.open();
-    }
-
-    async function handleSearch() {
-        sessionStorage.setItem("search", searchText.current.value);
-        return submit(null, { action: "/profiles", method: "GET" });
-    }
+    }, []);
 
     return <>
         <GrantModal ref={dialog} profile={profileToGrant} />

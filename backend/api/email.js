@@ -97,3 +97,18 @@ export async function sendConfirmedOrderToAdmin(orderId, orderDetailsUrl) {
 
     return response;
 }
+
+export async function sendJoinedToNewsletter(email) {
+    const response = await fetch(`${HOST}/Email/SendJoinedToNewsletter`, {
+        method: "POST",
+        body: JSON.stringify({
+            subject: "Newsletter Subscription",
+            to: email,
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return response;
+}

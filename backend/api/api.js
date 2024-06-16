@@ -116,7 +116,8 @@ import {
     sendForgottenPasswordMessage,
     sendPromoCode,
     sendOrderToAdmin,
-    sendConfirmedOrderToAdmin
+    sendConfirmedOrderToAdmin,
+    sendJoinedToNewsletter
 }
     from "./email";
 import {
@@ -127,7 +128,8 @@ import {
     from "./shippingDiscount";
 import {
     addToNewsletter,
-    subscribedToNewsletter
+    subscribedToNewsletter,
+    removeFromNewsletterByAdmin
 }
     from "./newsletter";
 
@@ -211,6 +213,7 @@ export { sendPromoCode };
 export { allOrders };
 export { sendOrderToAdmin };
 export { sendConfirmedOrderToAdmin };
+export { sendJoinedToNewsletter };
 
 export { createShippingDiscount };
 export { allShippingDiscounts };
@@ -218,3 +221,4 @@ export { deleteShippingDiscount };
 
 export { addToNewsletter };
 export { subscribedToNewsletter };
+export {removeFromNewsletterByAdmin};

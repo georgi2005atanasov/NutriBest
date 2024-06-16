@@ -61,15 +61,15 @@ export default function AllProducts() {
     const [isSidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = useCallback(() => setSidebarVisible(!isSidebarVisible), [isSidebarVisible]);
 
-    function toTableView() {
+    const toTableView = useCallback(function toTableView() {
         sessionStorage.setItem("productsView", PRODUCTS_VIEWS.table);
         setProductsView(PRODUCTS_VIEWS.table)
-    }
+    }, []);
 
-    function toUserView() {
+    const toUserView = useCallback(function toUserView() {
         sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
         setProductsView(PRODUCTS_VIEWS.all)
-    }
+    }, []);
 
     return <>
         <AnimatePresence>

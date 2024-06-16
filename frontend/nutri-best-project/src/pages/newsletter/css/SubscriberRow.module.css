@@ -1,0 +1,9 @@
+.delete-icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer; /* Changes cursor to pointer when hovering over the icon */
+    color: #cc0000; /* Red color for the icon */
+}

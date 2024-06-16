@@ -9,7 +9,7 @@ import OrderRow from "./OrderRow";
 import { allOrders } from "../../../../../backend/api/orders";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import OrdersSummary from "./OrdersSummary";
 
 export default function AllOrders() {
@@ -43,34 +43,34 @@ export default function AllOrders() {
         sessionStorage.setItem("search", ""); // cleans previous searches
     }, []);
 
-    function handleDelete(orderId) {
+    const handleDelete = useCallback(function handleDelete(orderId) {
         dialog.current.open();
         setOrderToDelete(orderId);
-    }
+    }, []);
 
-    function handleChange(event) {
+    const handleSearch = useCallback(async function handleSearch() {
+        sessionStorage.setItem("search", searchText.current.value);
+        return submit(null, { action: "/orders", method: "GET" });
+    }, [submit]);
+
+    const handleChange = useCallback( function handleChange(event) {
         if (event.key === "Enter") {
             handleSearch();
             return;
         }
 
         searchText.current.value = event.target.value;
-    }
-
-    async function handleSearch() {
-        sessionStorage.setItem("search", searchText.current.value);
-        return submit(null, { action: "/orders", method: "GET" });
-    }
+    }, [handleSearch]);
 
     return <motion.div
-        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-5 p-sm-4 p-1`}
+        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-2 p-sm-4 p-1`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.9 }}
     >
         <DeleteOrderModal ref={dialog} orderId={orderToDelete} />
-        <div className="mt-5 d-flex justify-content-start">
+        <div className="mt-3 d-flex justify-content-start">
             <h2 className="mx-0 d-flex justify-content-center align-items-center">Orders</h2>
             <Search
                 ref={searchText}

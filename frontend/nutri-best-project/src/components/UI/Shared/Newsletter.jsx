@@ -3,6 +3,7 @@ import { addToNewsletter } from '../../../../../../backend/api/api';
 import { motion } from 'framer-motion';
 import { redirect, useFetcher } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { sendJoinedToNewsletter } from '../../../../../../backend/api/api';
 
 function Newsletter() {
     const fetcher = useFetcher();
@@ -34,14 +35,15 @@ function Newsletter() {
         checkErrors();
     }, [fetcher.data]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         fetcher.submit({ email }, { method: 'post', action: '/addToNewsletter' });
+        await sendJoinedToNewsletter(email);
         setMessage("");
     };
 
     return (
-        <div className={styles["newsletter"]}>
+        <div className={`${styles["newsletter"]}`}>
             <h3>Sign up for our Newsletter</h3>
             <fetcher.Form onSubmit={handleSubmit} className={styles["newsletter-form"]}>
                 <input

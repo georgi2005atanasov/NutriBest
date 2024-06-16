@@ -7,18 +7,19 @@ import UsersPagination from "../../components/UI/Pagination/UsersPagination";
 import { subscribedToNewsletter } from "../../../../../backend/api/newsletter";
 import { motion } from "framer-motion";
 import { useLoaderData, useSubmit, useSearchParams, redirect, useNavigation } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import SubscriberRow from "./SubscriberRow";
+import DeleteSubscriberModal from "../../components/Modals/Delete/DeleteSubscriberModal";
 
 export default function NewsletterList() {
     const searchText = useRef();
+    const dialog = useRef();
+    const [subscriberToDelete, setSubscriberToDelete] = useState();
     const { data, page } = useLoaderData();
     const submit = useSubmit();
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
     const [searchParams, setSearchParams] = useSearchParams();
-
-    console.log(data);
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
@@ -42,19 +43,24 @@ export default function NewsletterList() {
         sessionStorage.setItem("users-page", 1); // cleans previous searches
     }, []);
 
-    function handleChange(event) {
+    const handleDelete = useCallback(function handleDelete(email) {
+        dialog.current.open();
+        setSubscriberToDelete(email);
+    }, []);
+
+    const handleSearch = useCallback(async function handleSearch() {
+        sessionStorage.setItem("search", searchText.current.value);
+        return submit(null, { action: "/newsletter/list", method: "GET" });
+    }, [submit]);
+
+    const handleChange = useCallback(function handleChange(event) {
         if (event.key === "Enter") {
             handleSearch();
             return;
         }
 
         searchText.current.value = event.target.value;
-    }
-
-    async function handleSearch() {
-        sessionStorage.setItem("search", searchText.current.value);
-        return submit(null, { action: "/newsletter/list", method: "GET" });
-    }
+    }, [handleSearch]);
 
     return <motion.div
         className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-3 p-sm-4 p-1`}
@@ -63,6 +69,7 @@ export default function NewsletterList() {
         exit={{ opacity: 0, y: 20 }}
         transition={{ duration: 0.9 }}
     >
+        <DeleteSubscriberModal ref={dialog} email={subscriberToDelete} />
         <div className="d-flex justify-content-start">
             <h2 className="mx-0 d-flex justify-content-center align-items-center">Newsletter List</h2>
             <Search
@@ -85,11 +92,16 @@ export default function NewsletterList() {
                         <th>Total Orders</th>
                         <th>Registered On</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {data && data.subscribers && data.subscribers.map((x, index) =>
-                        <SubscriberRow key={`${x.email}-${index}`} subscriber={x} />)}
+                        <SubscriberRow
+                            key={`${x.email}-${index}`}
+                            subscriber={x}
+                            handleDelete={handleDelete}
+                        />)}
                 </tbody>
             </table>
         </div>

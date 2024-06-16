@@ -140,5 +140,5 @@ export async function sendPromoCodeToSubscribers(subject, groupType, promoCodeDe
         }
     });
 
-    return response;
+    return await response.json();
 }

@@ -131,7 +131,8 @@ import {
 import {
     addToNewsletter,
     subscribedToNewsletter,
-    removeFromNewsletterByAdmin
+    removeFromNewsletterByAdmin,
+    unsubscribeFromNewsletter
 }
     from "./newsletter";
 
@@ -226,3 +227,4 @@ export { deleteShippingDiscount };
 export { addToNewsletter };
 export { subscribedToNewsletter };
 export { removeFromNewsletterByAdmin };
+export { unsubscribeFromNewsletter };

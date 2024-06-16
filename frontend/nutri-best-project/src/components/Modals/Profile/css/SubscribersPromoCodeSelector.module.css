@@ -1,0 +1,30 @@
+.selector-container {
+    /* position: absolute; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    /* padding: 20px; */
+    min-width: 300px;
+    overflow-y: auto;
+}
+
+.selector-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-button {
+    color: #666;
+}
+
+.promo-code-item {
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.promo-code-item:hover {
+    background-color: #f0f0f0;
+}

@@ -28,6 +28,22 @@ export async function removeFromNewsletterByAdmin(email) {
     return await response.json();
 }
 
+export async function unsubscribeFromNewsletter(email) {
+    const token = getAuthToken();
+
+    const data = new FormData();
+    data.append("email", email);
+
+    const response = await fetch(`${HOST}/Newsletter/RemoveFromNewsletter`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: data
+    });
+
+    return await response.json();
+}
 
 export async function subscribedToNewsletter(page, search = "", groupType) {
     const token = getAuthToken();
@@ -41,3 +57,4 @@ export async function subscribedToNewsletter(page, search = "", groupType) {
 
     return response;
 }
+

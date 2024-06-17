@@ -11,13 +11,13 @@ export default memo(function OrdersSummary({ data }) {
                 Total Products: {data && data.totalProducts}
             </h6>
             <h6>
-                Total Price Without Discounts: {data && data.totalPriceWithoutDiscount.toFixed(2)} BGN
+                Total Price Without Discounts: {data && data.totalPriceWithoutDiscount && data.totalPriceWithoutDiscount.toFixed(2)} BGN
             </h6>
             <h6>
-                Total Discount: {data && data.totalDiscounts.toFixed(2)} BGN
+                Total Discount: {data && data.totalDiscounts && data.totalDiscounts.toFixed(2)} BGN
             </h6>
             <h6>
-                Total Profit: {data && data.totalPrice.toFixed(2)} BGN
+                Total Profit: {data && data.totalPrice && data.totalPrice.toFixed(2)} BGN
             </h6>
         </div>
     </div>

@@ -11,12 +11,14 @@ import { motion } from "framer-motion";
 import { redirect, useLoaderData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback } from "react";
 import OrdersSummary from "./OrdersSummary";
+import OrderStatusSelector from "./OrderStatusSelector";
 
 export default function AllOrders() {
     const dialog = useRef();
     const searchText = useRef();
     const { data, ordersPage } = useLoaderData();
     const [orderToDelete, setOrderToDelete] = useState();
+    const [options, setOptions] = useState([]);
     const submit = useSubmit();
     const navigation = useNavigation();
     const isLoading = navigation.state == "loading";
@@ -43,6 +45,11 @@ export default function AllOrders() {
         sessionStorage.setItem("search", ""); // cleans previous searches
     }, []);
 
+    useEffect(() => {
+        sessionStorage.setItem("orders-filters", options.join("+"));
+        return submit(`?${options.join("+")}`, { action: "/orders", method: "GET" });
+    }, [options, submit]);
+
     const handleDelete = useCallback(function handleDelete(orderId) {
         dialog.current.open();
         setOrderToDelete(orderId);
@@ -53,7 +60,7 @@ export default function AllOrders() {
         return submit(null, { action: "/orders", method: "GET" });
     }, [submit]);
 
-    const handleChange = useCallback( function handleChange(event) {
+    const handleChange = useCallback(function handleChange(event) {
         if (event.key === "Enter") {
             handleSearch();
             return;
@@ -81,6 +88,10 @@ export default function AllOrders() {
                 placeholder="Order, Phone Number, Customer Name..."
             />
         </div>
+        <OrderStatusSelector
+            selectedOptions={options}
+            setSelectedOptions={setOptions}
+        />
         <div className="row mt-md-4 mt-0">
             {isLoading && <Loader />}
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
@@ -118,7 +129,8 @@ export default function AllOrders() {
 export async function loader({ request, params }) {
     const ordersPage = Number(sessionStorage.getItem("orders-page"));
     const search = sessionStorage.getItem("search");
-    const response = await allOrders(ordersPage, search);
+    const filters = sessionStorage.getItem("orders-filters");
+    const response = await allOrders(ordersPage, search, filters);
 
     if (!response) {
         return redirect("/login");

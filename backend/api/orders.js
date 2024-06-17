@@ -57,17 +57,23 @@ export async function confirmOrder(id) {
     return response;
 }
 
-export async function allOrders(page, search) {
+export async function allOrders(page, search, filters) {
     const token = getAuthToken();
 
     if (token) {
-        const response = await fetch(`${HOST}/Orders?page=${page}&search=${search}`, {
+        let endpoint = `${HOST}/Orders?page=${page}&search=${search}`;
+        
+        if (filters) {
+            endpoint += `&filters=${filters}`;
+        }
+
+        const response = await fetch(endpoint, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
-    
+
         return response;
     }
 
@@ -84,7 +90,7 @@ export async function getUserOrders(page, search) {
                 "Authorization": `Bearer ${token}`
             }
         });
-    
+
         return response;
     }
 

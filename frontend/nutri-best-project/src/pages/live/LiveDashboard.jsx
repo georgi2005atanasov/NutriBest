@@ -49,9 +49,6 @@ export default function LiveDashboard() {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <div>
-                users table
-            </div>
         </div>
     );
 }

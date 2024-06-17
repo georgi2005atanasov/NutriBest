@@ -132,7 +132,7 @@ export default function ProductDetails() {
                             </span>
                         </div>
 
-                        {currentQuantity && (
+                        {currentQuantity && (isAdmin || isEmployee) && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}

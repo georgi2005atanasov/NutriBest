@@ -1,7 +1,8 @@
 .email-sender-btn {
-    background-color: #f4f4f4;
+    background-color: #f5f3ef;
     padding: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0 !important;
+    border: 1px solid #0000001a !important;
 }
 
 .email-sender-btn:hover {

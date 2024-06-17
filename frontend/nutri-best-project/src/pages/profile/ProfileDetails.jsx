@@ -62,19 +62,19 @@ export default function ProfileDetails() {
                     </div>
                     <div className={styles["user-detail-row"]}>
                         <label>Country:</label>
-                        <span>{profile.country}</span>
+                        <span>{profile.country || <strong>-</strong>}</span>
                     </div>
                     <div className={styles["user-detail-row"]}>
                         <label>City:</label>
-                        <span>{profile.city}</span>
+                        <span>{profile.city || <strong>-</strong>}</span>
                     </div>
                     <div className={styles["user-detail-row"]}>
                         <label>Street:</label>
-                        <span>{profile.street}</span>
+                        <span>{profile.street || <strong>-</strong>}</span>
                     </div>
                     <div className={styles["user-detail-row"]}>
                         <label>Street Number:</label>
-                        <span>{profile.streetNumber}</span>
+                        <span>{profile.streetNumber || <strong>-</strong>}</span>
                     </div>
                     <div className={styles["user-detail-row"]}>
                         <label>Made On:</label>

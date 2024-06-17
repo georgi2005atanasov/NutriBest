@@ -1,0 +1,13 @@
+.filter-options {
+    background-color: #f5f3ef;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #0000001a !important;
+    box-shadow: 0 2px 4px #0000001a;
+    margin-top: 20px;
+}
+
+.newsletter-btn {
+    border-radius: 0;
+    padding: 10px 12px;
+}

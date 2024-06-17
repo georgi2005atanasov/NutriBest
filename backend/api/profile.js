@@ -80,13 +80,17 @@ export async function setUserAddress(data) {
     return null;
 }
 
-export async function allProfiles(page, search) {
+export async function allProfiles(page, search, groupType) {
     const token = getAuthToken();
 
     try {
         if (token != "EXPIRED" && token != null) {
+            let endpoint = `${HOST}/Profiles?page=${page}&search=${search}`;
+            if (groupType) {
+                endpoint += `&groupType=${groupType}`
+            }
 
-            const response = await fetch(`${HOST}/Profiles?page=${page}&search=${search}`, {
+            const response = await fetch(endpoint, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`

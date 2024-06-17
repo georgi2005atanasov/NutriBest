@@ -12,6 +12,8 @@ import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
+import NewsletterFilters from "../newsletter/NewsletterFilters";
+import ProfileFilters from "./ProfileFilters";
 
 export default function AllProfiles() {
     const token = getAuthToken();
@@ -19,6 +21,7 @@ export default function AllProfiles() {
 
     const dialog = useRef();
     const searchText = useRef();
+    const selectedFilter = useRef();
     const [profileToGrant, setProfileToGrant] = useState({
         name: "",
         profileId: "",
@@ -80,6 +83,12 @@ export default function AllProfiles() {
         dialog.current.open();
     }, []);
 
+    const handleFilter = (groupType) => {
+        selectedFilter.current = groupType;
+        sessionStorage.setItem("users-group-type", selectedFilter.current);
+        return submit(null, { action: "/profiles", method: "GET" });
+    }
+
     return <>
         <GrantModal ref={dialog} profile={profileToGrant} />
         <motion.div
@@ -97,9 +106,15 @@ export default function AllProfiles() {
                     handleSearch={handleSearch}
                     isVerified={true}
                     styles={searchBarStyles}
-                    placeholder="Email, City, Name, Phone Number, Role..."
+                    placeholder="Email, City, Name, Phone Number, Username, Role..."
                 />
             </div>
+
+            <ProfileFilters
+                onSelectFilter={handleFilter}
+                ref={selectedFilter}
+            />
+
             <div className="row mt-md-4 mt-0">
                 {isLoading && <Loader />}
                 {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
@@ -143,7 +158,8 @@ export default function AllProfiles() {
 export async function loader({ request, params }) {
     const usersPage = Number(sessionStorage.getItem("users-page")); // get from session storage
     const search = sessionStorage.getItem("search");
-    const data = await allProfiles(usersPage, search);
+    const groupType = sessionStorage.getItem("users-group-type");
+    const data = await allProfiles(usersPage, search, groupType);
 
     if (!data) {
         return redirect("/login");

@@ -42,8 +42,11 @@ export default function NewsletterList() {
     }, [setSearchParams]);
 
     useEffect(() => {
-        sessionStorage.setItem("search", ""); // cleans previous searches
-        sessionStorage.setItem("users-page", 1); // cleans previous searches
+        return () => {
+            sessionStorage.setItem("search", ""); // cleans previous searches
+            sessionStorage.setItem("newsletter-group-type", ""); // cleans previous searches
+            sessionStorage.setItem("users-page", 1);
+        } // cleans previous searches
     }, []);
 
     const handleDelete = useCallback(function handleDelete(email) {

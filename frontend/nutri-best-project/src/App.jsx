@@ -56,6 +56,8 @@ import NewsletterLayout from './pages/newsletter/NewsletterLayout.jsx';
 import NewsletterList, { loader as loadSubscribedUsers } from './pages/newsletter/NewsletterList.jsx';
 import SendMessageForm, { action as sendMessageToSubscribers } from './pages/newsletter/SendMessageForm.jsx';
 import RemovedSubscriber, { loader as loadRemovedSubscriberPage } from './pages/newsletter/RemovedSubscriber.jsx';
+import ReportLayout from './pages/report/ReportLayout.jsx';
+import ReportDashboard, { loader as loadReport } from './pages/report/ReportDashboard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -217,6 +219,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'message', element: <SendMessageForm />, action: sendMessageToSubscribers
+      },
+      {
+        path: 'report', element: <ReportLayout />, children: [
+          {
+            path: 'dashboard', element: <ReportDashboard />, loader: loadReport
+          }
+        ]
       }
     ],
     id: "rootLoader",

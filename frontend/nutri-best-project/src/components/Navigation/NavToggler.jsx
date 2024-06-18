@@ -36,8 +36,8 @@ export default function NavToggler() {
                             <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={`${isAdmin || isEmployee ? "/newsletter/list" : "/categories"}`}>
                                 {!isAdmin && !isEmployee ? "Categories" : "Newsletter"}
                             </a>
-                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href="/brands">
-                                {"Brands"}
+                            <a className={`${isAdmin || isEmployee ? colors["admin-color"] : colors["user-color"]}`} href={`${isAdmin || isEmployee ? "/report/dashboard" : "/brands"}`}>
+                                {!isAdmin && !isEmployee ? "Brands" : "Report"}
                             </a>
                             {isAdmin || isEmployee ?
                                 <a className={`${colors["admin-color"]}`} href="/more">

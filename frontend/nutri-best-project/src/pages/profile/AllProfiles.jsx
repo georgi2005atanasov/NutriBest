@@ -53,7 +53,11 @@ export default function AllProfiles() {
     }, [setSearchParams]);
 
     useEffect(() => {
-        sessionStorage.setItem("search", ""); // cleans previous searches
+        return () => {
+            sessionStorage.setItem("search", ""); // cleans previous searches
+            sessionStorage.setItem("users-page", 1); // cleans previous searches
+            sessionStorage.setItem("users-group-type", "");
+        }
     }, []);
 
     const handleSearch = useCallback(async function handleSearch() {

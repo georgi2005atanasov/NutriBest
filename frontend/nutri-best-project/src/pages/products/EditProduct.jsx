@@ -64,7 +64,7 @@ export async function action({ request, params }) {
     productModel.categories = getProductCategories(productModel);
 
     //this is maybe redundant i do not store images on the local storage
-    localStorage.removeItem(`image-${id}`);
+    // localStorage.removeItem(`image-${id}`);
 
     if (isNaN(id)) {
         return json({ errors: { "message": ["Invalid product identifier!"] } });

@@ -54,6 +54,13 @@ export default function MoreLayout() {
                         isAdmin={isAdmin || isEmployee}
                         className={`${styles["item"]} text-center p-5`} />
                 </div>
+                <div className="col-md-3 d-flex justify-content-center mb-5">
+                    <NavigationLink
+                        route={`/brands`}
+                        text={"Brands"}
+                        isAdmin={isAdmin || isEmployee}
+                        className={`${styles["item"]} text-center p-5`} />
+                </div>
             </div>
         </motion.div>
     </>;

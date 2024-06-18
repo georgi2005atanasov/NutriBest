@@ -4,24 +4,22 @@ import { useRef, useEffect } from 'react';
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 
-const TopSellingBrandsChart = ({ topBrands }) => {
+const SellingProductsChart = ({ products, header }) => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null);
     const navigate = useNavigate();
-
-    console.log(topBrands);
 
     useEffect(() => {
         if (chartRef.current) {
             chartInstance.current = new Chart(chartRef.current, {
                 type: 'bar',
                 data: {
-                    labels: [...topBrands.map(x => x.brandName)],
+                    labels: [...products.map(x => x.name)],
                     datasets: [
                         {
-                            label: 'Top Selling Brands',
-                            data: [...topBrands.map(x => x.soldCount)],
-                            backgroundColor: 'rgba(0, 128, 128, 0.8)',
+                            label: `${header}`,
+                            data: [...products.map(x => x.soldCount)],
+                            backgroundColor: 'rgba(220, 20, 60, 0.8)',
                         },
                     ],
                 },
@@ -31,9 +29,9 @@ const TopSellingBrandsChart = ({ topBrands }) => {
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
                             const index = elements[0].index;
-                            const brand = topBrands[index];
-                            if (brand) {
-                                navigate(`/brands`);
+                            const product = products[index];
+                            if (product) {
+                                navigate(`/products/details/${product.productId}/${product.name}`);
                             }
                         }
                     }
@@ -46,14 +44,14 @@ const TopSellingBrandsChart = ({ topBrands }) => {
                 chartInstance.current.destroy();
             }
         };
-    }, [chartInstance, topBrands, navigate]);
+    }, [chartInstance, products, navigate]);
 
     return (
         <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center`}>
-            <h2 className="text-center">Top Selling Brands</h2>
+            <h2 className="text-center">{header}</h2>
             <canvas ref={chartRef}></canvas>
         </div>
     );
 };
 
-export default TopSellingBrandsChart;
+export default SellingProductsChart;

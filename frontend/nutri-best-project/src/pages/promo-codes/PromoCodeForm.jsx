@@ -4,13 +4,25 @@ import FormInput from "../../components/UI/Form/FormInput";
 import FormTextArea from "../../components/UI/Form/FormTextArea";
 import FormButton from "../../components/UI/Form/FormButton";
 import InputError from "../../components/UI/Form/InputError";
-import { motion } from "framer-motion";
-import { Form, redirect, useActionData } from "react-router-dom";
 import { getFormData } from "../../utils/utils";
 import { createPromoCodes } from "../../../../../backend/api/promoCodes";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import { motion } from "framer-motion";
+import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
 
 export default function PromoCodeForm() {
     const data = useActionData();
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+    const submit = useSubmit();
+
+    if (!isAdmin && !isEmployee) {
+        return submit("message=Page Not Found&type=danger", {
+            action: "/",
+            method: "GET"
+        });
+    }
 
     return <motion.div
         className="w-100 mt-0"

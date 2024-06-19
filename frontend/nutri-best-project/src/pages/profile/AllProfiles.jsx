@@ -89,6 +89,7 @@ export default function AllProfiles() {
     const handleFilter = (groupType) => {
         selectedFilter.current = groupType;
         sessionStorage.setItem("users-group-type", selectedFilter.current);
+        sessionStorage.setItem("users-page", 1);
         return submit(null, { action: "/profiles", method: "GET" });
     }
 

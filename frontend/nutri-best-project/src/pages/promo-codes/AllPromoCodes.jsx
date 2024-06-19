@@ -53,7 +53,11 @@ export default function AllPromoCodes() {
 
 export async function loader({ request, params }) {
     try {
-        const response = await allPromoCodes();
+        const response = await allPromoCodes(true);
+
+        if (response == null) {
+            return redirect("/?message=Page Not Found!&type=danger");
+        }
 
         if (!response.ok) {
             return redirect("/error");

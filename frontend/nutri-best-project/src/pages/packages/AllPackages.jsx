@@ -48,10 +48,10 @@ export default function AllPackages() {
         setGrams(grams);
     }, []);
 
-    if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger",
-            { action: "/", method: "GET" });
-    }
+    // if (!isAdmin && !isEmployee) {
+    //     return submit("message=Page Not Found!&type=danger",
+    //         { action: "/", method: "GET" });
+    // }
 
     return <>
         <DeletePackageModal
@@ -92,7 +92,11 @@ export default function AllPackages() {
 
 export async function loader({ request, params }) {
     try {
-        const packages = await allPackages();
+        const packages = await allPackages(true);
+
+        if (packages == null) {
+            return redirect("/?message=Page Not Found&type=danger");
+        }
 
         return {
             packages

@@ -99,12 +99,16 @@ export default function AllShippingDiscounts() {
 
 export async function loader({ request, params }) {
     try {
-        const data = await allShippingDiscounts();
+        const data = await allShippingDiscounts(true);
+
+        if (data == null) {
+            return redirect("/?message=Page Not Found!&type=danger");
+        }
 
         return {
             data
         }
     } catch (error) {
-        return redirect("/?message=Page Not Found&type=danger");
+        return redirect("/?message=Page Not Found!&type=danger");
     }
 }

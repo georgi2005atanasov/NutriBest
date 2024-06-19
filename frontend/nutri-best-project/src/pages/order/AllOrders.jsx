@@ -11,6 +11,8 @@ import OrderStatusSelector from "./OrderStatusSelector";
 import { motion } from "framer-motion";
 import { Await, defer, redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function AllOrders() {
     const dialog = useRef();
@@ -24,7 +26,8 @@ export default function AllOrders() {
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
 
-    console.log(data);
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -46,6 +49,7 @@ export default function AllOrders() {
 
     useEffect(() => {
         sessionStorage.setItem("orders-filters", options.join("+"));
+        sessionStorage.setItem("orders-page", 1);
         return submit(`?${options.join("+")}`, { action: "/orders", method: "GET" });
     }, [options, submit]);
 
@@ -67,6 +71,10 @@ export default function AllOrders() {
 
         searchText.current.value = event.target.value;
     }, [handleSearch]);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
 
     return <motion.div
         className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-2 p-sm-4 p-1`}
@@ -117,11 +125,13 @@ export default function AllOrders() {
                     <Await resolve={data}>
                         {(resolvedData) => (
                             <tbody>
-                                {resolvedData.ordersData && resolvedData.
-                                    ordersData
-                                    .orders.map(x => (
-                                        <OrderRow key={x.orderId} order={x} handleDelete={handleDelete} />
-                                    ))}
+                                {resolvedData &&
+                                    resolvedData.ordersData &&
+                                    resolvedData.
+                                        ordersData
+                                        .orders.map(x => (
+                                            <OrderRow key={x.orderId} order={x} handleDelete={handleDelete} />
+                                        ))}
                             </tbody>
                         )}
                     </Await>
@@ -132,12 +142,17 @@ export default function AllOrders() {
         <Suspense>
             <Await resolve={data}>
                 {(resolvedData) => <>
-                    <OrdersSummary data={resolvedData.ordersData} />
+                    <OrdersSummary data={resolvedData &&
+                        resolvedData.ordersData} />
 
                     <div className="mt-3">
                         <OrdersPagination
-                            page={resolvedData.ordersPage}
-                            ordersCount={resolvedData.ordersData.totalOrders} />
+                            page={resolvedData &&
+                                resolvedData.ordersPage &&
+                                resolvedData.ordersPage}
+                            ordersCount={resolvedData &&
+                                resolvedData.ordersData &&
+                                resolvedData.ordersData.totalOrders} />
                     </div>
                 </>}
             </Await>
@@ -151,6 +166,10 @@ async function loadOrders() {
     const filters = sessionStorage.getItem("orders-filters");
 
     const response = await allOrders(ordersPage, search, filters);
+
+    if (response == null) {
+        return null;
+    }
 
     if (!response) {
         return redirect("/login");
@@ -170,7 +189,11 @@ async function loadOrders() {
 }
 
 export function loader({ request, params }) {
-    return defer({
-        data: loadOrders(),
-    });
+    try {
+        return defer({
+            data: loadOrders(),
+        });
+    } catch (error) {
+        return redirect("/error");
+    }
 }

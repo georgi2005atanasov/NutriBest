@@ -5,7 +5,7 @@ import AutoCompleteInput from "../../components/UI/MUI Form Fields/AutoCompleteI
 import FormButton from "../../components/UI/Form/FormButton";
 import { allCitiesWithCountries } from "../../../../../backend/api/cities";
 import { motion } from "framer-motion";
-import { useLoaderData, useSubmit } from "react-router-dom";
+import { redirect, useLoaderData, useSubmit } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DateTimeField from "./DateTimeField";
 import dayjs from 'dayjs';
@@ -144,7 +144,11 @@ export default function AddShippingDiscount() {
 }
 
 export async function loader() {
-    const allCitiesCountries = await allCitiesWithCountries();
+    const allCitiesCountries = await allCitiesWithCountries(true);
+
+    if (allCitiesCountries == null) {
+        return redirect("/?message=Page Not Found!&type=danger");
+    }
 
     return {
         allCitiesCountries

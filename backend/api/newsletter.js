@@ -1,4 +1,5 @@
 import Search from "../../frontend/nutri-best-project/src/components/UI/Searchbar/Search";
+import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { HOST } from "../utils/util";
 
@@ -47,6 +48,11 @@ export async function unsubscribeFromNewsletter(email) {
 
 export async function subscribedToNewsletter(page, search = "", groupType) {
     const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return null;
+    }
 
     const response = await fetch(`${HOST}/Newsletter?page=${page}&search=${search}&groupType=${groupType}`, {
         method: "GET",

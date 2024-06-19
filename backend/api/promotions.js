@@ -1,7 +1,15 @@
+import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { HOST } from "../utils/util";
 
-export async function allPromotions() {
+export async function allPromotions(requiredVerification) {
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+
+    if (requiredVerification && !isAdmin && !isEmployee) {
+        return null;
+    }
+
     try {
         const response = await fetch(`${HOST}/Promotions`);
         return await response.json();
@@ -67,6 +75,11 @@ export async function changeStatus(promotionId) {
 
 export async function getPromotionById(promotionId) {
     const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return null;
+    }
 
     const response = await fetch(`${HOST}/Promotions/${promotionId}`,
         {

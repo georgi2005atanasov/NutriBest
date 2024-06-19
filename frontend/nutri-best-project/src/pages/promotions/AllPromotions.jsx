@@ -50,7 +50,7 @@ export default function AllPromotions() {
     >
         <div
             className="my-3 mt-3"
-            
+
         >
             <div className="d-flex justify-content-start row w-100">
                 <div className="col-10 d-flex justify-content-start p-0">
@@ -90,8 +90,7 @@ export default function AllPromotions() {
 
 export async function loader() {
     try {
-        const promotions = await allPromotions();
-
+        const promotions = await allPromotions(true);
         return promotions;
     } catch (error) {
         return redirect("/error");

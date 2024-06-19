@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import { Suspense, useState, useEffect, useCallback, useContext } from "react";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
+import Loader from "../../components/UI/Shared/Loader";
 
 export default function AllProducts() {
     const { setProductSpecs } = useContext(ProductSpecsContext);
@@ -117,6 +118,7 @@ export default function AllProducts() {
                             <div className="col-md-9">
                                 <Suspense fallback={
                                     <div className="d-flex justify-content-center align-items-center">
+                                        <Loader />
                                         <div className={styles["big-margin"]}></div>
                                     </div>}>
                                     <Await resolve={productsRows}>
@@ -202,7 +204,7 @@ export async function loader({ request, params }) {
     const page = Number(currentPage);
 
     return defer({
-        productsRows: await loadProductsData(
+        productsRows: loadProductsData(
             page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours),
         promotions: await getPromotions(),
         page,

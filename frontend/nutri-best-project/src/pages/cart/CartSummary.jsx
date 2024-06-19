@@ -33,7 +33,11 @@ export default function CartSummary({ cart, handleCodeRemove, shippingDiscount, 
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            Total Price: {cart && cart.totalProducts && (shippingPrice || shippingPrice == 0) && (shippingPrice + cart.totalProducts).toFixed(2)} BGN
+            Total Price:&nbsp;{(cart &&
+                cart.totalProducts &&
+                (shippingPrice || shippingPrice == 0)) ?
+                <span>{(shippingPrice + cart.totalProducts).toFixed(2)} BGN</span> :
+                <span>{cart.totalProducts && cart.totalProducts.toFixed(2)} BGN</span>}
         </motion.h2>
         {cart && cart.code &&
             <div className="d-flex justify-content-center align-items-start">

@@ -16,36 +16,38 @@ export default function MoreLayout() {
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
         >
-            <div className="row d-flex justify-content-center">
-                <div className="col-md-3 d-flex justify-content-center mb-5">
-                    <NavigationLink
-                        route={`/packages`}
-                        text={"Packages"}
-                        isAdmin={isAdmin || isEmployee}
-                        className={`${styles["item"]} text-center p-5`} />
+            {(isAdmin || isEmployee) &&
+                <div className="row d-flex justify-content-center">
+                    <div className="col-md-3 d-flex justify-content-center mb-5">
+                        <NavigationLink
+                            route={`/packages`}
+                            text={"Packages"}
+                            isAdmin={true}
+                            className={`${styles["item"]} text-center p-5`} />
+                    </div>
+                    <div className="col-md-3 d-flex justify-content-center mb-5">
+                        <NavigationLink
+                            route={`/flavours`}
+                            text={"Flavours"}
+                            isAdmin={true}
+                            className={`${styles["item"]} text-center p-5`} />
+                    </div>
+                    <div className="col-md-3 d-flex justify-content-center mb-5">
+                        <NavigationLink
+                            route={`/promo-codes`}
+                            text={"Promo Codes"}
+                            isAdmin={true}
+                            className={`${styles["item"]} text-center p-5`} />
+                    </div>
+                    <div className="col-md-3 d-flex justify-content-center mb-5">
+                        <NavigationLink
+                            route={`/shipping-discounts/all`}
+                            text={"Shipping Discounts"}
+                            isAdmin={true}
+                            className={`${styles["item"]} text-center p-5`} />
+                    </div>
                 </div>
-                <div className="col-md-3 d-flex justify-content-center mb-5">
-                    <NavigationLink
-                        route={`/flavours`}
-                        text={"Flavours"}
-                        isAdmin={isAdmin || isEmployee}
-                        className={`${styles["item"]} text-center p-5`} />
-                </div>
-                <div className="col-md-3 d-flex justify-content-center mb-5">
-                    <NavigationLink
-                        route={`/promo-codes`}
-                        text={"Promo Codes"}
-                        isAdmin={isAdmin || isEmployee}
-                        className={`${styles["item"]} text-center p-5`} />
-                </div>
-                <div className="col-md-3 d-flex justify-content-center mb-5">
-                    <NavigationLink
-                        route={`/shipping-discounts/all`}
-                        text={"Shipping Discounts"}
-                        isAdmin={isAdmin || isEmployee}
-                        className={`${styles["item"]} text-center p-5`} />
-                </div>
-            </div>
+            }
             <div className="row d-flex justify-content-center">
                 <div className="col-md-3 d-flex justify-content-center mb-5">
                     <NavigationLink

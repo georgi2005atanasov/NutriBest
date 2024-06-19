@@ -12,18 +12,23 @@ import { subscribedToNewsletter } from "../../../../../backend/api/newsletter";
 import { motion } from "framer-motion";
 import { useLoaderData, useSubmit, useSearchParams, redirect, defer, Await } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function NewsletterList() {
     const searchText = useRef();
     const dialog = useRef();
     const selectedFilter = useRef();
     const [subscriberToDelete, setSubscriberToDelete] = useState();
-    const { data, page, groupType } = useLoaderData();
+    const { data } = useLoaderData();
     const submit = useSubmit();
     const [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
+
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -41,8 +46,8 @@ export default function NewsletterList() {
 
     useEffect(() => {
         return () => {
-            sessionStorage.setItem("search", ""); // cleans previous searches
-            sessionStorage.setItem("newsletter-group-type", ""); // cleans previous searches
+            sessionStorage.setItem("search", "");
+            sessionStorage.setItem("newsletter-group-type", "");
             sessionStorage.setItem("users-page", 1);
         } // cleans previous searches
     }, []);
@@ -72,6 +77,13 @@ export default function NewsletterList() {
         searchText.current.value = event.target.value;
     }, [handleSearch]);
 
+    if (!isAdmin && !isEmployee) {
+        return submit("message=Page Not Found!&type=danger", {
+            action: "/",
+            method: "GET",
+        });
+    }
+
     return <motion.div
         className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-3 p-sm-4 p-1`}
         initial={{ opacity: 0, y: -20 }}
@@ -97,7 +109,12 @@ export default function NewsletterList() {
             onSelectFilter={handleFilter}
         />
 
-        <MessageSenders groupType={groupType} />
+        <Suspense>
+            <Await resolve={data}>
+                {(resolvedData) => 
+                <MessageSenders groupType={resolvedData && resolvedData.groupType} />}
+            </Await>
+        </Suspense>
 
         <div className="row mt-md-2 mt-0">
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
@@ -121,7 +138,7 @@ export default function NewsletterList() {
                     <Await resolve={data}>
                         {(resolvedData) => (
                             <tbody>
-                                {resolvedData.subscribersData.subscribers.map((x, index) =>
+                                {resolvedData && resolvedData.subscribersData.subscribers.map((x, index) =>
                                     <SubscriberRow
                                         key={`${x.email}-${index}`}
                                         subscriber={x}
@@ -135,8 +152,8 @@ export default function NewsletterList() {
         <Suspense>
             <Await resolve={data}>
                 {(resolvedData) => <UsersPagination
-                    page={resolvedData.page}
-                    usersCount={resolvedData.subscribersData.totalSubscribers}
+                    page={resolvedData && resolvedData.page}
+                    usersCount={resolvedData && resolvedData.subscribersData.totalSubscribers}
                 />}
             </Await>
         </Suspense>
@@ -149,6 +166,11 @@ async function loadSubscribers() {
     const groupType = sessionStorage.getItem("newsletter-group-type");
 
     const response = await subscribedToNewsletter(page, search, groupType);
+
+    if (response == null) {
+        return response;
+    }
+
     const subscribersData = await response.json();
     return {
         page,

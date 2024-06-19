@@ -92,7 +92,7 @@ export default function AllFlavours() {
 
 export async function loader({ request, params }) {
     try {
-        const flavours = await allFlavours();
+        const flavours = await allFlavours(true);
 
         return {
             flavours

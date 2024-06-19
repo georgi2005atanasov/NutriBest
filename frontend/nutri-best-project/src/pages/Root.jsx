@@ -1,11 +1,10 @@
 import MainNavigation from "../components/Navigation/MainNavigation";
 import Footer from "../components/UI/Shared/Footer";
-import Loader from "../components/UI/Shared/Loader";
 import CategoryBrandContextProvider from "../store/CategoryBrandContext";
 import ProductSpecsContextProvider from "../store/ProductSpecsContext";
 import Notification from "../components/Notifications/Notification";
 import { getAuthToken } from "../utils/auth";
-import { Outlet, useLoaderData, useNavigation, useSubmit } from "react-router-dom";
+import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import CartContextProvider from "../store/CartContext";
 import { connection } from "../../../../backend/services/signalRService";
 import useAuth from "../hooks/useAuth";
@@ -27,9 +26,6 @@ export default function RootLayout() {
     const token = useLoaderData();
     const { isAdmin, isEmployee, isUser } = useAuth(token);
     const submit = useSubmit();
-    const navigation = useNavigation();
-
-    const isLoading = navigation.state == "loading";
 
     useEffect(() => {
         if (!sessionStorage.getItem("price")) {
@@ -93,7 +89,6 @@ export default function RootLayout() {
     }, [window.location.pathname]);
 
     return <>
-        {isLoading && <Loader />}
         <CategoryBrandContextProvider>
             <ProductSpecsContextProvider>
                 <CartContextProvider>

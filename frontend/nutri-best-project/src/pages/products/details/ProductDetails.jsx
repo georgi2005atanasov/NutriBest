@@ -34,6 +34,13 @@ export default function ProductDetails() {
     const { product, promotion, productPackages, productFlavours, nutritionFacts } = useRouteLoaderData("productDetails");
 
     useEffect(() => {
+        !isAdmin && !isEmployee &&
+            window.scrollTo({
+                top: 400,
+                left: 0,
+                behavior: 'smooth'
+            });
+
         async function getImage(productId) {
             const image = await getImageByProductId(productId);
             setSrc(`data:${image.contentType};base64,${image.imageData}`);

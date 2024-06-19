@@ -3,8 +3,12 @@ import { connection } from "../../../../../backend/services/signalRService";
 import LiveUsers from "./LiveUsers";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function LiveDashboard() {
+    const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
     const [liveUsers, setLiveUsers] = useState(JSON.parse(localStorage.getItem("usersCount")));
     const [isVisible, setIsVisible] = useState(false);
 
@@ -30,6 +34,10 @@ export default function LiveDashboard() {
             connection.off("GetUsersCount", updateNotification);
         };
     }, []);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center mt-3">

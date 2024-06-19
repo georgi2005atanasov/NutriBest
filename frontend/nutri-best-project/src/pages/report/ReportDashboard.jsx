@@ -3,17 +3,17 @@ import SellingProductsChart from "./SellingProductsChart";
 import SellingBrandsChart from "./SellingBrandsChart";
 import SellingFlavoursChart from "./SellingFlavoursChart";
 import SellingCategoriesChart from "./SellingCategoriesChart";
-import { getPerformanceInfo } from "../../../../../backend/api/report";
+import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
 import { redirect, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import ChartsRow from "./ChartsRows";
 import Demographics from "./Demographics";
 
 export default function ReportDashboard() {
-    const { data } = useLoaderData();
+    const { data, demographics } = useLoaderData();
     const [view, setView] = useState('products');
 
-    console.log(data);
+    console.log(data, demographics);
 
     const renderContent = () => {
         switch (view) {
@@ -113,7 +113,7 @@ export default function ReportDashboard() {
             <div className="container">
                 {renderContent()}
             </div>
-            <Demographics />
+            <Demographics demographics={demographics} />
         </>
     );
 }
@@ -121,10 +121,11 @@ export default function ReportDashboard() {
 export async function loader({ request, params }) {
     try {
         const data = await getPerformanceInfo();
-        
+        const demographics = await getDemographicsInfo();
 
         return {
-            data
+            data,
+            demographics
         };
     } catch (error) {
         return redirect("/?message=Page Not Found&type=danger");

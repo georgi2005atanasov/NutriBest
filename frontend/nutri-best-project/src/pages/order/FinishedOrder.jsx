@@ -18,13 +18,18 @@ export default function FinishedOrder() {
     const submit = useSubmit();
     const orderId = searchParams.get("orderId");
 
+    // if (!isAdmin && !isEmployee) {
+    //     return 
+    // }
+
     useEffect(() => {
         async function handleOrder() {
             let realId = Number(orderId);
             if (!isAdmin && !isEmployee) {
                 const response = await getOrderById(realId);
+
                 if (!response.ok) {
-                    submit(null, { action: "/", method: "GET" });
+                    submit("message=Page Not Found!&type=danger", { action: "/", method: "GET" });
                     return;
                 }
 

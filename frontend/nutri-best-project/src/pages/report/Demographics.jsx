@@ -2,31 +2,44 @@ import styles from "./css/SellingProductsChart.module.css";
 import { useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 
-export default function Demographics() {
-    const data = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-            {
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
+export default function Demographics({ demographics }) {
+    const groupedByCountry = demographics.reduce((acc, item) => {
+        if (!acc[item.country]) {
+            acc[item.country] = [];
+        }
+        acc[item.country].push(item);
+        return acc;
+    }, {});
+
+    const generateChartData = (data) => {
+        const labels = data.map(item => item.city);
+        const dataValues = data.map(item => item.soldCount);
+
+        return {
+            labels: labels,
+            datasets: [
+                {
+                    data: dataValues,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                },
+            ],
+        };
     };
 
     const options = {
@@ -43,7 +56,7 @@ export default function Demographics() {
                             label += ': ';
                         }
                         if (context.parsed !== null) {
-                            label += context.parsed + '%';
+                            label += context.parsed + ' orders';
                         }
                         return label;
                     },
@@ -52,14 +65,21 @@ export default function Demographics() {
         },
     };
 
-    useEffect(() => {
-
-    }, []);
-
-    return <div className={styles["pie-chart-wrapper"]}>
-        <h2 className={`${styles["demographics-header"]} p-2 mt-3 mb-0 text-center`}>
-            Demographics
-        </h2>
-        <Pie data={data} options={options} />
-    </div>;
+    return (
+        <>
+            <h2 className={`${styles["demographics-header"]} p-2 mt-3 mb-0 text-center`}>
+                Demographics (Top Cities)
+            </h2>
+            <div className={styles["pie-chart-wrapper"]}>
+                <div className="container d-flex justify-content-center align-items-center">
+                    {Object.entries(groupedByCountry).map(([country, data]) => (
+                        <div key={country} className={styles["pie-chart-wrapper"]}>
+                            <h3 className="text-center">{country}</h3>
+                            <Pie data={generateChartData(data)} options={options} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </>
+    );
 }

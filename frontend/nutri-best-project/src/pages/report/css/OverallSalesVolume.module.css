@@ -1,0 +1,21 @@
+.volume-wrapper {
+    background-color: #f5f3ef; /* Light grey background */
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.volume-header {
+    color: #333;
+}
+
+.volume-amount {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+}

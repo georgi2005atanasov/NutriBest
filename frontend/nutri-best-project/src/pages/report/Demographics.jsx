@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import styles from "./css/SellingProductsChart.module.css";
-import { useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 
 export default function Demographics({ demographics }) {
@@ -67,7 +67,7 @@ export default function Demographics({ demographics }) {
 
     return (
         <>
-            <h2 className={`${styles["demographics-header"]} p-2 mt-3 mb-0 text-center`}>
+            <h2 className={`${styles["report-header"]} p-2 mt-3 mb-0 text-center`}>
                 Demographics (Top Cities)
             </h2>
             <div className={styles["pie-chart-wrapper"]}>

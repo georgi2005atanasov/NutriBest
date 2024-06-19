@@ -8,6 +8,7 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import ChartsRow from "./ChartsRows";
 import Demographics from "./Demographics";
+import OverallSalesVolume from "./OverallSalesVolume";
 
 export default function ReportDashboard() {
     const { data, demographics } = useLoaderData();
@@ -70,6 +71,8 @@ export default function ReportDashboard() {
 
     return (
         <>
+            <OverallSalesVolume overallSalesVolume={data.overallSalesVolume} />
+            <hr />
             <h2 className={`${styles["btn-color"]} p-2 mt-3 mb-0 text-center`}>Statistics</h2>
             <div className="container mb-2 d-flex justify-content-center mt-3">
                 <div className="row d-flex flex-row">
@@ -121,6 +124,11 @@ export default function ReportDashboard() {
 export async function loader({ request, params }) {
     try {
         const data = await getPerformanceInfo();
+
+        if (data == null) {
+            return redirect("/?message=Page Not Found!&type=danger");
+        }
+
         const demographics = await getDemographicsInfo();
 
         return {
@@ -128,6 +136,6 @@ export async function loader({ request, params }) {
             demographics
         };
     } catch (error) {
-        return redirect("/?message=Page Not Found&type=danger");
+        return redirect("/?message=Page Not Found!&type=danger");
     }
 }

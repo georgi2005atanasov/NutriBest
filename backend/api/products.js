@@ -1,9 +1,15 @@
+import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { buildQuery } from "../../frontend/nutri-best-project/src/utils/utils";
 import { HOST } from "../utils/util";
 
 export async function addProduct(productModel) {
     const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return null;
+    }
 
     if (token != "EXPIRED" && token != 0) {
         const response = await fetch(`${HOST}/Products`, {
@@ -41,6 +47,11 @@ export async function allProducts(page, categories = "", price = "", alpha = "",
 
 export async function getProductById(id) {
     const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return null;
+    }
 
     const response = await fetch(`${HOST}/Products/${id}`, {
         method: "GET",

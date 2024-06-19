@@ -1,3 +1,4 @@
+import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { HOST } from "../utils/util";
 
@@ -5,7 +6,6 @@ export async function getProfileDetails() {
     const token = getAuthToken();
 
     if (token != "EXPIRED" && token != null) {
-
         const response = await fetch(`${HOST}/Profile/Mine`, {
             method: "GET",
             headers: {
@@ -82,6 +82,11 @@ export async function setUserAddress(data) {
 
 export async function allProfiles(page, search, groupType) {
     const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return null;
+    }
 
     try {
         if (token != "EXPIRED" && token != null) {
@@ -108,6 +113,11 @@ export async function allProfiles(page, search, groupType) {
 
 export async function getProfileDetailsById(id) {
     const token = getAuthToken();
+    const { isAdmin, isEmployee } = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return null;
+    }
 
     try {
         if (token != "EXPIRED" && token != null) {

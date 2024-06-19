@@ -6,18 +6,17 @@ import Message from "../../components/UI/Shared/Message";
 import Search from "../../components/UI/Searchbar/Search";
 import UsersPagination from "../../components/UI/Pagination/UsersPagination";
 import GrantModal from "../../components/Modals/Profile/GrantModal";
+import ProfileFilters from "./ProfileFilters";
 import { allProfiles } from "../../../../../backend/api/profile";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit } from "react-router-dom";
-import { useCallback, useEffect, useRef, useState } from "react";
-import NewsletterFilters from "../newsletter/NewsletterFilters";
-import ProfileFilters from "./ProfileFilters";
+import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit, defer, Await } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState, Suspense } from "react";
 
 export default function AllProfiles() {
     const token = getAuthToken();
-    const { isAdmin } = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
     const dialog = useRef();
     const searchText = useRef();
@@ -93,6 +92,13 @@ export default function AllProfiles() {
         return submit(null, { action: "/profiles", method: "GET" });
     }
 
+    if (!isAdmin || isEmployee) {
+        return submit("message=Page Not Found!&type=danger", {
+            action: "/",
+            method: "GET"
+        });
+    }
+
     return <>
         <GrantModal ref={dialog} profile={profileToGrant} />
         <motion.div
@@ -137,40 +143,65 @@ export default function AllProfiles() {
                             <th>Is Deleted</th>
                         </tr>
                     </thead>
-                    <tbody className="">
-                        {data && data.profiles && data.profiles.map(x =>
-                            <ProfileRow
-                                key={x.profileId}
-                                profile={x}
-                                isAdmin={isAdmin}
-                                handleGrant={handleGrant} />)}
-                    </tbody>
+                    <Suspense fallback={
+                        <tbody className="text-center mt-2">
+                            <tr>
+                                <td>Loading...</td>
+                            </tr>
+                        </tbody>}>
+                        <Await resolve={data}>
+                            {(resolvedData) => <tbody>
+                                {resolvedData.profilesData.profiles.map(x =>
+                                    <ProfileRow
+                                        key={x.profileId}
+                                        profile={x}
+                                        isAdmin={isAdmin}
+                                        handleGrant={handleGrant} />)}
+                            </tbody>}
+                        </Await>
+                    </Suspense>
                 </table>
             </div>
 
-            <h3 className="m-3 text-end">Total Users: {data.totalUsers}</h3>
-
-            <div className="mt-3">
-                <UsersPagination
-                    page={usersPage}
-                    usersCount={data.totalUsers} />
-            </div>
+            <Suspense>
+                <Await resolve={data}>
+                    {(resolvedData) => <>
+                        <h3 className="m-3 text-end">Total Users: {resolvedData.profilesData.totalUsers}</h3>
+                        <div className="mt-3">
+                            <UsersPagination
+                                page={resolvedData.usersPage}
+                                usersCount={resolvedData.profilesData.totalUsers} />
+                        </div>
+                    </>
+                    }
+                </Await>
+            </Suspense>
         </motion.div>
     </>
 }
 
-export async function loader({ request, params }) {
-    const usersPage = Number(sessionStorage.getItem("users-page")); // get from session storage
-    const search = sessionStorage.getItem("search");
-    const groupType = sessionStorage.getItem("users-group-type");
-    const data = await allProfiles(usersPage, search, groupType);
+async function loadProfiles() {
+    try {
+        const usersPage = Number(sessionStorage.getItem("users-page")); // get from session storage
+        const search = sessionStorage.getItem("search");
+        const groupType = sessionStorage.getItem("users-group-type");
+        const profilesData = await allProfiles(usersPage, search, groupType);
 
-    if (!data) {
-        return redirect("/login");
+        if (!profilesData) {
+            return null;
+        }
+
+        return {
+            profilesData,
+            usersPage
+        };
+    } catch (error) {
+        return null;
     }
+}
 
-    return {
-        data,
-        usersPage
-    };
+export async function loader({ request, params }) {
+    return defer({
+        data: loadProfiles()
+    });
 }

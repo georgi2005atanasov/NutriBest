@@ -2,21 +2,11 @@ import { cleanFilters, getFormData } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation"
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
 import ProductForm from "./ProductForm";
-import useAuth from "../../hooks/useAuth";
 import { addProduct, allBrands } from "../../../../../backend/api/api";
-import { useActionData, json, redirect, useSubmit, useRouteLoaderData } from "react-router-dom";
+import { useActionData, json, redirect } from "react-router-dom";
 
 export default function AddProduct() {
     const data = useActionData();
-    const submit = useSubmit();
-
-    const token = useRouteLoaderData("rootLoader");
-    const { isAdmin, isEmployee } = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger",
-            { action: "/", method: "get" })
-    }
 
     return <ProductForm header={"Add New Product"} data={data} />
 }
@@ -47,6 +37,10 @@ export async function action({ request, params }) {
         const formData = getProductForm(productModel);
 
         const response = await addProduct(formData);
+
+        if (response == null) {
+            return redirect("/?message=Page Not Found!&type=danger");
+        }
 
         let data = { errors: {} };
 

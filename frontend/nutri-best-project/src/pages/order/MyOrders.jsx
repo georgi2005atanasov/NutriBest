@@ -7,8 +7,8 @@ import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import { getUserOrders } from "../../../../../backend/api/orders";
 import MyOrderRow from "./MyOrderRow";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSubmit, useNavigation, useSearchParams } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import { redirect, useLoaderData, useSubmit, useNavigation, useSearchParams, defer, Await } from "react-router-dom";
+import { useRef, useEffect, Suspense } from "react";
 
 export default function MyOrders() {
     const searchText = useRef();
@@ -58,7 +58,6 @@ export default function MyOrders() {
             />
         </div>
         <div className="row mt-md-4 mt-0">
-            {isLoading && <Loader />}
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="">
                 <thead >
@@ -73,39 +72,60 @@ export default function MyOrders() {
                         <th>Details</th>
                     </tr>
                 </thead>
-                <tbody className="">
-                    {data && data.orders.map(x => <MyOrderRow key={x.orderId} order={x} />)}
-                </tbody>
+                <Suspense fallback={
+                    <tbody className="text-center mt-2">
+                        <tr>
+                            <td>Loading...</td>
+                        </tr>
+                    </tbody>}>
+                    <Await resolve={data}>
+                        {(resolvedData) =>
+                            <tbody className="">
+                                {resolvedData.ordersData.orders.map(x => <MyOrderRow key={x.orderId} order={x} />)}
+                            </tbody>}
+                    </Await>
+                </Suspense>
             </table>
         </div>
 
-        <h3 className="text-center mt-3">Total Orders: {data.totalOrders}</h3>
-
-        <div className="mt-3">
-            <OrdersPagination
-                page={ordersPage}
-                ordersCount={data.totalOrders} />
-        </div>
+        <Suspense>
+            <Await resolve={data}>
+                {(resolvedData) => <>
+                    <h3 className="text-center mt-3">Total Orders: {resolvedData.ordersData.totalOrders}</h3>
+                    <div className="mt-3">
+                        <OrdersPagination
+                            page={resolvedData.ordersPage}
+                            ordersCount={resolvedData.ordersData.totalOrders} />
+                    </div>
+                </>}
+            </Await>
+        </Suspense>
     </motion.div>
 }
 
-export async function loader({ request, params }) {
+async function loadMyOrders() {
+    const ordersPage = Number(sessionStorage.getItem("orders-page"));
+    const search = sessionStorage.getItem("search");
+
+    const response = await getUserOrders(ordersPage, search);
+
+    if (response && !response.ok) {
+        return redirect("/?message=Access Denied!&type=danger");
+    }
+
+    const ordersData = await response.json();
+
+    return {
+        ordersData,
+        ordersPage
+    };
+}
+
+export function loader({ request, params }) {
     try {
-        const ordersPage = Number(sessionStorage.getItem("orders-page"));
-        const search = sessionStorage.getItem("search");
-
-        const response = await getUserOrders(ordersPage, search);
-
-        if (response && !response.ok) {
-            return redirect("/?message=Access Denied!&type=danger");
-        }
-
-        const data = await response.json();
-
-        return {
-            data,
-            ordersPage
-        };
+        return defer({
+            data: loadMyOrders()
+        })
     } catch (error) {
         return redirect("/?message=Access Denied!&type=danger");
     }

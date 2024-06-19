@@ -5,7 +5,7 @@ import RestoreProfileModal from "../../components/Modals/Profile/RestoreProfileM
 import SendPromoCodeModal from "../../components/Modals/Profile/SendPromoCodeModal";
 import { getProfileDetailsById } from "../../../../../backend/api/profile";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, useSubmit } from "react-router-dom";
 import { getAuthToken } from "../../utils/auth";
 import { useRef } from "react";
 
@@ -17,6 +17,7 @@ export default function ProfileDetails() {
     const { isAdmin, isEmployee } = useAuth(token);
 
     const { profile } = useLoaderData();
+    const submit = useSubmit();
 
     function handleRestore() {
         restoreProfileDialog.current.open();
@@ -24,6 +25,13 @@ export default function ProfileDetails() {
 
     function handleSendEmail() {
         emailSenderDialog.current.open();
+    }
+
+    if (!isAdmin || isEmployee) {
+        return submit("message=Page Not Found!&type=danger", {
+            action: "/",
+            method: "GET"
+        });
     }
 
     return (<>

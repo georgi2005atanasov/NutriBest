@@ -10,8 +10,8 @@ import UsersPagination from "../../components/UI/Pagination/UsersPagination";
 import NewsletterFilters from "./NewsletterFilters";
 import { subscribedToNewsletter } from "../../../../../backend/api/newsletter";
 import { motion } from "framer-motion";
-import { useLoaderData, useSubmit, useSearchParams, redirect, useNavigation } from "react-router-dom";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useLoaderData, useSubmit, useSearchParams, redirect, defer, Await } from "react-router-dom";
+import { useRef, useState, useEffect, useCallback, Suspense } from "react";
 
 export default function NewsletterList() {
     const searchText = useRef();
@@ -20,8 +20,6 @@ export default function NewsletterList() {
     const [subscriberToDelete, setSubscriberToDelete] = useState();
     const { data, page, groupType } = useLoaderData();
     const submit = useSubmit();
-    const navigation = useNavigation();
-    const isLoading = navigation.state == "loading";
     const [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -102,7 +100,6 @@ export default function NewsletterList() {
         <MessageSenders groupType={groupType} />
 
         <div className="row mt-md-2 mt-0">
-            {isLoading && <Loader />}
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="mb-3">
                 <thead >
@@ -115,36 +112,56 @@ export default function NewsletterList() {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    {data && data.subscribers && data.subscribers.map((x, index) =>
-                        <SubscriberRow
-                            key={`${x.email}-${index}`}
-                            subscriber={x}
-                            handleDelete={handleDelete}
-                        />)}
-                </tbody>
+                <Suspense fallback={
+                    <tbody className="text-center mt-2">
+                        <tr>
+                            <td>Loading...</td>
+                        </tr>
+                    </tbody>}>
+                    <Await resolve={data}>
+                        {(resolvedData) => (
+                            <tbody>
+                                {resolvedData.subscribersData.subscribers.map((x, index) =>
+                                    <SubscriberRow
+                                        key={`${x.email}-${index}`}
+                                        subscriber={x}
+                                        handleDelete={handleDelete}
+                                    />)}
+                            </tbody>)}
+                    </Await>
+                </Suspense>
             </table>
         </div>
-        <UsersPagination
-            page={page}
-            usersCount={data.totalSubscribers}
-        />
+        <Suspense>
+            <Await resolve={data}>
+                {(resolvedData) => <UsersPagination
+                    page={resolvedData.page}
+                    usersCount={resolvedData.subscribersData.totalSubscribers}
+                />}
+            </Await>
+        </Suspense>
     </motion.div>;
+}
+
+async function loadSubscribers() {
+    const page = Number(sessionStorage.getItem("users-page"));
+    const search = sessionStorage.getItem("search");
+    const groupType = sessionStorage.getItem("newsletter-group-type");
+
+    const response = await subscribedToNewsletter(page, search, groupType);
+    const subscribersData = await response.json();
+    return {
+        page,
+        subscribersData,
+        groupType
+    };
 }
 
 export async function loader({ request, params }) {
     try {
-        const page = Number(sessionStorage.getItem("users-page"));
-        const search = sessionStorage.getItem("search");
-        const groupType = sessionStorage.getItem("newsletter-group-type");
-
-        const response = await subscribedToNewsletter(page, search, groupType);
-        const data = await response.json();
-        return {
-            page,
-            data,
-            groupType
-        };
+        return defer({
+            data: loadSubscribers()
+        });
     } catch (error) {
         return redirect("/?message=Page Not Found!&type=danger");
     }

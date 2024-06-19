@@ -120,9 +120,9 @@ export default function AllProducts() {
                                         <div className={styles["big-margin"]}></div>
                                     </div>}>
                                     <Await resolve={productsRows}>
-                                        {productsRows => productsView == PRODUCTS_VIEWS.table ?
-                                            <Table productsRows={productsRows} /> :
-                                            <ProductsList productsRows={productsRows} />}
+                                        {resolvedRows => productsView == PRODUCTS_VIEWS.table ?
+                                            <Table productsRows={resolvedRows} /> :
+                                            <ProductsList productsRows={resolvedRows} />}
                                     </Await>
                                 </Suspense>
                             </div>

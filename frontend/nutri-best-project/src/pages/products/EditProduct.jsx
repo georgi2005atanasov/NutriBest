@@ -35,8 +35,12 @@ export async function loader({ request, params }) {
 
         const data = await getProductById(id);
 
+        if (data == null) {
+            return redirect("/?message=Page Not Found!&type=danger");
+        }
+
         if (!data.ok) {
-            return redirect("/?message=Invalid Product was selected");
+            return redirect("/?message=Invalid Product was selected&type=danger");
         }
 
         const productData = await data.json();

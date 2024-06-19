@@ -1,31 +1,30 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Search from "../../components/UI/Searchbar/Search";
-import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import DeleteOrderModal from "../../components/Modals/Delete/DeleteOrderModal";
 import OrderRow from "./OrderRow";
 import { allOrders } from "../../../../../backend/api/orders";
-import { motion } from "framer-motion";
-import { redirect, useLoaderData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
-import { useRef, useState, useEffect, useCallback } from "react";
 import OrdersSummary from "./OrdersSummary";
 import OrderStatusSelector from "./OrderStatusSelector";
+import { motion } from "framer-motion";
+import { Await, defer, redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
+import { useRef, useState, useEffect, useCallback, Suspense } from "react";
 
 export default function AllOrders() {
     const dialog = useRef();
     const searchText = useRef();
-    const { data, ordersPage } = useLoaderData();
     const [orderToDelete, setOrderToDelete] = useState();
     const [options, setOptions] = useState([]);
     const submit = useSubmit();
-    const navigation = useNavigation();
-    const isLoading = navigation.state == "loading";
     const [searchParams, setSearchParams] = useSearchParams();
+    const { data } = useLoaderData();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
+
+    console.log(data);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -93,7 +92,6 @@ export default function AllOrders() {
             setSelectedOptions={setOptions}
         />
         <div className="row mt-md-4 mt-0">
-            {isLoading && <Loader />}
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="">
                 <thead >
@@ -110,26 +108,48 @@ export default function AllOrders() {
                         <th>Details</th>
                     </tr>
                 </thead>
-                <tbody className="">
-                    {data && data.orders && data.orders.map(x => <OrderRow key={x.orderId} order={x} handleDelete={handleDelete} />)}
-                </tbody>
+                <Suspense fallback={
+                    <tbody className="text-center mt-2">
+                        <tr>
+                            <td>Loading...</td>
+                        </tr>
+                    </tbody>}>
+                    <Await resolve={data}>
+                        {(resolvedData) => (
+                            <tbody>
+                                {resolvedData.ordersData && resolvedData.
+                                    ordersData
+                                    .orders.map(x => (
+                                        <OrderRow key={x.orderId} order={x} handleDelete={handleDelete} />
+                                    ))}
+                            </tbody>
+                        )}
+                    </Await>
+                </Suspense>
             </table>
         </div>
 
-        <OrdersSummary data={data} />
+        <Suspense>
+            <Await resolve={data}>
+                {(resolvedData) => <>
+                    <OrdersSummary data={resolvedData.ordersData} />
 
-        <div className="mt-3">
-            <OrdersPagination
-                page={ordersPage}
-                ordersCount={data.totalOrders} />
-        </div>
+                    <div className="mt-3">
+                        <OrdersPagination
+                            page={resolvedData.ordersPage}
+                            ordersCount={resolvedData.ordersData.totalOrders} />
+                    </div>
+                </>}
+            </Await>
+        </Suspense>
     </motion.div>
 }
 
-export async function loader({ request, params }) {
+async function loadOrders() {
     const ordersPage = Number(sessionStorage.getItem("orders-page"));
     const search = sessionStorage.getItem("search");
     const filters = sessionStorage.getItem("orders-filters");
+
     const response = await allOrders(ordersPage, search, filters);
 
     if (!response) {
@@ -144,7 +164,13 @@ export async function loader({ request, params }) {
     }
 
     return {
-        data: await response.json(),
+        ordersData: await response.json(),
         ordersPage
     };
+}
+
+export function loader({ request, params }) {
+    return defer({
+        data: loadOrders(),
+    });
 }

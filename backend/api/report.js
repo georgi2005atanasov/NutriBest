@@ -15,3 +15,18 @@ export async function getPerformanceInfo() {
         return null;
     }
 }
+
+export async function getDemographicsInfo() {
+    try {
+        const token = getAuthToken();
+        const response = await fetch(`${HOST}/Reports/DemographicsInfo`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        return await response.json();
+    } catch (error) {
+        return null;
+    }
+}

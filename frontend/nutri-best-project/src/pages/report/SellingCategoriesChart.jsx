@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/TopSellingProductsChart.module.css";
+import styles from "./css/SellingProductsChart.module.css";
 import { useRef, useEffect } from 'react';
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";

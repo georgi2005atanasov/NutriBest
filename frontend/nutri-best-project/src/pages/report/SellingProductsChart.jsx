@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/TopSellingProductsChart.module.css";
+import styles from "./css/SellingProductsChart.module.css";
 import { useRef, useEffect } from 'react';
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ const SellingProductsChart = ({ products, header }) => {
                 chartInstance.current.destroy();
             }
         };
-    }, [chartInstance, products, navigate]);
+    }, [chartInstance, products, navigate, header]);
 
     return (
         <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center`}>

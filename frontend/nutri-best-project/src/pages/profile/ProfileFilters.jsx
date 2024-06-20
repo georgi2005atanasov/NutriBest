@@ -20,7 +20,7 @@ const ProfileFilters = forwardRef(function ProfileFilters({ onSelectFilter }, re
             {filters.map((filter) => (
                 <button
                     key={filter.value}
-                    className={`btn ${styles["newsletter-btn"]} ${ref.current === filter.value ? 'btn-primary' : 'btn-light'}`}
+                    className={`btn mx-1 ${styles["newsletter-btn"]} ${ref.current === filter.value ? 'btn-primary' : 'btn-light'}`}
                     onClick={() => onSelectFilter(filter.value)}
                 >
                     {filter.label}

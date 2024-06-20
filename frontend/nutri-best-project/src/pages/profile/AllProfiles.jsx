@@ -13,6 +13,7 @@ import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit, defer, Await } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState, Suspense } from "react";
+import DownloadCsvButton from "./DownloadCsvButton";
 
 export default function AllProfiles() {
     const token = getAuthToken();
@@ -125,8 +126,12 @@ export default function AllProfiles() {
                 onSelectFilter={handleFilter}
                 ref={selectedFilter}
             />
+            <div className="d-flex justify-content-end mt-1">
+                <DownloadCsvButton
+                    route={"https://localhost:7056/Profiles/CSV"} />
+            </div>
 
-            <div className="row mt-md-4 mt-0">
+            <div className="row mt-md-2 mt-0">
                 {isLoading && <Loader />}
                 {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
                 <table className="">

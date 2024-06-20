@@ -2,7 +2,7 @@ import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { HOST } from "../utils/util";
 
-export async function getPerformanceInfo() {
+export async function getPerformanceInfo(startDate, endDate) {
     try {
         const token = getAuthToken();
         const { isAdmin, isEmployee } = useAuth(token);
@@ -11,7 +11,21 @@ export async function getPerformanceInfo() {
             return null;
         }
 
-        const response = await fetch(`${HOST}/Reports/PerformanceInfo`, {
+        let endpoint = `${HOST}/Reports/PerformanceInfo`;
+
+        if (startDate) {
+            endpoint += `?startDate=${encodeURIComponent(startDate)}`;
+        }
+        if (endDate) {
+            if (startDate) {
+                endpoint += `&endDate=${encodeURIComponent(endDate)}`;
+            }
+            else {
+                endpoint += `?endDate=${encodeURIComponent(endDate)}`;
+            }
+        }
+        
+        const response = await fetch(endpoint, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
@@ -23,10 +37,24 @@ export async function getPerformanceInfo() {
     }
 }
 
-export async function getDemographicsInfo() {
+export async function getDemographicsInfo(startDate, endDate) {
     try {
         const token = getAuthToken();
-        const response = await fetch(`${HOST}/Reports/DemographicsInfo`, {
+
+        let endpoint = `${HOST}/Reports/DemographicsInfo`;
+
+        if (startDate) {
+            endpoint += `?startDate=${encodeURIComponent(startDate)}`;
+        }
+        if (endDate) {
+            if (startDate) {
+                endpoint += `&endDate=${encodeURIComponent(endDate)}`;
+            }
+            else {
+                endpoint += `?endDate=${encodeURIComponent(endDate)}`;
+            }
+        }
+        const response = await fetch(endpoint, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

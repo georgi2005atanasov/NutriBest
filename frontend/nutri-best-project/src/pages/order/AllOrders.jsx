@@ -8,11 +8,12 @@ import OrderRow from "./OrderRow";
 import { allOrders } from "../../../../../backend/api/orders";
 import OrdersSummary from "./OrdersSummary";
 import OrderStatusSelector from "./OrderStatusSelector";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import DateFilterField from "./DateFilterField";
 import { motion } from "framer-motion";
 import { Await, defer, redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
-import { getAuthToken } from "../../utils/auth";
-import useAuth from "../../hooks/useAuth";
 
 export default function AllOrders() {
     const dialog = useRef();
@@ -45,6 +46,8 @@ export default function AllOrders() {
 
     useEffect(() => {
         sessionStorage.setItem("search", ""); // cleans previous searches
+        sessionStorage.removeItem("startDateOrders");
+        sessionStorage.removeItem("endDateOrders");
     }, []);
 
     useEffect(() => {
@@ -71,6 +74,11 @@ export default function AllOrders() {
 
         searchText.current.value = event.target.value;
     }, [handleSearch]);
+
+    const handleInterval = useCallback(function handleInterval(identifier, value) {
+        sessionStorage.setItem(identifier, value.toISOString());
+        return submit(null, { action: "/orders", method: "GET" });
+    }, [submit]);
 
     if (!isAdmin && !isEmployee) {
         return;
@@ -99,6 +107,21 @@ export default function AllOrders() {
             selectedOptions={options}
             setSelectedOptions={setOptions}
         />
+        <div className="d-flex justify-content-end flex-column mt-md-4 mt-2">
+            <DateFilterField
+                setDate={handleInterval}
+                date={true}
+                label="Start Date"
+                identifier="startDateOrders"
+            />
+            <div className="mt-3"></div>
+            <DateFilterField
+                setDate={handleInterval}
+                date={true}
+                label="End Date"
+                identifier="endDateOrders"
+            />
+        </div>
         <div className="row mt-md-4 mt-0">
             {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="">
@@ -164,8 +187,14 @@ async function loadOrders() {
     const ordersPage = Number(sessionStorage.getItem("orders-page"));
     const search = sessionStorage.getItem("search");
     const filters = sessionStorage.getItem("orders-filters");
+    const startDate = sessionStorage.getItem("startDateOrders");
+    const endDate = sessionStorage.getItem("endDateOrders");
 
-    const response = await allOrders(ordersPage, search, filters);
+    const response = await allOrders(ordersPage,
+        search,
+        filters,
+        startDate,
+        endDate);
 
     if (response == null) {
         return null;

@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/SellingProductsChart.module.css";
+import DateFilterField from "../order/DateFilterField";
 import { Pie } from 'react-chartjs-2';
+import { useSubmit } from "react-router-dom";
+import { useCallback, useEffect } from "react";
 
 export default function Demographics({ demographics }) {
-    const groupedByCountry = demographics.reduce((acc, item) => {
+    const submit = useSubmit();
+    console.log(demographics);
+
+    const groupedByCountry = demographics && demographics.reduce((acc, item) => {
         if (!acc[item.country]) {
             acc[item.country] = [];
         }
@@ -65,15 +71,33 @@ export default function Demographics({ demographics }) {
         },
     };
 
+    const handleInterval = useCallback(function handleInterval(identifier, value) {
+        sessionStorage.setItem(identifier, value.toISOString());
+        return submit(null, { action: "/report/dashboard", method: "GET" });
+    }, [submit]);
+
     return (
         <>
             <h2 className={`${styles["report-header"]} p-2 mt-3 mb-0 text-center`}>
                 Demographics (Top Cities)
             </h2>
-            <div className={styles["pie-chart-wrapper"]}>
-                <div className="container d-flex justify-content-center align-items-center">
-                    {Object.entries(groupedByCountry).map(([country, data]) => (
-                        <div key={country} className={styles["pie-chart-wrapper"]}>
+            <div className={`container mt-1 d-flex justify-content-end ${styles["date-fields-wrapper"]} flex-column`}>
+                <DateFilterField
+                    setDate={handleInterval}
+                    label="Start Date"
+                    identifier="startDateDemographics"
+                />
+                <div className="mt-2"></div>
+                <DateFilterField
+                    setDate={handleInterval}
+                    label="End Date"
+                    identifier="endDateDemographics"
+                />
+            </div>
+            <div>
+                <div className="container d-flex justify-content-center align-items-center flex-xl-row flex-column">
+                    {groupedByCountry && Object.entries(groupedByCountry).map(([country, data]) => (
+                        <div key={country} className={`${styles["pie-chart-wrapper"]}`}>
                             <h3 className="text-center">{country}</h3>
                             <Pie data={generateChartData(data)} options={options} />
                         </div>

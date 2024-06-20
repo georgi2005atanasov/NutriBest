@@ -58,7 +58,7 @@ export async function confirmOrder(id) {
     return response;
 }
 
-export async function allOrders(page, search, filters) {
+export async function allOrders(page, search, filters, startDate, endDate) {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
 
@@ -72,11 +72,18 @@ export async function allOrders(page, search, filters) {
         if (filters) {
             endpoint += `&filters=${filters}`;
         }
+        if (startDate) {
+            endpoint += `&startDate=${encodeURIComponent(startDate)}`
+        }
+        if (endDate) {
+            endpoint += `&endDate=${encodeURIComponent(endDate)}`
+        }
 
         const response = await fetch(endpoint, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
             }
         });
 

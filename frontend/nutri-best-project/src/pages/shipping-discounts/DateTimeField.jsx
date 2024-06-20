@@ -6,18 +6,18 @@ import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
 
 // eslint-disable-next-line react/prop-types
-export default function DateTimeField({ setEndDate }) {
+export default function DateTimeField({ setDate, label }) {
   const [selectedDate, setSelectedDate] = useState(dayjs());
 
   const handleDateChange = (newValue) => {
     setSelectedDate(newValue);
-    setEndDate(newValue)
+    setDate(newValue)
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
-        label="End Date & Time"
+        label={label}
         value={selectedDate}
         onChange={handleDateChange}
         renderInput={(params) => <TextField {...params} />}

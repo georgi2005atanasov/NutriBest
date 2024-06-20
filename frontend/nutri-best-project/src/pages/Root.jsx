@@ -85,7 +85,13 @@ export default function RootLayout() {
         }
 
         updateRoutes()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        sessionStorage.removeItem("startDateOrders");
+        sessionStorage.removeItem("endDateOrders");
+        sessionStorage.removeItem("startDatePerformance");
+        sessionStorage.removeItem("endDatePerformance");
+        sessionStorage.removeItem("startDateDemographics");
+        sessionStorage.removeItem("endDateDemographics");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [window.location.pathname]);
 
     return <>

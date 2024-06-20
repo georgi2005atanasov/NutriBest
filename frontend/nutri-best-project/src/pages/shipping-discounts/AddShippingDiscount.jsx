@@ -126,7 +126,8 @@ export default function AddShippingDiscount() {
 
                     <div className="d-flex justify-content-center mt-3 w-100">
                         <DateTimeField
-                            setEndDate={handleDateChange}
+                            setDate={handleDateChange}
+                            label="End Date & Time"
                         />
                     </div>
 

@@ -1,20 +1,34 @@
 import styles from "./css/ReportDashboard.module.css";
+import DateFilterField from "../order/DateFilterField";
 import SellingProductsChart from "./SellingProductsChart";
 import SellingBrandsChart from "./SellingBrandsChart";
 import SellingFlavoursChart from "./SellingFlavoursChart";
 import SellingCategoriesChart from "./SellingCategoriesChart";
-import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
-import { redirect, useLoaderData } from "react-router-dom";
-import { useState } from "react";
 import ChartsRow from "./ChartsRows";
 import Demographics from "./Demographics";
 import OverallSalesVolume from "./OverallSalesVolume";
+import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
+import { redirect, useLoaderData, useSubmit } from "react-router-dom";
+import { useState, useCallback, useEffect } from "react";
 
 export default function ReportDashboard() {
     const { data, demographics } = useLoaderData();
     const [view, setView] = useState('products');
+    const submit = useSubmit();
 
-    console.log(data, demographics);
+    useEffect(() => {
+        return () => {
+            sessionStorage.removeItem("startDatePerformance");
+            sessionStorage.removeItem("endDatePerformance");
+            sessionStorage.removeItem("startDateDemographics");
+            sessionStorage.removeItem("endDateDemographics");
+        };
+    }, []);
+
+    const handleInterval = useCallback(function handleInterval(identifier, value) {
+        sessionStorage.setItem(identifier, value.toISOString());
+        return submit(null, { action: "/report/dashboard", method: "GET" });
+    }, [submit]);
 
     const renderContent = () => {
         switch (view) {
@@ -74,7 +88,7 @@ export default function ReportDashboard() {
             <OverallSalesVolume overallSalesVolume={data.overallSalesVolume} />
             <hr />
             <h2 className={`${styles["btn-color"]} p-2 mt-3 mb-0 text-center`}>Statistics</h2>
-            <div className="container mb-2 d-flex justify-content-center mt-3">
+            <div className="container mb-2 d-flex align-items-center justify-content-evenly mt-3">
                 <div className="row d-flex flex-row">
                     <div className="col-md-3 d-flex justify-content-center">
                         <button
@@ -112,6 +126,21 @@ export default function ReportDashboard() {
                         </button>
                     </div>
                 </div>
+                <div className="row">
+                    <div className={`d-flex justify-content-end flex-column h-50 ${styles["date-fields-wrapper"]}`}>
+                        <DateFilterField
+                            setDate={handleInterval}
+                            label="Start Date"
+                            identifier="startDatePerformance"
+                        />
+                        <div className="mt-2"></div>
+                        <DateFilterField
+                            setDate={handleInterval}
+                            label="End Date"
+                            identifier="endDatePerformance"
+                        />
+                    </div>
+                </div>
             </div>
             <div className="container">
                 {renderContent()}
@@ -123,13 +152,17 @@ export default function ReportDashboard() {
 
 export async function loader({ request, params }) {
     try {
-        const data = await getPerformanceInfo();
+        const startDatePerformance = sessionStorage.getItem("startDatePerformance");
+        const endDatePerformance = sessionStorage.getItem("endDatePerformance");
+        const startDateDemographics = sessionStorage.getItem("startDateDemographics");
+        const endDateDemographics = sessionStorage.getItem("endDateDemographics");
+        const data = await getPerformanceInfo(startDatePerformance, endDatePerformance);
 
         if (data == null) {
             return redirect("/?message=Page Not Found!&type=danger");
         }
 
-        const demographics = await getDemographicsInfo();
+        const demographics = await getDemographicsInfo(startDateDemographics, endDateDemographics);
 
         return {
             data,

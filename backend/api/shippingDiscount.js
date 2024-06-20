@@ -36,7 +36,7 @@ export async function deleteShippingDiscount(countryName) {
 
 export async function allShippingDiscounts(requiredVerification) {
     const token = getAuthToken();
-    const { isAdmin, isEmployee } = useAuth();
+    const { isAdmin, isEmployee } = useAuth(token);
 
     if (requiredVerification) {
         if (!isAdmin && !isEmployee) {

@@ -9,11 +9,12 @@ import Table from "./Table";
 import useAuth from "../../hooks/useAuth";
 import { allPromotions } from "../../../../../backend/api/api";
 import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
+import { ProductSpecsContext } from "../../store/ProductSpecsContext";
+import Loader from "../../components/UI/Shared/Loader";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import { Suspense, useState, useEffect, useCallback, useContext } from "react";
-import { ProductSpecsContext } from "../../store/ProductSpecsContext";
-import Loader from "../../components/UI/Shared/Loader";
 
 export default function AllProducts() {
     const { setProductSpecs } = useContext(ProductSpecsContext);
@@ -101,6 +102,11 @@ export default function AllProducts() {
                                                 text={"View as Table"}
                                                 onClick={toTableView} />
                                             <div className="mx-1"></div>
+                                            <div className="d-flex justify-content-end mt">
+                                                <DownloadCsvButton
+                                                    fileName="products"
+                                                    route="https://localhost:7056/Products/CSV" />
+                                            </div>
                                         </div>}
 
                                     {(isAdmin || isEmployee) && productsView === "table" &&

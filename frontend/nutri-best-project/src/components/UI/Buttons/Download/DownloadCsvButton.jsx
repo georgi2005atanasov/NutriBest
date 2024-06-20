@@ -1,8 +1,8 @@
 import styles from "./css/DownloadCsvButton.module.css";
-import { getAuthToken } from "../../utils/auth";
+import { getAuthToken } from "../../../../utils/auth";
 
 // eslint-disable-next-line react/prop-types
-const DownloadCsvButton = ({ route }) => {
+const DownloadCsvButton = ({ route, fileName }) => {
     const token = getAuthToken();
 
     const handleDownload = async () => {
@@ -13,18 +13,18 @@ const DownloadCsvButton = ({ route }) => {
                 }
             });
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error("Network response was not ok");
             }
             const blob = await response.blob();
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'users.csv');
+            link.setAttribute("download", `${fileName}.csv`);
             document.body.appendChild(link);
             link.click();
             link.remove();
         } catch (error) {
-            console.error('Error downloading the file:', error);
+            console.error("Error downloading the file:", error);
         }
     };
 

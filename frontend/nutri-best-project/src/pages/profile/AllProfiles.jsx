@@ -13,7 +13,7 @@ import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit, defer, Await } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState, Suspense } from "react";
-import DownloadCsvButton from "./DownloadCsvButton";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 
 export default function AllProfiles() {
     const token = getAuthToken();
@@ -128,6 +128,7 @@ export default function AllProfiles() {
             />
             <div className="d-flex justify-content-end mt-1">
                 <DownloadCsvButton
+                    fileName="users"
                     route={"https://localhost:7056/Profiles/CSV"} />
             </div>
 

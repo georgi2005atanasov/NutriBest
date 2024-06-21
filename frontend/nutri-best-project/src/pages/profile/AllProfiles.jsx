@@ -1,19 +1,19 @@
 import styles from "../css/Table.module.css";
-import ProfileRow from "./ProfileRow";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import Search from "../../components/UI/Searchbar/Search";
 import UsersPagination from "../../components/UI/Pagination/UsersPagination";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
+import ProfileRow from "./ProfileRow";
 import GrantModal from "../../components/Modals/Profile/GrantModal";
 import ProfileFilters from "./ProfileFilters";
-import { allProfiles } from "../../../../../backend/api/profile";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
+import { allProfiles, exportProfiles } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSearchParams, useNavigation, useSubmit, defer, Await } from "react-router-dom";
+import { useLoaderData, useSearchParams, useNavigation, useSubmit, defer, Await } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState, Suspense } from "react";
-import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 
 export default function AllProfiles() {
     const token = getAuthToken();
@@ -21,14 +21,14 @@ export default function AllProfiles() {
 
     const dialog = useRef();
     const searchText = useRef();
-    const selectedFilter = useRef();
+    const selectedFilter = useRef("all");
     const [profileToGrant, setProfileToGrant] = useState({
         name: "",
         profileId: "",
         currentRoles: []
     });
 
-    const { data, usersPage } = useLoaderData();
+    const { data } = useLoaderData();
     let [searchParams, setSearchParams] = useSearchParams();
     const submit = useSubmit();
 
@@ -56,7 +56,7 @@ export default function AllProfiles() {
         return () => {
             sessionStorage.setItem("search", ""); // cleans previous searches
             sessionStorage.setItem("users-page", 1); // cleans previous searches
-            sessionStorage.setItem("users-group-type", "");
+            sessionStorage.setItem("users-group-type", "all");
         }
     }, []);
 
@@ -94,6 +94,14 @@ export default function AllProfiles() {
         return submit(null, { action: "/profiles", method: "GET" });
     }
 
+    const handleExport = useCallback(async function handleExport(withFilters) {
+        return await exportProfiles(withFilters,
+            withFilters && sessionStorage.getItem("search"),
+            withFilters && sessionStorage.getItem("users-group-type")
+        )
+    }, []);
+
+
     if (!isAdmin || isEmployee) {
         return submit("message=Page Not Found!&type=danger", {
             action: "/",
@@ -126,10 +134,11 @@ export default function AllProfiles() {
                 onSelectFilter={handleFilter}
                 ref={selectedFilter}
             />
+
             <div className="d-flex justify-content-end mt-1">
-                <DownloadCsvButton
+                <DownloadCsvOptionsButton
                     fileName="users"
-                    route={"https://localhost:7056/Profiles/CSV"} />
+                    exportFunction={handleExport} />
             </div>
 
             <div className="row mt-md-2 mt-0">

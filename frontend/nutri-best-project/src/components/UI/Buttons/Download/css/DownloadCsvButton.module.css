@@ -7,6 +7,7 @@
 }
 
 .download-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -14,9 +15,10 @@
 
 .dropdown {
     position: absolute;
-    top: 720px;
-    right: 0;
-    background-color: #f5f3ef; /* Lighter grey */
+    top: 50px;
+    right: 2px;
+    min-width: 200px;
+    background-color: #f5f3ef;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -28,7 +30,7 @@
 }
 
 .dropdown-btn {
-    background-color: #e0e0e0; /* Light grey */
+    background-color: #e0e0e0;
     border: none;
     color: black;
     padding: 10px 20px;

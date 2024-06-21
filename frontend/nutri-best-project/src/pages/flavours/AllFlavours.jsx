@@ -1,11 +1,12 @@
 import styles from "./css/AllFlavours.module.css";
 import Message from "../../components/UI/Shared/Message";
 import AddFlavourButton from "../../components/UI/Buttons/Flavours/AddFlavourButton";
-import FlavourItem from "./FlavourItem";
 import DeleteFlavourModal from "../../components/Modals/Delete/DeleteFlavourModal";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import FlavourItem from "./FlavourItem";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
-import { allFlavours } from "../../../../../backend/api/flavours";
+import { allFlavours, exportFlavours } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -61,20 +62,26 @@ export default function AllFlavours() {
             ref={dialog} />
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
-        <motion.div 
-        className="container-fluid d-flex flex-column align-items-center"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 50 }}
-        transition={{ duration: 0.5 }}
+        <motion.div
+            className="container-fluid d-flex flex-column align-items-center"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5 }}
         >
             <div className={`row d-flex justify-content-center ${styles["flavours-container"]}`}>
                 <h2 className={"row d-flex justify-content-center align-items-center m-0 mb-3 pt-3 text-dark"}>
                     All Flavours
                 </h2>
 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex flex-column align-items-center justify-content-center">
                     <AddFlavourButton />
+                </div>
+                <div className="w-100 text-end me-4">
+
+                    <DownloadCsvButton
+                        fileName="flavours"
+                        exportFunction={exportFlavours} />
                 </div>
 
                 {flavours.map((flavour, index) => (

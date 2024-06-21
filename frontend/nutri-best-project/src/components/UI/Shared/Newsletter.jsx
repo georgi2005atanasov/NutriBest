@@ -29,7 +29,9 @@ function Newsletter() {
                             text: "You have been successfully signed up for our newsletter!",
                             type: "success"
                         });
+                        
                         await sendJoinedToNewsletter(email);
+                        return;
                     }
                     setEmail("");
                 } catch (error) {

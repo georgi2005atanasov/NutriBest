@@ -10,7 +10,7 @@ import useAuth from "../../hooks/useAuth";
 import { allPromotions, exportProducts, allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import Loader from "../../components/UI/Shared/Loader";
-import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import { Suspense, useState, useEffect, useCallback, useContext } from "react";
@@ -72,6 +72,18 @@ export default function AllProducts() {
         setProductsView(PRODUCTS_VIEWS.all)
     }, []);
 
+    const handleExport = useCallback(async function handleExport(withFilters) {
+        return await exportProducts(withFilters,
+            withFilters && sessionStorage.getItem("categories"),
+            withFilters && sessionStorage.getItem("price"),
+            withFilters && sessionStorage.getItem("alpha"),
+            withFilters && sessionStorage.getItem("search"),
+            withFilters && sessionStorage.getItem("priceRange"),
+            withFilters && sessionStorage.getItem("brand"),
+            withFilters && sessionStorage.getItem("quantities"),
+            withFilters && sessionStorage.getItem("flavours"))
+    }, []);
+
     return <>
         <AnimatePresence>
             <motion.div
@@ -102,9 +114,9 @@ export default function AllProducts() {
                                                 onClick={toTableView} />
                                             <div className="mx-1"></div>
                                             <div className="d-flex justify-content-end mt">
-                                                <DownloadCsvButton
+                                                <DownloadCsvOptionsButton
                                                     fileName="products"
-                                                    exportFunction={exportProducts} />
+                                                    exportFunction={handleExport} />
                                             </div>
                                         </div>}
 
@@ -115,9 +127,9 @@ export default function AllProducts() {
                                                 onClick={toUserView} />
                                             <div className="mx-1"></div>
                                             <div className="d-flex justify-content-end mt">
-                                                <DownloadCsvButton
+                                                <DownloadCsvOptionsButton
                                                     fileName="products"
-                                                    exportFunction={exportProducts} />
+                                                    exportFunction={handleExport} />
                                             </div>
                                         </div>}
                                 </div>

@@ -31,7 +31,8 @@ import {
     getUserAddress,
     setUserAddress,
     allProfiles,
-    getProfileDetailsById
+    getProfileDetailsById,
+    exportProfiles
 }
     from "./profile";
 
@@ -43,7 +44,8 @@ import {
     addPromotion,
     editPromotion,
     getPromotionById,
-    getProductsOfPromotion
+    getProductsOfPromotion,
+    exportPromotions
 }
     from "./promotions";
 
@@ -68,7 +70,8 @@ import {
 import {
     allFlavours,
     addFlavour,
-    deleteFlavour
+    deleteFlavour,
+    exportFlavours
 }
     from "./flavours";
 import {
@@ -163,6 +166,7 @@ export { getUserAddress };
 export { setUserAddress };
 export { allProfiles };
 export { getProfileDetailsById };
+export { exportProfiles }
 
 export { allPromotions };
 export { changeProductPromotion };
@@ -172,6 +176,7 @@ export { addPromotion };
 export { getPromotionById };
 export { editPromotion };
 export { getProductsOfPromotion };
+export { exportPromotions };
 
 export { allBrands };
 export { addCategory };
@@ -187,6 +192,7 @@ export { addFlavour };
 export { deleteFlavour };
 export { getNutritionFactsByProductIdAndName };
 export { setNutritionFactsByProductId };
+export { exportFlavours };
 
 export { addToCart };
 export { getCart };

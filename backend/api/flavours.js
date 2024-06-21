@@ -42,3 +42,23 @@ export async function deleteFlavour(flavour) {
 
     return response;
 }
+
+export async function exportFlavours() {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+    
+    let endpoint = `${HOST}/Flavours/CSV?`;
+
+    const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}

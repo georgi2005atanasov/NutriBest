@@ -101,7 +101,6 @@ export default function AllProfiles() {
         )
     }, []);
 
-
     if (!isAdmin || isEmployee) {
         return submit("message=Page Not Found!&type=danger", {
             action: "/",
@@ -134,12 +133,6 @@ export default function AllProfiles() {
                 onSelectFilter={handleFilter}
                 ref={selectedFilter}
             />
-
-            <div className="d-flex justify-content-end mt-1">
-                <DownloadCsvOptionsButton
-                    fileName="users"
-                    exportFunction={handleExport} />
-            </div>
 
             <div className="row mt-md-2 mt-0">
                 {isLoading && <Loader />}
@@ -177,6 +170,12 @@ export default function AllProfiles() {
                         </Await>
                     </Suspense>
                 </table>
+            </div>
+
+            <div className="d-flex justify-content-end mt-1">
+                <DownloadCsvOptionsButton
+                    fileName="users"
+                    exportFunction={handleExport} />
             </div>
 
             <Suspense>

@@ -5,7 +5,7 @@ import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import DeleteOrderModal from "../../components/Modals/Delete/DeleteOrderModal";
 import OrderRow from "./OrderRow";
-import { allOrders } from "../../../../../backend/api/orders";
+import { allOrders, exportOrders } from "../../../../../backend/api/orders";
 import OrdersSummary from "./OrdersSummary";
 import OrderStatusSelector from "./OrderStatusSelector";
 import { getAuthToken } from "../../utils/auth";
@@ -14,6 +14,7 @@ import DateFilterField from "./DateFilterField";
 import { motion } from "framer-motion";
 import { Await, defer, redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 
 export default function AllOrders() {
     const dialog = useRef();
@@ -80,12 +81,21 @@ export default function AllOrders() {
         return submit(null, { action: "/orders", method: "GET" });
     }, [submit]);
 
+    const handleExport = useCallback(async function handleExport(hasFilters) {
+        return await exportOrders(hasFilters,
+            hasFilters && sessionStorage.getItem("search"),
+            hasFilters && sessionStorage.getItem("orders-filters"),
+            hasFilters && sessionStorage.getItem("startDateOrders"),
+            hasFilters && sessionStorage.getItem("endDateOrders"),
+        );
+    }, []);
+
     if (!isAdmin && !isEmployee) {
         return;
     }
 
     return <motion.div
-        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-2 p-sm-4 p-1`}
+        className={`container-fluid overflow-y-hidden ${styles["table-wrapper"]} mb-4 mt-md-2 p-sm-4 p-1`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
@@ -165,6 +175,14 @@ export default function AllOrders() {
         <Suspense>
             <Await resolve={data}>
                 {(resolvedData) => <>
+                    <div className="mb-1 w-100 d-flex justify-content-end">
+                        <div className="w-25">
+                            <DownloadCsvOptionsButton
+                                fileName="orders"
+                                exportFunction={handleExport} />
+                        </div>
+                    </div>
+
                     <OrdersSummary data={resolvedData &&
                         resolvedData.ordersData} />
 

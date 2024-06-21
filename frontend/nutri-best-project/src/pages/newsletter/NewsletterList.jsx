@@ -1,24 +1,24 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Search from "../../components/UI/Searchbar/Search";
-import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import SubscriberRow from "./SubscriberRow";
 import MessageSenders from "./MessageSenders";
 import DeleteSubscriberModal from "../../components/Modals/Delete/DeleteSubscriberModal";
 import UsersPagination from "../../components/UI/Pagination/UsersPagination";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import NewsletterFilters from "./NewsletterFilters";
-import { subscribedToNewsletter } from "../../../../../backend/api/newsletter";
+import { subscribedToNewsletter, exportNewsletter } from "../../../../../backend/api/api";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { useLoaderData, useSubmit, useSearchParams, redirect, defer, Await } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
-import { getAuthToken } from "../../utils/auth";
-import useAuth from "../../hooks/useAuth";
 
 export default function NewsletterList() {
     const searchText = useRef();
     const dialog = useRef();
-    const selectedFilter = useRef();
+    const selectedFilter = useRef("all");
     const [subscriberToDelete, setSubscriberToDelete] = useState();
     const { data } = useLoaderData();
     const submit = useSubmit();
@@ -28,7 +28,7 @@ export default function NewsletterList() {
     let messageType = searchParams.get("type");
 
     const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
+    const { isAdmin, isEmployee } = useAuth(token);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -47,7 +47,7 @@ export default function NewsletterList() {
     useEffect(() => {
         return () => {
             sessionStorage.setItem("search", "");
-            sessionStorage.setItem("newsletter-group-type", "");
+            sessionStorage.setItem("newsletter-group-type", "all");
             sessionStorage.setItem("users-page", 1);
         } // cleans previous searches
     }, []);
@@ -77,6 +77,13 @@ export default function NewsletterList() {
         searchText.current.value = event.target.value;
     }, [handleSearch]);
 
+    const handleExport = useCallback(async function handleExport(withFilters) {
+        return await exportNewsletter(withFilters,
+            withFilters && sessionStorage.getItem("search"),
+            withFilters && sessionStorage.getItem("newsletter-group-type")
+        )
+    }, []);
+
     if (!isAdmin && !isEmployee) {
         return submit("message=Page Not Found!&type=danger", {
             action: "/",
@@ -85,7 +92,7 @@ export default function NewsletterList() {
     }
 
     return <motion.div
-        className={`container-fluid ${styles["table-wrapper"]} mb-4 mt-md-3 p-sm-4 p-1`}
+        className={`container-fluid overflow-y-hidden ${styles["table-wrapper"]} mb-4 mt-md-3 p-sm-4 p-1`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
@@ -111,8 +118,8 @@ export default function NewsletterList() {
 
         <Suspense>
             <Await resolve={data}>
-                {(resolvedData) => 
-                <MessageSenders groupType={resolvedData && resolvedData.groupType} />}
+                {(resolvedData) =>
+                    <MessageSenders groupType={resolvedData && resolvedData.groupType} />}
             </Await>
         </Suspense>
 
@@ -149,6 +156,13 @@ export default function NewsletterList() {
                 </Suspense>
             </table>
         </div>
+
+        <div className="d-flex justify-content-end mb-5">
+            <DownloadCsvOptionsButton
+                fileName="newsletter"
+                exportFunction={handleExport} />
+        </div>
+
         <Suspense>
             <Await resolve={data}>
                 {(resolvedData) => <UsersPagination
@@ -157,6 +171,7 @@ export default function NewsletterList() {
                 />}
             </Await>
         </Suspense>
+        <div className="mb-5"></div>
     </motion.div>;
 }
 

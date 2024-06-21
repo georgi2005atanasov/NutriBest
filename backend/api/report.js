@@ -65,3 +65,43 @@ export async function getDemographicsInfo(startDate, endDate) {
         return null;
     }
 }
+
+export async function exportPerformanceInfo(hasFilters, startDate, endDate) {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    let query = `?startDate=${startDate ? startDate : ""}&endDate=${endDate ? endDate : 0}`;
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+
+    const response = await fetch(`${HOST}/Reports/CSV/PerformanceInfo${hasFilters ? query : ""}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}
+
+export async function exportDemographicsInfo(hasFilters, startDate, endDate) {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    let query = `?startDate=${startDate ? startDate : ""}&endDate=${endDate ? endDate : 0}`;
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+
+    const response = await fetch(`${HOST}/Reports/CSV/DemographicsInfo${hasFilters ? query : ""}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}

@@ -42,3 +42,23 @@ export async function deletePackage(packageName) {
 
     return response;
 }
+
+export async function exportPackages() {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+    
+    let endpoint = `${HOST}/Packages/CSV?`;
+
+    const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}

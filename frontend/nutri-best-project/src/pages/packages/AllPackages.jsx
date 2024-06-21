@@ -3,7 +3,8 @@ import Message from "../../components/UI/Shared/Message";
 import PackageItem from "./PackageItem";
 import DeletePackageModal from "../../components/Modals/Delete/DeletePackageModal";
 import AddPackageButton from "../../components/UI/Buttons/Packages/AddPackageButton";
-import { allPackages } from "../../../../../backend/api/api";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import { allPackages, exportPackages } from "../../../../../backend/api/api";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
@@ -12,16 +13,12 @@ import { useState, useRef, useEffect, useCallback } from "react";
 
 export default function AllPackages() {
     const dialog = useRef();
-    const submit = useSubmit();
     const { packages } = useLoaderData();
     const [grams, setGrams] = useState("");
     let [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
     let messageType = searchParams.get("type");
-
-    const token = getAuthToken();
-    const { isAdmin, isEmployee } = useAuth(token);
 
     useEffect(() => {
         if (grams) {
@@ -48,11 +45,6 @@ export default function AllPackages() {
         setGrams(grams);
     }, []);
 
-    // if (!isAdmin && !isEmployee) {
-    //     return submit("message=Page Not Found!&type=danger",
-    //         { action: "/", method: "GET" });
-    // }
-
     return <>
         <DeletePackageModal
             packageToDelete={grams}
@@ -75,6 +67,12 @@ export default function AllPackages() {
 
                 <div className="d-flex justify-content-center">
                     <AddPackageButton />
+                </div>
+
+                <div className="w-100 text-end me-4">
+                    <DownloadCsvButton
+                        fileName="packages"
+                        exportFunction={exportPackages} />
                 </div>
 
                 {packages.map((x, index) => (

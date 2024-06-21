@@ -64,7 +64,8 @@ import {
 import {
     allPackages,
     addPackage,
-    deletePackage
+    deletePackage,
+    exportPackages
 }
     from "./packages";
 import {
@@ -112,7 +113,9 @@ import {
     changeOrderStatuses,
     deleteOrder,
     getUserOrders,
-    getOrderRelatedProducts
+    getOrderRelatedProducts,
+    exportOrders,
+    exportOrdersSummary
 }
     from "./orders";
 import {
@@ -136,7 +139,8 @@ import {
     addToNewsletter,
     subscribedToNewsletter,
     removeFromNewsletterByAdmin,
-    unsubscribeFromNewsletter
+    unsubscribeFromNewsletter,
+    exportNewsletter
 }
     from "./newsletter";
 
@@ -193,6 +197,7 @@ export { deleteFlavour };
 export { getNutritionFactsByProductIdAndName };
 export { setNutritionFactsByProductId };
 export { exportFlavours };
+export { exportPackages }
 
 export { addToCart };
 export { getCart };
@@ -216,6 +221,8 @@ export { changeOrderStatuses };
 export { deleteOrder };
 export { getUserOrders };
 export { getOrderRelatedProducts };
+export { exportOrders };
+export { exportOrdersSummary };
 
 export { sendConfirmOrderMessage };
 export { confirmOrder };
@@ -236,3 +243,4 @@ export { addToNewsletter };
 export { subscribedToNewsletter };
 export { removeFromNewsletterByAdmin };
 export { unsubscribeFromNewsletter };
+export { exportNewsletter };

@@ -7,9 +7,10 @@ import SellingCategoriesChart from "./SellingCategoriesChart";
 import ChartsRow from "./ChartsRows";
 import Demographics from "./Demographics";
 import OverallSalesVolume from "./OverallSalesVolume";
-import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
+import { exportPerformanceInfo, getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
 import { redirect, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 
 export default function ReportDashboard() {
     const { data, demographics } = useLoaderData();
@@ -29,6 +30,13 @@ export default function ReportDashboard() {
         sessionStorage.setItem(identifier, value.toISOString());
         return submit(null, { action: "/report/dashboard", method: "GET" });
     }, [submit]);
+
+    const handlePerformanceExport = useCallback(async function handlePerformanceExport(hasFilters) {
+        return await exportPerformanceInfo(hasFilters,
+            hasFilters && sessionStorage.getItem("startDatePerformance"),
+            hasFilters && sessionStorage.getItem("endDatePerformance")
+        );
+    }, []);
 
     const renderContent = () => {
         switch (view) {
@@ -143,6 +151,12 @@ export default function ReportDashboard() {
                 </div>
             </div>
             <div className="container">
+                <div className="d-flex justify-content-end align-items-start mt-4">
+                    <DownloadCsvOptionsButton
+                        fileName="performanceInfo"
+                        exportFunction={handlePerformanceExport}
+                    />
+                </div>
                 {renderContent()}
             </div>
             <Demographics demographics={demographics} />

@@ -78,7 +78,6 @@ export default function AllFlavours() {
                     <AddFlavourButton />
                 </div>
                 <div className="w-100 text-end me-4">
-
                     <DownloadCsvButton
                         fileName="flavours"
                         exportFunction={exportFlavours} />

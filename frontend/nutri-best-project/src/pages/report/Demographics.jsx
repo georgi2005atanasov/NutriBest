@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/SellingProductsChart.module.css";
 import DateFilterField from "../order/DateFilterField";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import { Pie } from 'react-chartjs-2';
 import { useSubmit } from "react-router-dom";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
+import { exportDemographicsInfo } from "../../../../../backend/api/report";
 
 export default function Demographics({ demographics }) {
     const submit = useSubmit();
@@ -76,6 +78,13 @@ export default function Demographics({ demographics }) {
         return submit(null, { action: "/report/dashboard", method: "GET" });
     }, [submit]);
 
+    const handleDemographicsExport = useCallback(async function handleDemographicsExport(hasFilters) {
+        return await exportDemographicsInfo(hasFilters,
+            hasFilters && sessionStorage.getItem("startDateDemographics"),
+            hasFilters && sessionStorage.getItem("endDateDemographics")
+        );
+    }, []);
+
     return (
         <>
             <h2 className={`${styles["report-header"]} p-2 mt-3 mb-0 text-center`}>
@@ -95,6 +104,12 @@ export default function Demographics({ demographics }) {
                 />
             </div>
             <div>
+                <div className="d-flex justify-content-end align-items-start mt-4 me-2">
+                    <DownloadCsvOptionsButton
+                        fileName="demographicsInfo"
+                        exportFunction={handleDemographicsExport}
+                    />
+                </div>
                 <div className="container d-flex justify-content-center align-items-center flex-xl-row flex-column">
                     {groupedByCountry && Object.entries(groupedByCountry).map(([country, data]) => (
                         <div key={country} className={`${styles["pie-chart-wrapper"]}`}>

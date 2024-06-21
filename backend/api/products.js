@@ -239,3 +239,17 @@ export async function getCurrentProductPrice(productId, flavour, grams) {
         return NaN;
     }
 }
+
+export async function exportProducts(hasFilters, categories = "", price = "", alpha = "", search = "", priceRange = [], brand = "", quantities = "", flavours = "") {
+    const query = buildQuery(null, categories, price, alpha, null, search, priceRange, brand, quantities, flavours);
+    const token = getAuthToken();
+
+    const response = await fetch(`${HOST}/Products/CSV${hasFilters ? query : ""}`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}

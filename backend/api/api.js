@@ -14,7 +14,8 @@ import {
     getProductSpecs,
     partialEditProduct,
     getRelated,
-    getCurrentProductPrice
+    getCurrentProductPrice,
+    exportProducts
 }
     from "./products";
 
@@ -153,6 +154,7 @@ export { getProductSpecs };
 export { getCurrentProductPrice };
 export { getIdentifiers };
 export { getFormFile };
+export { exportProducts };
 
 export { getProfileDetails };
 export { editUser };

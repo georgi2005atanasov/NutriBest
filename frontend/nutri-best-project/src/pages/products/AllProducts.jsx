@@ -7,8 +7,7 @@ import ProductsList from "./ProductsList";
 import { PRODUCTS_VIEWS } from "../Root";
 import Table from "./Table";
 import useAuth from "../../hooks/useAuth";
-import { allPromotions } from "../../../../../backend/api/api";
-import { allProducts, getImageByProductId } from "../../../../../backend/api/api";
+import { allPromotions, exportProducts, allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import Loader from "../../components/UI/Shared/Loader";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
@@ -105,7 +104,7 @@ export default function AllProducts() {
                                             <div className="d-flex justify-content-end mt">
                                                 <DownloadCsvButton
                                                     fileName="products"
-                                                    route="https://localhost:7056/Products/CSV" />
+                                                    exportFunction={exportProducts} />
                                             </div>
                                         </div>}
 
@@ -115,6 +114,11 @@ export default function AllProducts() {
                                                 text="View as User"
                                                 onClick={toUserView} />
                                             <div className="mx-1"></div>
+                                            <div className="d-flex justify-content-end mt">
+                                                <DownloadCsvButton
+                                                    fileName="products"
+                                                    exportFunction={exportProducts} />
+                                            </div>
                                         </div>}
                                 </div>
                             </div>

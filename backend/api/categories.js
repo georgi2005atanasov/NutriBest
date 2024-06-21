@@ -1,3 +1,4 @@
+import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { HOST } from "../utils/util";
 
@@ -26,6 +27,26 @@ export async function deleteCategory(category) {
 
     const response = await fetch(`${HOST}/Categories/${category}`, {
         method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    return response;
+}
+
+export async function exportCategories() {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+    
+    let endpoint = `${HOST}/Categories/CSV?`;
+
+    const response = await fetch(endpoint, {
+        method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
         }

@@ -6,7 +6,8 @@ import BrandDetailsModal from "../../components/Modals/Details/BrandDetailsModal
 import BrandItem from "./BrandItem";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
-import { getImageByBrandName } from "../../../../../backend/api/api";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import { exportBrands, getImageByBrandName } from "../../../../../backend/api/api";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import { motion } from "framer-motion";
 import { useSearchParams, useSubmit, redirect } from "react-router-dom";
@@ -110,7 +111,14 @@ const AllBrands = () => {
             <h2 className={`d-flex justify-content-center align-items-center m-0 mb-4 ${styles["brands-title"]}`}>
                 Our Brands
             </h2>
-            {(isAdmin || isEmployee) && <AddBrandButton />}
+            {(isAdmin || isEmployee) && <>
+                <AddBrandButton />
+                <div className="w-100 text-end me-4">
+                    <DownloadCsvButton
+                        fileName="brands"
+                        exportFunction={exportBrands} />
+                </div>
+            </>}
             <div className="row w-75 text-center">
                 {brands &&
                     brands.some(x => !x.name) ?

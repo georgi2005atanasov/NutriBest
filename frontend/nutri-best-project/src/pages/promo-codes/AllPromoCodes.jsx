@@ -2,11 +2,12 @@ import styles from "./css/AllPromoCodes.module.css";
 import Header from "../../components/UI/Shared/Header";
 import Message from "../../components/UI/Shared/Message";
 import PromoCodeItem from "./PromoCodeItem";
-import { allPromoCodes } from "../../../../../backend/api/api";
+import { allPromoCodes, exportPromoCodes } from "../../../../../backend/api/api";
+import AddPromoCodeButton from "../../components/UI/Buttons/PromoCodes/AddPromoCodeButton";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import AddPromoCodeButton from "../../components/UI/Buttons/PromoCodes/AddPromoCodeButton";
 
 export default function AllPromoCodes() {
     const { data } = useLoaderData();
@@ -44,6 +45,11 @@ export default function AllPromoCodes() {
             <div className={styles["promo-codes-container"]}>
                 {data && data.map(x =>
                     <PromoCodeItem key={x.description} item={x} />)}
+            </div>
+            <div className="w-100 text-end me-4">
+                <DownloadCsvButton
+                    fileName="promoCodes"
+                    exportFunction={exportPromoCodes} />
             </div>
         </motion.div>;
     </>

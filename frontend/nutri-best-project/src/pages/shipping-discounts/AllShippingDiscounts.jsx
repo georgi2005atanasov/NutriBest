@@ -2,7 +2,8 @@ import styles from "../css/Table.module.css";
 import shippingStyles from "./css/AllShippingDiscounts.module.css";
 import Message from "../../components/UI/Shared/Message";
 import DeleteShippingDiscountModal from "../../components/Modals/Delete/DeleteShippingDiscountModal";
-import { allShippingDiscounts } from "../../../../../backend/api/api";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import { allShippingDiscounts, exportShippingDiscounts } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -46,11 +47,11 @@ export default function AllShippingDiscounts() {
         <DeleteShippingDiscountModal ref={dialog} countryName={country} />
         <div className="mt-3 d-flex justify-content-between align-items-center">
             <h2 className="mx-0 mb-0 d-flex justify-content-center align-items-center">Shipping Discounts</h2>
-            <NavigationLink 
-            route="/shipping-discounts/add"
-            text="Add Shopping Discount"
-            isAdmin={true}
-            className="p-2"
+            <NavigationLink
+                route="/shipping-discounts/add"
+                text="Add Shopping Discount"
+                isAdmin={true}
+                className="p-2"
             />
         </div>
         <div className="row mt-md-4 mt-0">
@@ -93,6 +94,11 @@ export default function AllShippingDiscounts() {
             </table>
             {data && data.shippingDiscounts && data.shippingDiscounts.length == 0 &&
                 <h2 className="text-center mt-3">Currently There are no Shipping Discounts!</h2>}
+        </div>
+        <div className="w-100 text-end">
+            <DownloadCsvButton
+                fileName="shippingDiscounts"
+                exportFunction={exportShippingDiscounts} />
         </div>
     </motion.div>
 }

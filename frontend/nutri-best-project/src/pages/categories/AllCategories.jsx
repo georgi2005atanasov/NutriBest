@@ -6,9 +6,11 @@ import { getAuthToken } from "../../utils/auth";
 import DeleteCategoryModal from "../../components/Modals/Delete/DeleteCategoryModal";
 import useAuth from "../../hooks/useAuth";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
+import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import { motion } from "framer-motion";
 import { useSearchParams, useSubmit } from "react-router-dom";
 import { useContext, useEffect, useRef, useState } from "react";
+import { exportCategories } from "../../../../../backend/api/categories";
 
 const AllCategories = () => {
     const submit = useSubmit();
@@ -61,9 +63,9 @@ const AllCategories = () => {
 
         {message && <Message addStyles={"mb-0"} message={message} messageType={messageType} />}
 
-        <motion.div 
-        className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}
-        initial={{ opacity: 0, y: -50 }}
+        <motion.div
+            className={`${styles["categories-container"]} container-fluid d-flex flex-column align-items-center m-2 mt-5`}
+            initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.5 }}
@@ -71,7 +73,15 @@ const AllCategories = () => {
             <h2 className={"d-flex justify-content-center align-items-center m-0 mb-4 text-dark"}>
                 Our Categories
             </h2>
-            {(isAdmin || isEmployee) && <AddCategoryButton />}
+            {(isAdmin || isEmployee) && <>
+                <AddCategoryButton />
+                <div className="w-100 text-end me-4">
+                    <DownloadCsvButton
+                        fileName="categories"
+                        exportFunction={exportCategories} />
+                </div>
+            </>}
+
             <div className="row w-75 text-center">
                 {categories.map((category, index) => (
                     <div className="col-lg-3 col-md-4" key={index}>

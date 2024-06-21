@@ -53,12 +53,14 @@ import {
     allBrands,
     addBrand,
     getImageByBrandName,
-    deleteBrandByName
+    deleteBrandByName,
+    exportBrands
 }
     from "./brands";
 import {
     addCategory,
-    deleteCategory
+    deleteCategory,
+    exportCategories
 }
     from "./categories";
 import {
@@ -93,7 +95,8 @@ import {
 import {
     allPromoCodes,
     deletePromoCodes,
-    createPromoCodes
+    createPromoCodes,
+    exportPromoCodes
 }
     from "./promoCodes";
 import {
@@ -132,7 +135,8 @@ import {
 import {
     createShippingDiscount,
     allShippingDiscounts,
-    deleteShippingDiscount
+    deleteShippingDiscount,
+    exportShippingDiscounts
 }
     from "./shippingDiscount";
 import {
@@ -162,6 +166,8 @@ export { getCurrentProductPrice };
 export { getIdentifiers };
 export { getFormFile };
 export { exportProducts };
+export { exportCategories };
+export { exportBrands };
 
 export { getProfileDetails };
 export { editUser };
@@ -210,6 +216,7 @@ export { removePromoCode };
 export { allPromoCodes };
 export { deletePromoCodes };
 export { createPromoCodes };
+export { exportPromoCodes };
 
 export { allCitiesWithCountries };
 export { allPaymentMethods };
@@ -238,6 +245,7 @@ export { sendPromoCodeToSubscribers };
 export { createShippingDiscount };
 export { allShippingDiscounts };
 export { deleteShippingDiscount };
+export { exportShippingDiscounts };
 
 export { addToNewsletter };
 export { subscribedToNewsletter };

@@ -2,7 +2,7 @@ import styles from "./css/CartModal.module.css";
 import Modal from "../Modal";
 import CartItemCounter from "./CartItemCounter";
 import { CartContext } from "../../../../store/CartContext";
-import { getPrice } from "../../../../utils/product/products";
+import { getPrice } from "../../../../utils/products/productsHelper.js";
 import { cleanCart } from "../../../../../../../backend/api/cart";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";

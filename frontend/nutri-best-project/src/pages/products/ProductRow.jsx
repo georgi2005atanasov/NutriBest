@@ -5,7 +5,7 @@ import { getImageByProductId } from "../../../../../backend/api/products";
 import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
 import MultiSelectPromotion from "../../components/Promotions/MultiSelectPromotion";
-import { getPrice } from "../../utils/product/products";
+import { getPrice } from "../../utils/products/productsHelper.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";

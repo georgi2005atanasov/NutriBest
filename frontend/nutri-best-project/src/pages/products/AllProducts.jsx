@@ -1,16 +1,17 @@
 import styles from "./css/AllProducts.module.css";
 import ProductsPagination from "../../components/UI/Pagination/ProductsPagination";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import Message from "../../components/UI/Shared/Message";
 import ChangeLayoutButton from "../../components/UI/Buttons/Utility/ChangeLayoutButton";
 import FilterSidebar from "../../components/UI/Sidebar/Filters/FilterSidebar";
+import Loader from "../../components/UI/Shared/Loader";
 import ProductsList from "./ProductsList";
-import { PRODUCTS_VIEWS } from "../Root";
 import Table from "./Table";
+import { PRODUCTS_VIEWS } from "../Root";
+import { getProductsFilters } from "../../utils/products/productsHelper.js";
 import useAuth from "../../hooks/useAuth";
 import { allPromotions, exportProducts, allProducts, getImageByProductId } from "../../../../../backend/api/api";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
-import Loader from "../../components/UI/Shared/Loader";
-import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLoaderData, redirect, defer, Await, useSearchParams, useRouteLoaderData, useSubmit } from "react-router-dom";
 import { Suspense, useState, useEffect, useCallback, useContext } from "react";
@@ -73,15 +74,25 @@ export default function AllProducts() {
     }, []);
 
     const handleExport = useCallback(async function handleExport(withFilters) {
+        const { categories,
+            price,
+            alpha,
+            search,
+            priceRange,
+            brand,
+            quantities,
+            flavours
+        } = getProductsFilters();
+
         return await exportProducts(withFilters,
-            withFilters && sessionStorage.getItem("categories"),
-            withFilters && sessionStorage.getItem("price"),
-            withFilters && sessionStorage.getItem("alpha"),
-            withFilters && sessionStorage.getItem("search"),
-            withFilters && sessionStorage.getItem("priceRange"),
-            withFilters && sessionStorage.getItem("brand"),
-            withFilters && sessionStorage.getItem("quantities"),
-            withFilters && sessionStorage.getItem("flavours"))
+            withFilters && categories,
+            withFilters && price,
+            withFilters && alpha,
+            withFilters && search,
+            withFilters && priceRange,
+            withFilters && brand,
+            withFilters && quantities,
+            withFilters && flavours)
     }, []);
 
     return <>
@@ -191,7 +202,6 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
         sessionStorage.setItem("productsCount", count);
         sessionStorage.setItem("productsView", productsView);
         sessionStorage.setItem("maxPrice", maxPrice);
-        // sessionStorage.setItem("priceRange", `${0} ${maxPrice}`);
 
         await storeImages(productsRows);
 
@@ -208,16 +218,17 @@ async function getPromotions() {
 
 // eslint-disable-next-line no-unused-vars
 export async function loader({ request, params }) {
-    const currentPage = sessionStorage.getItem("page");
-    const categories = sessionStorage.getItem("categories");
-    const price = sessionStorage.getItem("price");
-    const alpha = sessionStorage.getItem("alpha");
-    const productsView = sessionStorage.getItem("productsView") || PRODUCTS_VIEWS.all;
-    const search = sessionStorage.getItem("search") || "";
-    const priceRange = sessionStorage.getItem("priceRange") || "";
-    const brand = sessionStorage.getItem("brand") || "";
-    const quantities = sessionStorage.getItem("quantities") || "";
-    const flavours = sessionStorage.getItem("flavours") || "";
+    const { currentPage,
+        categories,
+        price,
+        alpha,
+        productsView,
+        search,
+        priceRange,
+        brand,
+        quantities,
+        flavours
+    } = getProductsFilters();
 
     if (!currentPage || isNaN(currentPage)) {
         return redirect("/?message=Invalid page number provided.&type=danger");

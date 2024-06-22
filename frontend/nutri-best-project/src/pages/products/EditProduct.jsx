@@ -1,9 +1,9 @@
 import ProductForm from "./ProductForm";
 import { editProduct, getProductById } from "../../../../../backend/api/api";
-import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
+import { getProductForm, getProductCategories } from "../../utils/products/formHandler.js";
 import { getFormData } from "../../utils/utils";
 import { cleanFilters } from "../../utils/utils";
-import { getProductErrors } from "../../utils/product/validation";
+import { getProductErrors } from "../../utils/products/validation.js";
 import useAuth from "../../hooks/useAuth";
 import { getProductSpecs } from "../../../../../backend/api/products";
 import { redirect, useLoaderData, json, useActionData, useSubmit, useRouteLoaderData } from "react-router-dom";

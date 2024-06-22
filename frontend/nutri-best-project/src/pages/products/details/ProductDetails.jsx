@@ -1,7 +1,7 @@
 import alt from "../../../assets/fallback-image.png";
 import styles from "../css/ProductDetails.module.css";
 import itemStyles from "../css/ProductItem.module.css";
-import { getPrice } from "../../../utils/product/products";
+import { getPrice } from "../../../utils/products/productsHelper.js";
 import MultiSelectPromotion from "../../../components/Promotions/MultiSelectPromotion";
 import {
     allPromotions, getProductDetailsByIdAndName, getProductSpecs,

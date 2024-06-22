@@ -7,7 +7,7 @@ import MultiSelectPromotion from "../../components/Promotions/MultiSelectPromoti
 import { getImageByProductId } from "../../../../../backend/api/api";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
-import { getPrice } from "../../utils/product/products";
+import { getPrice } from "../../utils/products/productsHelper.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";

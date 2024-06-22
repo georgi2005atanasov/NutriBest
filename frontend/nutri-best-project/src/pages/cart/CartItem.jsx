@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import CartItemCounter from "../../components/UI/Modals/Cart/CartItemCounter";
-import { getPrice } from "../../utils/product/products";
+import { getPrice } from "../../utils/products/productsHelper.js";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 

@@ -6,7 +6,7 @@ import Search from "../../components/UI/Searchbar/Search";
 import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
-import DeleteOrderModal from "../../components/Modals/Delete/DeleteOrderModal";
+import DeleteOrderModal from "../../components/UI/Modals/Delete/DeleteOrderModal";
 import DateFilterField from "./DateFilterField";
 import { allOrders, exportOrders } from "../../../../../backend/api/api";
 import OrderStatusSelector from "./OrderStatusSelector";

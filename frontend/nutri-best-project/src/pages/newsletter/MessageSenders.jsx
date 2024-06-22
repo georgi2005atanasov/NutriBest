@@ -1,5 +1,5 @@
 import styles from "./css/MessageSenders.module.css";
-import SendPromoCodesModal from "../../components/Modals/Profile/SendPromoCodesModal";
+import SendPromoCodesModal from "../../components/UI/Modals/PromoCode/SendPromoCodesModal";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 

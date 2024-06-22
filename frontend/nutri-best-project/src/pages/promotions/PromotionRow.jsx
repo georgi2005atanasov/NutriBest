@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/PromotionRow.module.css";
-import EditPromotionButton from "../../components/UI/Promotions/EditPromotionButton";
-import DeletePromotionButton from "../../components/UI/Promotions/DeletePromotionButton";
+import EditPromotionButton from "../../components/Promotions/EditPromotionButton";
+import DeletePromotionButton from "../../components/Promotions/DeletePromotionButton";
 import InputError from "../../components/UI/Form/InputError.jsx";
 import { getDate } from "../../utils/utils";
 import { changeStatus, getProductsOfPromotion } from "../../../../../backend/api/api.js";

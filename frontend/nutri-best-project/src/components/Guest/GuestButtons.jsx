@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-import colors from "../../App.module.css";
 import { CartContext } from "../../store/CartContext";
-import CartButton from "../Modals/Cart/CartButton";
-import CartModal from "../Modals/Cart/CartModal";
+import CartButton from "../UI/Buttons/Cart/CartButton";
+import CartModal from "../UI/Modals/Cart/CartModal";
 import NavigationLink from "../Navigation/NavigationLink";
 import { motion } from "framer-motion";
 import { useContext, useRef } from "react";

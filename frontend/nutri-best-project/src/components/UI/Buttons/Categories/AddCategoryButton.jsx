@@ -6,6 +6,6 @@ export default function AddCategoryButton() {
             route={"/categories/add"}
             text={"Add Category"}
             isAdmin={true} // just for styling purposes
-            className={`d-flex justify-content-center align-items-center p-1`} />;
+            className={`d-flex justify-content-center align-items-center p-1`} />
     </div>
 }

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/PromoCodeItem.module.css";
-import DeletePromoCodeModal from "../../components/Modals/Delete/DeletePromoCodeModal";
+import DeletePromoCodeModal from "../../components/UI/Modals/Delete/DeletePromoCodeModal";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 

@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import CartModal from "../Modals/Cart/CartModal";
-import CartButton from "../Modals/Cart/CartButton";
+import CartModal from "../UI/Modals/Cart/CartModal";
+import CartButton from "../UI/Buttons/Cart/CartButton";
 import NavigationLink from "../Navigation/NavigationLink";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import { CartContext } from "../../store/CartContext";
 import { motion } from "framer-motion";
-import { allPackages } from "../../../../../backend/api/packages";
-import { allFlavours } from "../../../../../backend/api/flavours";
+import { allPackages, allFlavours } from "../../../../../backend/api/api";
 import { useContext, useRef } from "react";
 
 export default function UserButtons({ isVerified, handleLogout }) {

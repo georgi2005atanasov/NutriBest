@@ -2,7 +2,7 @@ import styles from "../css/Table.module.css";
 import PromotionRow from "./PromotionRow";
 import Header from "../../components/UI/Shared/Header";
 import Message from "../../components/UI/Shared/Message";
-import AddPromotionButton from "../../components/UI/Promotions/AddPromotionButton";
+import AddPromotionButton from "../../components/Promotions/AddPromotionButton";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";

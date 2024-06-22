@@ -1,7 +1,7 @@
 import styles from "./css/AllFlavours.module.css";
 import Message from "../../components/UI/Shared/Message";
 import AddFlavourButton from "../../components/UI/Buttons/Flavours/AddFlavourButton";
-import DeleteFlavourModal from "../../components/Modals/Delete/DeleteFlavourModal";
+import DeleteFlavourModal from "../../components/UI/Modals/Delete/DeleteFlavourModal";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import FlavourItem from "./FlavourItem";
 import { getAuthToken } from "../../utils/auth";

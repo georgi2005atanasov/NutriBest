@@ -1,7 +1,7 @@
 import styles from "./css/AllProducts.module.css";
 import ProductsPagination from "../../components/UI/Pagination/ProductsPagination";
 import Message from "../../components/UI/Shared/Message";
-import ChangeLayoutButton from "../../components/UI/Buttons/ChangeLayoutButton";
+import ChangeLayoutButton from "../../components/UI/Buttons/Utility/ChangeLayoutButton";
 import FilterSidebar from "../../components/UI/Sidebar/Filters/FilterSidebar";
 import ProductsList from "./ProductsList";
 import { PRODUCTS_VIEWS } from "../Root";

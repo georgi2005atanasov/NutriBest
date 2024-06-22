@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import AddToCartButton from "../../../components/UI/Buttons/AddToCartButton";
-import BuyNowButton from "../../../components/UI/Buttons/BuyNowButton";
+import AddToCartButton from "../../../components/UI/Buttons/Products/AddToCartButton";
+import BuyNowButton from "../../../components/UI/Buttons/Products/BuyNowButton";
 import EditProductButton from "../../../components/UI/Buttons/Products/EditProductButton";
 import DeleteProductButton from "../../../components/UI/Buttons/Products/DeleteProductButton";
 

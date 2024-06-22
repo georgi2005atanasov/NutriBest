@@ -1,7 +1,7 @@
 import styles from "./css/ProfileDetails.module.css";
 import DeleteProfileButton from "../../components/UI/Buttons/Profile/DeleteProfileButton";
-import RestoreProfileModal from "../../components/Modals/Profile/RestoreProfileModal";
-import SendPromoCodeModal from "../../components/Modals/Profile/SendPromoCodeModal";
+import RestoreProfileModal from "../../components/UI/Modals/Admin/RestoreProfileModal";
+import SendPromoCodeModal from "../../components/UI/Modals/PromoCode/SendPromoCodeModal";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";
 import { getProfileDetailsById } from "../../../../../backend/api/profile";

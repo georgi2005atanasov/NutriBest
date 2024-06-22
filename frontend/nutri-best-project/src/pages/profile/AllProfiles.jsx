@@ -7,7 +7,7 @@ import Message from "../../components/UI/Shared/Message";
 import Search from "../../components/UI/Searchbar/Search";
 import UsersPagination from "../../components/UI/Pagination/UsersPagination";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
-import GrantModal from "../../components/Modals/Profile/GrantModal";
+import GrantModal from "../../components/UI/Modals/Admin/GrantModal";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { allProfiles, exportProfiles } from "../../../../../backend/api/api";

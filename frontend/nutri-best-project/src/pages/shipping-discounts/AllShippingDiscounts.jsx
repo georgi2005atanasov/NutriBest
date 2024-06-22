@@ -1,7 +1,7 @@
 import styles from "../css/Table.module.css";
 import shippingStyles from "./css/AllShippingDiscounts.module.css";
 import Message from "../../components/UI/Shared/Message";
-import DeleteShippingDiscountModal from "../../components/Modals/Delete/DeleteShippingDiscountModal";
+import DeleteShippingDiscountModal from "../../components/UI/Modals/Delete/DeleteShippingDiscountModal";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import { allShippingDiscounts, exportShippingDiscounts } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";

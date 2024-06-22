@@ -2,7 +2,7 @@ import alt from "../../../assets/fallback-image.png";
 import styles from "../css/ProductDetails.module.css";
 import itemStyles from "../css/ProductItem.module.css";
 import { getPrice } from "../../../utils/product/products";
-import MultiSelectPromotion from "../../../components/UI/Promotions/MultiSelectPromotion";
+import MultiSelectPromotion from "../../../components/Promotions/MultiSelectPromotion";
 import {
     allPromotions, getProductDetailsByIdAndName, getProductSpecs,
     getImageByProductId, getNutritionFactsByProductIdAndName,

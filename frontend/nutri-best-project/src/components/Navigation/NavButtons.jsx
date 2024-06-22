@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "./MainNavigation.module.css";
 import shoppingBag from "../../assets/shopping-bag.png";
-import UserButtons from "../user/UserButtons";
-import GuestButtons from "../guest/GuestButtons";
+import UserButtons from "../User/UserButtons";
+import GuestButtons from "../Guest/GuestButtons";
 import useAuth from "../../hooks/useAuth";
 import { useLoaderData, useSubmit } from "react-router-dom";
 

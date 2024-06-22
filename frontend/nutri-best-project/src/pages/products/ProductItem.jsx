@@ -3,7 +3,7 @@ import alt from "../../assets/fallback-image.png";
 import styles from "./css/ProductItem.module.css";
 import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
-import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
+import MultiSelectPromotion from "../../components/Promotions/MultiSelectPromotion";
 import { getImageByProductId } from "../../../../../backend/api/api";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";

@@ -3,7 +3,7 @@ import Message from "../../components/UI/Shared/Message";
 import AddCategoryButton from "../../components/UI/Buttons/Categories/AddCategoryButton";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import CategoryItem from "./CategoryItem";
-import DeleteCategoryModal from "../../components/Modals/Delete/DeleteCategoryModal";
+import DeleteCategoryModal from "../../components/UI/Modals/Delete/DeleteCategoryModal";
 import { CategoryBrandContext } from "../../store/CategoryBrandContext";
 import useAuth from "../../hooks/useAuth";
 import { getAuthToken } from "../../utils/auth";

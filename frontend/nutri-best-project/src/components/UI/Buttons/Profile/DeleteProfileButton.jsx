@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/DeleteProfileButton.module.css";
-import DeleteProfileModal from "../../../Modals/Delete/DeleteProfileModal";
+import DeleteProfileModal from "../../../UI/Modals/Delete/DeleteProfileModal";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 

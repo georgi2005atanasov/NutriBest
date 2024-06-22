@@ -1,6 +1,6 @@
 import styles from "../../../../pages/products/css/ProductItem.module.css";
 import table from "../../../../pages/css/Table.module.css";
-import DeleteProductModal from "../../../Modals/Delete/DeleteProductModal";
+import DeleteProductModal from "../../../UI/Modals/Delete/DeleteProductModal";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 

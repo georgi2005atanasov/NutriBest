@@ -4,7 +4,7 @@ import promotionStyles from "./css/ProductItem.module.css";
 import { getImageByProductId } from "../../../../../backend/api/products";
 import DeleteProductButton from "../../components/UI/Buttons/Products/DeleteProductButton";
 import EditProductButton from "../../components/UI/Buttons/Products/EditProductButton";
-import MultiSelectPromotion from "../../components/UI/Promotions/MultiSelectPromotion";
+import MultiSelectPromotion from "../../components/Promotions/MultiSelectPromotion";
 import { getPrice } from "../../utils/product/products";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";

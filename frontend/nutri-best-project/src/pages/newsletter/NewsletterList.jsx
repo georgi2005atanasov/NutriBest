@@ -14,6 +14,7 @@ import { subscribedToNewsletter, exportNewsletter } from "../../../../../backend
 import { motion } from "framer-motion";
 import { useLoaderData, useSubmit, useSearchParams, redirect, defer, Await } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
+import { getNewsletterFilters } from "../../utils/newsletter/newsletterHelper";
 
 export default function NewsletterList() {
     const searchText = useRef();
@@ -78,9 +79,14 @@ export default function NewsletterList() {
     }, [handleSearch]);
 
     const handleExport = useCallback(async function handleExport(withFilters) {
+        const {
+            search,
+            groupType
+        } = getNewsletterFilters();
+
         return await exportNewsletter(withFilters,
-            withFilters && sessionStorage.getItem("search"),
-            withFilters && sessionStorage.getItem("newsletter-group-type")
+            withFilters && search,
+            withFilters && groupType
         )
     }, []);
 
@@ -176,9 +182,11 @@ export default function NewsletterList() {
 }
 
 async function loadSubscribers() {
-    const page = Number(sessionStorage.getItem("users-page"));
-    const search = sessionStorage.getItem("search");
-    const groupType = sessionStorage.getItem("newsletter-group-type");
+    const {
+        page,
+        search,
+        groupType
+    } = getNewsletterFilters();
 
     const response = await subscribedToNewsletter(page, search, groupType);
 

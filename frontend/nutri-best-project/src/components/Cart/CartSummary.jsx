@@ -37,7 +37,7 @@ export default function CartSummary({ cart, handleCodeRemove, shippingDiscount, 
                 cart.totalProducts &&
                 (shippingPrice || shippingPrice == 0)) ?
                 <span>{(shippingPrice + cart.totalProducts).toFixed(2)} BGN</span> :
-                <span>{cart.totalProducts && cart.totalProducts.toFixed(2)} BGN</span>}
+                <span>{cart && cart.totalProducts && cart.totalProducts.toFixed(2)} BGN</span>}
         </motion.h2>
         {cart && cart.code &&
             <div className="d-flex justify-content-center align-items-start">

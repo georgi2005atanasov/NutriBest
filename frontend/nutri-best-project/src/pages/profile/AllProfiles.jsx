@@ -14,6 +14,7 @@ import { allProfiles, exportProfiles } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useLoaderData, useSearchParams, useNavigation, useSubmit, defer, Await } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState, Suspense } from "react";
+import { getProfileFilters } from "../../utils/profiles/profilesHelper";
 
 export default function AllProfiles() {
     const token = getAuthToken();
@@ -95,9 +96,14 @@ export default function AllProfiles() {
     }
 
     const handleExport = useCallback(async function handleExport(withFilters) {
+        const {
+            search,
+            groupType
+        } = getProfileFilters();
+        
         return await exportProfiles(withFilters,
-            withFilters && sessionStorage.getItem("search"),
-            withFilters && sessionStorage.getItem("users-group-type")
+            withFilters && search,
+            withFilters && groupType
         )
     }, []);
 
@@ -197,9 +203,12 @@ export default function AllProfiles() {
 
 async function loadProfiles() {
     try {
-        const usersPage = Number(sessionStorage.getItem("users-page")); // get from session storage
-        const search = sessionStorage.getItem("search");
-        const groupType = sessionStorage.getItem("users-group-type");
+        const {
+            usersPage,
+            search,
+            groupType
+        } = getProfileFilters();
+
         const profilesData = await allProfiles(usersPage, search, groupType);
 
         if (!profilesData) {

@@ -15,6 +15,7 @@ import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { Await, defer, redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
+import { getOrdersFilters } from "../../utils/orders/ordersHelper";
 
 export default function AllOrders() {
     const dialog = useRef();
@@ -82,11 +83,18 @@ export default function AllOrders() {
     }, [submit]);
 
     const handleExport = useCallback(async function handleExport(hasFilters) {
+        const {
+            search,
+            filters,
+            startDate,
+            endDate
+        } = getOrdersFilters();
+
         return await exportOrders(hasFilters,
-            hasFilters && sessionStorage.getItem("search"),
-            hasFilters && sessionStorage.getItem("orders-filters"),
-            hasFilters && sessionStorage.getItem("startDateOrders"),
-            hasFilters && sessionStorage.getItem("endDateOrders"),
+            hasFilters && search,
+            hasFilters && filters,
+            hasFilters && startDate,
+            hasFilters && endDate
         );
     }, []);
 
@@ -202,11 +210,13 @@ export default function AllOrders() {
 }
 
 async function loadOrders() {
-    const ordersPage = Number(sessionStorage.getItem("orders-page"));
-    const search = sessionStorage.getItem("search");
-    const filters = sessionStorage.getItem("orders-filters");
-    const startDate = sessionStorage.getItem("startDateOrders");
-    const endDate = sessionStorage.getItem("endDateOrders");
+    const {
+        ordersPage,
+        search,
+        filters,
+        startDate,
+        endDate
+    } = getOrdersFilters();
 
     const response = await allOrders(ordersPage,
         search,

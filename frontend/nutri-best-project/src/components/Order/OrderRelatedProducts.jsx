@@ -43,7 +43,7 @@ export default function OrderRelatedProducts({ totalProducts,
         exit={{ opacity: 0, y: 50 }}
         transition={{ duration: 0.7 }}
     >
-        {(totalProducts < minimumPrice) || !minimumPrice ?
+        {(totalProducts < minimumPrice) ?
             <div className={`${styles["order-message-wrapper"]}`}>
                 <h4 className={styles["order-message"]}>
                     Save <strong>{(shippingPrice - shippingPriceWithDiscount).toFixed(2)}BGN</strong> From Shipping by Buying:

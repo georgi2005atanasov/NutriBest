@@ -12,6 +12,7 @@ import { exportPerformanceInfo } from "../../../../../backend/api/api";
 import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
 import { redirect, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
+import { getReportFilters } from "../../utils/report/reportHelper";
 
 export default function ReportDashboard() {
     const { data, demographics } = useLoaderData();
@@ -33,9 +34,14 @@ export default function ReportDashboard() {
     }, [submit]);
 
     const handlePerformanceExport = useCallback(async function handlePerformanceExport(hasFilters) {
+        const {
+            startDatePerformance,
+            endDatePerformance,
+        } = getReportFilters();
+
         return await exportPerformanceInfo(hasFilters,
-            hasFilters && sessionStorage.getItem("startDatePerformance"),
-            hasFilters && sessionStorage.getItem("endDatePerformance")
+            hasFilters && startDatePerformance,
+            hasFilters && endDatePerformance
         );
     }, []);
 
@@ -167,10 +173,13 @@ export default function ReportDashboard() {
 
 export async function loader({ request, params }) {
     try {
-        const startDatePerformance = sessionStorage.getItem("startDatePerformance");
-        const endDatePerformance = sessionStorage.getItem("endDatePerformance");
-        const startDateDemographics = sessionStorage.getItem("startDateDemographics");
-        const endDateDemographics = sessionStorage.getItem("endDateDemographics");
+        const {
+            startDatePerformance,
+            endDatePerformance,
+            startDateDemographics,
+            endDateDemographics
+        } = getReportFilters();
+
         const data = await getPerformanceInfo(startDatePerformance, endDatePerformance);
 
         if (data == null) {

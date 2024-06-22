@@ -6,10 +6,10 @@ import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/Downl
 import { exportDemographicsInfo } from "../../../../../backend/api/api";
 import { useSubmit } from "react-router-dom";
 import { useCallback } from "react";
+import { getReportFilters } from "../../utils/report/reportHelper";
 
 export default function Demographics({ demographics }) {
     const submit = useSubmit();
-    console.log(demographics);
 
     const groupedByCountry = demographics && demographics.reduce((acc, item) => {
         if (!acc[item.country]) {
@@ -79,9 +79,14 @@ export default function Demographics({ demographics }) {
     }, [submit]);
 
     const handleDemographicsExport = useCallback(async function handleDemographicsExport(hasFilters) {
+        const {
+            startDateDemographics,
+            endDateDemographics
+        } = getReportFilters();
+
         return await exportDemographicsInfo(hasFilters,
-            hasFilters && sessionStorage.getItem("startDateDemographics"),
-            hasFilters && sessionStorage.getItem("endDateDemographics")
+            hasFilters && startDateDemographics,
+            hasFilters && endDateDemographics
         );
     }, []);
 

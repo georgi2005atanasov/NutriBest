@@ -7,10 +7,11 @@ import SellingCategoriesChart from "./SellingCategoriesChart";
 import ChartsRow from "./ChartsRows";
 import Demographics from "./Demographics";
 import OverallSalesVolume from "./OverallSalesVolume";
-import { exportPerformanceInfo, getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
+import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
+import { exportPerformanceInfo } from "../../../../../backend/api/api";
+import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";
 import { redirect, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
-import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 
 export default function ReportDashboard() {
     const { data, demographics } = useLoaderData();

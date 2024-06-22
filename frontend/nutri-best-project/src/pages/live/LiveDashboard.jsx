@@ -1,10 +1,10 @@
 import styles from "./css/LiveDashboard.module.css";
-import { connection } from "../../../../../backend/services/signalRService";
 import LiveUsers from "./LiveUsers";
+import { getAuthToken } from "../../utils/auth";
+import { connection } from "../../../../../backend/services/signalRService";
+import useAuth from "../../hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { getAuthToken } from "../../utils/auth";
-import useAuth from "../../hooks/useAuth";
 
 export default function LiveDashboard() {
     const token = getAuthToken();

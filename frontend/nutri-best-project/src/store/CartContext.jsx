@@ -1,6 +1,6 @@
 import { getCart } from "../../../../backend/api/cart";
-import { createContext, useEffect, useState } from "react";
 import { getImageByProductId } from "../../../../backend/api/products";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext({
     cart: {},

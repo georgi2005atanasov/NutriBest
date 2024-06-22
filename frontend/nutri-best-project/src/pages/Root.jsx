@@ -1,15 +1,15 @@
 import MainNavigation from "../components/Navigation/MainNavigation";
 import Footer from "../components/UI/Shared/Footer";
-import CategoryBrandContextProvider from "../store/CategoryBrandContext";
-import ProductSpecsContextProvider from "../store/ProductSpecsContext";
 import Notification from "../components/Notifications/Notification";
+import LowStockNotification from "../components/Notifications/LowStockNotification";
+import CategoryBrandContextProvider from "../store/CategoryBrandContext";
 import { getAuthToken } from "../utils/auth";
-import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import ProductSpecsContextProvider from "../store/ProductSpecsContext";
 import CartContextProvider from "../store/CartContext";
 import { connection } from "../../../../backend/services/signalRService";
-import useAuth from "../hooks/useAuth";
+import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
-import LowStockNotification from "../components/Notifications/LowStockNotification";
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_NEWSLETTER_GROUP_TYPE = "all";

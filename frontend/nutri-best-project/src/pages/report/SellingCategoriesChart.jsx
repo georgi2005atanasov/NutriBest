@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/SellingProductsChart.module.css";
-import { useRef, useEffect } from 'react';
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
+import { useRef, useEffect } from 'react';
 
 const SellingCategoriesChart = ({ categories, header }) => {
     const chartRef = useRef(null);

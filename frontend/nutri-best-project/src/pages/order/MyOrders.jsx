@@ -1,21 +1,18 @@
 import styles from "../css/Table.module.css";
+import MyOrderRow from "./MyOrderRow";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Search from "../../components/UI/Searchbar/Search";
-import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import { getUserOrders } from "../../../../../backend/api/orders";
-import MyOrderRow from "./MyOrderRow";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSubmit, useNavigation, useSearchParams, defer, Await } from "react-router-dom";
+import { redirect, useLoaderData, useSubmit, useSearchParams, defer, Await } from "react-router-dom";
 import { useRef, useEffect, Suspense } from "react";
 
 export default function MyOrders() {
     const searchText = useRef();
-    const { data, ordersPage } = useLoaderData();
+    const { data } = useLoaderData();
     const submit = useSubmit();
-    const navigation = useNavigation();
-    const isLoading = navigation.state == "loading";
     const [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");

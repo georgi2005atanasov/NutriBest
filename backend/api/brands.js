@@ -44,24 +44,3 @@ export async function deleteBrandByName(brand) {
 
     return response;
 }
-
-export async function exportBrands() {
-    const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return;
-    }
-    
-    let endpoint = `${HOST}/Brands/CSV?`;
-
-    const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response;
-}
-

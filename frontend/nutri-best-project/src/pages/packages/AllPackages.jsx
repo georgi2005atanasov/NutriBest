@@ -5,10 +5,8 @@ import DeletePackageModal from "../../components/Modals/Delete/DeletePackageModa
 import AddPackageButton from "../../components/UI/Buttons/Packages/AddPackageButton";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
 import { allPackages, exportPackages } from "../../../../../backend/api/api";
-import { getAuthToken } from "../../utils/auth";
-import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
+import { redirect, useLoaderData, useSearchParams } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 
 export default function AllPackages() {

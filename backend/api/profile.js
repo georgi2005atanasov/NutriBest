@@ -111,30 +111,6 @@ export async function allProfiles(page, search, groupType) {
     }
 }
 
-export async function exportProfiles(hasFilters, search, groupType) {
-    const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return;
-    }
-
-    let endpoint = `${HOST}/Profiles/CSV?`;
-
-    if (hasFilters) {
-        endpoint += `search=${search}&groupType=${groupType}`;
-    }
-
-    const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response;
-}
-
 export async function getProfileDetailsById(id) {
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);

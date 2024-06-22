@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useSubmit } from "react-router-dom";
 import cartStyles from "../../components/UI/Buttons/css/AddToCartButton.module.css";
+import { useSubmit } from "react-router-dom";
 
 export default function AddToCartRedirect({ isLoading, promotions, product }) {
     const submit = useSubmit();

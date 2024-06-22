@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./css/MessageSenders.module.css";
 import SendPromoCodesModal from "../../components/Modals/Profile/SendPromoCodesModal";
+import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
 export default function MessageSenders({ groupType }) {

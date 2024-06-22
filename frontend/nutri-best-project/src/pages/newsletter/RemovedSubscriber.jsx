@@ -1,7 +1,7 @@
 import styles from './css/RemovedSubscriber.module.css';
+import { unsubscribeFromNewsletter } from '../../../../../backend/api/api';
 import { Link, redirect } from "react-router-dom";
 import { motion } from 'framer-motion';
-import { unsubscribeFromNewsletter } from '../../../../../backend/api/api';
 
 export default function RemovedSubscriber() {
     return (

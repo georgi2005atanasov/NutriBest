@@ -6,14 +6,14 @@ import LoginCheckBox from "../../components/UI/Form/LoginCheckBox";
 import InputError from "../../components/UI/Form/InputError";
 import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
-import { login } from "../../../../../backend/api/auth";
+import Message from "../../components/UI/Shared/Message";
 import { setAuthToken, setTokenDuration } from "../../utils/auth";
+import { login } from "../../../../../backend/api/auth";
 import useAuth from "../../hooks/useAuth";
 import { getFormData } from "../../utils/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Form, redirect, json, useActionData, useOutletContext, useSubmit, useNavigation, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import Message from "../../components/UI/Shared/Message";
 
 export default function LoginPage() {
     const data = useActionData();

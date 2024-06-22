@@ -4,8 +4,8 @@ import styles from "../../components/Notifications/css/LowStockNotification.modu
 import { PRIORITIES, PRIORITIES_BACKGROUND } from "../../components/Notifications/LowStockNotification";
 import { deleteNotification } from "../../../../../backend/api/notifcations";
 import { motion } from "framer-motion"
-import { useState } from "react";
 import { useSubmit } from "react-router-dom";
+import { useState } from "react";
 
 export default function NotificationRow({ notification }) {
     const [error, setError] = useState(); 

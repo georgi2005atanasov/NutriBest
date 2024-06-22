@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/SellingProductsChart.module.css";
+import { Pie } from 'react-chartjs-2';
 import DateFilterField from "../order/DateFilterField";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
-import { Pie } from 'react-chartjs-2';
+import { exportDemographicsInfo } from "../../../../../backend/api/api";
 import { useSubmit } from "react-router-dom";
 import { useCallback } from "react";
-import { exportDemographicsInfo } from "../../../../../backend/api/report";
 
 export default function Demographics({ demographics }) {
     const submit = useSubmit();

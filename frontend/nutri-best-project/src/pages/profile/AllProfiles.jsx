@@ -1,13 +1,13 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
+import ProfileRow from "./ProfileRow";
+import ProfileFilters from "./ProfileFilters";
 import Loader from "../../components/UI/Shared/Loader";
 import Message from "../../components/UI/Shared/Message";
 import Search from "../../components/UI/Searchbar/Search";
 import UsersPagination from "../../components/UI/Pagination/UsersPagination";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
-import ProfileRow from "./ProfileRow";
 import GrantModal from "../../components/Modals/Profile/GrantModal";
-import ProfileFilters from "./ProfileFilters";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { allProfiles, exportProfiles } from "../../../../../backend/api/api";

@@ -2,15 +2,15 @@ import styles from "./css/Profile.module.css";
 import Header from "../../components/UI/Shared/Header";
 import ProfileForm from "./ProfileForm.jsx";
 import ProfileDate from "./ProfileDate.jsx";
+import ProfileSideBar from "./ProfileSideBar.jsx";
+import DeleteProfileButton from "../../components/UI/Buttons/Profile/DeleteProfileButton.jsx";
 import { getProfileDetails } from "../../../../../backend/api/api.js";
 import { editUser } from "../../../../../backend/api/api.js";
-import DeleteProfileButton from "../../components/UI/Buttons/Profile/DeleteProfileButton.jsx";
 import { getFormData } from "../../utils/utils.js";
 import { getAuthToken } from "../../utils/auth.js";
 import useAuth from "../../hooks/useAuth.js";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData } from "react-router-dom";
-import ProfileSideBar from "./ProfileSideBar.jsx";
 
 export default function Profile() {
     const { profile } = useLoaderData();

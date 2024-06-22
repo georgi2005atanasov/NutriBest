@@ -1,10 +1,10 @@
 import PromotionForm from "./PromotionForm";
-import { editPromotion, getPromotionById } from "../../../../../backend/api/api";
 import { getPromotionErrors } from "../../utils/promotion/validation";
 import { getPromotionForm } from "../../utils/promotion/formHandler";
 import { getFormData } from "../../utils/utils";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
+import { editPromotion, getPromotionById } from "../../../../../backend/api/api";
 import { redirect, useSubmit, useActionData, useRouteLoaderData } from "react-router-dom";
 
 export default function EditPromotion() {

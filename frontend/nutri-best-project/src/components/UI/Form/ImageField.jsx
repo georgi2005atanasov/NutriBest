@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function ImageField({ styles, data, product = null }) {
     const [image, setImage] = useState(null);
     const [oldImage, setOldImage] = useState(null);
+    const maxSize = 10 * 1024 * 1024; // 10 MB
 
     useEffect(() => {
         async function handleOldImage() {
@@ -31,6 +32,10 @@ export default function ImageField({ styles, data, product = null }) {
         try {
             const imageFile = event.target.files[0];
             if (imageFile) {
+                if (imageFile.size > maxSize) {
+                    alert('File size exceeds the maximum limit of 10 MB.');
+                    return;
+                }
                 const imageToSet = URL.createObjectURL(imageFile);
                 setImage(imageToSet);
             }

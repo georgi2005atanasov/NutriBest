@@ -3,10 +3,10 @@ import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
 import FormButton from "../../components/UI/Form/FormButton";
 import styles from "./Login.module.css";
+import { getFormData } from "../../utils/utils";
+import { sendForgottenPasswordMessage } from "../../../../../backend/api/email";
 import { motion } from "framer-motion";
 import { Form, useActionData, useNavigation } from "react-router-dom";
-import { sendForgottenPasswordMessage } from "../../../../../backend/api/email";
-import { getFormData } from "../../utils/utils";
 
 export default function ForgotPassword() {
     const data = useActionData();

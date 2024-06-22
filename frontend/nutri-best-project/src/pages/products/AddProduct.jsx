@@ -1,7 +1,7 @@
 import { cleanFilters, getFormData } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation"
-import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
 import ProductForm from "./ProductForm";
+import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
 import { addProduct, allBrands } from "../../../../../backend/api/api";
 import { useActionData, json, redirect } from "react-router-dom";
 

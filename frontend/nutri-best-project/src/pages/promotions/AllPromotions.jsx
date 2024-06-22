@@ -3,13 +3,13 @@ import PromotionRow from "./PromotionRow";
 import Header from "../../components/UI/Shared/Header";
 import Message from "../../components/UI/Shared/Message";
 import AddPromotionButton from "../../components/UI/Promotions/AddPromotionButton";
-import { allPromotions, exportPromotions } from "../../../../../backend/api/promotions";
-import { getAuthToken } from "../../utils/auth";
-import { motion } from "framer-motion";
-import useAuth from "../../hooks/useAuth";
-import { redirect, useRouteLoaderData, useSearchParams, useSubmit } from "react-router-dom";
-import { useEffect } from "react";
 import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import { getAuthToken } from "../../utils/auth";
+import useAuth from "../../hooks/useAuth";
+import { allPromotions, exportPromotions } from "../../../../../backend/api/api";
+import { redirect, useRouteLoaderData, useSearchParams, useSubmit } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 export default function AllPromotions() {
     const token = getAuthToken();

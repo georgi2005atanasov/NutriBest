@@ -1,6 +1,6 @@
-import { createContext, useEffect, useState } from "react";
 import { allCategories } from "../../../../backend/api/categories";
 import { allBrands } from "../../../../backend/api/brands";
+import { createContext, useEffect, useState } from "react";
 
 export let CATEGORIES = [];
 export let BRANDS = [];

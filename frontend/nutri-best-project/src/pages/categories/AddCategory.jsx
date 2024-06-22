@@ -5,10 +5,10 @@ import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
 import InputError from "../../components/UI/Form/InputError";
 import { addCategory } from "../../../../../backend/api/categories";
-import { motion } from "framer-motion";
-import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
+import { motion } from "framer-motion";
+import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
 
 export default function AddCategoryPage() {
     const data = useActionData();

@@ -47,23 +47,3 @@ export async function createPromoCodes(data) {
 
     return response;
 }
-
-export async function exportPromoCodes() {
-    const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return;
-    }
-    
-    let endpoint = `${HOST}/PromoCode/CSV?`;
-
-    const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response;
-}

@@ -1,7 +1,7 @@
 import NotificationsPagination from "../../components/UI/Pagination/NotificationsPagination";
+import NotificationRow from "./NotificationRow";
 import { allNotifications } from "../../../../../backend/api/notifcations";
 import { redirect, useLoaderData } from "react-router-dom";
-import NotificationRow from "./NotificationRow";
 
 export default function AllNotifications() {
     const { notifications, totalNotifications } = useLoaderData();

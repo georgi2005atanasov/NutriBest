@@ -3,8 +3,8 @@ import listStyles from "./css/ListOrder.module.css";
 import cartStyles from "../cart/css/Cart.module.css";
 import { CartContext } from "../../store/CartContext";
 import CartSummary from "../cart/CartSummary";
-import { useContext } from "react";
 import ListItem from "./ListItem";
+import { useContext } from "react";
 
 export default function ListOrder({ passedCart, shippingPrice, shippingPriceWithDiscount, minimumPrice }) {
     const { cart } = useContext(CartContext);

@@ -1,5 +1,5 @@
-import { redirect } from "react-router-dom";
 import { cleanFilters } from "../../utils/utils";
+import { redirect } from "react-router-dom";
 
 export async function action({ request, params }) {
     localStorage.removeItem("authToken");

@@ -1,4 +1,3 @@
-import { redirect, useLoaderData, json, useActionData, useSubmit, useRouteLoaderData } from "react-router-dom";
 import ProductForm from "./ProductForm";
 import { editProduct, getProductById } from "../../../../../backend/api/api";
 import { getProductForm, getProductCategories } from "../../utils/product/formHandler";
@@ -7,6 +6,7 @@ import { cleanFilters } from "../../utils/utils";
 import { getProductErrors } from "../../utils/product/validation";
 import useAuth from "../../hooks/useAuth";
 import { getProductSpecs } from "../../../../../backend/api/products";
+import { redirect, useLoaderData, json, useActionData, useSubmit, useRouteLoaderData } from "react-router-dom";
 
 export default function EditProduct() {
     const { productData, productSpecs } = useLoaderData();

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import styles from "../../components/UI/Buttons/css/AddToCartButton.module.css";
+import { CartContext } from "../../store/CartContext";
 import { getCart, getImageByProductId, addToCart } from "../../../../../backend/api/api";
 import { useContext, useState } from "react";
-import { CartContext } from "../../store/CartContext";
 
 export default function AddToCartRelatedProduct({ linkStyles, productId, grams, flavour, isValidPromotion }) {
     const { setCart } = useContext(CartContext);

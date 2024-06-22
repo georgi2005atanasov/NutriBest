@@ -1,9 +1,9 @@
 /* eslint-disable no-constant-condition */
 import styles from "./css/FinishedOrder.module.css";
-import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
 import { confirmOrder } from "../../../../../backend/api/orders";
 import { sendConfirmedOrderToAdmin } from "../../../../../backend/api/email";
+import { useEffect, useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 
 export default function ConfirmOrder() {
     const [searchParams, setSearchParams] = useSearchParams();

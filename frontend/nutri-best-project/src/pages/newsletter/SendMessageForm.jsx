@@ -1,10 +1,10 @@
 import styles from "./css/SendMessageForm.module.css";
 import Header from "../../components/UI/Shared/Header";
 import TextInput from "../../components/UI/MUI Form Fields/TextInput";
-import { motion } from "framer-motion";
-import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
 import { getFormData } from "../../utils/utils";
 import { sendMessageToSubscribers } from "../../../../../backend/api/email";
+import { motion } from "framer-motion";
+import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function SendMessageForm({ groupType }) {

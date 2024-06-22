@@ -1,11 +1,11 @@
 import styles from "./css/Cart.module.css";
-import { getCart, removePromoCode } from "../../../../../backend/api/api";
-import { removeFromCart } from "../../../../../backend/api/api";
-import { getImageByProductId } from "../../../../../backend/api/api";
 import CartSummary from "./CartSummary";
 import CartItem from "./CartItem";
 import PromoCodeField from "./PromoCodeField";
 import { CartContext } from "../../store/CartContext";
+import { getCart, removePromoCode } from "../../../../../backend/api/api";
+import { removeFromCart } from "../../../../../backend/api/api";
+import { getImageByProductId } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";

@@ -53,24 +53,3 @@ export async function allShippingDiscounts(requiredVerification) {
 
     return await response.json();
 }
-
-export async function exportShippingDiscounts() {
-    const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return;
-    }
-    
-    let endpoint = `${HOST}/ShippingDiscount/CSV?`;
-
-    const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response;
-}
-

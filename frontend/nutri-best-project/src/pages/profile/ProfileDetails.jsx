@@ -1,12 +1,12 @@
 import styles from "./css/ProfileDetails.module.css";
-import useAuth from "../../hooks/useAuth";
 import DeleteProfileButton from "../../components/UI/Buttons/Profile/DeleteProfileButton";
 import RestoreProfileModal from "../../components/Modals/Profile/RestoreProfileModal";
 import SendPromoCodeModal from "../../components/Modals/Profile/SendPromoCodeModal";
+import useAuth from "../../hooks/useAuth";
+import { getAuthToken } from "../../utils/auth";
 import { getProfileDetailsById } from "../../../../../backend/api/profile";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSubmit } from "react-router-dom";
-import { getAuthToken } from "../../utils/auth";
 import { useRef } from "react";
 
 export default function ProfileDetails() {

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { motion } from 'framer-motion';
 import styles from './css/OrderStatusSelector.module.css';
+import { motion } from 'framer-motion';
 
 const orderOptions = ['Finished', 'Confirmed', 'Paid', 'Shipped'];
 

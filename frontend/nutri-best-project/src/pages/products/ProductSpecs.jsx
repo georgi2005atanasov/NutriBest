@@ -4,9 +4,9 @@ import styles from "./css/ProductForm.module.css";
 import FormInput from "../../components/UI/Form/FormInput";
 import InputError from "../../components/UI/Form/InputError";
 import { SelectPackage } from "../../components/UI/Form/SelectPackage";
-import { useContext, useEffect, useState } from "react";
-import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import SelectFlavour from "../../components/UI/Form/SelectFlavour";
+import { ProductSpecsContext } from "../../store/ProductSpecsContext";
+import { useContext, useEffect, useState } from "react";
 
 export default function ProductSpecs({ data, currProductSpecs }) {
     const { packages, flavours, setProductSpecs, productSpecs } = useContext(ProductSpecsContext);

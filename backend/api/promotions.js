@@ -139,23 +139,3 @@ export async function getProductsOfPromotion(promotionId) {
 
     return await response.json();
 }
-
-export async function exportPromotions() {
-    const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return;
-    }
-    
-    let endpoint = `${HOST}/Promotions/CSV?`;
-
-    const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response;
-}

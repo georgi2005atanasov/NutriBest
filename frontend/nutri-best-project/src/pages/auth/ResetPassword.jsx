@@ -2,11 +2,11 @@ import FormInput from "../../components/UI/Form/FormInput"
 import Header from "../../components/UI/Shared/Header";
 import FormButton from "../../components/UI/Form/FormButton";
 import styles from "./Login.module.css";
+import Loader from "../../components/UI/Shared/Loader";
+import { getFormData } from "../../utils/utils";
+import { resetPassword } from "../../../../../backend/api/auth";
 import { motion } from "framer-motion";
 import { Form, useNavigate, useActionData, useNavigation, useSearchParams, useSubmit } from "react-router-dom";
-import { getFormData } from "../../utils/utils";
-import Loader from "../../components/UI/Shared/Loader";
-import { resetPassword } from "../../../../../backend/api/auth";
 import { useEffect } from "react";
 
 export default function ResetPassword() {

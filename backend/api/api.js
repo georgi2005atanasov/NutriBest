@@ -15,7 +15,6 @@ import {
     partialEditProduct,
     getRelated,
     getCurrentProductPrice,
-    exportProducts
 }
     from "./products";
 
@@ -31,8 +30,7 @@ import {
     getUserAddress,
     setUserAddress,
     allProfiles,
-    getProfileDetailsById,
-    exportProfiles
+    getProfileDetailsById
 }
     from "./profile";
 
@@ -44,8 +42,7 @@ import {
     addPromotion,
     editPromotion,
     getPromotionById,
-    getProductsOfPromotion,
-    exportPromotions
+    getProductsOfPromotion
 }
     from "./promotions";
 
@@ -54,27 +51,23 @@ import {
     addBrand,
     getImageByBrandName,
     deleteBrandByName,
-    exportBrands
 }
     from "./brands";
 import {
     addCategory,
     deleteCategory,
-    exportCategories
 }
     from "./categories";
 import {
     allPackages,
     addPackage,
     deletePackage,
-    exportPackages
 }
     from "./packages";
 import {
     allFlavours,
     addFlavour,
     deleteFlavour,
-    exportFlavours
 }
     from "./flavours";
 import {
@@ -95,8 +88,7 @@ import {
 import {
     allPromoCodes,
     deletePromoCodes,
-    createPromoCodes,
-    exportPromoCodes
+    createPromoCodes
 }
     from "./promoCodes";
 import {
@@ -116,9 +108,7 @@ import {
     changeOrderStatuses,
     deleteOrder,
     getUserOrders,
-    getOrderRelatedProducts,
-    exportOrders,
-    exportOrdersSummary
+    getOrderRelatedProducts
 }
     from "./orders";
 import {
@@ -136,7 +126,6 @@ import {
     createShippingDiscount,
     allShippingDiscounts,
     deleteShippingDiscount,
-    exportShippingDiscounts
 }
     from "./shippingDiscount";
 import {
@@ -144,9 +133,25 @@ import {
     subscribedToNewsletter,
     removeFromNewsletterByAdmin,
     unsubscribeFromNewsletter,
-    exportNewsletter
 }
     from "./newsletter";
+import {
+    exportBrands,
+    exportCategories,
+    exportFlavours,
+    exportNewsletter,
+    exportOrders,
+    exportOrdersSummary,
+    exportPackages,
+    exportPerformanceInfo,
+    exportDemographicsInfo,
+    exportProducts,
+    exportProfiles,
+    exportPromoCodes,
+    exportPromotions,
+    exportShippingDiscounts
+}
+    from "./export";
 
 export { addProduct };
 export { getProductById };
@@ -165,9 +170,6 @@ export { getProductSpecs };
 export { getCurrentProductPrice };
 export { getIdentifiers };
 export { getFormFile };
-export { exportProducts };
-export { exportCategories };
-export { exportBrands };
 
 export { getProfileDetails };
 export { editUser };
@@ -176,7 +178,6 @@ export { getUserAddress };
 export { setUserAddress };
 export { allProfiles };
 export { getProfileDetailsById };
-export { exportProfiles }
 
 export { allPromotions };
 export { changeProductPromotion };
@@ -186,7 +187,6 @@ export { addPromotion };
 export { getPromotionById };
 export { editPromotion };
 export { getProductsOfPromotion };
-export { exportPromotions };
 
 export { allBrands };
 export { addCategory };
@@ -202,8 +202,6 @@ export { addFlavour };
 export { deleteFlavour };
 export { getNutritionFactsByProductIdAndName };
 export { setNutritionFactsByProductId };
-export { exportFlavours };
-export { exportPackages }
 
 export { addToCart };
 export { getCart };
@@ -216,7 +214,6 @@ export { removePromoCode };
 export { allPromoCodes };
 export { deletePromoCodes };
 export { createPromoCodes };
-export { exportPromoCodes };
 
 export { allCitiesWithCountries };
 export { allPaymentMethods };
@@ -228,8 +225,6 @@ export { changeOrderStatuses };
 export { deleteOrder };
 export { getUserOrders };
 export { getOrderRelatedProducts };
-export { exportOrders };
-export { exportOrdersSummary };
 
 export { sendConfirmOrderMessage };
 export { confirmOrder };
@@ -245,10 +240,23 @@ export { sendPromoCodeToSubscribers };
 export { createShippingDiscount };
 export { allShippingDiscounts };
 export { deleteShippingDiscount };
-export { exportShippingDiscounts };
 
 export { addToNewsletter };
 export { subscribedToNewsletter };
 export { removeFromNewsletterByAdmin };
 export { unsubscribeFromNewsletter };
+
+export { exportProducts };
+export { exportCategories };
+export { exportBrands };
+export { exportProfiles }
+export { exportPromotions };
+export { exportFlavours };
+export { exportPackages }
+export { exportPromoCodes };
+export { exportOrders };
+export { exportOrdersSummary };
+export { exportShippingDiscounts };
 export { exportNewsletter };
+export { exportPerformanceInfo };
+export { exportDemographicsInfo };

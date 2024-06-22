@@ -62,27 +62,3 @@ export async function subscribedToNewsletter(page, search = "", groupType) {
 
     return response;
 }
-
-export async function exportNewsletter(hasFilters, search, groupType) {
-    const token = getAuthToken();
-    const {isAdmin, isEmployee} = useAuth(token);
-
-    if (!isAdmin && !isEmployee) {
-        return;
-    }
-
-    let endpoint = `${HOST}/Newsletter/CSV?`;
-
-    if (hasFilters) {
-        endpoint += `search=${search}&groupType=${groupType}`;
-    }
-
-    const response = await fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-
-    return response;
-}

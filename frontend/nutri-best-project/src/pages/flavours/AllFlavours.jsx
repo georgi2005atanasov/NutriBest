@@ -6,7 +6,8 @@ import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvB
 import FlavourItem from "./FlavourItem";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
-import { allFlavours, exportFlavours } from "../../../../../backend/api/api";
+import { exportFlavours } from "../../../../../backend/api/api";
+import { allFlavours } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSearchParams, useSubmit } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";

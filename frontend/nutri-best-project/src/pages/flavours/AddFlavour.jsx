@@ -4,11 +4,11 @@ import FormInput from "../../components/UI/Form/FormInput";
 import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
 import InputError from "../../components/UI/Form/InputError";
-import { motion } from "framer-motion";
-import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { addFlavour } from "../../../../../backend/api/api";
+import { motion } from "framer-motion";
+import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
 
 export default function AddFlavour() {
     const data = useActionData();

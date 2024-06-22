@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/Profile.module.css";
-import FormInput from "../../components/UI/Form/FormInput";
-import InputError from "../../components/UI/Form/InputError";
 import ProfileChange from "./ProfileChange";
 import MultiSelectGender from "./MultiSelectGender";
+import FormInput from "../../components/UI/Form/FormInput";
+import InputError from "../../components/UI/Form/InputError";
 import { useActionData } from "react-router-dom";
 import { useCallback, useState } from "react";
 

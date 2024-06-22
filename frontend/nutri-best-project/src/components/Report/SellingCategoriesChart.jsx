@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/SellingProductsChart.module.css";
+import styles from "./css/SellingChart.module.css";
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from 'react';
 
-const SellingBrandsChart = ({ brands, header }) => {
+const SellingCategoriesChart = ({ categories, header }) => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null);
     const navigate = useNavigate();
@@ -14,12 +14,12 @@ const SellingBrandsChart = ({ brands, header }) => {
             chartInstance.current = new Chart(chartRef.current, {
                 type: 'bar',
                 data: {
-                    labels: [...brands.map(x => x.brandName)],
+                    labels: [...categories.map(x => x.categoryName)],
                     datasets: [
                         {
                             label: `${header}`,
-                            data: [...brands.map(x => x.soldCount)],
-                            backgroundColor: 'rgba(0, 128, 128, 0.8)',
+                            data: [...categories.map(x => x.soldCount)],
+                            backgroundColor: 'rgba(255, 165, 0, 0.8)',
                         },
                     ],
                 },
@@ -29,9 +29,9 @@ const SellingBrandsChart = ({ brands, header }) => {
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
                             const index = elements[0].index;
-                            const brand = brands[index];
-                            if (brand) {
-                                navigate(`/brands`);
+                            const category = categories[index];
+                            if (category) {
+                                navigate(`/categories`);
                             }
                         }
                     }
@@ -44,14 +44,14 @@ const SellingBrandsChart = ({ brands, header }) => {
                 chartInstance.current.destroy();
             }
         };
-    }, [chartInstance, brands, navigate, header]);
+    }, [chartInstance, categories, navigate, header]);
 
     return (
-        <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center`}>
+        <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center mt-3`}>
             <h2 className="text-center">{header}</h2>
             <canvas ref={chartRef}></canvas>
         </div>
     );
 };
 
-export default SellingBrandsChart;
+export default SellingCategoriesChart;

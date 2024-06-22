@@ -11,7 +11,7 @@ import { getPrice } from "../../utils/product/products";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import AddToCartRedirect from "./AddToCartRedirect";
+import AddToCartRedirect from "../../components/UI/Buttons/Products/AddToCartRedirect";
 
 export default function ProductItem({ product }) {
     const [src, setSrc] = useState('');

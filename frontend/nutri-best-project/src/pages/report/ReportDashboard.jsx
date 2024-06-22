@@ -1,12 +1,12 @@
 import styles from "./css/ReportDashboard.module.css";
-import DateFilterField from "../order/DateFilterField";
-import SellingProductsChart from "./SellingProductsChart";
-import SellingBrandsChart from "./SellingBrandsChart";
-import SellingFlavoursChart from "./SellingFlavoursChart";
-import SellingCategoriesChart from "./SellingCategoriesChart";
+import DateFilterField from "../../components/Shared/DateFilterField";
+import SellingProductsChart from "../../components/Report/SellingProductsChart";
+import SellingBrandsChart from "../../components/Report/SellingBrandsChart";
+import SellingFlavoursChart from "../../components/Report/SellingFlavoursChart";
+import SellingCategoriesChart from "../../components/Report/SellingCategoriesChart";
+import OverallSalesVolume from "../../components/Report/OverallSalesVolume";
 import ChartsRow from "./ChartsRows";
 import Demographics from "./Demographics";
-import OverallSalesVolume from "./OverallSalesVolume";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import { exportPerformanceInfo } from "../../../../../backend/api/api";
 import { getDemographicsInfo, getPerformanceInfo } from "../../../../../backend/api/report";

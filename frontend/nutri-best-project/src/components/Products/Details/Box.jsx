@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/Box.module.css";
-import InputError from "../../../components/UI/Form/InputError";
+import InputError from "../../UI/Form/InputError";
 import { setProductDetailsById, partialEditProduct } from "../../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { redirect, useSubmit } from "react-router-dom";

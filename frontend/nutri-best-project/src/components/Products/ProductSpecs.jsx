@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import specsStyle from "./css/ProductSpecs.module.css";
-import styles from "./css/ProductForm.module.css";
-import FormInput from "../../components/UI/Form/FormInput";
-import InputError from "../../components/UI/Form/InputError";
-import { SelectPackage } from "../../components/UI/Form/SelectPackage";
-import SelectFlavour from "../../components/UI/Form/SelectFlavour";
+import styles from "../../pages/products/css/ProductForm.module.css";
+import FormInput from "../UI/Form/FormInput";
+import InputError from "../UI/Form/InputError";
+import { SelectPackage } from "../UI/Form/SelectPackage";
+import SelectFlavour from "../UI/Form/SelectFlavour";
 import { ProductSpecsContext } from "../../store/ProductSpecsContext";
 import { useContext, useEffect, useState } from "react";
 

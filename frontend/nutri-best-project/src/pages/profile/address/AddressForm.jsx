@@ -5,10 +5,9 @@ import { allCitiesWithCountries, getUserAddress, setUserAddress } from "../../..
 import { redirect, useLoaderData } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import ProfileSideBar from "../ProfileSideBar";
+import ProfileSideBar from "../../../components/Profile/ProfileSideBar";
 import { getAuthToken } from "../../../utils/auth";
 import useAuth from "../../../hooks/useAuth";
-import Message from "../../../components/UI/Shared/Message";
 
 export default function AddressForm() {
     const token = getAuthToken();

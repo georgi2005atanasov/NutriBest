@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/OrderRelatedProduct.module.css";
-import AddToCartRelatedProduct from "./AddToCartRelatedProduct";
+import AddToCartRelatedProduct from "../../components/UI/Buttons/Products/AddToCartRelatedProduct";
 import { getPrice } from "../../utils/product/products";
 import { getImageByProductId } from "../../../../../backend/api/products";
 import { motion, AnimatePresence } from "framer-motion";

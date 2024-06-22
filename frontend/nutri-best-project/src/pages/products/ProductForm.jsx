@@ -9,7 +9,7 @@ import FormTextArea from "../../components/UI/Form/FormTextArea";
 import MultiSelectCategory from "../../components/UI/Form/MultiSelectCategory";
 import InputError from "../../components/UI/Form/InputError";
 import SelectBrand from "../../components/UI/Form/SelectBrand";
-import ProductSpecs from "./ProductSpecs";
+import ProductSpecs from "../../components/Products/ProductSpecs";
 import { motion } from "framer-motion";
 import { Form, useNavigation } from "react-router-dom";
 import { useState } from "react";

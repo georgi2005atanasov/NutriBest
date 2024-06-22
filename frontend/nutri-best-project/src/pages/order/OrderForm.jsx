@@ -13,8 +13,7 @@ import { useNavigation, useLoaderData, useSubmit } from "react-router-dom";
 import { useState, useEffect, Suspense, useContext, useCallback } from "react";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
-import OrderRelatedProducts from "./OrderRelatedProducts";
-
+import OrderRelatedProducts from "../../components/Order/OrderRelatedProducts";
 
 export default function OrderForm() {
     const token = getAuthToken();

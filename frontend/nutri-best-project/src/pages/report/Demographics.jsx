@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/SellingProductsChart.module.css";
+import styles from "./css/Demographics.module.css";
 import { Pie } from 'react-chartjs-2';
-import DateFilterField from "../order/DateFilterField";
+import DateFilterField from "../../components/Shared/DateFilterField";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import { exportDemographicsInfo } from "../../../../../backend/api/api";
 import { useSubmit } from "react-router-dom";

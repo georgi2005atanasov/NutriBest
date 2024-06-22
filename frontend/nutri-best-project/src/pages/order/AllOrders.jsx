@@ -1,15 +1,15 @@
 import styles from "../css/Table.module.css";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
-import OrdersSummary from "./OrdersSummary";
+import OrdersSummary from "../../components/Order/OrdersSummary";
 import OrderRow from "./OrderRow";
 import Search from "../../components/UI/Searchbar/Search";
 import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import DownloadCsvOptionsButton from "../../components/UI/Buttons/Download/DownloadCsvOptionsButton";
 import DeleteOrderModal from "../../components/UI/Modals/Delete/DeleteOrderModal";
-import DateFilterField from "./DateFilterField";
+import DateFilterField from "../../components/Shared/DateFilterField";
+import OrderStatusSelector from "../../components/Order/OrderStatusSelector";
 import { allOrders, exportOrders } from "../../../../../backend/api/api";
-import OrderStatusSelector from "./OrderStatusSelector";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";

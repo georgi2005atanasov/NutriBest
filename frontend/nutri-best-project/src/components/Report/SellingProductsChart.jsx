@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/SellingProductsChart.module.css";
+import styles from "./css/SellingChart.module.css";
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from 'react';
 
-const SellingCategoriesChart = ({ categories, header }) => {
+const SellingProductsChart = ({ products, header }) => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null);
     const navigate = useNavigate();
@@ -14,12 +14,12 @@ const SellingCategoriesChart = ({ categories, header }) => {
             chartInstance.current = new Chart(chartRef.current, {
                 type: 'bar',
                 data: {
-                    labels: [...categories.map(x => x.categoryName)],
+                    labels: [...products.map(x => x.name)],
                     datasets: [
                         {
                             label: `${header}`,
-                            data: [...categories.map(x => x.soldCount)],
-                            backgroundColor: 'rgba(255, 165, 0, 0.8)',
+                            data: [...products.map(x => x.soldCount)],
+                            backgroundColor: 'rgba(220, 20, 60, 0.8)',
                         },
                     ],
                 },
@@ -29,9 +29,9 @@ const SellingCategoriesChart = ({ categories, header }) => {
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
                             const index = elements[0].index;
-                            const category = categories[index];
-                            if (category) {
-                                navigate(`/categories`);
+                            const product = products[index];
+                            if (product) {
+                                navigate(`/products/details/${product.productId}/${product.name}`);
                             }
                         }
                     }
@@ -44,14 +44,14 @@ const SellingCategoriesChart = ({ categories, header }) => {
                 chartInstance.current.destroy();
             }
         };
-    }, [chartInstance, categories, navigate, header]);
+    }, [chartInstance, products, navigate, header]);
 
     return (
-        <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center mt-3`}>
+        <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center`}>
             <h2 className="text-center">{header}</h2>
             <canvas ref={chartRef}></canvas>
         </div>
     );
 };
 
-export default SellingCategoriesChart;
+export default SellingProductsChart;

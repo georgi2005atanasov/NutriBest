@@ -2,7 +2,7 @@
 import listStyles from "./css/ListOrder.module.css";
 import cartStyles from "../cart/css/Cart.module.css";
 import { CartContext } from "../../store/CartContext";
-import CartSummary from "../cart/CartSummary";
+import CartSummary from "../../components/Cart/CartSummary";
 import ListItem from "./ListItem";
 import { useContext } from "react";
 

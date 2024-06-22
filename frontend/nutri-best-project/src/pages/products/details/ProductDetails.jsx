@@ -17,9 +17,9 @@ import SelectFlavour from "../../../components/UI/Form/SelectFlavour";
 import { SelectPackage } from "../../../components/UI/Form/SelectPackage";
 import { ProductSpecsContext } from "../../../store/ProductSpecsContext";
 import MainDetails from "./MainDetails";
-import PagesNav from "./PagesNav";
-import DetailsButtons from "./DetailsButtons";
-import DetailsWrapper from "./DetailsWrapper";
+import PagesNav from "../../../components/Products/Details/PagesNav";
+import DetailsButtons from "../../../components/Products/Details/DetailsButtons";
+import DetailsWrapper from "../../../components/Products/Details/DetailsWrapper";
 import NutritionFacts from "./NutritionFacts";
 import RelatedProducts from "./RelatedProducts";
 

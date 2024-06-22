@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import styles from "./css/SellingProductsChart.module.css";
+import styles from "./css/SellingChart.module.css";
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from 'react';
 
-const SellingProductsChart = ({ products, header }) => {
+const SellingBrandsChart = ({ brands, header }) => {
     const chartRef = useRef(null);
     const chartInstance = useRef(null);
     const navigate = useNavigate();
@@ -14,12 +14,12 @@ const SellingProductsChart = ({ products, header }) => {
             chartInstance.current = new Chart(chartRef.current, {
                 type: 'bar',
                 data: {
-                    labels: [...products.map(x => x.name)],
+                    labels: [...brands.map(x => x.brandName)],
                     datasets: [
                         {
                             label: `${header}`,
-                            data: [...products.map(x => x.soldCount)],
-                            backgroundColor: 'rgba(220, 20, 60, 0.8)',
+                            data: [...brands.map(x => x.soldCount)],
+                            backgroundColor: 'rgba(0, 128, 128, 0.8)',
                         },
                     ],
                 },
@@ -29,9 +29,9 @@ const SellingProductsChart = ({ products, header }) => {
                     onClick: (event, elements) => {
                         if (elements.length > 0) {
                             const index = elements[0].index;
-                            const product = products[index];
-                            if (product) {
-                                navigate(`/products/details/${product.productId}/${product.name}`);
+                            const brand = brands[index];
+                            if (brand) {
+                                navigate(`/brands`);
                             }
                         }
                     }
@@ -44,7 +44,7 @@ const SellingProductsChart = ({ products, header }) => {
                 chartInstance.current.destroy();
             }
         };
-    }, [chartInstance, products, navigate, header]);
+    }, [chartInstance, brands, navigate, header]);
 
     return (
         <div className={`${styles["chart-wrapper"]} w-100 d-flex flex-column align-items-center`}>
@@ -54,4 +54,4 @@ const SellingProductsChart = ({ products, header }) => {
     );
 };
 
-export default SellingProductsChart;
+export default SellingBrandsChart;

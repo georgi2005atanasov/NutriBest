@@ -1,5 +1,5 @@
 import styles from "./css/CategoriesList.module.css";
-import NavigationLink from "../../Navigation/NavigationLink";
+import NavigationLink from "../Navigation/NavigationLink";
 import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types

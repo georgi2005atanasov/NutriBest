@@ -1,4 +1,4 @@
-import styles from "./css/Profile.module.css";
+import styles from "./css/ProfileDate.module.css";
 
 // eslint-disable-next-line react/prop-types
 export default function ProfileDate({ text, date }) {

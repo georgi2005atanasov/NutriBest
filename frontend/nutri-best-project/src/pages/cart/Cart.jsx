@@ -1,7 +1,7 @@
 import styles from "./css/Cart.module.css";
-import CartSummary from "./CartSummary";
 import CartItem from "./CartItem";
-import PromoCodeField from "./PromoCodeField";
+import CartSummary from "../../components/Cart/CartSummary";
+import PromoCodeField from "../../components/Cart/PromoCodeField";
 import { CartContext } from "../../store/CartContext";
 import { getCart, removePromoCode } from "../../../../../backend/api/api";
 import { removeFromCart } from "../../../../../backend/api/api";

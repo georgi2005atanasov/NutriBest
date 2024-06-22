@@ -1,4 +1,4 @@
-import styles from "../css/AddToCartButton.module.css";
+import styles from "./css/AddToCartButton.module.css";
 import CartModal from "../../Modals/Cart/CartModal";
 import { addToCart, getCart } from "../../../../../../../backend/api/cart";
 import { getImageByProductId } from "../../../../../../../backend/api/api";

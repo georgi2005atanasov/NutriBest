@@ -1,42 +1,9 @@
 /* eslint-disable react/prop-types */
 import styles from "../css/Table.module.css";
-import { changeOrderStatuses } from "../../../../../backend/api/orders";
-import { motion } from "framer-motion";
-import { Link, useSubmit } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { memo } from "react";
 
-export default memo(function MyOrderRow({ order, handleDelete }) {
-    const submit = useSubmit();
-
-    function changeStatus(identifier) {
-        async function handleStatuses(identifier) {
-            if (identifier == "isShipped") {
-                await changeOrderStatuses(order.orderId,
-                    order.isFinished,
-                    order.isPaid,
-                    !order.isShipped
-                );
-            }
-            else if (identifier == "isFinished") {
-                await changeOrderStatuses(order.orderId,
-                    !order.isFinished,
-                    order.isPaid,
-                    order.isShipped
-                );
-            }
-            else if (identifier == "isPaid") {
-                await changeOrderStatuses(order.orderId,
-                    order.isFinished,
-                    !order.isPaid,
-                    order.isShipped
-                );
-            }
-        }
-
-        handleStatuses(identifier);
-        submit(null, { action: "", method: "GET" });
-    }
-
+export default memo(function MyOrderRow({ order }) {
     return <tr>
         <td>#000000{order.orderId}</td>
         <td className={order.isFinished ? "text-success" : "text-danger"}>

@@ -1,4 +1,4 @@
-import DownloadCsvButton from "../../components/UI/Buttons/Download/DownloadCsvButton";
+import DownloadCsvButton from "../UI/Buttons/Download/DownloadCsvButton";
 import { exportOrdersSummary } from "../../../../../backend/api/api";
 import { memo } from "react";
 

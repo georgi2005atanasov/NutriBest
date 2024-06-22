@@ -2,22 +2,17 @@ import styles from "../css/Table.module.css";
 import MyOrderRow from "./MyOrderRow";
 import searchBarStyles from "../../components/UI/Searchbar/css/SearchBar.module.css";
 import Search from "../../components/UI/Searchbar/Search";
-import Message from "../../components/UI/Shared/Message";
 import OrdersPagination from "../../components/UI/Pagination/OrdersPagination";
 import { getUserOrders } from "../../../../../backend/api/orders";
 import { motion } from "framer-motion";
-import { redirect, useLoaderData, useSubmit, useSearchParams, defer, Await } from "react-router-dom";
+import { redirect, useLoaderData, useSubmit, defer, Await } from "react-router-dom";
 import { useRef, useEffect, Suspense } from "react";
 
 export default function MyOrders() {
     const searchText = useRef();
     const { data } = useLoaderData();
     const submit = useSubmit();
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    let message = searchParams.get("message");
-    let messageType = searchParams.get("type");
-
+    
     useEffect(() => {
         sessionStorage.setItem("search", ""); // cleans previous searches
     }, []);
@@ -55,7 +50,6 @@ export default function MyOrders() {
             />
         </div>
         <div className="row mt-md-4 mt-0">
-            {message && <Message addStyles={"mb-3"} message={message} messageType={messageType} />}
             <table className="">
                 <thead >
                     <tr>

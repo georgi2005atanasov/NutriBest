@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styles from "./css/OrderRelatedProducts.module.css";
-import OrderRelatedProduct from "../products/OrderRelatedProduct";
+import OrderRelatedProduct from "../../pages/products/OrderRelatedProduct";
 import { getOrderRelatedProducts } from "../../../../../backend/api/orders";
 import { allPromotions } from "../../../../../backend/api/promotions";
 import { motion } from "framer-motion";

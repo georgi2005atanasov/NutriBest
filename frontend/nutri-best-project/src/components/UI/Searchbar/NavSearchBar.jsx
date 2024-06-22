@@ -1,6 +1,6 @@
 import useAuth from "../../../hooks/useAuth";
 import searchBar from "./css/SearchBar.module.css";
-import CategoriesList from "../CategoriesList/CategoriesList";
+import CategoriesList from "../../CategoriesList/CategoriesList";
 import { getAuthToken } from "../../../utils/auth";
 import { useSubmit } from "react-router-dom";
 import { useRef } from "react";

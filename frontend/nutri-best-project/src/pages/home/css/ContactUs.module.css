@@ -1,0 +1,54 @@
+.contact-us-section {
+    position: relative;
+    background: url('../../../assets/contact-us-image.png') no-repeat center center/cover;
+    padding: 50px 20px;
+    color: white;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin: 10px 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact-us-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark overlay */
+    padding: 60px 20px;
+    border-radius: 15px;
+}
+
+.contact-us-content h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.contact-us-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.contact-info {
+    font-size: 1.2rem;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.contact-info a {
+    color: #FFD700;
+    /* Gold color for links */
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}

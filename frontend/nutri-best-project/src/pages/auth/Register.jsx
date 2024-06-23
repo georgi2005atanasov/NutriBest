@@ -93,10 +93,12 @@ export default function RegisterPage() {
                             <RegisterCheckBox text="By signing up you agree to our Terms of Service and Privacy Policy" />
 
                             {data && Object.keys(data.errors).includes("message") &&
-                                <InputError
-                                    styles={styles["error-par"]}
-                                    text={data.errors["message"][0]}
-                                />}
+                                data.errors["message"][0].split(", ").map(mess =>
+                                    < InputError
+                                        key={mess}
+                                        styles={styles["error-par"]}
+                                        text={mess}
+                                    />)}
 
                             <FormButton
                                 text="Sign up"

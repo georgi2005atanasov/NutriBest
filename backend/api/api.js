@@ -1,4 +1,8 @@
 import {
+    getContactDetails
+}
+    from "./home";
+import {
     addProduct,
     getProductById,
     allProducts,
@@ -152,6 +156,8 @@ import {
     exportShippingDiscounts
 }
     from "./export";
+
+export { getContactDetails };
 
 export { addProduct };
 export { getProductById };

@@ -1,0 +1,46 @@
+.about-us-section {
+    position: relative;
+    background: url('../../../assets/about-us-image.png') no-repeat center center/cover;
+    padding: 80px 20px;
+    color: white;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.about-us-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 60px 20px;
+    border-radius: 15px;
+}
+
+.about-us-content h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.about-us-content p,
+.about-us-content ul {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.about-us-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-us-content ul li {
+    margin-bottom: 15px;
+}
+
+.about-us-content ul li::before {
+    content: "✔";
+    color: #FFD700;
+    margin-right: 10px;
+}

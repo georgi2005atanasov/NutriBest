@@ -65,7 +65,7 @@ export default function ProductsPagination({ page, productsCount, productsView }
     function handlePageChange(newPage) {
         if (1 <= newPage && newPage <= pagesCount) {
             window.scrollTo({
-                top: 550,
+                top: 500,
                 left: 0,
                 behavior: 'smooth'
             });

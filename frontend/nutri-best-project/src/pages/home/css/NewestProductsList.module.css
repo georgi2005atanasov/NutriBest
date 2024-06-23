@@ -1,0 +1,24 @@
+.new-products-announcement {
+    background-color: lightgrey;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.new-products-announcement h2 {
+    font-size: 2rem;
+    color: #333;
+    font-family: 'Arial Black', sans-serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+.new-products-announcement p {
+    font-size: 1.2rem;
+    color: #666;
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+}

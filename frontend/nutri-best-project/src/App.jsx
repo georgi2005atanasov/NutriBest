@@ -3,7 +3,7 @@ import RootLayout, { loader as tokenLoader } from './pages/Root';
 import LoginPage, { action as loginAction } from './pages/auth/Login';
 import RegisterPage, { action as registerAction } from './pages/auth/Register';
 import { action as logoutAction } from './pages/auth/Logout';
-import HomePage from './pages/Home';
+import HomePage, { loader as loadNewestProducts } from './pages/home/Home.jsx';
 import AddProduct, { action as addProductAction, loader as removeFilters } from './pages/products/AddProduct';
 import AllProducts, { loader as getAllProducts } from './pages/products/AllProducts';
 import ProductsLayout from './pages/products/ProductsLayout';
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <RootLayout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { index: true, element: <HomePage />, loader: loadNewestProducts },
       { path: 'login', element: <LoginPage />, action: loginAction },
       { path: 'forgot-password', element: <ForgotPassword />, action: sendForgotPassword },
       { path: 'Identity/ResetPassword', element: <ResetPassword />, action: resetPassword },

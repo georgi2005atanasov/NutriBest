@@ -1,0 +1,75 @@
+.header {
+    margin-top: 10px;
+    padding: 20px 0;
+    background-color: #f5f3ef;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+}
+
+.header-image {
+    min-width: 100%;
+    min-height: 100%;
+    min-height: 280px;
+}
+
+.shop-button {
+    position: absolute;
+    bottom: 52%;
+    left: 65%;
+    display: flex;
+    padding: 20px 30px;
+    font-size: larger;
+    background-color: #f5a93e;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+@media (max-width: 1110px) {
+    .shop-button {
+        bottom: 7%;
+        left: 7%;
+        padding: 10px 10px;
+        font-weight: 600;
+        border-radius: 5px;
+        font-size: medium;
+    }
+}
+
+.shop-button:hover {
+    background-color: #f5f3ef;
+    color: #333 !important;
+}
+
+.welcome-message {
+    user-select: none;
+    margin-bottom: 10px;
+}
+
+.welcome-message h2 {
+    color: #333;
+    font-family: 'Arial Black', sans-serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+.welcome-message p {
+    color: #666;
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}

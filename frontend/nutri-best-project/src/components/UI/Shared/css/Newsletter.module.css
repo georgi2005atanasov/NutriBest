@@ -21,9 +21,7 @@
 
 .newsletter-input {
     padding: 10px;
-    margin-bottom: 5px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     width: 80%;
     max-width: 300px;
     outline: none;
@@ -36,8 +34,8 @@
 
 .newsletter-btn {
     padding: 10px 20px;
+    text-wrap: nowrap;
     border: none;
-    border-radius: 5px;
     background-color: #555;
     color: white;
     cursor: pointer;

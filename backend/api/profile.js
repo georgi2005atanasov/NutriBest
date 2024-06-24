@@ -63,6 +63,10 @@ export async function getUserAddress() {
 export async function setUserAddress(data) {
     const token = getAuthToken();
 
+    if (data.postalCode == "") {
+        data.postalCode = null;
+    }
+
     if (token != "EXPIRED" && token != null) {
 
         const response = await fetch(`${HOST}/Profile/Address`, {

@@ -29,7 +29,7 @@ function Newsletter() {
                             text: "You have been successfully signed up for our newsletter!",
                             type: "success"
                         });
-                        
+
                         await sendJoinedToNewsletter(email);
                         return;
                     }
@@ -51,8 +51,9 @@ function Newsletter() {
 
     return (
         <div className={`${styles["newsletter"]}`}>
-            <h3>Sign up for our Newsletter</h3>
-            <fetcher.Form onSubmit={handleSubmit} className={styles["newsletter-form"]}>
+            <h3 className="mb-3">Sign up for our Newsletter</h3>
+            <fetcher.Form onSubmit={handleSubmit} className={`${styles["newsletter-form"]} 
+            d-flex flex-row justify-content-center align-items-center`}>
                 <input
                     type="email"
                     value={email}
@@ -61,19 +62,19 @@ function Newsletter() {
                     className={styles["newsletter-input"]}
                     required
                 />
-                {message && (
-                    <motion.span
-                        className={`text-${message.type} mb-2`}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {message.text}
-                    </motion.span>
-                )}
                 <button type="submit" className={styles["newsletter-btn"]}>Sign Up</button>
             </fetcher.Form>
+            {message && (
+                <motion.span
+                    className={`text-${message.type}`}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    {message.text}
+                </motion.span>
+            )}
         </div>
     );
 }

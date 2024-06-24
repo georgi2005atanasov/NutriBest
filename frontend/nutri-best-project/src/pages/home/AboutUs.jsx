@@ -2,7 +2,7 @@ import styles from "./css/AboutUs.module.css";
 
 const AboutUs = () => {
     return (
-        <section className={styles["about-us-section"]}>
+        <section id="about-us" className={styles["about-us-section"]}>
             <div className={styles["about-us-overlay"]}>
                 <div className={styles["about-us-content"]}>
                     <h2>Welcome to NutriBest!</h2>

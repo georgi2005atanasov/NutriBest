@@ -3,7 +3,7 @@ import styles from "./css/ContactUs.module.css";
 
 const ContactUs = ({ contactDetails }) => {
   return (
-    <section className={styles["contact-us-section"]}>
+    <section id="contact-us" className={styles["contact-us-section"]}>
       <div className={styles["contact-us-overlay"]}>
         <div className={styles["contact-us-content"]}>
           <h2>Contact Us</h2>

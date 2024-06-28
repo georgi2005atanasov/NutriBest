@@ -45,7 +45,7 @@ export async function restoreProfile(id) {
 export async function deleteUserByAdmin(id) {
     const token = getAuthToken();
 
-    const response = await fetch(`${HOST}/Admin/DeleteProfile/${id}`, {
+    const response = await fetch(`${HOST}/Admin/DeleteUser/${id}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`

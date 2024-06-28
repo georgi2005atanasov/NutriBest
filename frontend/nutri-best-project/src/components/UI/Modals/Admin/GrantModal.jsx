@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import styles from './css/GrantModal.module.css';
 import Modal from '../Modal';
+import { grantUser, disownUser } from '../../../../../../../backend/api/admin';
 import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { allRoles } from '../../../../../../../backend/api/auth';
 import { motion } from 'framer-motion';
+import { useSubmit } from 'react-router-dom';
 import { useState, useEffect, forwardRef } from 'react';
-import { grantUser, disownUser } from '../../../../../../../backend/api/admin';
 
 const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
     let [currentRoles, setCurrentRoles] = useState(profile.currentRoles);
@@ -14,6 +15,7 @@ const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
         type: ""
     });
     const [roles, setRoles] = useState([]);
+    const submit = useSubmit();
 
     function handleClose(event) {
         event.stopPropagation();
@@ -105,6 +107,7 @@ const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
 
             setCurrentRoles(prev => [...prev.filter(x => x !== role)]);
         }
+        submit(null);
     }
 
     return (
@@ -112,8 +115,9 @@ const GrantModal = forwardRef(function GrantModal({ profile }, ref) {
             <motion.div
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
+                className={styles["grant-modal-body"]}
             >
-                <div className="d-flex justify-content-center mb-3">
+                <div className={`d-flex justify-content-center mb-3`}>
                     <button
                         onClick={handleClose}
                         className={`${styles["close-btn"]} border-0 p-3 w-100`}

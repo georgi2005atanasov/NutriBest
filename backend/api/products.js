@@ -35,10 +35,18 @@ export async function allProducts(page, categories = "", price = "", alpha = "",
     const query = buildQuery(page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours);
     const token = getAuthToken();
 
+    if (!token) {
+        const response = await fetch(`${HOST}/Products${query}`, {
+            method: "GET"
+        });
+        
+        return response;
+    }
+
     const response = await fetch(`${HOST}/Products${query}`, {
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token || ""}`
         }
     });
 

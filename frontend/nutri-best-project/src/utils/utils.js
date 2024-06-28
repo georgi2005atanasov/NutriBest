@@ -58,12 +58,12 @@ export function cleanFilters() {
         sessionStorage.setItem("page", 1);
         
         sessionStorage.setItem("productsView", PRODUCTS_VIEWS.all);
-        sessionStorage.setItem("search", "");
         sessionStorage.setItem("priceRange", "");
         sessionStorage.setItem("alpha", "");
         sessionStorage.setItem("brand", "");
         sessionStorage.setItem("quantities", "");
         sessionStorage.setItem("flavours", "");
+        sessionStorage.setItem("search", "");
     } catch (error) {
         return;
     }

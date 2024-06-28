@@ -10,9 +10,7 @@ import { Form, useActionData, useNavigation } from "react-router-dom";
 
 export default function ForgotPassword() {
     const data = useActionData();
-    console.log(data);
     const navigation = useNavigation();
-
     const isSubmitting = navigation.state === "submitting";
 
     return <>
@@ -59,21 +57,6 @@ export async function action({ request, params }) {
     try {
         const data = await getFormData(request);
         const response = await sendForgottenPasswordMessage(data.email);
-
-        let retries = 5;
-
-        if (!response.ok) {
-            while (retries > 0) {
-                const newResponse = await sendForgottenPasswordMessage(data.email);
-
-                if (newResponse.ok) {
-                    break;
-                }
-
-                retries -= 1;
-            }
-        }
-
         const result = await response.json();
 
         return result;

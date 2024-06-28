@@ -42,7 +42,6 @@ export default function HomePage() {
                 </Await>
             </Suspense>
         </div>
-
         <Suspense fallback={
             <div className="d-flex justify-content-center align-items-center">
                 <Loader />
@@ -67,11 +66,9 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
     }
 
     try {
-        if (categories || price || alpha || brand || priceRange || quantities || flavours) {
-            sessionStorage.setItem("page", 1);
-        }
+        sessionStorage.setItem("page", 1);
 
-        let products = await allProducts(Number(page), categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours);
+        let products = await allProducts(page, categories, price, alpha, productsView, search, priceRange, brand, quantities, flavours);
 
         if (!products.ok) {
             sessionStorage.setItem("productsCount", 0);
@@ -81,7 +78,6 @@ async function loadProductsData(page, categories, price, alpha, productsView, se
         const { productsRows, count, maxPrice } = await products.json();
 
         sessionStorage.setItem("productsCount", count);
-        sessionStorage.setItem("productsView", productsView);
         sessionStorage.setItem("maxPrice", maxPrice);
 
         await storeImages(productsRows);
@@ -99,7 +95,7 @@ async function getPromotions() {
 
 // eslint-disable-next-line no-unused-vars
 export async function loader({ request, params }) {
-    const page = Number(1);
+    const page = 1;
 
     return defer({
         productsRows: loadProductsData(

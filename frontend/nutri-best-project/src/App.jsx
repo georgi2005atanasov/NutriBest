@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout, { loader as tokenLoader } from './pages/Root';
 import LoginPage, { action as loginAction } from './pages/auth/Login';
 import RegisterPage, { action as registerAction } from './pages/auth/Register';
-import { action as logoutAction } from './pages/auth/Logout';
+import Logout, { action as logoutAction } from './pages/auth/Logout';
 import HomePage, { loader as loadNewestProducts } from './pages/home/Home.jsx';
 import AddProduct, { action as addProductAction, loader as removeFilters } from './pages/products/AddProduct';
 import AllProducts, { loader as getAllProducts } from './pages/products/AllProducts';
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
       { path: 'forgot-password', element: <ForgotPassword />, action: sendForgotPassword },
       { path: 'Identity/ResetPassword', element: <ResetPassword />, action: resetPassword },
       { path: 'register', element: <RegisterPage />, action: registerAction },
-      { path: 'logout', action: logoutAction },
+      { path: 'logout', element: <Logout />, action: logoutAction },
       { path: 'home', element: <HomePage /> },
       {
         path: 'products', element: <ProductsLayout />, children: [

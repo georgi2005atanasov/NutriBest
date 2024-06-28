@@ -13,7 +13,7 @@ export default function NavButtons() {
     const submit = useSubmit();
 
     function handleLogout() {
-        submit(null, { action: "/logout", method: "post" })
+        return submit(null, { action: "/logout", method: "POST" })
     }
 
     if (token && token != "EXPIRED" && token != 0) {

@@ -103,7 +103,8 @@ export async function allProfiles(page, search, groupType) {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`
-                }
+                },
+                credentials: "include"
             });
 
             return await response.json();

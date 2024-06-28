@@ -63,20 +63,16 @@ export default function RootLayout() {
                 sessionStorage.setItem("newsletter-group-type", DEFAULT_NEWSLETTER_GROUP_TYPE);
             }
         }
-    });
+    }, [isAdmin, isEmployee, isUser]);
 
     useEffect(() => {
-        if (!token) {
-            return;
-        }
-
-        if (token === "EXPIRED") {
-            submit(null, { action: "/logout", method: "post" });
-        }
-
-        setTimeout(() => {
-            submit(null, { action: "/logout", method: "post" });
+        const timeout = setTimeout(() => {
+            return submit(null, { action: "/logout", method: "POST" });
         }, TOKEN_DURATION);
+
+        return () => {
+            clearTimeout(timeout);
+        }
     }, [token, submit, TOKEN_DURATION]);
 
     useEffect(() => {

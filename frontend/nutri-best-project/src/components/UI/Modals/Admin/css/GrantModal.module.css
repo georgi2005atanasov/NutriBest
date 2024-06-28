@@ -1,3 +1,7 @@
+dialog {
+    min-width: 500px;
+}
+
 .close-btn {
     font-size: 17px !important;
     font-weight: 600;
@@ -27,4 +31,9 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     outline: none !important;
+}
+
+grant-modal-body {
+    min-width: 900px !important;
+    padding: 90px !important;
 }

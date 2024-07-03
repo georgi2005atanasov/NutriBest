@@ -38,8 +38,7 @@ export default function AllPromotions() {
     }, [setSearchParams]);
 
     if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger",
-            { action: "/", method: "GET" });
+        return;
     }
 
     return <motion.div

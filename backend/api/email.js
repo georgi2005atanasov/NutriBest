@@ -1,3 +1,4 @@
+import useAuth from "../../frontend/nutri-best-project/src/hooks/useAuth";
 import { getAuthToken } from "../../frontend/nutri-best-project/src/utils/auth";
 import { HOST } from "../utils/util";
 
@@ -114,6 +115,13 @@ export async function sendJoinedToNewsletter(email) {
 }
 
 export async function sendMessageToSubscribers(subject, body, groupType) {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+    
     const response = await fetch(`${HOST}/Email/SendMessageToSubscribers?groupType=${groupType}`, {
         method: "POST",
         body: JSON.stringify({
@@ -121,6 +129,7 @@ export async function sendMessageToSubscribers(subject, body, groupType) {
             body
         }),
         headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         }
     });
@@ -129,6 +138,13 @@ export async function sendMessageToSubscribers(subject, body, groupType) {
 }
 
 export async function sendPromoCodeToSubscribers(subject, groupType, promoCodeDescription) {
+    const token = getAuthToken();
+    const {isAdmin, isEmployee} = useAuth(token);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+
     const response = await fetch(`${HOST}/Email/SendPromoCodesToSubscribers?groupType=${groupType}`, {
         method: "POST",
         body: JSON.stringify({
@@ -136,6 +152,7 @@ export async function sendPromoCodeToSubscribers(subject, groupType, promoCodeDe
             promoCodeDescription
         }),
         headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         }
     });

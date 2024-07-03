@@ -12,7 +12,7 @@ import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { subscribedToNewsletter, exportNewsletter } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
-import { useLoaderData, useSubmit, useSearchParams, redirect, defer, Await } from "react-router-dom";
+import { useLoaderData, useSubmit, useSearchParams, redirect, defer, Await, useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect, useCallback, Suspense } from "react";
 import { getNewsletterFilters } from "../../utils/newsletter/newsletterHelper";
 
@@ -23,6 +23,7 @@ export default function NewsletterList() {
     const [subscriberToDelete, setSubscriberToDelete] = useState();
     const { data } = useLoaderData();
     const submit = useSubmit();
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
 
     let message = searchParams.get("message");
@@ -91,10 +92,7 @@ export default function NewsletterList() {
     }, []);
 
     if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger", {
-            action: "/",
-            method: "GET",
-        });
+        return;
     }
 
     return <motion.div

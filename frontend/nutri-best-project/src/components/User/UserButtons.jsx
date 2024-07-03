@@ -18,7 +18,7 @@ export default function UserButtons({ isVerified, handleLogout }) {
         if (cart.cartProducts.length > 0) {
             dialog.current.open();
         }
-    } // repeated in GuestButtons.jsx
+    }
 
     async function resetContext() {
         const responsePackage = await allPackages();

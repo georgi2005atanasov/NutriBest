@@ -8,7 +8,7 @@ import useAuth from "../hooks/useAuth";
 import ProductSpecsContextProvider from "../store/ProductSpecsContext";
 import CartContextProvider from "../store/CartContext";
 import { connection } from "../../../../backend/services/signalRService";
-import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { useEffect } from "react";
 
 export const DEFAULT_PAGE = 1;
@@ -22,10 +22,8 @@ export const DEFAULT_FLAVOURS = "";
 export const PRODUCTS_VIEWS = { all: "all", table: "table" };
 
 export default function RootLayout() {
-    const TOKEN_DURATION = localStorage.getItem("duration");
     const token = useLoaderData();
     const { isAdmin, isEmployee, isUser } = useAuth(token);
-    const submit = useSubmit();
 
     useEffect(() => {
         if (!sessionStorage.getItem("price")) {
@@ -66,16 +64,6 @@ export default function RootLayout() {
     }, [isAdmin, isEmployee, isUser]);
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            return submit(null, { action: "/logout", method: "POST" });
-        }, TOKEN_DURATION);
-
-        return () => {
-            clearTimeout(timeout);
-        }
-    }, [token, submit, TOKEN_DURATION]);
-
-    useEffect(() => {
         async function updateRoutes() {
             await connection.invoke('JoinPage', window.location.pathname);
         }
@@ -109,6 +97,5 @@ export default function RootLayout() {
 
 export function loader() {
     const token = getAuthToken();
-
     return token;
 }

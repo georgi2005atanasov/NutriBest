@@ -1,22 +1,21 @@
 import { useEffect } from "react";
 import { cleanFilters } from "../../utils/utils";
-import { useActionData, useSubmit } from "react-router-dom";
+import { redirect, useActionData, useSubmit } from "react-router-dom";
 
-export default function Logout() {
-    const message = useActionData();
-    const submit = useSubmit();
+// export default function Logout() {
+//     const message = useActionData();
+//     const submit = useSubmit();
 
-    localStorage.removeItem("authToken");
+//     useEffect(() => {
+//         localStorage.removeItem("authToken");
+//         return submit(message, {
+//             action: "/",
+//             method: "GET"
+//         })
+//     }, [submit, message]);
 
-    useEffect(() => {
-        submit(message, {
-            action: "/",
-            method: "GET"
-        }), []
-    }, [submit, message]);
-
-    return <></>;
-}
+//     return <></>;
+// }
 
 export async function action({ request, params }) {
     localStorage.removeItem("expiration");
@@ -27,12 +26,7 @@ export async function action({ request, params }) {
 
     cleanFilters();
 
-    let message = "message=You successfully logged out.&type=success";
+    localStorage.removeItem("authToken");
 
-    if (localStorage.getItem("successMessage")) {
-        message = localStorage.getItem("successMessage");
-        localStorage.removeItem("successMessage");
-    }
-
-    return message;
+    return redirect("/");
 }

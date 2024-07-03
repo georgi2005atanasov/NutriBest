@@ -19,7 +19,6 @@ const SendPromoCodeModal = forwardRef(function SendPromoCodeModal({ email }, ref
             }
 
             const promoCodesResult = await response.json();
-            console.log(promoCodesResult);
 
             setPromoCodes(promoCodesResult);
         }

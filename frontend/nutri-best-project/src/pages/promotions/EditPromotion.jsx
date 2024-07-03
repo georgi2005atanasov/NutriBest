@@ -5,7 +5,8 @@ import { getFormData } from "../../utils/utils";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { editPromotion, getPromotionById } from "../../../../../backend/api/api";
-import { redirect, useSubmit, useActionData, useRouteLoaderData } from "react-router-dom";
+import { redirect, useActionData, useRouteLoaderData, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function EditPromotion() {
     const promotion = useRouteLoaderData("promoLoader");
@@ -13,9 +14,16 @@ export default function EditPromotion() {
     const token = getAuthToken();
     const {isAdmin, isEmployee} = useAuth(token);
     const submit = useSubmit();
+    
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
 
     if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found&type=danger", {action: "/", method: "GET"});
+        return;
     }
 
     return <PromotionForm header={"Edit Promotion"} data={data} promotion={promotion} />;

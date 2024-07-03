@@ -3,7 +3,6 @@ import styles from './css/MultiSelect.module.css';
 import colors from "../../../App.module.css";
 import { getAuthToken } from '../../../utils/auth';
 import useAuth from '../../../hooks/useAuth';
-import { useSubmit } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductsByFlavour } from '../../../../../../backend/api/products';
 
@@ -13,7 +12,7 @@ export default function MultiSelectFlavour({ newFlavours, selected, setSelected 
     const { isAdmin, isEmployee } = useAuth(token);
 
     useEffect(() => {
-        setSelected(sessionStorage.getItem("flavours").split(" and "));
+        setSelected(sessionStorage.getItem("flavours").split(" andAlso "));
     }, [newFlavours.length, setSelected]);
 
     useEffect(() => {
@@ -34,7 +33,7 @@ export default function MultiSelectFlavour({ newFlavours, selected, setSelected 
 
         setSelected(prev => {
             let newValue = checked ? [...prev, value] : prev.filter(val => val !== value);
-            sessionStorage.setItem("flavours", newValue.filter(x => x).join(" and "))
+            sessionStorage.setItem("flavours", newValue.filter(x => x).join(" andAlso "))
             return newValue;
         });
     };

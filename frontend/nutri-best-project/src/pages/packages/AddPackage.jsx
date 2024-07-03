@@ -4,12 +4,12 @@ import FormInput from "../../components/UI/Form/FormInput";
 import Header from "../../components/UI/Shared/Header";
 import Loader from "../../components/UI/Shared/Loader";
 import InputError from "../../components/UI/Form/InputError";
-import { motion } from "framer-motion";
-import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
 import { getAuthToken } from "../../utils/auth";
 import useAuth from "../../hooks/useAuth";
 import { addPackage } from "../../../../../backend/api/api";
-import { getFormData } from "../../utils/utils";
+import { motion } from "framer-motion";
+import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AddPackage() {
     const data = useActionData();
@@ -18,13 +18,19 @@ export default function AddPackage() {
     const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
 
-    if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger",
-            { action: "/", method: "GET" }
-        );
-    }
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
 
     const isSubmitting = navigation.state === "submitting";
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+
     return <>
         <motion.div
             className="w-100"

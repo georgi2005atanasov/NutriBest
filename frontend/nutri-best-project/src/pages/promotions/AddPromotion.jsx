@@ -5,7 +5,8 @@ import { getPromotionForm } from "../../utils/promotion/formHandler";
 import { getAuthToken } from "../../utils/auth";
 import { addPromotion } from "../../../../../backend/api/promotions";
 import useAuth from "../../hooks/useAuth";
-import { useActionData, useSubmit, redirect } from "react-router-dom";
+import { useActionData, redirect, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AddPromotion() {
     const token = getAuthToken();
@@ -13,8 +14,15 @@ export default function AddPromotion() {
     const {isAdmin, isEmployee} = useAuth(token);
     const submit = useSubmit();
 
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
+
     if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found&type=danger", {action: "/", method: "GET"});
+        return;
     }
 
     return <PromotionForm header="Add Promotion" data={data} />;

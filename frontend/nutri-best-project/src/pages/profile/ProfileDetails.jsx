@@ -27,13 +27,17 @@ export default function ProfileDetails() {
         emailSenderDialog.current.open();
     }
 
-    if (!isAdmin || isEmployee) {
-        return submit("message=Page Not Found!&type=danger", {
-            action: "/",
-            method: "GET"
-        });
-    }
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
 
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+    
     return (<>
         <RestoreProfileModal ref={restoreProfileDialog} profileId={profile.profileId} />
         <SendPromoCodeModal ref={emailSenderDialog} email={profile.email} />

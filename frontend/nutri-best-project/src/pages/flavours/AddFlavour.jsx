@@ -9,6 +9,7 @@ import useAuth from "../../hooks/useAuth";
 import { addFlavour } from "../../../../../backend/api/api";
 import { motion } from "framer-motion";
 import { useNavigation, Form, useActionData, useSubmit, redirect } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AddFlavour() {
     const data = useActionData();
@@ -17,13 +18,19 @@ export default function AddFlavour() {
     const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
 
-    if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger",
-            { action: "/", method: "GET" }
-        );
-    }
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
 
     const isSubmitting = navigation.state === "submitting";
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+
     return <>
         <motion.div
             className="w-100"

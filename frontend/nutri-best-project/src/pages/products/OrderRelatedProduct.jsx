@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function OrderRelatedProduct({ product, promotions }) {
-    const [src, setSrc] = useState('');
+    const [src, setSrc] = useState("");
 
     useEffect(() => {
         async function getImage(productId) {

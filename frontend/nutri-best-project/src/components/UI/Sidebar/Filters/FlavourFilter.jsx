@@ -4,7 +4,7 @@ import MultiSelectFlavour from "../../Form/MultiSelectFlavour";
 
 export default function FlavourFilter({ flavours, selected, setSelected }) {
     const flavoursCount = flavours && flavours
-        .split(" and ")
+        .split(" andAlso ")
         .filter(x => x)
         .length;
     return <DropdownMenu text={"Flavour"} filtersNumber={flavoursCount}>

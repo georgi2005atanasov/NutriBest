@@ -107,11 +107,15 @@ export default function AllProfiles() {
         )
     }, []);
 
-    if (!isAdmin || isEmployee) {
-        return submit("message=Page Not Found!&type=danger", {
-            action: "/",
-            method: "GET"
-        });
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
+
+    if (!isAdmin && !isEmployee) {
+        return;
     }
 
     return <>

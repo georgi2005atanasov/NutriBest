@@ -98,6 +98,13 @@ export default function AllOrders() {
         );
     }, []);
 
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
+
     if (!isAdmin && !isEmployee) {
         return;
     }

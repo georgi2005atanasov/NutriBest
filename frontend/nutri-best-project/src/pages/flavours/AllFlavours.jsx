@@ -50,6 +50,13 @@ export default function AllFlavours() {
         setFlavour(name);
     }, []);
 
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "get" });
+        }
+    }, [isAdmin, isEmployee, submit]);
+
     if (!isAdmin && !isEmployee) {
         return;
     }

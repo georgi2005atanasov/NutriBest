@@ -1,13 +1,30 @@
+import useAuth from "../../hooks/useAuth.js";
 import { cleanFilters, getFormData } from "../../utils/utils";
 import { getProductErrors } from "../../utils/products/validation.js"
 import ProductForm from "./ProductForm";
 import { getProductForm, getProductCategories } from "../../utils/products/formHandler.js";
 import { addProduct, allBrands } from "../../../../../backend/api/api";
-import { useActionData, json, redirect } from "react-router-dom";
+import { useActionData, json, redirect, useRouteLoaderData, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AddProduct() {
     const data = useActionData();
+    const submit = useSubmit();
 
+    const token = useRouteLoaderData("rootLoader");
+    const { isAdmin, isEmployee } = useAuth(token);
+
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
+
+    if (!isAdmin && !isEmployee) {
+        return;
+    }
+    
     return <ProductForm header={"Add New Product"} data={data} />
 }
 

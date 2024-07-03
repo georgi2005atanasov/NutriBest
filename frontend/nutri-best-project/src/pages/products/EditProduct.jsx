@@ -7,19 +7,24 @@ import { getProductErrors } from "../../utils/products/validation.js";
 import useAuth from "../../hooks/useAuth";
 import { getProductSpecs } from "../../../../../backend/api/products";
 import { redirect, useLoaderData, json, useActionData, useSubmit, useRouteLoaderData } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function EditProduct() {
     const { productData, productSpecs } = useLoaderData();
     const data = useActionData();
-
     const submit = useSubmit();
-
     const token = useRouteLoaderData("rootLoader");
     const { isAdmin, isEmployee } = useAuth(token);
 
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
+
     if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found!&type=danger",
-            { action: "/", method: "get" })
+        return;
     }
 
     return <ProductForm

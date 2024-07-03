@@ -10,18 +10,23 @@ import { createPromoCodes } from "../../../../../backend/api/promoCodes";
 import useAuth from "../../hooks/useAuth";
 import { motion } from "framer-motion";
 import { Form, redirect, useActionData, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function PromoCodeForm() {
     const data = useActionData();
     const token = getAuthToken();
     const { isAdmin, isEmployee } = useAuth(token);
     const submit = useSubmit();
+    
+    useEffect(() => {
+        if (!isAdmin && !isEmployee) {
+            return submit("message=Page Not Found!&type=danger",
+                { action: "/", method: "GET" });
+        }
+    }, [isAdmin, isEmployee, submit]);
 
     if (!isAdmin && !isEmployee) {
-        return submit("message=Page Not Found&type=danger", {
-            action: "/",
-            method: "GET"
-        });
+        return;
     }
 
     return <motion.div

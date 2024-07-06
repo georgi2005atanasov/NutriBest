@@ -19,12 +19,11 @@ export async function allPromoCodes(requiredVerification) {
     return response;
 }
 
-export async function deletePromoCodes(data) {
+export async function deletePromoCodes(description) {
     const token = getAuthToken();
 
-    const response = await fetch(`${HOST}/PromoCode`, {
+    const response = await fetch(`${HOST}/PromoCode?description=${description}`, {
         method: "DELETE",
-        body: data,
         headers: {
             "Authorization": `Bearer ${token}`
         }

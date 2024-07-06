@@ -213,7 +213,7 @@ const router = createBrowserRouter([
             path: 'list', element: <NewsletterList />, loader: loadSubscribedUsers
           },
           {
-            path: ':email', element: <RemovedSubscriber />, loader: loadRemovedSubscriberPage
+            path: ':email/:token', element: <RemovedSubscriber />, loader: loadRemovedSubscriberPage
           }
         ]
       },

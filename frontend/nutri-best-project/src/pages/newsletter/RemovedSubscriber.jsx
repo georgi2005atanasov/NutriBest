@@ -22,9 +22,9 @@ export default function RemovedSubscriber() {
 
 export async function loader({ request, params }) {
     try {
-        const { email } = params;
+        const { email, token } = params;
 
-        const response = await unsubscribeFromNewsletter(email);
+        const response = await unsubscribeFromNewsletter(email, token);
 
         if (!response.succeeded) {
             return redirect("/?message=Page Not Found!&type=danger");

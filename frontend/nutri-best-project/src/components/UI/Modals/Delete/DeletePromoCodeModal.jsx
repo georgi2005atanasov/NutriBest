@@ -10,9 +10,7 @@ export default forwardRef(function DeletePromoCodeModal({ description }, ref) {
 
     async function handleDelete() {
         try {
-            let data = new FormData();
-            data.set("description", description);
-            const response = await deletePromoCodes(data);
+            const response = await deletePromoCodes(description);
 
             if (!response.ok) {
                 return submit(`message=Something Went Wrong!&type=danger`,

@@ -7,7 +7,6 @@ import { useRef, useState } from "react";
 export default function PromoCodeItem({ item }) {
     const dialog = useRef();
     const [isOpen, setIsOpen] = useState(false);
-    const [error, setError] = useState("");
 
     // Function to toggle the description visibility
     const toggleOpen = () => {

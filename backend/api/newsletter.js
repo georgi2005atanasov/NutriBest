@@ -25,13 +25,8 @@ export async function removeFromNewsletterByAdmin(email) {
 }
 
 export async function unsubscribeFromNewsletter(email, verificationToken) {
-    const data = new FormData();
-    data.append("email", email);
-    data.append("token", verificationToken);
-
-    const response = await fetch(`${HOST}/Newsletter/Unsubscribe`, {
-        method: "DELETE",
-        body: data
+    const response = await fetch(`${HOST}/Newsletter/Unsubscribe?email=${email}&token=${verificationToken}`, {
+        method: "DELETE"
     });
 
     return await response.json();

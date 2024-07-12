@@ -38,7 +38,7 @@ export async function cleanCart() {
 
 export async function removeFromCart(productId, count, flavour, grams) {
     const response = await fetch(`${HOST}/Cart/Remove`, {
-        method: "DELETE",
+        method: "POST",
         body: JSON.stringify({
             productId,
             count,
@@ -89,7 +89,7 @@ export async function applyPromoCode(code) {
 
 export async function removePromoCode(code) {
     const response = await fetch(`${HOST}/Cart/RemovePromoCode`, {
-        method: "DELETE",
+        method: "POST",
         body: JSON.stringify({
             code
         }),

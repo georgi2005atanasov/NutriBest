@@ -7,7 +7,7 @@ import { getAuthToken } from "../../utils/auth";
 import { getProfileDetailsById } from "../../../../../backend/api/profile";
 import { motion } from "framer-motion";
 import { redirect, useLoaderData, useSubmit } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 export default function ProfileDetails() {
     const restoreProfileDialog = useRef();

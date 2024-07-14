@@ -8,6 +8,7 @@
     margin: auto;
     margin-top: 10px;
     max-height: 490px !important;
+    position: relative !important;
 }
 
 .order-message-wrapper {
@@ -30,4 +31,14 @@
 .order-message {
     margin: 0;
     font-size: 1.2em;
+}
+
+@media (max-width: 900px) {
+    .orders-related {
+        text-align: center;
+        width: 100%;
+        margin: auto;
+        margin-top: 10px;
+        position: relative !important;
+    }
 }

@@ -14,7 +14,7 @@ export default function AllNotifications() {
                 notification={x} />) :
             <h3 className="text-danger text-center mt-3">Currently There are no Notifications!</h3>}
         <NotificationsPagination
-            page={sessionStorage.getItem("notifications-page")}
+            page={Number(sessionStorage.getItem("notifications-page"))}
             notificationsCount={totalNotifications} />
     </>;
 }

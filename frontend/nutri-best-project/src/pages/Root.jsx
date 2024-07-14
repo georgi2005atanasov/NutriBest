@@ -60,6 +60,10 @@ export default function RootLayout() {
             if (!sessionStorage.getItem("newsletter-group-type")) {
                 sessionStorage.setItem("newsletter-group-type", DEFAULT_NEWSLETTER_GROUP_TYPE);
             }
+
+            if (!sessionStorage.getItem("notifications-page")) {
+                sessionStorage.setItem("notifications-page", DEFAULT_PAGE);
+            }
         }
     }, [isAdmin, isEmployee, isUser]);
 

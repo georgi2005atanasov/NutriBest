@@ -21,7 +21,6 @@
   <h2>💡 Technologies</h2>
   <ul>
     <li>React</li>
-    <li>Axios</li>
     <li>React Router</li>
     <li>SignalR</li>
     <li>Context API & Hooks</li>

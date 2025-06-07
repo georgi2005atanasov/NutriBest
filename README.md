@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>NutriBest Frontend</title>
 </head>
 <body>
   <h1>NutriBest Frontend (React)</h1>
